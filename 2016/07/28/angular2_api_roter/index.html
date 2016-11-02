@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="xiaomo" />
+
+
+
+<meta name="description" content="不知不觉接触angular2也有半年时间了，但是对于angular2仍然是一知半解。总觉得应该系统的了解一下它的api，正好ng2马上要有稳定版本了。是时候花一些时间整理一下了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular2 api整理之路由模块">
+<meta property="og:url" content="http://blog.xiaomo.info/2016/07/28/angular2_api_roter/index.html">
+<meta property="og:site_name" content="小莫-fighting">
+<meta property="og:description" content="不知不觉接触angular2也有半年时间了，但是对于angular2仍然是一知半解。总觉得应该系统的了解一下它的api，正好ng2马上要有稳定版本了。是时候花一些时间整理一下了">
+<meta property="og:image" content="http://static.xiaomo.info/images/angular.png">
+<meta property="og:updated_time" content="2016-07-23T05:39:12.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular2 api整理之路由模块">
+<meta name="twitter:description" content="不知不觉接触angular2也有半年时间了，但是对于angular2仍然是一知半解。总觉得应该系统的了解一下它的api，正好ng2马上要有稳定版本了。是时候花一些时间整理一下了">
+<meta name="twitter:image" content="http://static.xiaomo.info/images/angular.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="小莫-fighting" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/green/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>angular2 api整理之路由模块 | 小莫-fighting</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">xiaomo</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">日本語を習っています.....</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/about/">关于我&amp;留言板</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:83387856@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/qq83387856" title="GitHub"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/hupengbest" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/hupengbest" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhotoShop/">PhotoShop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular2/">angular2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es5/">es5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic2/">ionic2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactjs/">reactjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动漫/">动漫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/qq83387856">github</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://zgboke.com">中国博客联盟</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.edik.cn/">edik</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://sentsin.com/">sentsin</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.tangqq.cn/">tangqq</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://lengziyu.com/">lengziyu</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://tool.lu">tool</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">技术宅、 杭州、 夜猫子、 爱动漫、 爱日语 2015年毕业、 java开发、 web前端、 前沿技术发烧友、 生命不息折腾不止、</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">xiaomo</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">xiaomo</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">日本語を習っています.....</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/about/">关于我&amp;留言板</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:83387856@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/qq83387856" title="GitHub"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=83387856&site=qq&menu=yes" title="QQ"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/hupengbest" title="Twitter"></a>
+                            
+                                <a class="fa StackOverflow" target="_blank" href="http://stackoverflow.com/users/5804125/hpbest" title="StackOverflow"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/hupengbest" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-angular2_api_roter" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/28/angular2_api_roter/" class="article-date">
+      <time datetime="2016-07-27T16:00:00.000Z" itemprop="datePublished">2016-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      angular2 api整理之路由模块
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/angular2/">angular2</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular2/">angular2</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>不知不觉接触angular2也有半年时间了，但是对于angular2仍然是一知半解。总觉得应该系统的了解一下它的api，正好ng2马上要有稳定版本了。是时候花一些时间整理一下了<br><a id="more"></a><br><a href="https://github.com/qq83387856" target="_blank" rel="external"><img src="http://static.xiaomo.info/images/angular.png" alt="点击访问小莫的github"></a></p>
+<h2 id="一、常量"><a href="#一、常量" class="headerlink" title="一、常量"></a>一、常量</h2><h3 id="1-PRIMARY-OUTLET"><a href="#1-PRIMARY-OUTLET" class="headerlink" title="1. PRIMARY_OUTLET"></a>1. <a href="https://angular.cn/docs/ts/latest/api/router/index/PRIMARY_OUTLET-let.html" target="_blank" rel="external">PRIMARY_OUTLET</a></h3><h3 id="2-ROUTER-DIRECTIVES"><a href="#2-ROUTER-DIRECTIVES" class="headerlink" title="2. ROUTER_DIRECTIVES"></a>2. <a href="https://angular.cn/docs/ts/latest/api/router/index/ROUTER_DIRECTIVES-let.html" target="_blank" rel="external">ROUTER_DIRECTIVES</a></h3><p>路由指令集合常量</p>
+<h2 id="二、接口"><a href="#二、接口" class="headerlink" title="二、接口"></a>二、接口</h2><h3 id="1-活跃路由ActivatedRoute"><a href="#1-活跃路由ActivatedRoute" class="headerlink" title="1. 活跃路由ActivatedRoute"></a>1. 活跃路由<a href="https://angular.cn/docs/ts/latest/api/router/index/ActivatedRoute-interface.html" target="_blank" rel="external">ActivatedRoute</a></h3><p>可以获取当前路由的参数和数据</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> MyComponent &#123;</span><br><span class="line">  constructor(route: ActivatedRoute) &#123;</span><br><span class="line">    <span class="keyword">const</span> id: Observable&lt;<span class="built_in">string</span>&gt; = route.params.<span class="built_in">map</span>(p =&gt; p.id);</span><br><span class="line">    <span class="keyword">const</span> data = route.data.<span class="built_in">map</span>(d =&gt; d.user); <span class="comment">//includes `data` and `resolve`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-活跃路由快照ActivatedRouteSnapshot"><a href="#2-活跃路由快照ActivatedRouteSnapshot" class="headerlink" title="2. 活跃路由快照ActivatedRouteSnapshot"></a>2. 活跃路由快照<a href="https://angular.cn/docs/ts/latest/api/router/index/ActivatedRouteSnapshot-interface.html" target="_blank" rel="external">ActivatedRouteSnapshot</a></h3><p>具体功能不明</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyComponent</span> &#123;</span><br><span class="line">  constructor(route: ActivatedRoute) &#123;</span><br><span class="line">    <span class="keyword">const</span> id: <span class="keyword">string</span> = route.snapshot.<span class="keyword">params</span>.id;</span><br><span class="line">    <span class="keyword">const</span> data = route.snapshot.data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-可激活CanActivate"><a href="#3-可激活CanActivate" class="headerlink" title="3. 可激活CanActivate"></a>3. 可激活<a href="https://angular.cn/docs/ts/latest/api/router/index/CanActivate-interface.html" target="_blank" rel="external">CanActivate</a></h3><p>实现此接口并重写<code>canActivate</code>方法。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CanActivateTeam</span> <span class="keyword">implements</span> <span class="title">CanActivate</span> &#123;</span></span><br><span class="line">  constructor(<span class="keyword">private</span> <span class="string">permissions:</span> Permissions, <span class="keyword">private</span> <span class="string">currentUser:</span> UserToken) &#123;&#125;</span><br><span class="line">  canActivate(<span class="string">route:</span> ActivatedRouteSnapshot, <span class="string">state:</span> RouterStateSnapshot):Observable&lt;<span class="keyword">boolean</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.permissions.canActivate(<span class="keyword">this</span>.currentUser, <span class="keyword">this</span>.route.params.id);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bootstrap(AppComponent, [</span><br><span class="line">  CanActivateTeam,</span><br><span class="line">  provideRouter([&#123;</span><br><span class="line"><span class="symbol">    path:</span> <span class="string">'team/:id'</span>,</span><br><span class="line"><span class="symbol">    component:</span> Team,</span><br><span class="line"><span class="symbol">    canActivate:</span> [CanActivateTeam]</span><br><span class="line">  &#125;])</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="4-CanDeactivate"><a href="#4-CanDeactivate" class="headerlink" title="4. CanDeactivate"></a>4. <a href="https://angular.cn/docs/ts/latest/api/router/index/CanDeactivate-interface.html" target="_blank" rel="external">CanDeactivate</a></h3><h3 id="5-其他选项ExtraOptions"><a href="#5-其他选项ExtraOptions" class="headerlink" title="5. 其他选项ExtraOptions"></a>5. 其他选项<a href="https://angular.cn/docs/ts/latest/api/router/index/ExtraOptions-interface.html" target="_blank" rel="external">ExtraOptions</a></h3><h3 id="6-解决-Resolve"><a href="#6-解决-Resolve" class="headerlink" title="6. 解决 Resolve"></a>6. 解决 <a href="https://angular.cn/docs/ts/latest/api/router/index/Resolve-interface.html" target="_blank" rel="external">Resolve</a></h3><p>实现此接口并重写<code>Resolve</code>方法。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TeamResolver</span> <span class="keyword">implements</span> <span class="title">Resolve</span> &#123;</span></span><br><span class="line">  constructor(<span class="keyword">private</span> <span class="string">backend:</span> Backend) &#123;&#125;</span><br><span class="line">  resolve(<span class="string">route:</span> ActivatedRouteSnapshot, <span class="string">state:</span> RouterStateSnapshot):Observable&lt;any&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.backend.fetchTeam(<span class="keyword">this</span>.route.params.id);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bootstrap(AppComponent, [</span><br><span class="line">  TeamResolver,</span><br><span class="line">  provideRouter([&#123;</span><br><span class="line"><span class="symbol">    path:</span> <span class="string">'team/:id'</span>,</span><br><span class="line"><span class="symbol">    component:</span> TeamCmp,</span><br><span class="line"><span class="symbol">    resolve:</span> &#123;</span><br><span class="line"><span class="symbol">      team:</span> TeamResolver</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;])</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="7-路由-Route"><a href="#7-路由-Route" class="headerlink" title="7. 路由 Route"></a>7. 路由 <a href="https://angular.cn/docs/ts/latest/api/router/index/Route-interface.html" target="_blank" rel="external">Route</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Route</span> &#123;</span></span><br><span class="line"><span class="string">path :</span> string</span><br><span class="line"><span class="string">terminal :</span> <span class="keyword">boolean</span></span><br><span class="line"><span class="string">pathMatch :</span> <span class="string">'full'</span>|<span class="string">'prefix'</span></span><br><span class="line"><span class="string">component :</span> Type|string</span><br><span class="line"><span class="string">redirectTo :</span> string</span><br><span class="line"><span class="string">outlet :</span> string</span><br><span class="line"><span class="string">canActivate :</span> any[]</span><br><span class="line"><span class="string">canDeactivate :</span> any[]</span><br><span class="line"><span class="string">data :</span> Data</span><br><span class="line"><span class="string">resolve :</span> ResolveData</span><br><span class="line"><span class="string">children :</span> Route[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-路由状态-RouterState"><a href="#8-路由状态-RouterState" class="headerlink" title="8. 路由状态 RouterState"></a>8. 路由状态 <a href="https://angular.cn/docs/ts/latest/api/router/index/RouterState-interface.html" target="_blank" rel="external">RouterState</a></h3><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class MyComponent &#123;</span><br><span class="line">  constructor(router: Router) &#123;</span><br><span class="line">    const <span class="keyword">state</span> = router.routerState;</span><br><span class="line">    const id: Observable<span class="variable">&lt;string&gt;</span> = <span class="keyword">state</span>.firstChild(<span class="keyword">state</span>.root).params.map(p =&gt; p.id);</span><br><span class="line">    const isDebug: Observable<span class="variable">&lt;string&gt;</span> = <span class="keyword">state</span>.queryParams.map(q =&gt; q.<span class="keyword">debug</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-路由状态快照RouterStateSnapshot"><a href="#9-路由状态快照RouterStateSnapshot" class="headerlink" title="9. 路由状态快照RouterStateSnapshot"></a>9. 路由状态快照<a href="https://angular.cn/docs/ts/latest/api/router/index/RouterStateSnapshot-interface.html" target="_blank" rel="external">RouterStateSnapshot</a></h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constructor</span><span class="params">(router: Router)</span> <span class="comment">&#123;</span><br><span class="line">  const snapshot = router.routerState.snapshot;</span><br><span class="line">&#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="10-路径树-UrlTree"><a href="#10-路径树-UrlTree" class="headerlink" title="10. 路径树 UrlTree"></a>10. 路径树 <a href="https://angular.cn/docs/ts/latest/api/router/index/UrlTree-interface.html" target="_blank" rel="external">UrlTree</a></h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">UrlTree</span> &#123;</span><br><span class="line">root : UrlSegment</span><br><span class="line">queryParams : &#123;[key: <span class="keyword">string</span>]: <span class="keyword">string</span>&#125;</span><br><span class="line">fragment : <span class="function"><span class="keyword">string</span></span><br><span class="line"><span class="title">toString</span>(<span class="params"></span>) : <span class="keyword">string</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、类"><a href="#三、类" class="headerlink" title="三、类"></a>三、类</h2><h3 id="1-默认路径初始化-DefaultUrlSerializer"><a href="#1-默认路径初始化-DefaultUrlSerializer" class="headerlink" title="1. 默认路径初始化 DefaultUrlSerializer"></a>1. 默认路径初始化 <a href="https://angular.cn/docs/ts/latest/api/router/index/DefaultUrlSerializer-class.html" target="_blank" rel="external">DefaultUrlSerializer</a></h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class DefaultUrlSerializer &#123;</span><br><span class="line"><span class="function"><span class="title">parse</span><span class="params">(url: string)</span></span> : UrlTree</span><br><span class="line"><span class="function"><span class="title">serialize</span><span class="params">(tree: UrlTree)</span></span> : string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-取消导航NavigationCancel"><a href="#2-取消导航NavigationCancel" class="headerlink" title="2. 取消导航NavigationCancel"></a>2. 取消导航<a href="https://angular.cn/docs/ts/latest/api/router/index/NavigationCancel-class.html" target="_blank" rel="external">NavigationCancel</a></h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constructor</span><span class="params">(id: number, url: <span class="keyword">string</span>)</span></span><br><span class="line"><span class="title">id</span> :</span> number</span><br><span class="line">url : <span class="keyword">string</span></span><br><span class="line">toString() : <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-结束导航-NavigationEnd"><a href="#3-结束导航-NavigationEnd" class="headerlink" title="3. 结束导航 NavigationEnd"></a>3. 结束导航 <a href="https://angular.cn/docs/ts/latest/api/router/index/NavigationEnd-class.html" target="_blank" rel="external">NavigationEnd</a></h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">class</span> NavigationEnd &#123;</span><br><span class="line">constructor(<span class="built_in">id</span>: <span class="built_in">number</span>, url: <span class="built_in">string</span>, urlAfterRedirects: <span class="built_in">string</span>)</span><br><span class="line"><span class="built_in">id</span> : <span class="built_in">number</span></span><br><span class="line">url : <span class="built_in">string</span></span><br><span class="line">urlAfterRedirects : <span class="built_in">string</span></span><br><span class="line">toString() : <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-导航错误NavigationError"><a href="#4-导航错误NavigationError" class="headerlink" title="4. 导航错误NavigationError"></a>4. 导航错误<a href="https://angular.cn/docs/ts/latest/api/router/index/NavigationError-class.html" target="_blank" rel="external">NavigationError</a></h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">class</span> NavigationError &#123;</span><br><span class="line">constructor(<span class="built_in">id</span>: <span class="built_in">number</span>, url: <span class="built_in">string</span>, <span class="keyword">error</span>: any)</span><br><span class="line"><span class="built_in">id</span> : <span class="built_in">number</span></span><br><span class="line">url : <span class="built_in">string</span></span><br><span class="line"><span class="keyword">error</span> : any</span><br><span class="line">toString() : <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-根路由-RootRouter"><a href="#5-根路由-RootRouter" class="headerlink" title="5. 根路由 RootRouter"></a>5. 根路由 <a href="https://angular.cn/docs/ts/latest/api/router-deprecated/index/RootRouter-class.html" target="_blank" rel="external">RootRouter</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RootRouter</span> &#123;</span></span><br><span class="line">constructor(<span class="string">registry:</span> RouteRegistry, <span class="string">location:</span> Location, <span class="string">primaryComponent:</span> Type)</span><br><span class="line">commit(<span class="string">instruction:</span> Instruction, _skipLocationChange?: <span class="keyword">boolean</span>) : Promise&lt;any&gt;</span><br><span class="line">dispose() : <span class="keyword">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-路由数据-RouteData"><a href="#6-路由数据-RouteData" class="headerlink" title="6. 路由数据 RouteData"></a>6. 路由数据 <a href="https://angular.cn/docs/ts/latest/api/router-deprecated/index/RouteData-class.html" target="_blank" rel="external">RouteData</a></h3><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class RouteData &#123;</span><br><span class="line">constructor(data?: &#123;[<span class="built_in">key</span>: <span class="built_in">string</span>]: <span class="built_in">any</span>&#125;)</span><br><span class="line">data : &#123;[<span class="built_in">key</span>: <span class="built_in">string</span>]: <span class="built_in">any</span>&#125;</span><br><span class="line"><span class="built_in">get</span>(<span class="built_in">key</span>: <span class="built_in">string</span>) : <span class="built_in">any</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-路由参数-RouteParams"><a href="#7-路由参数-RouteParams" class="headerlink" title="7. 路由参数 RouteParams"></a>7. 路由参数 <a href="https://angular.cn/docs/ts/latest/api/router-deprecated/index/RouteParams-class.html" target="_blank" rel="external">RouteParams</a></h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">RouteParams</span> &#123;</span><br><span class="line">constructor(<span class="keyword">params</span>: &#123;[key: <span class="keyword">string</span>]: <span class="keyword">string</span>&#125;)</span><br><span class="line"><span class="keyword">params</span> : &#123;[key: <span class="keyword">string</span>]: <span class="keyword">string</span>&#125;</span><br><span class="line"><span class="keyword">get</span>(param: <span class="keyword">string</span>) : <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-注册路由-RouteRegistry"><a href="#8-注册路由-RouteRegistry" class="headerlink" title="8. 注册路由 RouteRegistry"></a>8. 注册路由 <a href="https://angular.cn/docs/ts/latest/api/router-deprecated/index/RouteRegistry-class.html" target="_blank" rel="external">RouteRegistry</a></h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class RouteRegistry &#123;</span><br><span class="line"><span class="function"><span class="title">constructor</span><span class="params">(_rootComponent: Type)</span></span></span><br><span class="line"><span class="function"><span class="title">config</span><span class="params">(parentComponent: any, config: RouteDefinition)</span></span> : void</span><br><span class="line"><span class="function"><span class="title">configFromComponent</span><span class="params">(component: any)</span></span> : void</span><br><span class="line"><span class="function"><span class="title">recognize</span><span class="params">(url: string, ancestorInstructions: Instruction[])</span></span> : Promise&lt;Instruction&gt;</span><br><span class="line"><span class="function"><span class="title">generate</span><span class="params">(linkParams: any[], ancestorInstructions: Instruction[], _aux?: any)</span></span> : Instruction</span><br><span class="line"><span class="function"><span class="title">hasRoute</span><span class="params">(name: string, parentComponent: any)</span></span> : boolean</span><br><span class="line"><span class="function"><span class="title">generateDefault</span><span class="params">(componentCursor: Type)</span></span> : Instruction</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-路由-Router"><a href="#9-路由-Router" class="headerlink" title="9. 路由 Router"></a>9. 路由 <a href="https://angular.cn/docs/ts/latest/api/router-deprecated/index/Router-class.html" target="_blank" rel="external">Router</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Router</span> &#123;</span></span><br><span class="line">constructor(<span class="string">registry:</span> RouteRegistry, <span class="string">parent:</span> Router, <span class="string">hostComponent:</span> any, root?: Router)</span><br><span class="line"><span class="string">navigating :</span> <span class="keyword">boolean</span></span><br><span class="line"><span class="string">lastNavigationAttempt :</span> string</span><br><span class="line"><span class="string">currentInstruction :</span> Instruction</span><br><span class="line"><span class="string">registry :</span> RouteRegistry</span><br><span class="line"><span class="string">parent :</span> Router</span><br><span class="line"><span class="string">hostComponent :</span> any</span><br><span class="line"><span class="string">root :</span> Router</span><br><span class="line">childRouter(<span class="string">hostComponent:</span> any) : Router</span><br><span class="line">auxRouter(<span class="string">hostComponent:</span> any) : Router</span><br><span class="line">registerPrimaryOutlet(<span class="string">outlet:</span> RouterOutlet) : Promise&lt;any&gt;</span><br><span class="line">unregisterPrimaryOutlet(<span class="string">outlet:</span> RouterOutlet) : <span class="keyword">void</span></span><br><span class="line">registerAuxOutlet(<span class="string">outlet:</span> RouterOutlet) : Promise&lt;any&gt;</span><br><span class="line">isRouteActive(<span class="string">instruction:</span> Instruction) : <span class="keyword">boolean</span></span><br><span class="line">config(<span class="string">definitions:</span> RouteDefinition[]) : Promise&lt;any&gt;</span><br><span class="line">navigate(<span class="string">linkParams:</span> any[]) : Promise&lt;any&gt;</span><br><span class="line">navigateByUrl(<span class="string">url:</span> string, _skipLocationChange?: <span class="keyword">boolean</span>) : Promise&lt;any&gt;</span><br><span class="line">navigateByInstruction(<span class="string">instruction:</span> Instruction, _skipLocationChange?: <span class="keyword">boolean</span>) : Promise&lt;any&gt;</span><br><span class="line">commit(<span class="string">instruction:</span> Instruction, _skipLocationChange?: <span class="keyword">boolean</span>) : Promise&lt;any&gt;</span><br><span class="line">subscribe(<span class="string">onNext:</span> (<span class="string">value:</span> any) =&gt; <span class="keyword">void</span>, onError?: (<span class="string">value:</span> any) =&gt; <span class="keyword">void</span>) : Object</span><br><span class="line">deactivate(<span class="string">instruction:</span> Instruction) : Promise&lt;any&gt;</span><br><span class="line">recognize(<span class="string">url:</span> string) : Promise&lt;Instruction&gt;</span><br><span class="line">renavigate() : Promise&lt;any&gt;</span><br><span class="line">generate(<span class="string">linkParams:</span> any[]) : Instruction</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、-指令"><a href="#四、-指令" class="headerlink" title="四、 指令"></a>四、 指令</h2><h3 id="1-RouterLink"><a href="#1-RouterLink" class="headerlink" title="1. RouterLink"></a>1. <a href="https://angular.cn/docs/ts/latest/api/router/index/RouterLink-directive.html" target="_blank" rel="external">RouterLink</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouterLink</span> &#123;</span></span><br><span class="line"><span class="string">commands :</span> any[]</span><br><span class="line"><span class="string">queryParams :</span> &#123;[<span class="string">k:</span> string]: any&#125;</span><br><span class="line"><span class="string">fragment :</span> string</span><br><span class="line"><span class="string">urlTree :</span> UrlTree</span><br><span class="line"><span class="string">router :</span> Router</span><br><span class="line"><span class="string">route :</span> ActivatedRoute</span><br><span class="line"><span class="string">locationStrategy :</span> LocationStrategy</span><br><span class="line">routerLink</span><br><span class="line">onClick(<span class="string">button:</span> number, <span class="string">ctrlKey:</span> <span class="keyword">boolean</span>, <span class="string">metaKey:</span> <span class="keyword">boolean</span>) : <span class="keyword">boolean</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-RouterLinkActive"><a href="#2-RouterLinkActive" class="headerlink" title="2. RouterLinkActive"></a>2. <a href="https://angular.cn/docs/ts/latest/api/router/index/RouterLinkActive-directive.html" target="_blank" rel="external">RouterLinkActive</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouterLinkActive</span> &#123;</span></span><br><span class="line"><span class="string">links :</span> QueryList&lt;RouterLink&gt;</span><br><span class="line"><span class="string">linksWithHrefs :</span> QueryList&lt;RouterLinkWithHref&gt;</span><br><span class="line"><span class="string">classes :</span> string[]</span><br><span class="line"><span class="string">subscription :</span> Subscription</span><br><span class="line"><span class="string">routerLinkActiveOptions :</span> &#123;<span class="string">exact:</span> <span class="keyword">boolean</span>&#125;</span><br><span class="line"><span class="string">router :</span> Router</span><br><span class="line"><span class="string">element :</span> ElementRef</span><br><span class="line"><span class="string">renderer :</span> Renderer</span><br><span class="line">ngAfterContentInit() : <span class="keyword">void</span></span><br><span class="line">routerLinkActive</span><br><span class="line">ngOnChanges(<span class="string">changes:</span> &#123;&#125;) : any</span><br><span class="line">ngOnDestroy() : any</span><br><span class="line">update() : <span class="keyword">void</span></span><br><span class="line">reduceList(<span class="string">currentUrlTree:</span> UrlTree, <span class="string">q:</span> QueryList&lt;any&gt;) : <span class="keyword">boolean</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-RouterLinkWithHref"><a href="#3-RouterLinkWithHref" class="headerlink" title="3. RouterLinkWithHref"></a>3. <a href="https://angular.cn/docs/ts/latest/api/router/index/RouterLinkWithHref-directive.html" target="_blank" rel="external">RouterLinkWithHref</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouterLinkWithHref</span> &#123;</span></span><br><span class="line"><span class="string">target :</span> string</span><br><span class="line"><span class="string">commands :</span> any[]</span><br><span class="line"><span class="string">queryParams :</span> &#123;[<span class="string">k:</span> string]: any&#125;</span><br><span class="line"><span class="string">fragment :</span> string</span><br><span class="line"><span class="string">href :</span> string</span><br><span class="line"><span class="string">urlTree :</span> UrlTree</span><br><span class="line"><span class="string">router :</span> Router</span><br><span class="line"><span class="string">route :</span> ActivatedRoute</span><br><span class="line"><span class="string">locationStrategy :</span> LocationStrategy</span><br><span class="line">routerLink</span><br><span class="line">ngOnChanges(<span class="string">changes:</span> &#123;&#125;) : any</span><br><span class="line">onClick(<span class="string">button:</span> number, <span class="string">ctrlKey:</span> <span class="keyword">boolean</span>, <span class="string">metaKey:</span> <span class="keyword">boolean</span>) : <span class="keyword">boolean</span></span><br><span class="line">updateTargetUrlAndHref() : <span class="keyword">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-RouterOutlet"><a href="#4-RouterOutlet" class="headerlink" title="4. RouterOutlet"></a>4. <a href="https://angular.cn/docs/ts/latest/api/router/index/RouterOutlet-directive.html" target="_blank" rel="external">RouterOutlet</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouterOutlet</span> &#123;</span></span><br><span class="line"><span class="string">activated :</span> ComponentRef&lt;any&gt;</span><br><span class="line"><span class="string">outletMap :</span> RouterOutletMap</span><br><span class="line"><span class="string">location :</span> ViewContainerRef</span><br><span class="line"><span class="string">componentFactoryResolver :</span> ComponentFactoryResolver</span><br><span class="line"><span class="string">isActivated :</span> <span class="keyword">boolean</span></span><br><span class="line"><span class="string">component :</span> Object</span><br><span class="line"><span class="string">activatedRoute :</span> ActivatedRoute</span><br><span class="line">deactivate() : <span class="keyword">void</span></span><br><span class="line">activate(<span class="string">activatedRoute:</span> ActivatedRoute, <span class="string">providers:</span> ResolvedReflectiveProvider[], <span class="string">outletMap:</span> RouterOutletMap) : <span class="keyword">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/07/28/angular2_api_roter/">angular2 api整理之路由模块</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">xiaomo</a></p>
+        <p><span>发布时间:</span>2016-07-28, 00:00:00</p>
+        <p><span>最后更新:</span>2016-07-23, 13:39:12</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/28/angular2_api_roter/" title="angular2 api整理之路由模块">http://blog.xiaomo.info/2016/07/28/angular2_api_roter/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.xiaomo.info/2016/07/28/angular2_api_roter/　　作者: xiaomo" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/08/22/npm_yargs/">
+                    yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/28/ionic2_environment/">
+                    ionic2环境搭建
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、常量"><span class="toc-number">1.</span> <span class="toc-text">一、常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-PRIMARY-OUTLET"><span class="toc-number">1.1.</span> <span class="toc-text">1. PRIMARY_OUTLET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ROUTER-DIRECTIVES"><span class="toc-number">1.2.</span> <span class="toc-text">2. ROUTER_DIRECTIVES</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、接口"><span class="toc-number">2.</span> <span class="toc-text">二、接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-活跃路由ActivatedRoute"><span class="toc-number">2.1.</span> <span class="toc-text">1. 活跃路由ActivatedRoute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-活跃路由快照ActivatedRouteSnapshot"><span class="toc-number">2.2.</span> <span class="toc-text">2. 活跃路由快照ActivatedRouteSnapshot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-可激活CanActivate"><span class="toc-number">2.3.</span> <span class="toc-text">3. 可激活CanActivate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-CanDeactivate"><span class="toc-number">2.4.</span> <span class="toc-text">4. CanDeactivate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-其他选项ExtraOptions"><span class="toc-number">2.5.</span> <span class="toc-text">5. 其他选项ExtraOptions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-解决-Resolve"><span class="toc-number">2.6.</span> <span class="toc-text">6. 解决 Resolve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-路由-Route"><span class="toc-number">2.7.</span> <span class="toc-text">7. 路由 Route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-路由状态-RouterState"><span class="toc-number">2.8.</span> <span class="toc-text">8. 路由状态 RouterState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-路由状态快照RouterStateSnapshot"><span class="toc-number">2.9.</span> <span class="toc-text">9. 路由状态快照RouterStateSnapshot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-路径树-UrlTree"><span class="toc-number">2.10.</span> <span class="toc-text">10. 路径树 UrlTree</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、类"><span class="toc-number">3.</span> <span class="toc-text">三、类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-默认路径初始化-DefaultUrlSerializer"><span class="toc-number">3.1.</span> <span class="toc-text">1. 默认路径初始化 DefaultUrlSerializer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-取消导航NavigationCancel"><span class="toc-number">3.2.</span> <span class="toc-text">2. 取消导航NavigationCancel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-结束导航-NavigationEnd"><span class="toc-number">3.3.</span> <span class="toc-text">3. 结束导航 NavigationEnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-导航错误NavigationError"><span class="toc-number">3.4.</span> <span class="toc-text">4. 导航错误NavigationError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-根路由-RootRouter"><span class="toc-number">3.5.</span> <span class="toc-text">5. 根路由 RootRouter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-路由数据-RouteData"><span class="toc-number">3.6.</span> <span class="toc-text">6. 路由数据 RouteData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-路由参数-RouteParams"><span class="toc-number">3.7.</span> <span class="toc-text">7. 路由参数 RouteParams</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-注册路由-RouteRegistry"><span class="toc-number">3.8.</span> <span class="toc-text">8. 注册路由 RouteRegistry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-路由-Router"><span class="toc-number">3.9.</span> <span class="toc-text">9. 路由 Router</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、-指令"><span class="toc-number">4.</span> <span class="toc-text">四、 指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-RouterLink"><span class="toc-number">4.1.</span> <span class="toc-text">1. RouterLink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-RouterLinkActive"><span class="toc-number">4.2.</span> <span class="toc-text">2. RouterLinkActive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-RouterLinkWithHref"><span class="toc-number">4.3.</span> <span class="toc-text">3. RouterLinkWithHref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-RouterOutlet"><span class="toc-number">4.4.</span> <span class="toc-text">4. RouterOutlet</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script>
+    yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+</script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"angular2 api整理之路由模块　| 小莫-fighting　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" data-thread-key="2016/07/28/angular2_api_roter/" data-title="angular2 api整理之路由模块" data-url="http://blog.xiaomo.info/2016/07/28/angular2_api_roter/"></div>
+    <script>
+    var duoshuoQuery = {short_name:"xiaomoblog"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+
+        ds.src = 'http://static.xiaomo.info/embed.js';
+        /*上面是我自己的 embed.js 链接，请改为你自己的地址*/
+
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/08/22/npm_yargs/" title="上一篇: yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/28/ionic2_environment/" title="下一篇: ionic2环境搭建">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/02/java_spring_boot_data_format/">spring boot做前后分离时间格式化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/java_spring_boot_cors/">spring boot做前后分离的跨域问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/29/java_spring_ziliao/">spring boot相关资料</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/28/java_idea_maven/">Maven 与 IntelliJ IDEA 的完美结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/24/java_servlet_upload/">使用Servlet做简单的上传功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/08/nihon_anime/">喜欢的动漫</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/28/nihon_sekaku/">生活习惯的不同，造就了丰富多彩的世界</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/24/bangumi_dongli/">《东离剑游记》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/22/npm_yargs/">yargs插件的使用，node.js 命令行框架 yargs 和你的程序实现交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/28/angular2_api_roter/">angular2 api整理之路由模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/28/ionic2_environment/">ionic2环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/21/angular2_api_common/">angular2 api整理之通用模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/12/javascript_rxjs_study_1/">rxjs全接触</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/javascript_design_pattern/">javascript设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/2016_study_plan/">2016年学习计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/30/angular2_study_animate/">angular2学习笔记之动画效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/angular2_study_forms/">angular2学习笔记之路由</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/28/angular2_study_forms/">angular2学习笔记之表单和验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/27/angular2_study_service_http/">angular2学习笔记之服务和http</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/26/angular2_study_note_other/">angular2学习笔记之小技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/25/angular2_study_note_ng-tag/">angular2学习笔记之ng2标签</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/24/angular2_study_note_ng-tag/">angular2学习笔记之事件和多组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/23/angular2_study_note_component/">angular2学习笔记之基本组件和ngFor</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/22/angular2_study_note_environment/">angular2学习笔记之基础环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/21/react_environment/">react学习笔记之环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/duoshuo_comment/">获取多说和 Disqus 文章评论数的方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/public_dns/">几个国内专用的公共 DNS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/linux_chmod/">linux权限详细解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/17/linux_disk/">阿里云服务器磁盘挂载</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/07/markdown-table-style/">Markdown 表格样式调整与自适应优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/07/gulp_use/">gulp构建工具的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/05/front-end-tools/">前端工程化工具初选</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/04/anki-excel-shortcuts/">Anki 记忆库之 Excel 快捷键大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/03/css-font-family/">CSS font-family 网页字体使用小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/03/node_spider/">nodejs爬虫项目实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/02/package.json_scripts/">package.json常用script</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/npm_modules_share/">npm模块分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/markdownpad2/">markdown编辑器推荐和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/27/mongodb_use/">mongodb数据库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/26/koa_generator/">koa生成器,一键生成koa和koa2项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/node_koa/">nodejs框架koa学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/javascript_syntax/">javascript学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/es6_syntax/">es6语法快速上手</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/17/webpack_params/">webpack相关命令参数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/17/webpack_plugins/">webpack进阶之插件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/17/webpack_link/">webpack进阶之loader篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/excel_markdown_table/">用 Excel 生成和管理 Markdown 表格</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/node_process/">nodejs的process模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/webpack_basic_use/">webpack使用之基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/about_me/">我的个人简历</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/13/node_online_chat/">使用nodejs搭建一个简易的即时聊天软件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/12/linux_crontab/">linux下使用定时器跑任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/angularjs_keyboard_event/">angularjs键盘事件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/angular_ui_router/">第三方组件ui-router的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/ng-options/">表单添加之ng-options</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/angular_http/">使用angularjs的$http异步删除数据</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/atom_plugins/">atom的使用和插件的安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/markdown_syntax/">markdown语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/11/ng-checkbox/">angularjs复选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/angular_validate/">angularjs的验证系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/30/sublime_config/">Sublime Text 3 使用配置与插件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/23/anki_templates/">Anki 自用卡片模板分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/16/png_gif_transparency/">制作透明背景 PNG 图片和 GIF 动图的几种方法</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 xiaomo
+            </div>
+            <div class="footer-right">
+                <a href="http://xiaomo.info/" target="_blank" title="欢迎来到小莫的博客">Blog </a> Created by <a href="https://github.com/qq83387856" target="_blank" title="希望这里的文章对你有所帮助  v3.0">xiaomo</a>  <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
