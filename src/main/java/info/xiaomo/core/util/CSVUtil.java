@@ -137,4 +137,12 @@ public class CSVUtil {
 			return "ListConfigData:" + Arrays.toString(this.tableHead) + "=>" + tableRows.toString();
 		}
 	}
+
+	public static void main(String[] args) {
+		CSVData csvData = readConfigDataFromUrl("http://xiaomo-app.oss-ap-northeast-1.aliyuncs.com/cfg_test.csv", 3);
+		List<Map<String, String>> tableRows = csvData.tableRows;
+		for (Map<String, String> tableRow : tableRows) {
+			System.out.println(tableRow.toString());
+		}
+	}
 }
