@@ -24,7 +24,7 @@ public class Trie {
         Vertex() {
             this.words = 0;
             this.prefixes = 0;
-            edges = new ConcurrentHashMap<Integer, Vertex>();
+            edges = new ConcurrentHashMap<>();
         }
     }
  

@@ -2,14 +2,9 @@ package info.xiaomo.core.net.kryo;
 
 public class KryoUtil {
 
-	public static int CACHESIZE = 1024 * 1024;
+	private static int CACHE_SIZE = 1024 * 1024;
 
-	private final static ThreadLocal<KryoOutput> cacheOutputs = new ThreadLocal<KryoOutput>() {
-		protected KryoOutput initialValue() {
-			KryoOutput Output = new KryoOutput(CACHESIZE);
-			return Output;
-		}
-	};
+	private final static ThreadLocal<KryoOutput> cacheOutputs = ThreadLocal.withInitial(() -> new KryoOutput(CACHE_SIZE));
 
 	public static KryoOutput getOutput() {
 		KryoOutput output = cacheOutputs.get();
@@ -20,12 +15,7 @@ public class KryoUtil {
 		return output;
 	}
 
-	private final static ThreadLocal<KryoInput> cacheInputs = new ThreadLocal<KryoInput>() {
-		protected KryoInput initialValue() {
-			KryoInput Input = new KryoInput();
-			return Input;
-		}
-	};
+	private final static ThreadLocal<KryoInput> cacheInputs = ThreadLocal.withInitial(KryoInput::new);
 
 	
 	public static KryoInput getInput() {
