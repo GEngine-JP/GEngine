@@ -19,8 +19,8 @@ public class CSVUtil {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(new URL(str).openStream()));
-			String tempString = null;
-			List<String> lines = new ArrayList<String>();
+			String tempString;
+			List<String> lines = new ArrayList<>();
 			// 一次读入一行，直到读入null为文件结束
 			while ((tempString = reader.readLine()) != null) {
 				// 显示行号
@@ -140,6 +140,9 @@ public class CSVUtil {
 
 	public static void main(String[] args) {
 		CSVData csvData = readConfigDataFromUrl("http://xiaomo-app.oss-ap-northeast-1.aliyuncs.com/cfg_test.csv", 3);
+		if (csvData == null) {
+			return;
+		}
 		List<Map<String, String>> tableRows = csvData.tableRows;
 		for (Map<String, String> tableRow : tableRows) {
 			System.out.println(tableRow.toString());
