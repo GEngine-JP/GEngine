@@ -12,14 +12,14 @@ public abstract class KryoBean {
      *
      * @param output output
      */
-    public abstract void write(KryoOutput output);
+    public abstract boolean write(KryoOutput output);
 
     /**
      * 读取属性字段，该方法有具体的消息实现
      *
      * @param input input
      */
-    public abstract void read(KryoInput input);
+    public abstract boolean read(KryoInput input);
 
     /**
      * 向IOBuff中写入一个优化过的int（压缩过的）

@@ -21,7 +21,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 	 * @param lengthFieldLength 长度字段的长度
 	 * @param lengthAdjustment 长度调整，比如说 -2 那么实际上长度 就变成了 消息中的长度  - (-2)  
 	 * @param initialBytesToStrip 解码返回的byte中，需要跳过的字节数，比如说可以设置跳过头部信息
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	private MessageDecoder(MessagePool msgPool, int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
 			 int lengthAdjustment, int initialBytesToStrip) throws IOException {
@@ -76,9 +76,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 			LOGGER.error(ctx.channel() + "消息解码异常", e);
 			return null;
 		} finally{
-			if(frame != null) {
-				frame.release();
-			}
+			frame.release();
 		}
 	}
 	

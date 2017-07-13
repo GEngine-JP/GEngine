@@ -8,6 +8,6 @@ package info.xiaomo.core.concurrent;
  */
 public interface ICommand extends Runnable {
 
-	public void doAction();
+	void doAction();
 
 }

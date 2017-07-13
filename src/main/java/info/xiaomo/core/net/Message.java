@@ -5,26 +5,26 @@ import info.xiaomo.core.concurrent.IQueueDriverCommand;
 
 /**
  * 网络请求的消息，该消息继承了队列执行命令接口，可以直接放入QueueDriver中执行
- * @author 张力
+ * @author xiaomo
  *
  */
 public interface Message extends IQueueDriverCommand {
 	
-	public void decode(byte[] bytes);
+	void decode(byte[] bytes);
 	
-	public byte[] encode();
+	byte[] encode();
 	
-	public int length();
+	int length();
 	
-	public void setLength(int length);
+	void setLength(int length);
 	
-	public int getId();
+	int getId();
 	
-	public int getQueueId();
+	int getQueueId();
 	
-	public void setSequence(short sequence);
+	void setSequence(short sequence);
 	
-	public short getSequence();
+	short getSequence();
 	
 	
 }
