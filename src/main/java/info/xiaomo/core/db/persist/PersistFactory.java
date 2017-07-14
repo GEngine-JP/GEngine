@@ -8,10 +8,11 @@ package info.xiaomo.core.db.persist;
  */
 public interface PersistFactory {
 	
-	String name();
+	String tableName();
 	
 	int dataType();
 	
+	String createCreateSql();
 	String createInsertSql();
 	String createUpdateSql();
 	String createDeleteSql();
