@@ -12,35 +12,35 @@ public interface ICommandQueue<V> {
 	/**
 	 * 下一执行命令
 	 * 
-	 * @return
+	 * @return V
 	 */
-	public V poll();
+	V poll();
 
 	/**
 	 * 增加执行指令
 	 * 
-	 * @param command
-	 * @return
+	 * @param value value
+	 * @return boolean
 	 */
-	public boolean offer(V value);
+	boolean offer(V value);
 
 	/**
 	 * 清理
 	 */
-	public void clear();
+	void clear();
 
 	/**
 	 * 获取指令数量
-	 * 
-	 * @return
+	 *
+	 * @return int
 	 */
-	public int size();
+	int size();
 
-	public boolean isRunning();
+	boolean isRunning();
 
-	public void setRunning(boolean running);
+	void setRunning(boolean running);
 	
-	public void setName(String name);
+	void setName(String name);
 	
-	public String getName();
+	String getName();
 }

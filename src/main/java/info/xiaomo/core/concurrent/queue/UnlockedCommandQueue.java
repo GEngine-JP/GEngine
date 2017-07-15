@@ -51,7 +51,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V>{
 	/**
 	 * 增加执行指令
 	 * 
-	 * @param command
+	 * @param value
 	 * @return
 	 */
 	public boolean offer(V value) {

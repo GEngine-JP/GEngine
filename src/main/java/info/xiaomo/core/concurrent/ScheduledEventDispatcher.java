@@ -42,7 +42,7 @@ public class ScheduledEventDispatcher implements Runnable {
 	/**
 	 * 该派发器所属场景的驱动器
 	 */
-	private QueueDriver diriver;
+	private QueueDriver queueDriver;
 
 	/**
 	 * 该派发器在线程池中的执行句柄
@@ -51,7 +51,7 @@ public class ScheduledEventDispatcher implements Runnable {
 
 	public ScheduledEventDispatcher(QueueDriver driver, int mapId, int line) {
 		super();
-		this.diriver = driver;
+		this.queueDriver = driver;
 		this.mapId = mapId;
 		this.line = line;
 	}
@@ -130,7 +130,7 @@ public class ScheduledEventDispatcher implements Runnable {
 					event.setEnd(curTime + event.getDelay());
 				}
 				// 放入场景驱动
-				this.diriver.addCommand(event);
+				this.queueDriver.addCommand(event);
 			}
 
 		}
