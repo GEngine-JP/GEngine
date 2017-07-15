@@ -102,11 +102,7 @@ class LogBeanUtil {
 
 		Set<Class<T>> ret = new LinkedHashSet<>();
 
-		File[] dirfiles = dir.listFiles(new FileFilter() {
-			public boolean accept(File file) {
-				return (recursive && file.isDirectory()) || file.getName().endsWith(".class");
-			}
-		});
+		File[] dirfiles = dir.listFiles(file -> (recursive && file.isDirectory()) || file.getName().endsWith(".class"));
 
 		for (File file : dirfiles) {
 			if (file.isDirectory()) {

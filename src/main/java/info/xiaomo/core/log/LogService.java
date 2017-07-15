@@ -37,7 +37,7 @@ public class LogService {
 		ConnectionPool pool = new DruidConnectionPool(dsConfig);
 		LogService.template = new JdbcTemplate(pool);
 		
-		Set<Class<AbstractLog>> ret = LogBeanUtil.getSubClasses("com.sh.game", AbstractLog.class);
+		Set<Class<AbstractLog>> ret = LogBeanUtil.getSubClasses("info.xiaomo.core.log", AbstractLog.class);
 		for (Class<AbstractLog> logClass : ret) {
 			AbstractLog log = logClass.newInstance();
 			log.init();
@@ -84,7 +84,7 @@ public class LogService {
 	}
 
 	public static void main(String[] args) throws Exception {
-		LogService.init("logds.properties", 2, 4);
+		LogService.init("F:\\ChessGame\\ChessGameServer\\conf\\log.properties", 2, 4);
 		ItemLog log = new ItemLog();
 
 		log.setId(2);
