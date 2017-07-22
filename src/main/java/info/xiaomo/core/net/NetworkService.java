@@ -5,8 +5,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,8 +79,14 @@ public class NetworkService {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                ChannelPipeline pipeline = ch.pipeline();
+                pipeline.addLast("http-codec",
+                        new HttpServerCodec());
+                pipeline.addLast("aggregator",
+                        new HttpObjectAggregator(65536));
+                ch.pipeline().addLast("http-chunked",
+                        new ChunkedWriteHandler());
+                pipeline.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
                 MessageExecutor executor = new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener());
                 pip.addLast("NettyMessageExecutor", executor);
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
