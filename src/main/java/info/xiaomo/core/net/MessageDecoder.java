@@ -82,10 +82,7 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
 
         } catch (Exception e) {
             LOGGER.error(ctx.channel() + "消息解码异常", e);
-        } finally {
-            frame.release();
         }
-
     }
 
     @Override

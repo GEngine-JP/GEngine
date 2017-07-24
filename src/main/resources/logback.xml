@@ -56,7 +56,7 @@
 	</appender> -->
 
 
-	<root level="info">
+	<root level="debug">
 		<appender-ref ref="consoleInfoAppender" />
 		<appender-ref ref="consoleDebugAppender" />
 		<appender-ref ref="consoleErrAppender" />

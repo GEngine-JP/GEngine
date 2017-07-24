@@ -78,19 +78,14 @@ public class NetworkService {
 
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pip = ch.pipeline();
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast("http-codec",
-                        new HttpServerCodec());
-                pipeline.addLast("aggregator",
-                        new HttpObjectAggregator(65536));
-                ch.pipeline().addLast("http-chunked",
-                        new ChunkedWriteHandler());
-                pipeline.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool(), builder.getPort()));
-                MessageExecutor executor = new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener());
-                pip.addLast("NettyMessageExecutor", executor);
+                pipeline.addLast(new HttpServerCodec());
+                pipeline.addLast(new HttpObjectAggregator(65536));
+                pipeline.addLast(new ChunkedWriteHandler());
+                pipeline.addLast(new MessageDecoder(builder.getMsgPool(), builder.getPort()));
+                pipeline.addLast(new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
-                    pip.addLast(handler);
+                    pipeline.addLast(handler);
                 }
             }
         };
