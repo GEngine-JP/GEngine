@@ -71,12 +71,8 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         }
         try {
             final int length = in.readInt();
-
-            // 消息
-            final int id = in.readInt();
-
+            final int id = in.readInt(); // 消息
             final short sequence = in.readShort();
-
 
             Message message = msgPool.get(id);
             if (message == null) {
@@ -84,18 +80,10 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
                 return null;
             }
 
-            byte[] bytes = null;
-            int remainLength = in.readableBytes();
-            if (remainLength > 0) {
-                bytes = new byte[remainLength];
-                in.readBytes(bytes);
-            }
-
             message.setLength(length);
             message.setSequence(sequence);
-            if (bytes != null) {
-                message.decode(bytes);
-            }
+
+            message.decode(in);
             LOGGER.debug("解析消息:" + message);
             return message;
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package info.xiaomo.core.net;
 
 
 import info.xiaomo.core.concurrent.IQueueDriverCommand;
+import io.netty.buffer.ByteBuf;
 
 /**
  * 网络请求的消息，该消息继承了队列执行命令接口，可以直接放入QueueDriver中执行
@@ -10,7 +11,7 @@ import info.xiaomo.core.concurrent.IQueueDriverCommand;
  */
 public interface Message extends IQueueDriverCommand {
 	
-	void decode(byte[] bytes);
+	void decode(ByteBuf buf);
 	
 	byte[] encode();
 	

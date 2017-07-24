@@ -1,35 +1,27 @@
-package info.xiaomo.core.net.kryo;
+package info.xiaomo.core.net;
+
+import io.netty.buffer.ByteBuf;
 
 /**
  * 消息Bean的基类
  *
  * @author xiaomo
  */
-public abstract class KryoBean {
+public abstract class MessageBean {
 
     /**
      * 将属性字段写入buffer中,该方法有具体的消息实现
      *
      * @param output output
      */
-    public abstract boolean write(KryoOutput output);
+    public abstract boolean write(ByteBuf output);
 
     /**
      * 读取属性字段，该方法有具体的消息实现
      *
      * @param input input
      */
-    public abstract boolean read(KryoInput input);
-
-    /**
-     * 向IOBuff中写入一个优化过的int（压缩过的）
-     *
-     * @param output output
-     * @param value  value
-     */
-    protected void writeInt(KryoOutput output, int value, boolean positive) {
-        output.writeInt(value, positive);
-    }
+    public abstract boolean read(ByteBuf input);
 
     /**
      * 向IOBuff中写入一个int
@@ -37,7 +29,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeInt(KryoOutput output, int value) {
+    protected void writeInt(ByteBuf output, int value) {
         output.writeInt(value);
     }
 
@@ -47,19 +39,11 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeString(KryoOutput output, String value) {
-        output.writeString(value);
-    }
-
-    /**
-     * 向IOBuff中写入一个优化过的long（压缩过的）
-     *
-     * @param output   output
-     * @param positive positive
-     * @param value    value
-     */
-    protected void writeLong(KryoOutput output, long value, boolean positive) {
-        output.writeLong(value, positive);
+    protected void writeString(ByteBuf output, String value) {
+        short length = output.readShort();
+        byte[] bytes = new byte[length];
+        output.readBytes(bytes);
+        String str = new String(bytes);
     }
 
     /**
@@ -68,7 +52,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeLong(KryoOutput output, long value) {
+    protected void writeLong(ByteBuf output, long value) {
         output.writeLong(value);
     }
 
@@ -78,7 +62,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeBean(KryoOutput output, KryoBean value) {
+    protected void writeBean(ByteBuf output, MessageBean value) {
         if (value == null) {
             output.writeByte(0);
         } else {
@@ -94,7 +78,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeShort(KryoOutput output, int value) {
+    protected void writeShort(ByteBuf output, int value) {
         output.writeShort((short) value);
     }
 
@@ -104,7 +88,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeShort(KryoOutput output, short value) {
+    protected void writeShort(ByteBuf output, short value) {
         output.writeShort(value);
     }
 
@@ -114,7 +98,7 @@ public abstract class KryoBean {
      * @param output output
      * @param value  value
      */
-    protected void writeByte(KryoOutput output, byte value) {
+    protected void writeByte(ByteBuf output, byte value) {
         output.writeByte(value);
     }
 
@@ -124,23 +108,14 @@ public abstract class KryoBean {
      * @param output output
      * @param bytes  bytes
      */
-    protected void writeBytes(KryoOutput output, byte[] bytes) {
-        output.write(bytes);
+    protected void writeBytes(ByteBuf output, byte[] bytes) {
+        output.writeBytes(bytes);
     }
 
-    protected void writeBoolean(KryoOutput output, boolean value) {
+    protected void writeBoolean(ByteBuf output, boolean value) {
         output.writeBoolean(value);
     }
 
-    /**
-     * 读取一个优化过的int（压缩过的）
-     *
-     * @param input input
-     * @return int
-     */
-    protected int readInt(KryoInput input, boolean positive) {
-        return input.readInt(positive);
-    }
 
     /**
      * 读取一个int值（未优化过的int）
@@ -148,7 +123,7 @@ public abstract class KryoBean {
      * @param input input
      * @return int
      */
-    protected int readInt(KryoInput input) {
+    protected int readInt(ByteBuf input) {
         return input.readInt();
     }
 
@@ -158,18 +133,11 @@ public abstract class KryoBean {
      * @param input input
      * @return String
      */
-    protected String readString(KryoInput input) {
-        return input.readString();
-    }
-
-    /**
-     * 读取一个优化过Long（压缩过的）
-     *
-     * @param input input
-     * @return long
-     */
-    protected long readLong(KryoInput input, boolean positive) {
-        return input.readLong(positive);
+    protected String readString(ByteBuf input) {
+        short length = input.readShort();
+        byte[] bytes = new byte[length];
+        input.readBytes(bytes);
+        return new String(bytes);
     }
 
     /**
@@ -178,7 +146,7 @@ public abstract class KryoBean {
      * @param input input
      * @return long
      */
-    protected long readLong(KryoInput input) {
+    protected long readLong(ByteBuf input) {
         return input.readLong();
     }
 
@@ -187,16 +155,16 @@ public abstract class KryoBean {
      *
      * @param input input
      * @param input input
-     * @return KryoBean
+     * @return MessageBean
      */
-    protected KryoBean readBean(KryoInput input, Class<? extends KryoBean> clazz) {
+    protected MessageBean readBean(ByteBuf input, Class<? extends MessageBean> clazz) {
         byte isNull = input.readByte();
         if (isNull == 0) {
             return null;
         }
         try {
             // 首先反射建立一个Bean
-            KryoBean bean = clazz.newInstance();
+            MessageBean bean = clazz.newInstance();
             // 读取Bean
             bean.read(input);
             return bean;
@@ -211,7 +179,7 @@ public abstract class KryoBean {
      * @param input input
      * @return short
      */
-    protected short readShort(KryoInput input) {
+    protected short readShort(ByteBuf input) {
         return input.readShort();
     }
 
@@ -221,7 +189,7 @@ public abstract class KryoBean {
      * @param input input
      * @return byte
      */
-    protected byte readByte(KryoInput input) {
+    protected byte readByte(ByteBuf input) {
         return input.readByte();
     }
 
@@ -229,7 +197,7 @@ public abstract class KryoBean {
      * @param input input
      * @return input
      */
-    protected boolean readBoolean(KryoInput input) {
+    protected boolean readBoolean(ByteBuf input) {
         return input.readBoolean();
     }
 }

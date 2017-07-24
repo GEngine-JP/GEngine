@@ -1,12 +1,12 @@
 
-package info.xiaomo.core.net.kryo;
+package info.xiaomo.core.net;
 
 /**
  * General Kryo RuntimeException.
  * 
  * @author Nathan Sweet <misc@n4te.com>
  */
-public class KryoException extends RuntimeException {
+public class MessageException extends RuntimeException {
 
 	/**
 	 * 
@@ -15,19 +15,19 @@ public class KryoException extends RuntimeException {
 
 	private StringBuffer trace;
 
-	public KryoException() {
+	public MessageException() {
 		super();
 	}
 
-	public KryoException(String message, Throwable cause) {
+	public MessageException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public KryoException(String message) {
+	public MessageException(String message) {
 		super(message);
 	}
 
-	public KryoException(Throwable cause) {
+	public MessageException(Throwable cause) {
 		super(cause);
 	}
 
@@ -47,7 +47,7 @@ public class KryoException extends RuntimeException {
 	/**
 	 * Adds information to the exception message about where in the the object
 	 * graph serialization failure occurred. {@link Serializer Serializers} can
-	 * catch {@link KryoException}, add trace information, and rethrow the
+	 * catch {@link MessageException}, add trace information, and rethrow the
 	 * exception.
 	 */
 	public void addTrace(String info) {

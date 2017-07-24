@@ -24,6 +24,11 @@ public class MessageGroup implements Message {
 
 
 	@Override
+	public void decode(ByteBuf buf) {
+
+	}
+
+	@Override
 	public byte[] encode() {
 
 		byte[] bytes = null;
@@ -106,10 +111,6 @@ public class MessageGroup implements Message {
 
 	}
 
-	@Override
-	public void decode(byte[] bytes) {
-
-	}
 
 	@Override
 	public int length() {

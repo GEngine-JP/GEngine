@@ -117,13 +117,6 @@
             <artifactId>protostuff-api</artifactId>
             <version>${protostuff.version}</version>
         </dependency>
-        <!--kyro-->
-        <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>${kryo.version}</version>
-            <scope>test</scope>
-        </dependency>
         <!--数据库-->
         <dependency>
             <groupId>mysql</groupId>
