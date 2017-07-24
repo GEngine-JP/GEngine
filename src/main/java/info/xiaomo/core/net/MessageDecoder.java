@@ -26,9 +26,12 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
 
     private MessagePool msgPool;
 
+    private int port;
 
-    public MessageDecoder(MessagePool msgPool) {
+
+    public MessageDecoder(MessagePool msgPool, int port) {
         this.msgPool = msgPool;
+        this.port = port;
     }
 
     @Override
@@ -103,11 +106,10 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
 
         // 构造握手响应返回，本机测试
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
-                "ws://localhost:8888/websocket", null, false);
+                "ws://localhost:" + port + "/websocket", null, false);
         handShaker = wsFactory.newHandshaker(req);
         if (handShaker == null) {
-            WebSocketServerHandshakerFactory
-                    .sendUnsupportedVersionResponse(ctx.channel());
+            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
         } else {
             handShaker.handshake(ctx.channel(), req);
         }

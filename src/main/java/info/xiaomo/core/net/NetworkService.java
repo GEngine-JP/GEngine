@@ -86,7 +86,7 @@ public class NetworkService {
                         new HttpObjectAggregator(65536));
                 ch.pipeline().addLast("http-chunked",
                         new ChunkedWriteHandler());
-                pipeline.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
+                pipeline.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool(), builder.getPort()));
                 MessageExecutor executor = new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener());
                 pip.addLast("NettyMessageExecutor", executor);
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
