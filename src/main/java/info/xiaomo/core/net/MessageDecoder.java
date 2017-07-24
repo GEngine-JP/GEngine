@@ -116,19 +116,17 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
     }
 
 
-    private BinaryWebSocketFrame handleWebSocketFrame(ChannelHandlerContext ctx,
-                                                      WebSocketFrame frame) {
+    private BinaryWebSocketFrame handleWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) {
 
         // 判断是否是关闭链路的指令
         if (frame instanceof CloseWebSocketFrame) {
-            handShaker.close(ctx.channel(),
-                    (CloseWebSocketFrame) frame.retain());
+            handShaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
             return null;
         }
+
         // 判断是否是Ping消息
         if (frame instanceof PingWebSocketFrame) {
-            ctx.channel().write(
-                    new PongWebSocketFrame(frame.content().retain()));
+            ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
             return null;
         }
 
@@ -141,8 +139,7 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
                                          FullHttpRequest req, FullHttpResponse res) {
         // 返回应答给客户端
         if (res.status().code() != 200) {
-            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(),
-                    CharsetUtil.UTF_8);
+            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
             res.content().writeBytes(buf);
             buf.release();
             HttpUtil.setContentLength(res, res.content().readableBytes());
@@ -157,8 +154,7 @@ public class MessageDecoder extends SimpleChannelInboundHandler<Object> {
 
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-            throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         ctx.close();
     }
