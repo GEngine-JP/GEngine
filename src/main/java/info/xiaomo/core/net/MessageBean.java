@@ -40,10 +40,7 @@ public abstract class MessageBean {
      * @param value  value
      */
     protected void writeString(ByteBuf output, String value) {
-        short length = output.readShort();
-        byte[] bytes = new byte[length];
-        output.readBytes(bytes);
-        String str = new String(bytes);
+        output.writeBytes(value.getBytes());
     }
 
     /**
@@ -70,16 +67,6 @@ public abstract class MessageBean {
             value.write(output);
         }
 
-    }
-
-    /**
-     * 写入一个short
-     *
-     * @param output output
-     * @param value  value
-     */
-    protected void writeShort(ByteBuf output, int value) {
-        output.writeShort((short) value);
     }
 
     /**
@@ -153,7 +140,6 @@ public abstract class MessageBean {
     /**
      * 读取一个Bean
      *
-     * @param input input
      * @param input input
      * @return MessageBean
      */
