@@ -83,6 +83,7 @@ public class NetworkService {
                 pipeline.addLast(new HttpObjectAggregator(65536));
                 pipeline.addLast(new ChunkedWriteHandler());
                 pipeline.addLast(new MessageDecoder(builder.getMsgPool(), builder.getPort()));
+                pipeline.addLast(new MessageEncoder());
                 pipeline.addLast(new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
                     pipeline.addLast(handler);
