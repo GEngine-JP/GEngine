@@ -54,7 +54,7 @@ public class Client {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool(), builder.getPort()));
+                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
                 pip.addLast("NettyMessageEncoder", new MessageEncoder());
                 pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(builder.getConsumer(), builder.getListener(), futureMap));
             }
