@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 /**
  * 网络事件监听器
- * @author 张力
+ * @author 小莫
  */
 public interface NetworkEventListener {
 	

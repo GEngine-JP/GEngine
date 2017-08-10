@@ -5,11 +5,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,15 +25,19 @@ public class NetworkService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkService.class);
 
+    private int bossLoopGroupCount;
+
+    private int workerLoopGroupCount;
+
     private int port;
 
     private ServerBootstrap bootstrap;
 
     private int state;
 
-    private NioEventLoopGroup bossGroup;
+    NioEventLoopGroup bossGroup;
 
-    private NioEventLoopGroup workerGroup;
+    NioEventLoopGroup workerGroup;
 
     private static final byte STATE_STOP = 0;
     private static final byte STATE_START = 1;
@@ -53,12 +54,12 @@ public class NetworkService {
     }
 
     NetworkService(final NetworkServiceBuilder builder) {
-        int bossLoopGroupCount = builder.getBossLoopGroupCount();
-        int workerLoopGroupCount = builder.getWorkerLoopGroupCount();
+        this.bossLoopGroupCount = builder.getBossLoopGroupCount();
+        this.workerLoopGroupCount = builder.getWorkerLoopGroupCount();
         this.port = builder.getPort();
 
-        bossGroup = new NioEventLoopGroup(bossLoopGroupCount);
-        workerGroup = new NioEventLoopGroup(workerLoopGroupCount);
+        bossGroup = new NioEventLoopGroup(this.bossLoopGroupCount);
+        workerGroup = new NioEventLoopGroup(this.workerLoopGroupCount);
 
         bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workerGroup);
@@ -69,27 +70,21 @@ public class NetworkService {
         bootstrap.childOption(ChannelOption.SO_SNDBUF, 128 * 1024);
 
         bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
-        bootstrap.childHandler(getChildHandler(builder));
-
-    }
-
-    private ChannelInitializer<SocketChannel> getChildHandler(NetworkServiceBuilder builder) {
-        return new ChannelInitializer<SocketChannel>() {
+        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
 
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new HttpServerCodec());
-                pipeline.addLast(new HttpObjectAggregator(65536));
-                pipeline.addLast(new ChunkedWriteHandler());
-                pipeline.addLast(new MessageDecoder(builder.getMsgPool(), builder.getPort()));
-                pipeline.addLast(new MessageEncoder());
-                pipeline.addLast(new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
+                ChannelPipeline pip = ch.pipeline();
+                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
+                pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                MessageExecutor executor = new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener());
+                pip.addLast("NettyMessageExecutor", executor);
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
-                    pipeline.addLast(handler);
+                    pip.addLast(handler);
                 }
             }
-        };
+        });
+
     }
 
     public void stop() {
