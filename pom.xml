@@ -13,6 +13,7 @@
         <module>Persist</module>
         <module>Client</module>
         <module>Base</module>
+        <module>Protocol</module>
     </modules>
     <artifactId>gameCore</artifactId>
 
