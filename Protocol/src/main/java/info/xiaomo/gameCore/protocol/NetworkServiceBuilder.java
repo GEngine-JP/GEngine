@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.base.net;
+package info.xiaomo.gameCore.protocol;
 
 import io.netty.channel.ChannelHandler;
 

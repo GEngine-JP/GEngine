@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.base.net;
+package info.xiaomo.gameCore.protocol;
 
 
 import info.xiaomo.gameCore.base.concurrent.IQueueCommand;

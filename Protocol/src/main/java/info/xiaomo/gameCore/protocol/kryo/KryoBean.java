@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.base.net.kryo;
+package info.xiaomo.gameCore.protocol.kryo;
 
 /**
  * 消息Bean的基类

@@ -1,5 +1,5 @@
 
-package info.xiaomo.gameCore.base.net.kryo;
+package info.xiaomo.gameCore.protocol.kryo;
 
 import java.io.IOException;
 import java.io.OutputStream;
