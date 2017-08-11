@@ -1,15 +1,8 @@
 package info.xiaomo.core.concurrent;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 定时事件派发器. </br>
@@ -24,7 +17,7 @@ public class ScheduledEventDispatcher implements Command {
     /**
      * 事件列表
      */
-    private List<ScheduledEvent> events = new LinkedList<>();
+    private final List<ScheduledEvent> events = new LinkedList<>();
 
     /**
      * 命令队列驱动器
@@ -81,7 +74,7 @@ public class ScheduledEventDispatcher implements Command {
      * @param mayInterruptIfRunning 是否终端正在执行的操作
      */
     public void stop(boolean mayInterruptIfRunning) {
-        if (future == null){
+        if (future == null) {
             return;
         }
         future.cancel(mayInterruptIfRunning);
@@ -91,9 +84,6 @@ public class ScheduledEventDispatcher implements Command {
     public void action() {
         synchronized (events) {
             ScheduledEvent[] eventArray = events.toArray(new ScheduledEvent[0]);
-            if (eventArray == null) {
-                return;
-            }
             for (ScheduledEvent event : eventArray) {
                 // 定时时间到
                 if (event.remain() <= 0L) {
