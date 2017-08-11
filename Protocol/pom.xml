@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Protocol</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Base</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

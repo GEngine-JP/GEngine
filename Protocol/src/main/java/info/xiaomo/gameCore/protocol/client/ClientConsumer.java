@@ -1,7 +1,7 @@
-package info.xiaomo.gameCore.base.client;
+package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.base.net.Message;
-import info.xiaomo.gameCore.base.net.NetworkConsumer;
+import info.xiaomo.gameCore.protocol.Message;
+import info.xiaomo.gameCore.protocol.NetworkConsumer;
 import io.netty.channel.Channel;
 
 public class ClientConsumer implements NetworkConsumer {

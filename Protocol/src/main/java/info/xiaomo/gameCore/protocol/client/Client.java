@@ -1,9 +1,9 @@
-package info.xiaomo.gameCore.base.client;
+package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.base.net.Message;
-import info.xiaomo.gameCore.base.net.MessageDecoder;
-import info.xiaomo.gameCore.base.net.MessageEncoder;
-import info.xiaomo.gameCore.base.net.MessageGroup;
+import info.xiaomo.gameCore.protocol.Message;
+import info.xiaomo.gameCore.protocol.MessageDecoder;
+import info.xiaomo.gameCore.protocol.MessageEncoder;
+import info.xiaomo.gameCore.protocol.MessageGroup;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

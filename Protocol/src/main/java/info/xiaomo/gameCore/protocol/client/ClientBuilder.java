@@ -1,9 +1,9 @@
-package info.xiaomo.gameCore.base.client;
+package info.xiaomo.gameCore.protocol.client;
 
 
-import info.xiaomo.gameCore.base.net.MessagePool;
-import info.xiaomo.gameCore.base.net.NetworkConsumer;
-import info.xiaomo.gameCore.base.net.NetworkEventListener;
+import info.xiaomo.gameCore.protocol.MessagePool;
+import info.xiaomo.gameCore.protocol.NetworkConsumer;
+import info.xiaomo.gameCore.protocol.NetworkEventListener;
 
 public class ClientBuilder {
 

@@ -38,7 +38,7 @@
  * holder.
  */
 
-package info.xiaomo.gameCore.base.client;
+package info.xiaomo.gameCore.protocol.client;
 
 import java.util.concurrent.*;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;

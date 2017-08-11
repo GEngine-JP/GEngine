@@ -1,9 +1,9 @@
-package info.xiaomo.gameCore.base.client;
+package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.base.net.Message;
-import info.xiaomo.gameCore.base.net.MessageExecutor;
-import info.xiaomo.gameCore.base.net.NetworkConsumer;
-import info.xiaomo.gameCore.base.net.NetworkEventListener;
+import info.xiaomo.gameCore.protocol.Message;
+import info.xiaomo.gameCore.protocol.MessageExecutor;
+import info.xiaomo.gameCore.protocol.NetworkConsumer;
+import info.xiaomo.gameCore.protocol.NetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.Map;
