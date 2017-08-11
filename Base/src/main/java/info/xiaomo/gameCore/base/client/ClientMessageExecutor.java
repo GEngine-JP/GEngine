@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.client;
+package info.xiaomo.gameCore.base.client;
 
 import info.xiaomo.gameCore.base.net.Message;
 import info.xiaomo.gameCore.base.net.MessageExecutor;

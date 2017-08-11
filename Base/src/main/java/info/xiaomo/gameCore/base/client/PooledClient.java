@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.client;
+package info.xiaomo.gameCore.base.client;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
