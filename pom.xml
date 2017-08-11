@@ -43,12 +43,12 @@
         <repository>
             <id>maven-releases</id>
             <name>Releases</name>
-            <url>http://xiaomo.info:8081/repository/maven-releases/</url>
+            <url>http://xiaomo.info:8081/nexus/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
             <id>maven-snapshot</id>
             <name>Snapshot</name>
-            <url>http://xiaomo.info:8081/repository/maven-snapshots/</url>
+            <url>http://xiaomo.info:8081/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
