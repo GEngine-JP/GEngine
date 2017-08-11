@@ -1,6 +1,6 @@
 package info.xiaomo.core.net;
 
-import info.xiaomo.core.concurrent.IQueueDriverCommand;
+import info.xiaomo.core.concurrent.IQueueCommand;
 import info.xiaomo.core.concurrent.queue.ICommandQueue;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
@@ -77,12 +77,12 @@ public class MessageGroup implements Message {
 	}
 
 	@Override
-	public ICommandQueue<IQueueDriverCommand> getCommandQueue() {
+	public ICommandQueue<IQueueCommand> getCommandQueue() {
 		return null;
 	}
 
 	@Override
-	public void setCommandQueue(ICommandQueue<IQueueDriverCommand> commandQueue) {
+	public void setCommandQueue(ICommandQueue<IQueueCommand> commandQueue) {
 
 	}
 
@@ -97,7 +97,7 @@ public class MessageGroup implements Message {
 	}
 
 	@Override
-	public void doAction() {
+	public void action() {
 
 	}
 

@@ -5,164 +5,123 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 场景定时事件派发器. </br>
- * 
- * 该分发器会按照设置好的周期和间隔将事件添加到QueueDriver中</br>
- * 
- * 只有初始化场景的时候，才能向派发器添加定时事件。
- * 
- * @author 张力
- * @date 2015-3-11 上午5:49:11
- * 
+ * 定时事件派发器. </br>
+ * <p>
+ * 该派发器会按照设置好的周期和间隔将事件添加到CommandQueueDriver中</br>
  */
-public class ScheduledEventDispatcher implements Runnable {
+public class ScheduledEventDispatcher implements Command {
+    /**
+     * 派发器名字
+     */
+    private String name;
+    /**
+     * 事件列表
+     */
+    private List<ScheduledEvent> events = new LinkedList<>();
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledEventDispatcher.class);
+    /**
+     * 命令队列驱动器
+     */
+    private CommandQueueDriver commandQueueDriver;
 
-	private boolean running = false;
+    /**
+     * 该派发器在线程池中的执行句柄
+     */
+    private Future future;
 
-	/**
-	 * 事件列表
-	 */
-	private List<ScheduledEvent> events = new ArrayList<>();
+    public ScheduledEventDispatcher(String name, CommandQueueDriver commandQueueDriver) {
+        this.name = name;
+        this.commandQueueDriver = commandQueueDriver;
+    }
 
-	/**
-	 * 场景id
-	 */
-	private int mapId;
+    /**
+     * 添加定时事件
+     *
+     * @param event 定时事件
+     */
+    public void addScheduledEvent(ScheduledEvent event) {
+        synchronized (events) {
+            events.add(event);
+        }
+        LOGGER.debug("【{}】定时事件派发器添加定时事件【{}】", name, event.getClass().getName());
+    }
 
-	private int line;
+    /**
+     * 移除定时事件
+     *
+     * @param event 定时事件
+     */
+    public void removeScheduledEvent(ScheduledEvent event) {
+        synchronized (events) {
+            events.remove(event);
+        }
+        LOGGER.debug("【{}】定时事件派发器移除定时事件【{}】", name, event.getClass().getName());
+    }
 
-	/**
-	 * 该派发器所属场景的驱动器
-	 */
-	private QueueDriver queueDriver;
+    /**
+     * 清除定时事件
+     */
+    public void clearScheduledEvent() {
+        synchronized (events) {
+            events.clear();
+        }
+        LOGGER.debug("【{}】定时任务派发器清空事件", name);
+    }
 
-	/**
-	 * 该派发器在线程池中的执行句柄
-	 */
-	private Future<?> future;
+    /**
+     * 停止
+     *
+     * @param mayInterruptIfRunning 是否终端正在执行的操作
+     */
+    public void stop(boolean mayInterruptIfRunning) {
+        if (future == null){
+            return;
+        }
+        future.cancel(mayInterruptIfRunning);
+    }
 
-	public ScheduledEventDispatcher(QueueDriver driver, int mapId, int line) {
-		super();
-		this.queueDriver = driver;
-		this.mapId = mapId;
-		this.line = line;
-	}
+    @Override
+    public void action() {
+        synchronized (events) {
+            ScheduledEvent[] eventArray = events.toArray(new ScheduledEvent[0]);
+            if (eventArray == null) {
+                return;
+            }
+            for (ScheduledEvent event : eventArray) {
+                // 定时时间到
+                if (event.remain() <= 0L) {
+                    if (event.getLoop() > 0) {
+                        // 更新任务循环次数并设置下次定时时间
+                        event.setLoop(event.getLoop() - 1);
+                    } else {
+                        // 循环次数小于等于0都会无限循环执行下去
+                        event.setLoop(event.getLoop());
+                    }
 
-	/**
-	 * 添加定时事件
-	 * 
-	 * @param event
-	 *            定时事件
-	 */
-	public void addTimerEvent(ScheduledEvent event) {
-		if (running) {
-			throw new RuntimeException("已经启动的派发器不允许改变派发事件");
-		}
-		this.events.add(event);
-		LOGGER.debug("ScheduledEvent事件:addScheduledEvent=" + this.mapId + "=event=" + event.getClass().getName());
-	}
+                    // 提交到任务队列中
+                    commandQueueDriver.submit(event);
 
-	/**
-	 * 移除定时事件
-	 * 
-	 * @param event
-	 *            定时事件
-	 */
-	public void removeTimerEvent(ScheduledEvent event) {
-		if (running) {
-			throw new RuntimeException("已经启动的派发器不允许改变派发事件");
-		}
-		this.events.remove(event);
-		LOGGER.debug("ScheduledEvent事件:ScheduledEvent=remove");
-	}
+                    if (event.getLoop() == 0) {
+                        LOGGER.info("【{}】定时任务派发器移除已经完成的任务【{}】", name, event.getClass().getName());
+                        removeScheduledEvent(event);
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * 清除定时事件
-	 */
-	public void clearTimerEvent() {
-		if (running) {
-			throw new RuntimeException("已经启动的派发器不允许改变派发事件");
-		}
-		this.events.clear();
-		LOGGER.debug("ScheduledEvent事件:ScheduledEvent=clear");
-	}
+    public Future<?> getFuture() {
+        return future;
+    }
 
-	/**
-	 * 停止
-	 * 
-	 * @param mayInterruptIfRunning
-	 *            是否终端正在执行的操作
-	 */
-	public void stop(boolean mayInterruptIfRunning) {
-		this.future.cancel(mayInterruptIfRunning);
-	}
-
-	@Override
-	public void run() {
-		Iterator<ScheduledEvent> it = this.events.iterator();
-		long curTime = System.currentTimeMillis();
-		while (it.hasNext()) {
-			ScheduledEvent event = it.next();
-			if (event.getEnd() - curTime <= 0L) {// 定时时间到
-				if (event.getLoop() > 0) {
-					// 设置下一个循环（同时更新了下一次的end时间）
-					int loop = event.getLoop();
-					loop--;
-					if (loop == 0) {
-						// 循环次数为0之后移除该事件
-						it.remove();
-						LOGGER.info(this.mapId + "移除定时事件：" + event.getClass().getName());
-					} else {
-						event.setLoop(loop);
-						event.setEnd(curTime + event.getDelay());
-					}
-
-				} else {// 次数不限的周期时间
-					// 设置下次执行时间
-					event.setEnd(curTime + event.getDelay());
-				}
-				// 放入场景驱动
-				this.queueDriver.addCommand(event);
-			}
-
-		}
-	}
-
-	public void start(ScheduledExecutorService service) {
-		service.scheduleAtFixedRate(this, 0, 100, TimeUnit.MILLISECONDS);
-		this.running = true;
-	}
-
-	public Future<?> getFuture() {
-		return future;
-	}
-
-	public void setFuture(Future<?> future) {
-		this.future = future;
-	}
-
-	public int getMapId() {
-		return mapId;
-	}
-
-	public void setMapId(int mapId) {
-		this.mapId = mapId;
-	}
-
-	public int getLine() {
-		return line;
-	}
-
-	public void setLine(int line) {
-		this.line = line;
-	}
-
+    public void setFuture(Future<?> future) {
+        this.future = future;
+    }
 }

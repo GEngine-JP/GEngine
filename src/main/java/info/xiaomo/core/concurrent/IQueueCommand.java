@@ -9,7 +9,7 @@ import info.xiaomo.core.concurrent.queue.ICommandQueue;
  *
  * @author Administrator
  */
-public interface IQueueDriverCommand extends ICommand {
+public interface IQueueCommand extends Command {
 
     /**
      * 获取队列id
@@ -30,14 +30,14 @@ public interface IQueueDriverCommand extends ICommand {
      *
      * @return ICommandQueue
      */
-    ICommandQueue<IQueueDriverCommand> getCommandQueue();
+    ICommandQueue<IQueueCommand> getCommandQueue();
 
     /**
      * 设置所在队列
      *
      * @param commandQueue commandQueue
      */
-    void setCommandQueue(ICommandQueue<IQueueDriverCommand> commandQueue);
+    void setCommandQueue(ICommandQueue<IQueueCommand> commandQueue);
 
     /**
      * 获取一个额外的参数,随便存什么，具体逻辑具体使用，可以不使用该参数
