@@ -9,7 +9,6 @@
     <version>1.0.2</version>
     <modules>
         <module>Config</module>
-        <module>Common</module>
         <module>Logger</module>
         <module>Persist</module>
         <module>Client</module>
