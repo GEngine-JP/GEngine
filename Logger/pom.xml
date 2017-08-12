@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Logger</artifactId>
+    <artifactId>logger</artifactId>
     <dependencies>
         <dependency>
             <groupId>info.xiaomo</groupId>

@@ -21,27 +21,27 @@
     <dependencies>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Config</artifactId>
+            <artifactId>config</artifactId>
             <version>${config.version}</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Logger</artifactId>
+            <artifactId>logger</artifactId>
             <version>${logger.version}</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Persist</artifactId>
+            <artifactId>persist</artifactId>
             <version>${persist.version}</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Protocol</artifactId>
+            <artifactId>protocol</artifactId>
             <version>${protocol.version}</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Base</artifactId>
+            <artifactId>base</artifactId>
             <version>${base.version}</version>
         </dependency>
     </dependencies>
