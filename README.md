@@ -30,27 +30,27 @@
 ```
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Base</artifactId>
+            <artifactId>base</artifactId>
             <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Config</artifactId>
+            <artifactId>config</artifactId>
             <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Persist</artifactId>
+            <artifactId>persist</artifactId>
             <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Logger</artifactId>
+            <artifactId>logger</artifactId>
             <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Protocol</artifactId>
+            <artifactId>protocol</artifactId>
             <version>RELEASE</version>
         </dependency>
 ```
