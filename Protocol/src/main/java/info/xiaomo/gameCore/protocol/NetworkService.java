@@ -1,5 +1,8 @@
 package info.xiaomo.gameCore.protocol;
 
+import info.xiaomo.gameCore.protocol.handler.NettyMessageDecoder;
+import info.xiaomo.gameCore.protocol.handler.NettyMessageEncoder;
+import info.xiaomo.gameCore.protocol.handler.NettyMessageExecutor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,23 +28,26 @@ public class NetworkService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkService.class);
 
-    private int bossLoopGroupCount;
-
-    private int workerLoopGroupCount;
-
     private int port;
 
     private ServerBootstrap bootstrap;
 
+    /**
+     * 状态
+     */
     private int state;
 
-    NioEventLoopGroup bossGroup;
+    private NioEventLoopGroup bossGroup;
 
-    NioEventLoopGroup workerGroup;
+    private NioEventLoopGroup workerGroup;
 
     private static final byte STATE_STOP = 0;
     private static final byte STATE_START = 1;
 
+
+    /**
+     * 开启一个netty的服务器
+     */
     public void start() {
         try {
             ChannelFuture f = bootstrap.bind(port);
@@ -54,12 +60,12 @@ public class NetworkService {
     }
 
     NetworkService(final NetworkServiceBuilder builder) {
-        this.bossLoopGroupCount = builder.getBossLoopGroupCount();
-        this.workerLoopGroupCount = builder.getWorkerLoopGroupCount();
+        int bossLoopGroupCount = builder.getBossLoopGroupCount();
+        int workerLoopGroupCount = builder.getWorkerLoopGroupCount();
         this.port = builder.getPort();
 
-        bossGroup = new NioEventLoopGroup(this.bossLoopGroupCount);
-        workerGroup = new NioEventLoopGroup(this.workerLoopGroupCount);
+        bossGroup = new NioEventLoopGroup(bossLoopGroupCount);
+        workerGroup = new NioEventLoopGroup(workerLoopGroupCount);
 
         bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workerGroup);
@@ -75,10 +81,9 @@ public class NetworkService {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
-                MessageExecutor executor = new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener());
-                pip.addLast("NettyMessageExecutor", executor);
+                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(builder.getDecoder(), 0, 2, -2, 2));
+                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(builder.getEncoder(), 2));
+                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(builder.getExecutor()));
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
                     pip.addLast(handler);
                 }
@@ -97,11 +102,15 @@ public class NetworkService {
         } catch (Exception e) {
             LOGGER.info("Netty服务器关闭失败", e);
         }
-        LOGGER.info("Netty Server on port:{} is closed", port);
+        LOGGER.info("Netty服务器已经关闭，端口号【{}】", this.port);
     }
 
     public boolean isRunning() {
         return this.state == STATE_START;
+    }
+
+    public boolean isClosed() {
+        return this.state == 2;
     }
 
 }

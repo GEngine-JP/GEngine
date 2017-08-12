@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.protocol;
 
-import io.netty.channel.Channel;
+import java.net.SocketAddress;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -12,10 +12,21 @@ import io.netty.channel.Channel;
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
  * QQ    : 83387856
- * Date  : 2017/7/11 15:36
- * desc  : 消费者接口
+ * Date  : 2017/8/12 15:24
+ * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public interface NetworkConsumer {
-    void consume(Channel channel, Message msg);
+public interface Connection {
+    void write(Object paramObject);
+
+    void close();
+
+    void putAttribute(String paramString, Object paramObject);
+
+    Object getAttribute(String paramString);
+
+    SocketAddress remoteAddress();
+
+    SocketAddress localAddress();
 }
+

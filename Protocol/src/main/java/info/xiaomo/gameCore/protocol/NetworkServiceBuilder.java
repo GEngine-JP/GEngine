@@ -1,5 +1,8 @@
 package info.xiaomo.gameCore.protocol;
 
+import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
+import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
+import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -28,14 +31,19 @@ public class NetworkServiceBuilder {
     private MessagePool msgPool;
 
     /**
-     * 网络消费者
+     * 编码器
      */
-    private NetworkConsumer consumer;
+    private MessageEncoder encoder;
 
     /**
-     * 事件监听器
+     * 解码器
      */
-    private NetworkEventListener networkEventListener;
+    private MessageDecoder decoder;
+
+    /**
+     * 消息执行器
+     */
+    private MessageExecutor executor;
 
     /**
      * 额外的handler

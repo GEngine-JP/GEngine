@@ -1,22 +1,16 @@
 package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.protocol.Message;
-import info.xiaomo.gameCore.protocol.MessageDecoder;
-import info.xiaomo.gameCore.protocol.MessageEncoder;
-import info.xiaomo.gameCore.protocol.MessageGroup;
+import info.xiaomo.gameCore.protocol.handler.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,141 +21,62 @@ import java.util.concurrent.TimeUnit;
  */
 public class Client {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
+    private volatile int state = 0;
+    private String host;
+    private int port;
+    private EventLoopGroup group;
+    private Bootstrap bootstrap;
 
-    private short sequence = 0;
-    private final Object seq_lock = new Object();
+    public Client(String host, int port, final MessageDecoder decoder, final MessageEncoder encoder, final MessageExecutor executor) {
+        this.host = host;
+        this.port = port;
+        this.group = new NioEventLoopGroup();
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
-
-    protected ClientBuilder builder;
-
-    protected Channel channel;
-
-    protected Bootstrap bootstrap;
-
-    protected EventLoopGroup group;
-
-    protected Map<Short, ClientFuture<Message>> futureMap = new ConcurrentHashMap<>();
-
-    public Client(final ClientBuilder builder) {
-        this.builder = builder;
-
-        group = new NioEventLoopGroup();
-        bootstrap = new Bootstrap();
-        bootstrap.group(group).channel(NioSocketChannel.class);
-        bootstrap.option(ChannelOption.TCP_NODELAY, true);
-        bootstrap.handler(new ChannelInitializer<SocketChannel>() {
+        this.bootstrap = new Bootstrap();
+        this.bootstrap.group(this.group);
+        this.bootstrap.channel(NioSocketChannel.class);
+        this.bootstrap.option(ChannelOption.TCP_NODELAY, Boolean.TRUE);
+        this.bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
+        this.bootstrap.handler(new ChannelInitializer() {
             @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
-                pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(builder.getConsumer(), builder.getListener(), futureMap));
+            protected void initChannel(Channel channel) throws Exception {
+                ChannelPipeline pip = channel.pipeline();
+                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(decoder, 0, 2, 0, 4));
+                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(encoder, 2));
+                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(executor));
             }
         });
-
     }
 
-    public boolean sendMsg(List<Message> list) {
+    public void start() {
         try {
-            Channel channel = getChannel(Thread.currentThread().getId());
-            if (channel != null) {
-                MessageGroup group = new MessageGroup();
-                for (Message message : list) {
-                    group.addMessage(message);
-                }
-                channel.writeAndFlush(group);
-                return true;
-            }
-        } catch (Exception e) {
-            LOGGER.error("消息发送失败.", e);
+            this.bootstrap.connect(this.host, this.port).sync();
+        } catch (InterruptedException e) {
+            LOGGER.error("连接服务器【{}:{}】失败", this.host, this.port);
+            throw new RuntimeException(e);
         }
-        return false;
+        this.state = 1;
     }
 
-    public boolean sendMsg(Message message) {
-        Channel channel = getChannel(Thread.currentThread().getId());
-        if (channel != null && channel.isOpen()) {
-            channel.writeAndFlush(message);
-            return true;
-        }
-        return false;
+    public boolean isOpen() {
+        return this.state == 1;
     }
 
-    public Message sendSyncMsg(Message message) {
-        return this.sendSyncMsg(message, 200000);
-    }
-
-    public Message sendSyncMsg(Message message, final long timeout) {
-        message.setSequence(getSequence());
+    public void close() {
+        this.state = 2;
+        Future<?> future = this.group.shutdownGracefully();
         try {
-            Channel channel = getChannel(Thread.currentThread().getId());
-            channel.writeAndFlush(message);
-
-            ClientFuture<Message> f = ClientFuture.create();
-            futureMap.put(message.getSequence(), f);
-            return f.get(timeout, TimeUnit.MILLISECONDS);
+            future.await(5000L, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            ClientFuture<Message> future = futureMap.remove(message.getSequence());
-            if (future != null) {
-                future.cancel(false);
-            }
+            LOGGER.info("Netty客户端关闭失败", e);
+            throw new RuntimeException(e);
         }
-        return null;
+        LOGGER.info("Netty客户端已经关闭【{}:{}】", this.host, this.port);
     }
 
-    public boolean synced(Message message) {
-        int msgid = message.getId();
-        if (futureMap.containsKey(msgid)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    public void connect() throws Exception {
-        ChannelFuture f = bootstrap.connect(builder.getHost(), builder.getPort()).sync();
-        channel = f.channel();
-    }
-
-    public Channel getChannel(long id) {
-        return this.channel;
-    }
-
-    public void stop() throws IOException {
-        Future<?> cf = this.channel.close();
-
-        try {
-            cf.get(5000, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            LOGGER.info("Chennel关闭失败", e);
-        }
-        Future<?> gf = group.shutdownGracefully();
-        try {
-            gf.get(5000, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            LOGGER.info("EventLoopGroup关闭失败", e);
-        }
-        LOGGER.info("Netty Client on port:{} is closed", builder.getPort());
-    }
-
-    /**
-     * 只调用关闭连击和netty线程，快速返回，不保证一定能够执行完毕关闭逻辑
-     *
-     * @throws IOException
-     */
-    public void stopQuickly() throws IOException {
-        this.channel.close();
-        group.shutdownGracefully();
-    }
-
-    public short getSequence() {
-        synchronized (seq_lock) {
-            sequence++;
-            return sequence;
-        }
+    public boolean isClosed() {
+        return this.state == 2;
     }
 
 }

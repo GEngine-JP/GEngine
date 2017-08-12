@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "info.xiaomo.gameCore.protocol.entity";
+option java_outer_classname = "BaseMsg";
+
+message MsgPack{
+     int32 _MsgID = 1;
+     bytes _Body = 2;
+
+}

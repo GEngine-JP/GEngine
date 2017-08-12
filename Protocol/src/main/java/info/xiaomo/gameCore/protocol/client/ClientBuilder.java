@@ -1,93 +1,29 @@
 package info.xiaomo.gameCore.protocol.client;
 
-
 import info.xiaomo.gameCore.protocol.MessagePool;
-import info.xiaomo.gameCore.protocol.NetworkConsumer;
-import info.xiaomo.gameCore.protocol.NetworkEventListener;
+import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
+import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
+import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
+import lombok.Data;
 
+@Data
 public class ClientBuilder {
 
-	protected String host;
+    protected String host;
 
-	protected int port;
+    protected int port;
 
-	protected MessagePool messagePool;
+    protected MessagePool messagePool;
 
-	private NetworkEventListener listener;
+    private int poolSize;
 
-	private NetworkConsumer consumer;
+    private MessageEncoder encoder;
 
-	private boolean pooled;
+    private MessageDecoder decoder;
 
-	private int poolSize;
+    private MessageExecutor executor;
 
-	public Client build() {
-
-		if (this.pooled) {
-			if (this.poolSize <= 0) {
-				this.poolSize = 8;
-			}
-			return new PooledClient(this);
-		} else {
-			return new Client(this);
-		}
-
-	}
-
-	public boolean isPooled() {
-		return pooled;
-	}
-
-	public void setPooled(boolean pooled) {
-		this.pooled = pooled;
-	}
-
-	public int getPoolSize() {
-		return poolSize;
-	}
-
-	public void setPoolSize(int poolSize) {
-		this.poolSize = poolSize;
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public MessagePool getMessagePool() {
-		return messagePool;
-	}
-
-	public void setMessagePool(MessagePool messagePool) {
-		this.messagePool = messagePool;
-	}
-
-	public NetworkEventListener getListener() {
-		return listener;
-	}
-
-	public void setListener(NetworkEventListener listener) {
-		this.listener = listener;
-	}
-
-	public NetworkConsumer getConsumer() {
-		return consumer;
-	}
-
-	public void setConsumer(NetworkConsumer consumer) {
-		this.consumer = consumer;
-	}
-
+    public Client build() {
+        return new Client(host, port, decoder, encoder, executor);
+    }
 }
