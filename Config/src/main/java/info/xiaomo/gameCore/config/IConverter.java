@@ -14,6 +14,7 @@ package info.xiaomo.gameCore.config;
  * desc  : 转换器
  * Copyright(©) 2017 by xiaomo.
  */
+@FunctionalInterface
 public interface IConverter {
-    Object convert(Object var1);
+    Object convert(Object var);
 }
