@@ -17,5 +17,5 @@ import io.netty.channel.Channel;
  * Copyright(©) 2017 by xiaomo.
  */
 public interface NetworkConsumer {
-	void consume(Channel channel, Message msg);
+    void consume(Channel channel, Message msg);
 }
