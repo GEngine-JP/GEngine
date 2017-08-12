@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>Persist</artifactId>
+            <artifactId>persist</artifactId>
             <version>1.0.2</version>
         </dependency>
     </dependencies>
