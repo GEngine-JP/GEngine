@@ -31,11 +31,13 @@ public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <L, V> IRowReader<? super L, ? extends V> getDefaultRowReader() {
         return defaultRowReader;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <L, V> IRowReader<? super L, ? extends V> getRowReader(int index) {
         if (rowReaders == null) {
             return defaultRowReader;
@@ -54,10 +56,11 @@ public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public R read(Sheet sheet) {
         R result = getResultSupplier().get();
         if (result == null) {
-            return result;
+            return null;
         }
         BiConverter<? super R, Object, ? extends R> rowParser = getRowParser();
         if (rowParser == null) {

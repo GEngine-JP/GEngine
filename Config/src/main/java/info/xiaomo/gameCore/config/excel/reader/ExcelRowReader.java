@@ -33,11 +33,13 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <C, V> ICellReader<? super C, ? extends V> getDefaultCellReader() {
         return defaultCellReader;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <C, V> ICellReader<? super C, ? extends V> getCellReader(int index) {
         if (cellReaders == null) {
             return defaultCellReader;
@@ -56,10 +58,11 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public R read(Row row) {
         R result = getResultSupplier().get();
         if (result == null) {
-            return result;
+            return null;
         }
         BiConverter<? super R, Object, ? extends R> cellParser = getCellParser();
         if (cellParser == null) {

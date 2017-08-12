@@ -134,6 +134,6 @@ public class SheetParser<T> {
         // List<ItemConfig> ret = itemConfigResolver.parseBeans();
         List<Map<Integer,String>> ret = itemConfigResolver.readExcel();
         System.out.println(StringFormatter.format("数据总量: 【{}】", ret.size()));
-        ret.stream().forEach(System.out::println);
+        ret.forEach(System.out::println);
     }
 }
