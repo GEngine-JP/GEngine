@@ -10,3 +10,47 @@
 
 #### GameCore架构设计图
 ![](https://static.xiaomo.info/image/project/GameCore.png)
+
+
+#### 引用方式
+第一种方式比较方便,可以引用整个标准库,第二种方式比较灵活。如果你只用得上其中某个模块的功能，适合单独引用。
+
+##### 1. 一次引用全部
+
+```
+    <dependency>
+      <groupId>info.xiaomo</groupId>
+      <artifactId>all</artifactId>
+      <version>RELEASE</version>
+    </dependency>
+```
+
+##### 2. 单独引用
+
+```
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Base</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Config</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Persist</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Logger</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>Protocol</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+```
