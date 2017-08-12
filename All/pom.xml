@@ -17,7 +17,7 @@
         <base.version>1.0.2</base.version>
     </properties>
 
-    <artifactId>All</artifactId>
+    <artifactId>all</artifactId>
     <dependencies>
         <dependency>
             <groupId>info.xiaomo</groupId>
