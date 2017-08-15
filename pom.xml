@@ -8,12 +8,12 @@
     <packaging>pom</packaging>
     <version>1.0.2</version>
     <modules>
-        <module>Config</module>
-        <module>Logger</module>
-        <module>Persist</module>
-        <module>Base</module>
-        <module>Protocol</module>
-        <module>All</module>
+        <module>config</module>
+        <module>logger</module>
+        <module>persist</module>
+        <module>base</module>
+        <module>protocol</module>
+        <module>all</module>
     </modules>
     <artifactId>gameCore</artifactId>
 
