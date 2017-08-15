@@ -1,62 +1,47 @@
 package info.xiaomo.gameCore.protocol;
 
 
-import info.xiaomo.gameCore.protocol.handler.MessageHandler;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class MessagePool {
-    private Map<Integer, Class<? extends MessageHandler>> handlers = new HashMap<>();
-    private Map<String, Integer> msgIds = new HashMap<>();
-
+    private Map<Integer, Class<? extends AbstractHandler>> handlers = new HashMap<>();
 
     /**
      * 注册消息
      *
-     * @param msgId      msgId
-     * @param msgCls     msgCls
-     * @param handlerCls handlerCls
+     * @param messageId messageId
+     * @param handler   handler
      */
-    public void register(int msgId, Class msgCls, Class<? extends MessageHandler> handlerCls) {
-        if (handlerCls != null) {
-            this.handlers.put(msgId, handlerCls);
-        }
-        if (msgCls != null) {
-            this.msgIds.put(msgCls.getName(), msgId);
+    public void register(int messageId, Class<? extends AbstractHandler> handler) {
+        if (handler != null) {
+            this.handlers.put(messageId, handler);
         }
     }
 
-    /**
-     * 注册消息
-     *
-     * @param msgId  msgId
-     * @param msgCls msgCls
-     */
-    public void register(int msgId, Class msgCls) {
-        register(msgId, msgCls, null);
-    }
 
-    public int getMessageId(Class msgCls) {
-        Integer msgId = this.msgIds.get(msgCls.getName());
-        if (msgId == null) {
-            return 0;
+    public int getMessageId(Class clazz) {
+        for (Integer messageId : handlers.keySet()) {
+            Class<? extends AbstractHandler> aClass = handlers.get(messageId);
+            if (aClass.getName().equals(clazz.getName())) {
+                return messageId;
+            }
         }
-        return msgId;
+        return 0;
     }
 
     /**
      * 通过消息id获取handler
      *
-     * @param msgId msgId
-     * @return MessageHandler
+     * @param messageId messageId
+     * @return AbstractHandler
      * @throws Exception Exception
      */
-    public MessageHandler getHandler(int msgId) throws Exception {
-        Class handlerClass = this.handlers.get(msgId);
-        if (handlerClass == null) {
+    public AbstractHandler getHandler(int messageId) throws Exception {
+        Class handler = this.handlers.get(messageId);
+        if (handler == null) {
             return null;
         }
-        return (MessageHandler) handlerClass.newInstance();
+        return (AbstractHandler) handler.newInstance();
     }
 }

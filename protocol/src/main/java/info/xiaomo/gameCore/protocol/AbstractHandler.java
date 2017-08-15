@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.handler;
+package info.xiaomo.gameCore.protocol;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import info.xiaomo.gameCore.base.concurrent.AbstractCommand;
@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public abstract class MessageHandler<M> extends AbstractCommand {
+public abstract class AbstractHandler<M> extends AbstractCommand {
     protected Channel channel;
     protected M message;
 

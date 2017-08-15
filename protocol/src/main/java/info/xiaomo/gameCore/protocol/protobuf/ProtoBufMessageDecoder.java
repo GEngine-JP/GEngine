@@ -1,9 +1,9 @@
 package info.xiaomo.gameCore.protocol.protobuf;
 
+import info.xiaomo.gameCore.protocol.AbstractHandler;
+import info.xiaomo.gameCore.protocol.MessagePool;
 import info.xiaomo.gameCore.protocol.entity.BaseMsg;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
-import info.xiaomo.gameCore.protocol.handler.MessageHandler;
-import info.xiaomo.gameCore.protocol.MessagePool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class ProtoBufMessageDecoder  implements MessageDecoder {
+public class ProtoBufMessageDecoder implements MessageDecoder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProtoBufMessageDecoder.class);
     private MessagePool messagePool;
 
@@ -31,25 +31,26 @@ public class ProtoBufMessageDecoder  implements MessageDecoder {
 
     /**
      * 解码
+     *
      * @param bytes bytes
-     * @return MessageHandler
+     * @return AbstractHandler
      */
     @SuppressWarnings("unchecked")
-    public MessageHandler decode(byte[] bytes) {
-        MessageHandler messageHandler = null;
+    public AbstractHandler decode(byte[] bytes) {
+        AbstractHandler abstractHandler = null;
         try {
             BaseMsg.MsgPack msgPack = BaseMsg.MsgPack.parseFrom(bytes);
             int messageId = msgPack.getMsgID();
-            messageHandler = this.messagePool.getHandler(messageId);
-            if (messageHandler == null) {
+            abstractHandler = this.messagePool.getHandler(messageId);
+            if (abstractHandler == null) {
                 LOGGER.error("未知的消息消息id【{}】", messageId);
                 return null;
             }
-            Object msg = messageHandler.decode(msgPack.getBody().toByteArray());
-            messageHandler.setMessage(msg);
+            Object msg = abstractHandler.decode(msgPack.getBody().toByteArray());
+            abstractHandler.setMessage(msg);
         } catch (Exception e) {
             LOGGER.error("初始化消息错误", e);
         }
-        return messageHandler;
+        return abstractHandler;
     }
 }
