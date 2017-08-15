@@ -1,11 +1,8 @@
 package info.xiaomo.gameCore.protocol.handler;
 
-import info.xiaomo.gameCore.protocol.Connection;
-import info.xiaomo.gameCore.protocol.NettyConnection;
-import io.netty.channel.Channel;
+import info.xiaomo.gameCore.protocol.entity.BaseMsg;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.AttributeKey;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -22,7 +19,6 @@ import io.netty.util.AttributeKey;
  * Copyright(©) 2017 by xiaomo.
  */
 public class NettyMessageExecutor extends ChannelInboundHandlerAdapter {
-    private static final AttributeKey<Connection> CONNECTION = AttributeKey.valueOf("CONNECTION");
     private MessageExecutor messageExecutor;
 
     public NettyMessageExecutor(MessageExecutor messageExecutor) {
@@ -30,35 +26,22 @@ public class NettyMessageExecutor extends ChannelInboundHandlerAdapter {
     }
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel channel = ctx.channel();
-        Connection connection = channel.attr(CONNECTION).get();
-        this.messageExecutor.doCommand(connection, msg);
-
+        this.messageExecutor.doCommand(ctx.channel(), (BaseMsg) msg);
         super.channelRead(ctx, msg);
     }
 
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Channel channel = ctx.channel();
-        Connection connection = new NettyConnection(channel);
-        channel.attr(CONNECTION).set(connection);
-        this.messageExecutor.connected(connection);
-
+        this.messageExecutor.connected(ctx);
         super.channelActive(ctx);
     }
 
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        Channel channel = ctx.channel();
-        Connection connection = channel.attr(CONNECTION).get();
-        this.messageExecutor.disconnected(connection);
-
+        this.messageExecutor.disconnected(ctx);
         super.channelInactive(ctx);
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        Channel channel = ctx.channel();
-        Connection connection = channel.attr(CONNECTION).get();
-        this.messageExecutor.exceptionCaught(connection, cause);
-
+        this.messageExecutor.exceptionCaught(ctx, cause);
         super.exceptionCaught(ctx, cause);
     }
 }

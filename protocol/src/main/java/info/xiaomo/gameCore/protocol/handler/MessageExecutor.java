@@ -1,14 +1,18 @@
 package info.xiaomo.gameCore.protocol.handler;
 
-import info.xiaomo.gameCore.protocol.Connection;
+
+import info.xiaomo.gameCore.protocol.entity.BaseMsg;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+
 
 public interface MessageExecutor {
-    void doCommand(Connection paramConnection, Object paramObject) throws Exception;
+    void doCommand(Channel channel, BaseMsg msg) throws Exception;
 
-    void connected(Connection paramConnection);
+    void connected(ChannelHandlerContext ctx );
 
-    void disconnected(Connection paramConnection);
+    void disconnected(ChannelHandlerContext ctx);
 
-    void exceptionCaught(Connection paramConnection, Throwable paramThrowable);
+    void exceptionCaught(ChannelHandlerContext ctx, Throwable paramThrowable);
 }
 

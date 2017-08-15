@@ -2,9 +2,10 @@ package info.xiaomo.gameCore.protocol.handler;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import info.xiaomo.gameCore.base.concurrent.AbstractCommand;
-import info.xiaomo.gameCore.protocol.Connection;
+import io.netty.channel.Channel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -23,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class MessageHandler<M> extends AbstractCommand {
-    protected Connection connection;
+    protected Channel channel;
     protected M message;
 
     public abstract M decode(byte[] paramArrayOfByte) throws InvalidProtocolBufferException;
