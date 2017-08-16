@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.protocol.handler;
 
-import info.xiaomo.gameCore.protocol.entity.BaseMsg;
+import info.xiaomo.gameCore.protocol.AbstractHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -25,9 +25,9 @@ public class NettyMessageExecutor extends ChannelInboundHandlerAdapter {
         this.messageExecutor = messageExecutor;
     }
 
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        this.messageExecutor.doCommand(ctx.channel(), (BaseMsg) msg);
-        super.channelRead(ctx, msg);
+    public void channelRead(ChannelHandlerContext ctx, Object handler) throws Exception {
+        this.messageExecutor.doCommand(ctx.channel(), (AbstractHandler) handler);
+        super.channelRead(ctx, handler);
     }
 
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

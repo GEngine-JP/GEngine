@@ -26,11 +26,6 @@ public class NetworkServiceBuilder {
     private int port;
 
     /**
-     * 消息池
-     */
-    private MessagePool msgPool;
-
-    /**
      * 编码器
      */
     private MessageEncoder encoder;
