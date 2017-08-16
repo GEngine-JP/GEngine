@@ -2,7 +2,7 @@ package info.xiaomo.gameCore.protocol;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import info.xiaomo.gameCore.base.concurrent.AbstractCommand;
-import io.netty.channel.Channel;
+import info.xiaomo.gameCore.protocol.entity.Session;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class AbstractHandler<M> extends AbstractCommand {
-    protected Channel channel;
+    protected Session session;
     protected M message;
 
     public abstract M decode(byte[] paramArrayOfByte) throws InvalidProtocolBufferException;

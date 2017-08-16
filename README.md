@@ -12,6 +12,9 @@
 ![](https://static.xiaomo.info/image/project/GameCore.png)
 
 
+#### 注意事项
+请一定要先安装`lombok`插件，少写很多getter/setter。不装插件会找不到getter/setter方法
+
 #### 引用方式
 第一种方式比较方便,可以引用整个标准库,第二种方式比较灵活。如果你只用得上其中某个模块的功能，适合单独引用。
 
