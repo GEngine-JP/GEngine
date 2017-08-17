@@ -9,7 +9,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MessageEncoder extends MessageToByteEncoder<Object> {
+public class MessageEncoder extends MessageToByteEncoder<MessageLite> {
     private int lengthFieldLength;
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageEncoder.class);
 
@@ -29,21 +29,16 @@ public class MessageEncoder extends MessageToByteEncoder<Object> {
      * @throws Exception Exception
      */
     @Override
-    protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, MessageLite msg, ByteBuf out) throws Exception {
         byte[] bytes = null;
         if (msg == null) {
             return;
         }
-        if (!MessageLite.class.isInstance(msg)) {
-            LOGGER.error("非法的消息【{}】", msg.getClass().getName());
-            return;
-        }
         try {
-            MessageLite message = (MessageLite) msg;
-            int messageId = this.msgPool.getMessageId(message.getClass());
+            int messageId = this.msgPool.getMessageId(msg.getClass());
             BaseMsg.MsgPack.Builder builder = BaseMsg.MsgPack.newBuilder();
             builder.setMsgID(messageId);
-            builder.setBody(message.toByteString());
+            builder.setBody(msg.toByteString());
 
             BaseMsg.MsgPack msgPack = builder.build();
             bytes = msgPack.toByteArray();
@@ -59,6 +54,10 @@ public class MessageEncoder extends MessageToByteEncoder<Object> {
             return;
         }
         out.writeShort(bytes.length + this.lengthFieldLength).writeBytes(bytes);
-        ctx.fireChannelRead(msg);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
     }
 }
