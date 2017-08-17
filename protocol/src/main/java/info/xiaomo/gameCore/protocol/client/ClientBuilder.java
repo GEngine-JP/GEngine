@@ -1,6 +1,5 @@
 package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.protocol.MessagePool;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
