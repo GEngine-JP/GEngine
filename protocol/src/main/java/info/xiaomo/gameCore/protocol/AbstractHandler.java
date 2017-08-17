@@ -27,9 +27,9 @@ public abstract class AbstractHandler<M> extends AbstractCommand {
     protected Session session;
     protected M message;
 
-    public abstract M decode(byte[] paramArrayOfByte) throws InvalidProtocolBufferException;
+    public abstract M decode(byte[] bytes) throws InvalidProtocolBufferException;
 
-    protected abstract void handMessage(M paramM);
+    protected abstract void handMessage(M msg);
 
     public void action() {
         handMessage(this.message);

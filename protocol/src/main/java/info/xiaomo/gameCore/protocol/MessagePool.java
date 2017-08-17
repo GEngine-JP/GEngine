@@ -4,7 +4,7 @@ package info.xiaomo.gameCore.protocol;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessagePool {
+public  class MessagePool {
     private Map<Integer, Class<? extends AbstractHandler>> handlers = new HashMap<>();
 
     /**

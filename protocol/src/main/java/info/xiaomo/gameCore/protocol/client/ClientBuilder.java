@@ -1,5 +1,8 @@
 package info.xiaomo.gameCore.protocol.client;
 
+import info.xiaomo.gameCore.protocol.MessagePool;
+import info.xiaomo.gameCore.protocol.NetworkConsumer;
+import info.xiaomo.gameCore.protocol.NetworkEventListener;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
@@ -12,13 +15,30 @@ public class ClientBuilder {
 
     protected int port;
 
-    private MessageEncoder encoder;
+    private int poolSize;
 
-    private MessageDecoder decoder;
+    private boolean pooled;
 
-    private MessageExecutor executor;
+    /**
+     * 网络消费者
+     */
+    private NetworkConsumer consumer;
+
+    /**
+     * 事件监听器
+     */
+    private NetworkEventListener networkEventListener;
+
+    private MessagePool messagePool;
 
     public Client build() {
-        return new Client(this);
+        if (this.pooled) {
+            if (this.poolSize <= 0) {
+                this.poolSize = 8;
+            }
+            return new PooledClient(this);
+        } else {
+            return new Client(this);
+        }
     }
 }

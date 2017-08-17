@@ -1,7 +1,9 @@
 package info.xiaomo.gameCore.protocol.client;
 
+import com.google.protobuf.MessageOrBuilder;
+import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
+import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
-import info.xiaomo.gameCore.protocol.handler.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -9,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.Future;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,16 +23,20 @@ import java.util.concurrent.TimeUnit;
  * @author xiaomo
  * 2017年7月15日 下午10:25:01
  */
+@Data
 public class Client {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
-    private volatile int state = 0;
-    private String host;
-    private int port;
-    private EventLoopGroup group;
-    private Bootstrap bootstrap;
+    protected static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
+    protected volatile int state = 0;
+    protected String host;
+    protected int port;
+    protected EventLoopGroup group;
+    protected Bootstrap bootstrap;
+    protected Channel channel;
+    protected ClientBuilder builder;
 
     public Client(ClientBuilder builder) {
+        this.builder = builder;
         this.host = builder.getHost();
         this.port = builder.getPort();
         this.group = new NioEventLoopGroup();
@@ -43,16 +50,17 @@ public class Client {
             @Override
             protected void initChannel(Channel channel) throws Exception {
                 ChannelPipeline pip = channel.pipeline();
-                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(builder.getDecoder(), 0, 2, -2, 2));
-                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(builder.getEncoder(), 2));
-                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(builder.getExecutor()));
+                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
+                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMessagePool()));
+                pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
             }
         });
     }
 
     public void start() {
         try {
-            this.bootstrap.connect(this.host, this.port).sync();
+            ChannelFuture future = this.bootstrap.connect(this.host, this.port).sync();
+            channel = future.channel();
         } catch (InterruptedException e) {
             LOGGER.error("连接服务器【{}:{}】失败", this.host, this.port);
             throw new RuntimeException(e);
@@ -78,6 +86,16 @@ public class Client {
 
     public boolean isClosed() {
         return this.state == 2;
+    }
+
+
+    public boolean sendMsg(MessageOrBuilder message) {
+        Channel channel = getChannel();
+        if (channel != null && channel.isOpen()) {
+            channel.writeAndFlush(message);
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,8 +1,8 @@
 package info.xiaomo.gameCore.protocol;
 
-import info.xiaomo.gameCore.protocol.handler.NettyMessageDecoder;
-import info.xiaomo.gameCore.protocol.handler.NettyMessageEncoder;
-import info.xiaomo.gameCore.protocol.handler.NettyMessageExecutor;
+import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
+import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
+import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -81,9 +81,9 @@ public class NetworkService {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(builder.getDecoder(), 0, 2, -2, 2));
-                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(builder.getEncoder(), 2));
-                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(builder.getExecutor()));
+                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
+                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMessagePool()));
+                pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
                     pip.addLast(handler);
                 }
