@@ -13,10 +13,6 @@ public class ClientBuilder {
 
     protected int port;
 
-    protected MessagePool messagePool;
-
-    private int poolSize;
-
     private MessageEncoder encoder;
 
     private MessageDecoder decoder;
@@ -24,6 +20,6 @@ public class ClientBuilder {
     private MessageExecutor executor;
 
     public Client build() {
-        return new Client(host, port, decoder, encoder, executor);
+        return new Client(this);
     }
 }

@@ -29,9 +29,9 @@ public class Client {
     private EventLoopGroup group;
     private Bootstrap bootstrap;
 
-    public Client(String host, int port, final MessageDecoder decoder, final MessageEncoder encoder, final MessageExecutor executor) {
-        this.host = host;
-        this.port = port;
+    public Client(ClientBuilder builder) {
+        this.host = builder.getHost();
+        this.port = builder.getPort();
         this.group = new NioEventLoopGroup();
 
         this.bootstrap = new Bootstrap();
@@ -43,9 +43,9 @@ public class Client {
             @Override
             protected void initChannel(Channel channel) throws Exception {
                 ChannelPipeline pip = channel.pipeline();
-                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(decoder, 0, 2, 0, 4));
-                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(encoder, 2));
-                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(executor));
+                pip.addLast("NettyMessageDecoder", new NettyMessageDecoder(builder.getDecoder(), 0, 2, -2, 2));
+                pip.addLast("NettyMessageEncoder", new NettyMessageEncoder(builder.getEncoder(), 2));
+                pip.addLast("NettyMessageExecutor", new NettyMessageExecutor(builder.getExecutor()));
             }
         });
     }
