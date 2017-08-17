@@ -25,7 +25,6 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         this(msgPool, 1024 * 1024, 0, 4, -4, 0);
     }
 
-
     /**
      * 解码
      *
@@ -34,25 +33,14 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
      * @return Object
      * @throws Exception Exception
      */
-    protected Object decode(ChannelHandlerContext ctx, ByteBuf in)
-            throws Exception {
+    @SuppressWarnings("unchecked")
+    protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         ByteBuf byteBuf = (ByteBuf) super.decode(ctx, in);
         if (byteBuf == null) {
             return null;
         }
         byte[] bytes = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(bytes);
-        return this.decode(bytes);
-    }
-
-    /**
-     * 解码
-     *
-     * @param bytes bytes
-     * @return AbstractHandler
-     */
-    @SuppressWarnings("unchecked")
-    public AbstractHandler decode(byte[] bytes) {
         AbstractHandler abstractHandler = null;
         try {
             BaseMsg.MsgPack msgPack = BaseMsg.MsgPack.parseFrom(bytes);
@@ -69,4 +57,5 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         }
         return abstractHandler;
     }
+
 }

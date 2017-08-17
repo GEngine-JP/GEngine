@@ -81,9 +81,9 @@ public class NetworkService {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMessagePool()));
-                pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
+                pip.addLast("MessageDecoder", new MessageDecoder(builder.getMessagePool()));
+                pip.addLast("MessageEncoder", new MessageEncoder(builder.getMessagePool()));
+                pip.addLast("MessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getNetworkEventListener()));
                 for (ChannelHandler handler : builder.getChannelHandlerList()) {
                     pip.addLast(handler);
                 }
