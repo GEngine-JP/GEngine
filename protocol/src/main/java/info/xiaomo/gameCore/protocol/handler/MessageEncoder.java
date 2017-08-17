@@ -2,7 +2,8 @@ package info.xiaomo.gameCore.protocol.handler;
 
 import com.google.protobuf.MessageLite;
 import info.xiaomo.gameCore.protocol.MessagePool;
-import info.xiaomo.gameCore.protocol.entity.BaseMsg;
+import info.xiaomo.gameCore.protocol.entity.BaseMsg.MsgPack;
+import info.xiaomo.gameCore.protocol.entity.BaseMsg.MsgPack.Builder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -36,11 +37,11 @@ public class MessageEncoder extends MessageToByteEncoder<MessageLite> {
         }
         try {
             int messageId = this.msgPool.getMessageId(msg.getClass());
-            BaseMsg.MsgPack.Builder builder = BaseMsg.MsgPack.newBuilder();
+            Builder builder = MsgPack.newBuilder();
             builder.setMsgID(messageId);
             builder.setBody(msg.toByteString());
 
-            BaseMsg.MsgPack msgPack = builder.build();
+            MsgPack msgPack = builder.build();
             bytes = msgPack.toByteArray();
         } catch (Exception e) {
             LOGGER.error("编码错误错误", e);
