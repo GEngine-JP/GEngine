@@ -135,7 +135,7 @@ public class Client {
      */
     public void connect(boolean sync) throws Exception {
         ChannelFuture future = createChannel(0);
-
+        channel = future.channel();
         if (sync) {
             future.sync();
         }
