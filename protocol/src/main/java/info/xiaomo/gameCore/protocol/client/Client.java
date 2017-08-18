@@ -96,7 +96,7 @@ public class Client {
      */
     public boolean sendMsg(List<AbstractMessage> list) {
         try {
-            Channel channel = getChannel(Thread.currentThread().getId());
+            Channel channel = getChannel();
             if (channel != null) {
                 GroupMessage group = new GroupMessage();
                 for (AbstractMessage message : list) {
@@ -118,7 +118,7 @@ public class Client {
      * @return
      */
     public boolean sendMsg(AbstractMessage message) {
-        Channel channel = getChannel(Thread.currentThread().getId());
+        Channel channel = getChannel();
         if (channel != null && channel.isActive()) {
             channel.writeAndFlush(message);
             return true;
@@ -145,10 +145,9 @@ public class Client {
     /**
      * 获取channel
      *
-     * @param id
      * @return
      */
-    public Channel getChannel(long id) {
+    public Channel getChannel() {
         if (this.channel == null || !this.channel.isActive()) {
             LOGGER.error("暂时不能连接上服务器....");
             return null;
@@ -168,7 +167,7 @@ public class Client {
         try {
             cf.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
-            LOGGER.info("Chennel关闭失败", e);
+            LOGGER.info("Channel关闭失败", e);
         }
         Future<?> gf = group.shutdownGracefully();
         try {

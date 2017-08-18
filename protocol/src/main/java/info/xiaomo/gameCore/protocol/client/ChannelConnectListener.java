@@ -29,11 +29,11 @@ public class ChannelConnectListener implements ChannelFutureListener {
 
         ClientBuilder builder = client.getBuilder();
 
-        if(future.isSuccess()) {
+        if (future.isSuccess()) {
 
             client.registerChannel(index, future.channel());
 
-            if(client.getBuilder().getListener() != null) {
+            if (client.getBuilder().getListener() != null) {
                 client.getBuilder().getListener().connected(future.channel());
             }
 
@@ -42,27 +42,16 @@ public class ChannelConnectListener implements ChannelFutureListener {
         }
 
 
-
-
         LOGGER.error("连接服务器失败,index->{}, host->{}, port->{}", index, builder.getHost(), builder.getPort());
 
-        if(client.isStopped()) {
+        if (client.isStopped()) {
             LOGGER.error("客户端已经关闭不重连,index->{}, host->{}, port->{}", index, builder.getHost(), builder.getPort());
         } else {
             LOGGER.error("10秒后进行重连,index->{}, host->{}, port->{}", index, builder.getHost(), builder.getPort());
-            client.executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    client.createChannel(index);
-                }
+            Client.executor.schedule(() -> {
+                client.createChannel(index);
             }, 10, TimeUnit.SECONDS);
         }
-
-
-
-
-
-
 
 
     }
