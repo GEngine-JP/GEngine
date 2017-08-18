@@ -1,5 +1,6 @@
 package info.xiaomo.gameCore.protocol;
 
+import info.xiaomo.gameCore.base.common.Encryptor;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -28,19 +29,19 @@ public class NetworkServiceBuilder {
     private NetworkConsumer consumer;
 
     /**
-     * 事件监听器
-     */
-    private NetworkEventListener networkEventListener;
-
-    /**
      * 消息池
      */
     private MessagePool messagePool;
 
     /**
+     * 加密器
+     */
+    private Encryptor encryptor;
+
+    /**
      * 额外的handler
      */
-    private List<ChannelHandler> channelHandlerList = new ArrayList<>();
+    private List<ChannelHandler> extraHandlers = new ArrayList<>();
 
     public NetworkService createService() {
         return new NetworkService(this);
@@ -57,7 +58,7 @@ public class NetworkServiceBuilder {
         if (handler == null) {
             throw new NullPointerException("指定的handler为空");
         }
-        channelHandlerList.add(handler);
+        extraHandlers.add(handler);
     }
 
 }

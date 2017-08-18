@@ -6,7 +6,6 @@ package info.xiaomo.gameCore.base.concurrent;
  *
  * @author Administrator
  */
-@FunctionalInterface
-public interface ICommand {
-    void action();
+public interface ICommand extends Runnable{
+    void doAction();
 }

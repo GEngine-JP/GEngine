@@ -1,26 +1,21 @@
 package info.xiaomo.gameCore.base.concurrent.queue;
 
-/**
- * 任务队列接口</br>
- * 所有实现该接口的队列都应该自己保证其线程安全
- * @author Administrator
- *
- * @param <V>
- */
+
+import info.xiaomo.gameCore.base.concurrent.executor.QueueMonitor;
+
 public interface ICommandQueue<V> {
 
 	/**
 	 * 下一执行命令
 	 * 
-	 * @return V
+	 * @return
 	 */
 	V poll();
 
 	/**
 	 * 增加执行指令
 	 * 
-	 * @param value value
-	 * @return boolean
+	 * @return
 	 */
 	boolean offer(V value);
 
@@ -31,16 +26,19 @@ public interface ICommandQueue<V> {
 
 	/**
 	 * 获取指令数量
-	 *
-	 * @return int
+	 * 
+	 * @return
 	 */
 	int size();
 
-	boolean isRunning();
+	boolean isProcessingCompleted();
 
-	void setRunning(boolean running);
-	
-	void setName(String name);
-	
-	String getName();
+	void setProcessingCompleted(boolean processingCompleted);
+
+	QueueMonitor getMonitor();
+
+	void setMonitor(QueueMonitor monitor);
+
+
+
 }

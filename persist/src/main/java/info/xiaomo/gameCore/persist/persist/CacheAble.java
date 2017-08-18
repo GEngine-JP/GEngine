@@ -5,4 +5,6 @@ public interface CacheAble {
 	long getId();
 	
 	int dataType();
+
+	int getServerId();
 }
