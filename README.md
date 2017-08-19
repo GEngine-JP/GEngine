@@ -80,7 +80,7 @@
 665419015
 
 
-# [LICENSE](LICENSE)
+# [协议声明](LICENSE)
 
        Copyright 2017 ChessGame Group
     
