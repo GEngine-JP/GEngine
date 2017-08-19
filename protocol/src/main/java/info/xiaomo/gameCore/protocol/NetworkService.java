@@ -25,10 +25,6 @@ public class NetworkService {
 
 	private static final int SERVER_CLOSE = 2;
 
-	private int bossLoopGroupCount;
-
-	private int workerLoopGroupCount;
-
 	private int port;
 
 	private EventLoopGroup bossGroup;
@@ -40,12 +36,12 @@ public class NetworkService {
 	private int serverState = 0;
 
 	NetworkService(final NetworkServiceBuilder builder) {
-		this.bossLoopGroupCount = builder.getBossLoopGroupCount();
-		this.workerLoopGroupCount = builder.getWorkerLoopGroupCount();
+		int bossLoopGroupCount = builder.getBossLoopGroupCount();
+		int workerLoopGroupCount = builder.getWorkerLoopGroupCount();
 		this.port = builder.getPort();
 
-		bossGroup = new NioEventLoopGroup(this.bossLoopGroupCount);
-		workerGroup = new NioEventLoopGroup(this.workerLoopGroupCount);
+		bossGroup = new NioEventLoopGroup(bossLoopGroupCount);
+		workerGroup = new NioEventLoopGroup(workerLoopGroupCount);
 		
 		EncryptUtil.initEncryptor(builder.getEncryptor());
 		
@@ -56,9 +52,7 @@ public class NetworkService {
 		bootstrap.childOption(ChannelOption.TCP_NODELAY, true);
 		bootstrap.childOption(ChannelOption.SO_RCVBUF, 128 * 1024);
 		bootstrap.childOption(ChannelOption.SO_SNDBUF, 128 * 1024);
-		
-		
-		
+
 		bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
 		bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
 
