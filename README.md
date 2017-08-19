@@ -59,7 +59,7 @@
 ```
 
 
-#### [LICENSE]('lincense')
+#### [LICENSE](LICENSE)
 
        Copyright 2017 xiaomo
     
