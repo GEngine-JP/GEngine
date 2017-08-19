@@ -8,7 +8,7 @@
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
 [![GitHub watchers](https://img.shields.io/github/watchers/ChessGame/GameCore.svg?style=social&label=Watch)]()
 
-#### GameCore架构设计图
+# GameCore架构设计图
 ![](https://static.xiaomo.info/image/project/GameCore.png)
 
 
@@ -18,7 +18,7 @@
 #### 引用方式
 第一种方式比较方便,可以引用整个标准库,第二种方式比较灵活。如果你只用得上其中某个模块的功能，适合单独引用。
 
-##### 1. 一次引用全部
+# 1. 一次引用全部
 
 ```
     <dependency>
@@ -28,7 +28,7 @@
     </dependency>
 ```
 
-##### 2. 单独引用
+# 2. 单独引用
 
 ```
         <dependency>
@@ -59,7 +59,7 @@
 ```
 
 
-#### [LICENSE](LICENSE)
+# [LICENSE](LICENSE)
 
        Copyright 2017 ChessGame Group
     
