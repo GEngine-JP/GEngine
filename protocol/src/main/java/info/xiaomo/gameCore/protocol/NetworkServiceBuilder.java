@@ -1,6 +1,5 @@
 package info.xiaomo.gameCore.protocol;
 
-import info.xiaomo.gameCore.base.common.Encryptor;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -37,11 +36,6 @@ public class NetworkServiceBuilder {
      * 消息池
      */
     private MessagePool messagePool;
-
-    /**
-     * 加密器
-     */
-    private Encryptor encryptor;
 
     /**
      * 额外的handler
