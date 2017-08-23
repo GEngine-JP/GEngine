@@ -29,6 +29,11 @@ public class NetworkServiceBuilder {
     private NetworkConsumer consumer;
 
     /**
+     * 事件监听器
+     */
+    private NetworkEventListener listener;
+
+    /**
      * 消息池
      */
     private MessagePool messagePool;

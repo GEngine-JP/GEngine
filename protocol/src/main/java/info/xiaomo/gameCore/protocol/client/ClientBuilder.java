@@ -2,6 +2,7 @@ package info.xiaomo.gameCore.protocol.client;
 
 import info.xiaomo.gameCore.protocol.MessagePool;
 import info.xiaomo.gameCore.protocol.NetworkConsumer;
+import info.xiaomo.gameCore.protocol.NetworkEventListener;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -35,6 +36,9 @@ public class ClientBuilder {
      */
     private NetworkConsumer consumer;
 
+
+    private NetworkEventListener listener;
+
     /**
      * 额外的handler
      */
@@ -45,7 +49,6 @@ public class ClientBuilder {
      * 主机ip
      */
     private String host;
-
 
 
     /**
@@ -71,22 +74,17 @@ public class ClientBuilder {
 
     private ClientHeart.PingMessageFactory pingMessageFactory;
 
-    private ClientListener listener;
-
-
-
     public Client createClient() {
 
-        if(this.pooled) {
-            if(this.poolMaxCount <= 0) {
-                this.poolMaxCount= 1;
+        if (this.pooled) {
+            if (this.poolMaxCount <= 0) {
+                this.poolMaxCount = 1;
             }
             return new PooledClient(this);
         } else {
             return new Client(this);
         }
     }
-
 
 
 }

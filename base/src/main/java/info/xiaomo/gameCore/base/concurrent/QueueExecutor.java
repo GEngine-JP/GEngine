@@ -1,6 +1,5 @@
-package info.xiaomo.gameCore.base.concurrent.executor;
+package info.xiaomo.gameCore.base.concurrent;
 
-import info.xiaomo.gameCore.base.concurrent.AbstractCommand;
 import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,17 +10,18 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 /**
- * 可以自动提交任务的队列
+ * 队列执行器</br>
+ * 该executor执行完毕一个任务的时候，会自动从该任务所属队列中获取下一个任务执行，直到队列为空
+ * 
  * @author 张力
  * @date 2015-3-11 下午10:51:20
  *
  */
-public class AutoSubmitExecutor extends ThreadPoolExecutor {
+public class QueueExecutor extends ThreadPoolExecutor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AutoSubmitExecutor.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(QueueExecutor.class);
+
 	/**
 	 * 执行器名称
 	 */
@@ -37,8 +37,8 @@ public class AutoSubmitExecutor extends ThreadPoolExecutor {
 	 */
 	private int maxPoolSize;
 
-	public AutoSubmitExecutor(final String name, int corePoolSize, int maxPoolSize) {
-		
+	public QueueExecutor(final String name, int corePoolSize, int maxPoolSize) {
+
 		super(corePoolSize, maxPoolSize, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(),
 				new ThreadFactory() {
 					AtomicInteger count = new AtomicInteger(0);
@@ -65,26 +65,22 @@ public class AutoSubmitExecutor extends ThreadPoolExecutor {
 	 */
 	@Override
 	protected void afterExecute(Runnable task, Throwable throwable) {
-		super.afterExecute(task, throwable);
-		AbstractCommand work = (AbstractCommand) task;
-
-		ICommandQueue<AbstractCommand> queue = work.getCommandQueue();
 		
-		if (queue != null) {
-			AbstractCommand nextCommand;
-			synchronized (queue) {
-				nextCommand = queue.poll();
-				if (nextCommand == null) {
-					// 执行完毕后如果队列中没有任务了，那么设置执行完毕标志
-					queue.setProcessingCompleted(true);
-				} else {
-					// 执行完毕后如果队列中还有任务，那么继续执行下一个
-					execute(nextCommand);
-				}
+		super.afterExecute(task, throwable);
+		IQueueDriverCommand work = (IQueueDriverCommand) task;
+		ICommandQueue<IQueueDriverCommand> queue = work.getCommandQueue();
+		synchronized (queue) {
+			IQueueDriverCommand nextCommand = queue.poll();
+			if (nextCommand == null) {
+				// 执行完毕后如果队列中没有任务了，那么设置运行标记为false
+				queue.setRunning(false);
+				
+				
+			} else {
+				// 执行完毕后如果队列中还有任务，那么继续执行下一个
+				execute(nextCommand);
+				//LOGGER.error("存在任务，继续执行任务");
 			}
-			
-		} else {
-			LOGGER.info("执行队列为空");
 		}
 	}
 
