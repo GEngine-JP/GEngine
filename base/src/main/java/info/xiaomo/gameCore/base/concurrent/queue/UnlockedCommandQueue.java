@@ -1,13 +1,11 @@
 package info.xiaomo.gameCore.base.concurrent.queue;
 
-
-import info.xiaomo.gameCore.base.concurrent.executor.QueueMonitor;
-
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
- * 非线程安全的命令队列 任务执行队列，对ArrayDeque的包装. 该队列有一个是否所有队列的任务都执行完毕的标志，用于向队列中添加任务的时候判断是否需要启动任务
+ * 非线程安全的命令队列 任务执行队列，对ArrayDeque的包装. </br>
+ * 该队列有一个是否所有队列的任务都执行完毕的标志，用于向队列中添加任务的时候判断是否需要启动任务
  * 
  * @author Administrator
  * @param <V>
@@ -17,10 +15,13 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V>{
 	// 命令队列
 	private final Queue<V> queue;
 
-	// 队列中的任务是否执行完毕
-	private boolean processingCompleted = true;
-
-	private QueueMonitor monitor;
+	// 是否正在运行中
+	private boolean running = false;
+	
+	/**
+	 * 名称
+	 */
+	private String name;
 
 	/**
 	 * 创建一个空队列
@@ -50,6 +51,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V>{
 	/**
 	 * 增加执行指令
 	 * 
+	 * @param command
 	 * @return
 	 */
 	public boolean offer(V value) {
@@ -72,24 +74,26 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V>{
 		return this.queue.size();
 	}
 
+	@Override
+	public boolean isRunning() {
+		return this.running;
+	}
+
+	@Override
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	
 
-	public boolean isProcessingCompleted() {
-		return this.processingCompleted;
-	}
 
-	public void setProcessingCompleted(boolean processingCompleted) {
-		this.processingCompleted = processingCompleted;
-	}
-
-
-	@Override
-	public QueueMonitor getMonitor() {
-		return monitor;
-	}
-
-	@Override
-	public void setMonitor(QueueMonitor monitor) {
-		this.monitor = monitor;
-	}
+	
 }

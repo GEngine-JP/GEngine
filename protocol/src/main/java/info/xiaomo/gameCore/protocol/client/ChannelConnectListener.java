@@ -34,7 +34,7 @@ public class ChannelConnectListener implements ChannelFutureListener {
             client.registerChannel(index, future.channel());
 
             if (client.getBuilder().getListener() != null) {
-                client.getBuilder().getListener().connected(future.channel());
+                client.getBuilder().getListener().onConnected(null);
             }
 
             LOGGER.info("成功连接到服务器,index->{}, host->{}, port->{}", index, builder.getHost(), builder.getPort());

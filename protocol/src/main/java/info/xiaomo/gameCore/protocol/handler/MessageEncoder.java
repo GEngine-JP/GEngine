@@ -1,18 +1,18 @@
 package info.xiaomo.gameCore.protocol.handler;
 
-import info.xiaomo.gameCore.protocol.message.AbstractMessage;
+import info.xiaomo.gameCore.protocol.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
+public class MessageEncoder extends MessageToByteEncoder<Message> {
 
     public MessageEncoder() {
         super();
     }
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
         ByteBuf buffer = null;
         try {
             buffer = msg.encode();

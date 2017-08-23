@@ -2,53 +2,84 @@ package info.xiaomo.gameCore.base.concurrent;
 
 /**
  * 定时事件
- *
  * @author 张力
  * @date 2015-3-11 上午5:47:44
+ *
  */
 public abstract class ScheduledEvent extends AbstractCommand {
-    private long end;
-    private int loop;
-    private long initialDelay;
-    private long step;
 
-    protected ScheduledEvent() {
-        this(1, 0, 0);
-    }
+	// 定时结束时间
+	private long end;
 
-    protected ScheduledEvent(int loop, int step) {
-        this(loop, 0, step);
-    }
+	// 定时剩余时间
+	private long remain;
 
-    protected ScheduledEvent(int loop, int initialDelay, int step) {
-        init(loop, initialDelay, step);
-    }
+	// 执行次数
+	private int loop;
 
-    public void init(int loop, int initialDelay, int step) {
-        this.loop = loop;
-        this.initialDelay = initialDelay;
-        this.step = step;
-        this.end = System.nanoTime() + 1000000L * this.initialDelay;
-    }
+	// 间隔时间
+	private long delay;
 
-    public int getLoop() {
-        return loop;
-    }
+	/**
+	 * 计时事件
+	 * 
+	 * @param end
+	 *            执行事件
+	 */
+	protected ScheduledEvent(long end) {
+		this.end = end;
+		this.loop = 1;
+	}
 
-    public void setLoop(int loop) {
-        this.loop = loop;
-        this.end += 1000000L * step; //换算成纳秒
-    }
+	/**
+	 * 循环事件
+	 * 
+	 * @param loop
+	 *            循环次数
+	 * @param delay
+	 *            间隔时间
+	 */
+	protected ScheduledEvent(int loop, long delay) {
+		this.loop = loop;
+		this.delay = delay;
+		this.end = (System.currentTimeMillis() + delay);
+	}
 
-    public long getStep() {
-        return step;
-    }
 
-    public void setStep(long step) {
-        this.step = step;
-    }
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 
-    public long remain() {
-        return this.end - System.nanoTime();
-    }
+	public long getEnd() {
+		return this.end;
+	}
+
+	public void setEnd(long end) {
+		this.end = end;
+	}
+
+	public long getRemain() {
+		return this.remain;
+	}
+
+	public void setRemain(long remain) {
+		this.remain = remain;
+	}
+
+	public int getLoop() {
+		return this.loop;
+	}
+
+	public void setLoop(int loop) {
+		this.loop = loop;
+	}
+
+	public long getDelay() {
+		return this.delay;
+	}
+
+	public void setDelay(long delay) {
+		this.delay = delay;
+	}
+
 }

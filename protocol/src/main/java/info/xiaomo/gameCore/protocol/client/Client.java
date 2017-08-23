@@ -1,9 +1,8 @@
 package info.xiaomo.gameCore.protocol.client;
 
+import info.xiaomo.gameCore.protocol.Message;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
-import info.xiaomo.gameCore.protocol.message.AbstractMessage;
-import info.xiaomo.gameCore.protocol.message.GroupMessage;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -48,7 +46,7 @@ public class Client {
 
     protected EventLoopGroup group;
 
-    protected Map<Short, ClientFuture<AbstractMessage>> futureMap = new ConcurrentHashMap<>();
+    protected Map<Short, ClientFuture<Message>> futureMap = new ConcurrentHashMap<>();
 
     protected boolean stopped = false;
 
@@ -76,7 +74,7 @@ public class Client {
                 }
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
                 pip.addLast("NettyMessageEncoder", new MessageEncoder());
-                pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(builder.getConsumer(), futureMap));
+                pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(builder.getConsumer(), builder.getListener(), futureMap));
 
 
             }
@@ -89,35 +87,12 @@ public class Client {
 
 
     /**
-     * 发送消息列表
-     *
-     * @param list
-     * @return
-     */
-    public boolean sendMsg(List<AbstractMessage> list) {
-        try {
-            Channel channel = getChannel();
-            if (channel != null) {
-                GroupMessage group = new GroupMessage();
-                for (AbstractMessage message : list) {
-                    group.addMessage(message);
-                }
-                channel.writeAndFlush(group);
-                return true;
-            }
-        } catch (Exception e) {
-            LOGGER.error("消息发送失败.", e);
-        }
-        return false;
-    }
-
-    /**
      * 发送消息
      *
      * @param message
      * @return
      */
-    public boolean sendMsg(AbstractMessage message) {
+    public boolean sendMsg(Message message) {
         Channel channel = getChannel();
         if (channel != null && channel.isActive()) {
             channel.writeAndFlush(message);
@@ -211,7 +186,7 @@ public class Client {
      *
      * @param msg
      */
-    public void ping(AbstractMessage msg) {
+    public void ping(Message msg) {
         sendMsg(msg);
     }
 
