@@ -1,6 +1,7 @@
 package info.xiaomo.gameCore.protocol;
 
 import info.xiaomo.gameCore.base.common.EncryptUtil;
+import info.xiaomo.gameCore.protocol.handler.EchoHandler;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
@@ -64,6 +65,7 @@ public class NetworkService {
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
+                pip.addLast("EchoHandler", new EchoHandler());
                 pip.addLast("NettyMessageEncoder", new MessageEncoder());
                 pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getListener()));
                 for (ChannelHandler handler : builder.getExtraHandlers()) {

@@ -16,6 +16,8 @@ public interface Message extends IQueueDriverCommand {
 
     ByteBuf encode();
 
+    byte[] getContent();
+
     int length();
 
     void setLength(int length);
@@ -23,10 +25,5 @@ public interface Message extends IQueueDriverCommand {
     int getId();
 
     int getQueueId();
-
-    void setSequence(short sequence);
-
-    short getSequence();
-
 
 }
