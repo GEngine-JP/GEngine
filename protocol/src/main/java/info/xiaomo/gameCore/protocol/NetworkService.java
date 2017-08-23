@@ -1,7 +1,5 @@
 package info.xiaomo.gameCore.protocol;
 
-import info.xiaomo.gameCore.base.common.EncryptUtil;
-import info.xiaomo.gameCore.protocol.handler.EchoHandler;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
@@ -21,10 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class NetworkService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkService.class);
-
-    private static final int SERVER_OPEN = 1;
-
-    private static final int SERVER_CLOSE = 2;
 
     private int port;
 
@@ -48,8 +42,6 @@ public class NetworkService {
         bossGroup = new NioEventLoopGroup(bossLoopGroupCount);
         workerGroup = new NioEventLoopGroup(workerLoopGroupCount);
 
-        EncryptUtil.initEncryptor(builder.getEncryptor());
-
         bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workerGroup);
         bootstrap.channel(NioServerSocketChannel.class);
@@ -65,7 +57,6 @@ public class NetworkService {
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
-                pip.addLast("EchoHandler", new EchoHandler());
                 pip.addLast("NettyMessageEncoder", new MessageEncoder());
                 pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getListener()));
                 for (ChannelHandler handler : builder.getExtraHandlers()) {
