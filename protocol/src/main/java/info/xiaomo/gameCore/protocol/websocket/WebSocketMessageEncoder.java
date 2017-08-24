@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.ws;
+package info.xiaomo.gameCore.protocol.websocket;
 
 import info.xiaomo.gameCore.protocol.Message;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;

@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.ws;
+package info.xiaomo.gameCore.protocol.websocket;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
