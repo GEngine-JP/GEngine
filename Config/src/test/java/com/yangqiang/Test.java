@@ -15,6 +15,7 @@ public class Test {
         // System.out.println(Test.class.getClassLoader().getResource(""));
         ExcelConfigDataManager dataManager = new ExcelConfigDataManager();
 
+        dataManager.setExcelFileSuffix(".xls");
         // 使用注解的方式需要设置配置类的包名
         // dataManager.setConfigPackageName("com.yangqiang.beans");
 

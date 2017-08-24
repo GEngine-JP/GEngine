@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
@@ -33,13 +32,11 @@ public class ExcelConfigWrapper implements IConfigWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExcelConfigWrapper.class);
 
     private ConfigContainer container;
-    private String excelFilePath;
-    private String excelFileSuffix = ".xlsx";
-    private String keyDelimiter = "_";
+    private String excelFile;
     private TableDesc tableDesc;
 
-    public ExcelConfigWrapper(String excelFilePath, TableDesc tableDesc) {
-        this.excelFilePath = excelFilePath;
+    public ExcelConfigWrapper(String excelFile, TableDesc tableDesc) {
+        this.excelFile = excelFile;
         this.tableDesc = tableDesc;
         this.container = new ConfigContainer<>();
     }
@@ -57,10 +54,9 @@ public class ExcelConfigWrapper implements IConfigWrapper {
 
     @Override
     public void build() {
-        String filePath = excelFilePath + File.separatorChar + tableDesc.getName() + excelFileSuffix;
-        Workbook workbook = ExcelUtils.getWorkbook(filePath);
+        Workbook workbook = ExcelUtils.getWorkbook(excelFile);
         if (workbook == null) {
-            throw new RuntimeException(String.format("【%s】打开excel文件失败", filePath));
+            throw new RuntimeException(String.format("【%s】打开excel文件失败", excelFile));
         }
         Class clz = tableDesc.getClz();
         Map<String, ColumnDesc> columns = tableDesc.getColumns();

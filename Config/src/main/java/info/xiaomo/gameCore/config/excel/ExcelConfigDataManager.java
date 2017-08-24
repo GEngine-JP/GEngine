@@ -75,7 +75,7 @@ public class ExcelConfigDataManager extends AbstractConfigDataManager {
 
         Map<String, IConfigWrapper> tempConfigs = new HashMap<>();
         configTable.forEach((clzName, tableDesc) -> {
-            IConfigWrapper wrapper = new ExcelConfigWrapper(excelFileDir, tableDesc);
+            IConfigWrapper wrapper = new ExcelConfigWrapper(excelFileDir + File.separatorChar + tableDesc.getName() + excelFileSuffix, tableDesc);
             wrapper.build();
             wrapper.getList().forEach(e -> {
                 if (IConfig.class.isAssignableFrom(e.getClass())) {
