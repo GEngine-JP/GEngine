@@ -1,20 +1,34 @@
-package info.xiaomo.gameCore.config;
+package info.xiaomo.gameCore.config; /**
+ * 创建日期:  2017年08月11日 19:18
+ * 创建作者:  杨 强  <281455776@qq.com>
+ */
+
+import java.util.Objects;
+import java.util.function.Function;
 
 /**
- * 把今天最好的表现当作明天最新的起点．．～
- * いま 最高の表現 として 明日最新の始発．．～
- * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
- * <p>
- * author: xiaomo
- * github: https://github.com/xiaomoinfo
- * email : xiaomo@xiaomo.info
- * QQ    : 83387856
- * Date  : 17/7/10 13:28
- * desc  : 转换器
- * Copyright(©) 2017 by xiaomo.
+ * 数据转换器
+ *
+ * @author YangQiang
  */
 @FunctionalInterface
-public interface IConverter {
-    Object convert(Object var);
+public interface IConverter<T, R> extends Function<T, R> {
+    R convert(T t);
+
+    @Override
+    default R apply(T t) {
+        return convert(t);
+    }
+
+    @Override
+    default <V> IConverter<V, R> compose(Function<? super V, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    @Override
+    default <V> IConverter<T, V> andThen(Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
 }

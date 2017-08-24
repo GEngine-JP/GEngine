@@ -1,8 +1,7 @@
-/**
+package info.xiaomo.gameCore.config; /**
  * 创建日期:  2017年08月12日 10:18
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package info.xiaomo.gameCore.config;
 
 import java.util.function.Supplier;
 
@@ -11,7 +10,7 @@ import java.util.function.Supplier;
  *
  * @author YangQiang
  */
-public interface ITableReader<T, R> extends Reader<T, R> {
+public interface ITableReader<T, R> extends IReader<T, R> {
 
     /**
      * 获取默认的单元行读取器
