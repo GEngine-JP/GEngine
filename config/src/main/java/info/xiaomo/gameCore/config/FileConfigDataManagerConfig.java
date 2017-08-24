@@ -10,12 +10,12 @@ import info.xiaomo.gameCore.config.annotation.XmlFileScan;
 import lombok.Data;
 
 /**
+ * 文件配置管理器的配置
+ *
  * @author YangQiang
  */
-// @ConfigFileScan(value = "E:\\ChessGame\\GameCore\\config\\src\\test\\resources", suffix = ".xls")
-// @PackageScan("com.yangqiang.beans")
 @Data
-public class FileDataManagerConfig {
+public class FileConfigDataManagerConfig {
     /** xml文件配置路径 */
     protected String xmlConfigFile;
     /** 配置类包名 */
@@ -25,7 +25,7 @@ public class FileDataManagerConfig {
     /** 文件后缀 */
     protected String configFileSuffix = "";
 
-    public FileDataManagerConfig(){
+    public FileConfigDataManagerConfig() {
         PackageScan packageScan = getClass().getAnnotation(PackageScan.class);
         if (packageScan != null) {
             this.configPackage = packageScan.value();

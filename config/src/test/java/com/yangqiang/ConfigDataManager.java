@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ConfigDataManager implements IConfigDataManager {
     private static final ConfigDataManager INSTANCE = new ConfigDataManager();
-    private FileConfigDataManager fileConfigDataManager = new ExcelConfigDataManager(new DataManagerConfig());
+    private FileConfigDataManager fileConfigDataManager = new ExcelConfigDataManager(new ExcelConfigDataManagerConfig());
 
     private ConfigDataManager() {
     }

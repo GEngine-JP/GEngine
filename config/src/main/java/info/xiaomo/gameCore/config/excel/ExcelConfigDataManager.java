@@ -18,7 +18,7 @@ public class ExcelConfigDataManager extends FileConfigDataManager {
     public ExcelConfigDataManager() {
     }
 
-    public ExcelConfigDataManager(FileDataManagerConfig config) {
+    public ExcelConfigDataManager(FileConfigDataManagerConfig config) {
         super(config);
     }
 
