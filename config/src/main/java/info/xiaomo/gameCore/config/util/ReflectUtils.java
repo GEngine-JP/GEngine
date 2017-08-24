@@ -47,6 +47,9 @@ public class ReflectUtils {
             if (primaryKeys != null && primaryKeys.length > 0) {
                 tableDesc.setPrimaryKeys(primaryKeys);
             }
+
+            tableDesc.setHeader(table.header());
+            tableDesc.setIgnoreRow(table.ignoreRow());
         }
 
         Map<String, ColumnDesc> columns = new HashMap<>();

@@ -72,6 +72,41 @@ public class DataConfigXmlParser {
                         tableDesc.setPrimaryKeys(primaryKeys);
                     }
 
+                    // 获取config节点的index属性解析sheet页索引
+                    String index = configElement.attributeValue(CONFIG_INDEX_ATTRIBUTE);
+                    if (index != null && !index.trim().isEmpty()) {
+                        try {
+                            tableDesc.setIndex(Integer.parseInt(index));
+                        } catch (NumberFormatException e) {
+                            throw new RuntimeException(String.format("【%s】对应配置的index【{}】错误", clz.getName(), index));
+                        }
+                    }
+
+                    // 获取config节点的header属性解析sheet页表头
+                    String header = configElement.attributeValue(CONFIG_HEADER_ATTRIBUTE);
+                    if (header != null && !header.trim().isEmpty()) {
+                        try {
+                            tableDesc.setHeader(Integer.parseInt(header));
+                        } catch (NumberFormatException e) {
+                            throw new RuntimeException(String.format("【%s】对应配置的header【{}】错误", clz.getName(), header));
+                        }
+                    }
+
+                    // 获取config节点的ignoreRow属性解析sheet页忽略行
+                    String ignoreRowStr = configElement.attributeValue(CONFIG_IGNORE_ROW_ATTRIBUTE);
+                    if (ignoreRowStr != null && !ignoreRowStr.trim().isEmpty()) {
+                        String[] ignoreRows = ignoreRowStr.split(",");
+                        int[] ignoreRow = new int[ignoreRows.length];
+                        try {
+                            for (int i = 0; i < ignoreRow.length; i++) {
+                                ignoreRow[i] = Integer.parseInt(ignoreRows[i]);
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new RuntimeException(String.format("【%s】对应配置的ignoreRow【{}】错误", clz.getName(), ignoreRowStr));
+                        }
+                        tableDesc.setIgnoreRow(ignoreRow);
+                    }
+
                     // 获取config节点的子节点field
                     Iterator fieldElementIt = configElement.elementIterator(FIELD_ELEMENT);
                     while (fieldElementIt.hasNext()) {
@@ -227,6 +262,9 @@ class XmlElement {
     static final String CONFIG_CLASS_ATTRIBUTE = "class";
     static final String CONFIG_NAME_ATTRIBUTE = "name";
     static final String CONFIG_PRIMARY_KEYS_ATTRIBUTE = "primaryKeys";
+    static final String CONFIG_INDEX_ATTRIBUTE = "index";
+    static final String CONFIG_HEADER_ATTRIBUTE = "header";
+    static final String CONFIG_IGNORE_ROW_ATTRIBUTE = "ignoreRow";
 
     // field节点属性
     static final String FIELD_NAME_ATTRIBUTE = "name";

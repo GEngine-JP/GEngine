@@ -4,106 +4,26 @@
  */
 package info.xiaomo.gameCore.config.excel;
 
-import info.xiaomo.gameCore.config.AbstractConfigDataManager;
-import info.xiaomo.gameCore.config.IConfig;
-import info.xiaomo.gameCore.config.IConfigCache;
-import info.xiaomo.gameCore.config.IConfigWrapper;
-import info.xiaomo.gameCore.config.annotation.Cache;
-import info.xiaomo.gameCore.config.annotation.Config;
+import info.xiaomo.gameCore.config.*;
 import info.xiaomo.gameCore.config.beans.TableDesc;
-import info.xiaomo.gameCore.config.parser.DataConfigXmlParser;
-import info.xiaomo.gameCore.config.util.ClassFileUtils;
-import info.xiaomo.gameCore.config.util.ReflectUtils;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.File;
-import java.net.URL;
-import java.util.*;
 
 /**
+ * excel配置管理器
+ *
  * @author YangQiang
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class ExcelConfigDataManager extends AbstractConfigDataManager {
-    public static final String DEFAULT_XML_CONFIG_FILE = "data_config.xml";
-    /** xml文件配置路径 */
-    private String xmlConfigFile;
-    /** 配置类包名 */
-    private String configPackageName;
-    /** excel文件路径 */
-    private String excelFileDir;
-    /** excel文件后缀 */
-    private String excelFileSuffix = ".xlsx";
+public class ExcelConfigDataManager extends FileConfigDataManager {
+    public ExcelConfigDataManager() {
+    }
 
-    @Override
-    public void init() throws Exception {
-        Objects.requireNonNull(excelFileDir, "excelFileDir!");
-        File excelFile = new File(excelFileDir);
-        if (!excelFile.isDirectory()) {
-            LOGGER.error("excel文件路径错误[%s]", excelFileDir);
-            throw new RuntimeException(String.format("excel文件路径错误[%s]", excelFileDir));
-        }
-        Map<String, Class> cacheClz = new HashMap<>();
-        Map<String, TableDesc> configTable = new HashMap<>();
-        if (configPackageName != null) {
-            // 获取所有的配置类和缓存类
-            Set<Class> clzSet = ClassFileUtils.getClasses(configPackageName, clz -> clz.isAnnotationPresent(Config.class) || clz.isAnnotationPresent(Cache.class));
-            for (Class clz : clzSet) {
-                if (clz.isAnnotationPresent(Config.class)) {
-                    TableDesc tableDesc = ReflectUtils.getTableDesc(clz);
-                    LOGGER.warn("加载配置表 {} .... ", tableDesc.getName());
-                    configTable.put(clz.getName(), tableDesc);
-                } else if (clz.isAnnotationPresent(Cache.class)) {
-                    LOGGER.warn("加载缓存 {} .... ", clz.getName());
-                    cacheClz.put(clz.getName(), clz);
-                }
-            }
-        }
-        if (xmlConfigFile == null) {
-            URL xmlConfigResource = ExcelConfigDataManager.class.getClassLoader().getResource(DEFAULT_XML_CONFIG_FILE);
-            if (xmlConfigResource != null) {
-                xmlConfigFile = xmlConfigResource.getFile();
-            }
-        }
-        if (xmlConfigFile != null) {
-            Map<String, TableDesc> xmlConfigs = DataConfigXmlParser.parseConfigs(xmlConfigFile);
-            configTable.putAll(xmlConfigs);
+    public ExcelConfigDataManager(FileDataManagerConfig config) {
+        super(config);
+    }
 
-            Map<String, Class> xmlCaches = DataConfigXmlParser.parseCaches(xmlConfigFile);
-            cacheClz.putAll(xmlCaches);
-        }
-
-
-        Map<String, IConfigWrapper> tempConfigs = new HashMap<>();
-        configTable.forEach((clzName, tableDesc) -> {
-            IConfigWrapper wrapper = new ExcelConfigWrapper(excelFileDir + File.separatorChar + tableDesc.getName() + excelFileSuffix, tableDesc);
-            wrapper.build();
-            wrapper.getList().forEach(e -> {
-                if (IConfig.class.isAssignableFrom(e.getClass())) {
-                    IConfig config = (IConfig) e;
-                    config.afterLoad();
-                }
-            });
-            tempConfigs.put(clzName, wrapper);
-        });
-
-        Map<String, Object> tempCaches = new HashMap<>();
-        cacheClz.forEach((clzName, clz) -> {
-            try {
-                Object obj = clz.newInstance();
-                if (IConfigCache.class.isAssignableFrom(clz)) {
-                    IConfigCache cache = (IConfigCache) obj;
-                    cache.build();
-                }
-                tempCaches.put(clzName, obj);
-            } catch (Exception e) {
-                throw new RuntimeException(String.format("创建对象【%s】错误", clz.getName()), e);
-            }
-        });
-
-        configs = tempConfigs;
-        caches = tempCaches;
+    public IConfigWrapper parseTableDesc(TableDesc tableDesc) {
+        String configFile = getConfigFileDir() + File.separatorChar + tableDesc.getName() + getConfigFileSuffix();
+        return new ExcelConfigWrapper(configFile, tableDesc).build();
     }
 }

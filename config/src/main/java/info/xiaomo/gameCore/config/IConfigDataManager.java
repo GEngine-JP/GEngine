@@ -12,6 +12,7 @@ import java.util.List;
  * @author YangQiang
  */
 public interface IConfigDataManager {
+    String DEFAULT_XML_CONFIG_FILE = "data_config.xml";
     /**
      * 获取指定类的对应指定主键的配置
      *

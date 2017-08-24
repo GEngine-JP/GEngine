@@ -133,11 +133,38 @@
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="primaryKeys" type="xs:string" use="required">
+        <xs:attribute name="primaryKeys" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
                     <![CDATA[
                         主键字段 与配置类的属性名对应 多个字段由逗号隔开
+                    ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="index" type="xs:nonNegativeInteger" default="0">
+            <xs:annotation>
+                <xs:documentation>
+                    <![CDATA[
+                        对应sheet页索引
+                    ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="header" type="xs:nonNegativeInteger" default="0">
+            <xs:annotation>
+                <xs:documentation>
+                    <![CDATA[
+                        表头所在行数
+                    ]]>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignoreRow" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    <![CDATA[
+                        忽略的行
                     ]]>
                 </xs:documentation>
             </xs:annotation>

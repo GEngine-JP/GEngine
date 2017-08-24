@@ -5,6 +5,7 @@
 package info.xiaomo.gameCore.config.util;
 
 import info.xiaomo.gameCore.config.excel.reader.ExcelSheetListReader;
+import info.xiaomo.gameCore.config.excel.reader.ExcelSheetMapReader;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
@@ -117,9 +118,20 @@ public class ExcelUtils {
      * @param sheet
      * @return
      */
-    public static List<Map<Integer, String>> readExcelSheet(Sheet sheet) {
+    public static List<Map<Integer, String>> readExcelSheetToList(Sheet sheet) {
         List<Map<Integer, String>> sheetResult = new ArrayList<>();
         new ExcelSheetListReader(() -> sheetResult).read(sheet);
+        return sheetResult;
+    }
+
+    /**
+     * 读取excel页 结果以Map封装, key是行号, 每行数据以Map封装(key是列数,value是字符串值)
+     * @param sheet
+     * @return
+     */
+    public static Map<Integer,Map<Integer, String>> readExcelSheetToMap(Sheet sheet) {
+        Map<Integer,Map<Integer, String>> sheetResult = new HashMap<>();
+        new ExcelSheetMapReader(() -> sheetResult).read(sheet);
         return sheetResult;
     }
 }
