@@ -2,18 +2,15 @@
  * 创建日期:  2017年08月12日 15:12
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package info.xiaomo.gameCore.config.excel;
+package info.xiaomo.gameCore.config.util;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import info.xiaomo.gameCore.config.excel.reader.ExcelSheetListReader;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Excel工具集
@@ -112,5 +109,17 @@ public class ExcelUtils {
                 break;
         }
         return retValue;
+    }
+
+    /**
+     * 读取excel页 结果以List封装每行数据以Map封装(key是列数,value是字符串值)
+     *
+     * @param sheet
+     * @return
+     */
+    public static List<Map<Integer, String>> readExcelSheet(Sheet sheet) {
+        List<Map<Integer, String>> sheetResult = new ArrayList<>();
+        new ExcelSheetListReader(() -> sheetResult).read(sheet);
+        return sheetResult;
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configData xmlns="com/yangqiang/game-config/schema">
+    <configs>
+        <config class="com.yangqiang.beans.ItemConfig" name="cfg_item" primaryKeys="id,secondId">
+            <field name="id" notNull="1"/>
+            <field name="secondId" columnName="id2"/>
+            <field name="map">
+                <converter>com.yangqiang.converters.IntegerArrayConverter</converter>
+                <converter class="com.yangqiang.converters.IntegerMapConverter"/>
+            </field>
+            <!-- 这种配置跟上面的配置是一样的
+            <field name="map"
+                   converters="com.yangqiang.converters.IntegerArrayConverter,com.yangqiang.converters.IntegerMapConverter">
+            </field>
+            -->
+            <field name="arrays" columnName="ints"/>
+            <field name="intss" converters="com.yangqiang.converters.Matrix3IntConverter"/>
+        </config>
+    </configs>
+    <caches></caches>
+</configData>

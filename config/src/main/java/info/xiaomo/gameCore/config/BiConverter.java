@@ -1,8 +1,7 @@
-/**
+package info.xiaomo.gameCore.config; /**
  * 创建日期:  2017年08月12日 9:42
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package info.xiaomo.gameCore.config;
 
 import java.util.function.BiFunction;
 

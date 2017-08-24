@@ -4,8 +4,8 @@
  */
 package info.xiaomo.gameCore.config.excel.reader;
 
-import info.xiaomo.gameCore.config.IRowReader;
 import info.xiaomo.gameCore.config.BiConverter;
+import info.xiaomo.gameCore.config.IRowReader;
 
 import java.util.HashMap;
 import java.util.List;

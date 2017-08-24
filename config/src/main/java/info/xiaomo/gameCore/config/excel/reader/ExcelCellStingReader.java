@@ -4,9 +4,9 @@
  */
 package info.xiaomo.gameCore.config.excel.reader;
 
-import info.xiaomo.gameCore.config.Converter;
 import info.xiaomo.gameCore.config.ICellReader;
-import info.xiaomo.gameCore.config.excel.ExcelUtils;
+import info.xiaomo.gameCore.config.IConverter;
+import info.xiaomo.gameCore.config.util.ExcelUtils;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -15,13 +15,14 @@ import org.apache.poi.ss.usermodel.Cell;
  * @author YangQiang
  */
 public class ExcelCellStingReader implements ICellReader<Cell, String> {
+
     @Override
     public String getDefaultValue(Cell cell) {
         return null;
     }
 
     @Override
-    public Converter<Cell, String> getConverter() {
+    public IConverter<Cell, String> getConverter() {
         return ExcelUtils::getCellStringValue;
     }
 }

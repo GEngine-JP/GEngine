@@ -131,19 +131,6 @@ public class ReflectUtil
         return method;
     }
 
-    public static boolean isClassExtends(Class<?> targetClazz, Class<?> superClazz)
-    {
-        Class<?> clazz = targetClazz.getSuperclass();
-        while (clazz != null)
-        {
-            if (clazz == superClazz)
-            {
-                return true;
-            }
-            clazz = clazz.getSuperclass();
-        }
-        return false;
-    }
     public static class PropertyDesc {
 
         public static final PropertyDesc NULL = new PropertyDesc();

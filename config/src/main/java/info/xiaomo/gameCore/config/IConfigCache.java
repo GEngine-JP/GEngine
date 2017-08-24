@@ -1,20 +1,13 @@
+/**
+ * 创建日期:  2017年08月12日 15:33
+ * 创建作者:  杨 强  <281455776@qq.com>
+ */
 package info.xiaomo.gameCore.config;
 
 /**
- * 把今天最好的表现当作明天最新的起点．．～
- * いま 最高の表現 として 明日最新の始発．．～
- * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
- * <p>
- * author: xiaomo
- * github: https://github.com/xiaomoinfo
- * email : xiaomo@xiaomo.info
- * QQ    : 83387856
- * Date  : 17/7/10 16:54
- * desc  : 配置缓存接口
- * Copyright(©) 2017 by xiaomo.
+ * 配置文件缓存
  */
 public interface IConfigCache {
-
-    void build();
+    default void build() {
+    }
 }
