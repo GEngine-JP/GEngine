@@ -15,6 +15,7 @@ import info.xiaomo.gameCore.config.parser.DataConfigXmlParser;
 import info.xiaomo.gameCore.config.util.ClassFileUtils;
 import info.xiaomo.gameCore.config.util.ReflectUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.File;
 import java.net.URL;
@@ -23,6 +24,7 @@ import java.util.*;
 /**
  * @author YangQiang
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ExcelConfigDataManager extends AbstractConfigDataManager {
     public static final String DEFAULT_XML_CONFIG_FILE = "data_config.xml";
@@ -39,7 +41,7 @@ public class ExcelConfigDataManager extends AbstractConfigDataManager {
     public void init() throws Exception {
         Objects.requireNonNull(excelFileDir, "excelFileDir!");
         File excelFile = new File(excelFileDir);
-        if (excelFile == null || !excelFile.isDirectory()) {
+        if (!excelFile.isDirectory()) {
             LOGGER.error("excel文件路径错误[%s]", excelFileDir);
             throw new RuntimeException(String.format("excel文件路径错误[%s]", excelFileDir));
         }
@@ -48,8 +50,7 @@ public class ExcelConfigDataManager extends AbstractConfigDataManager {
         if (configPackageName != null) {
             // 获取所有的配置类和缓存类
             Set<Class> clzSet = ClassFileUtils.getClasses(configPackageName, clz -> clz.isAnnotationPresent(Config.class) || clz.isAnnotationPresent(Cache.class));
-            for (Iterator<Class> clzIt = clzSet.iterator(); clzIt.hasNext(); ) {
-                Class clz = clzIt.next();
+            for (Class clz : clzSet) {
                 if (clz.isAnnotationPresent(Config.class)) {
                     TableDesc tableDesc = ReflectUtils.getTableDesc(clz);
                     configTable.put(clz.getName(), tableDesc);
