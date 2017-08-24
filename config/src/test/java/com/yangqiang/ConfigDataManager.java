@@ -4,7 +4,6 @@
  */
 package com.yangqiang;
 
-import info.xiaomo.gameCore.config.FileDataManagerConfig;
 import info.xiaomo.gameCore.config.FileConfigDataManager;
 import info.xiaomo.gameCore.config.IConfigDataManager;
 import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
