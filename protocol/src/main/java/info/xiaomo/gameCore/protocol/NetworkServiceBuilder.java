@@ -38,6 +38,11 @@ public class NetworkServiceBuilder {
     private MessagePool messagePool;
 
     /**
+     * 默认为false
+     */
+    private boolean isWebSocket = false;
+
+    /**
      * 额外的handler
      */
     private List<ChannelHandler> extraHandlers = new ArrayList<>();

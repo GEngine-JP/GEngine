@@ -24,6 +24,10 @@
     |    |    ├─消息解码器 MessageDecoder.java
     |    |    ├─消息编码器 MessageEncoder.java
     |    |    └─消息执行器 MessageExecutor.java
+    |    ├─ws
+    |    |    ├─Byte转websocket ByteToWebSocketFrameHandler.java
+    |    |    ├─websocket转Byte WebSocketFrameToByteHandler.java
+    |    |    └─编码器 WebSocketMessageEncoder.java
     |    ├─client
 
 

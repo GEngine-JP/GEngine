@@ -3,11 +3,16 @@ package info.xiaomo.gameCore.protocol;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
+import info.xiaomo.gameCore.protocol.ws.WebSocketFrameToByteHandler;
+import info.xiaomo.gameCore.protocol.ws.WebSocketMessageEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.Future;
@@ -56,8 +61,23 @@ public class NetworkService {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pip = ch.pipeline();
+                if (builder.isWebSocket()) {
+                    if (builder.isWebSocket()) {
+                        //添加websocket相关内容
+                        pip.addLast(new HttpServerCodec());
+                        pip.addLast(new HttpObjectAggregator(65536));
+                        pip.addLast(new WebSocketServerProtocolHandler("/"));
+                        pip.addLast(new WebSocketFrameToByteHandler());
+                    }
+                }
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
+
+                if (builder.isWebSocket()) {
+                    pip.addLast("NettyMessageEncoder", new WebSocketMessageEncoder());
+                } else {
+                    pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                }
+
                 pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getListener()));
                 for (ChannelHandler handler : builder.getExtraHandlers()) {
                     pip.addLast(handler);
