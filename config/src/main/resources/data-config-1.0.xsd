@@ -137,7 +137,7 @@
             <xs:annotation>
                 <xs:documentation>
                     <![CDATA[
-                        主键字段 与配置文件的列名对应 多个字段由逗号隔开
+                        主键字段 与配置类的属性名对应 多个字段由逗号隔开
                     ]]>
                 </xs:documentation>
             </xs:annotation>
