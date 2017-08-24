@@ -53,6 +53,7 @@ public class ExcelConfigDataManager extends AbstractConfigDataManager {
             for (Class clz : clzSet) {
                 if (clz.isAnnotationPresent(Config.class)) {
                     TableDesc tableDesc = ReflectUtils.getTableDesc(clz);
+                    LOGGER.info("加载配置表 {} .... ",tableDesc.getName());
                     configTable.put(clz.getName(), tableDesc);
                 } else if (clz.isAnnotationPresent(Cache.class)) {
                     cacheClz.put(clz.getName(), clz);
