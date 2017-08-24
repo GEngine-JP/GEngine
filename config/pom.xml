@@ -17,7 +17,7 @@
         <dependency>
             <groupId>info.xiaomo</groupId>
             <artifactId>base</artifactId>
-            <version>1.0.2</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
