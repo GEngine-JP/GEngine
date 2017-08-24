@@ -11,18 +11,20 @@
 
 
 # 目录结构
-├─protocol
-|    ├─消息接口 Message.java
-|    ├─消息池接口 MessagePool.java
-|    ├─网络消费者接口 NetworkConsumer.java
-|    ├─网络监听器接口 NetworkEventListener.java
-|    ├─网络服务接口 NetworkService.java
-|    ├─网络服务构建器 NetworkServiceBuilder.java
-|    ├─handler
-|    |    ├─消息解码器 MessageDecoder.java
-|    |    ├─消息编码器 MessageEncoder.java
-|    |    └─消息执行器 MessageExecutor.java
-|    ├─client
+    ├─protocol
+    |    ├─消息接口 Message.java
+    |    ├─消息池接口 MessagePool.java
+    |    ├─网络消费者接口 NetworkConsumer.java
+    |    ├─网络监听器接口 NetworkEventListener.java
+    |    ├─网络服务接口 NetworkService.java
+    |    ├─网络服务构建器 NetworkServiceBuilder.java
+    |    ├─消息队列接口 MessageProcessor.java
+    |    ├─消息过滤器接口 MessageFilter.java
+    |    ├─handler
+    |    |    ├─消息解码器 MessageDecoder.java
+    |    |    ├─消息编码器 MessageEncoder.java
+    |    |    └─消息执行器 MessageExecutor.java
+    |    ├─client
 
 
 # 接口说明
@@ -51,6 +53,11 @@
 ## 消息执行器
 执行请求消息对应的方法
 
+## 消息队列接口
+将消息分发到不同的队列执行
+
+## 消息过滤器接口
+在消息执行前后可以执行自定义方法
 
 # [协议声明](LICENSE)
 
