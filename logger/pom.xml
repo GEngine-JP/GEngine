@@ -15,12 +15,12 @@
         <dependency>
             <groupId>info.xiaomo</groupId>
             <artifactId>base</artifactId>
-            <version>RELEASE</version>
+            <version>2017.1</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
             <artifactId>persist</artifactId>
-            <version>RELEASE</version>
+            <version>2017.1</version>
         </dependency>
     </dependencies>
 
