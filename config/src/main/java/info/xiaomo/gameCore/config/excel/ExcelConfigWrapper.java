@@ -5,6 +5,7 @@
 package info.xiaomo.gameCore.config.excel;
 
 import info.xiaomo.gameCore.config.ConfigContainer;
+import info.xiaomo.gameCore.config.IConfigBuilder;
 import info.xiaomo.gameCore.config.IConfigWrapper;
 import info.xiaomo.gameCore.config.beans.ColumnDesc;
 import info.xiaomo.gameCore.config.beans.TableDesc;
@@ -19,8 +20,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * excel配置包装器
@@ -53,7 +52,8 @@ public class ExcelConfigWrapper implements IConfigWrapper {
 
 
     @Override
-    public void build() {
+    public ExcelConfigWrapper build() {
+        LOGGER.info("加载配置表【{}】...", tableDesc.getName());
         Workbook workbook = ExcelUtils.getWorkbook(excelFile);
         if (workbook == null) {
             throw new RuntimeException(String.format("【%s】打开excel文件失败", excelFile));
@@ -62,26 +62,46 @@ public class ExcelConfigWrapper implements IConfigWrapper {
         Map<String, ColumnDesc> columns = tableDesc.getColumns();
 
         String[] primaryKeys = tableDesc.getPrimaryKeys();
-        if (primaryKeys == null || primaryKeys.length == 0) {
-            throw new RuntimeException(String.format("【%s】没有主键信息", clz.getName()));
-        }
-        for (String primaryKey : primaryKeys) {
-            if (primaryKey == null) {
-                throw new RuntimeException(String.format("【%s】主键错误", clz.getName()));
+        if (primaryKeys != null && primaryKeys.length > 0) {
+            for (String primaryKey : primaryKeys) {
+                if (primaryKey == null) {
+                    throw new RuntimeException(String.format("【%s】主键错误", clz.getName()));
+                }
+                try {
+                    clz.getDeclaredField(primaryKey);
+                } catch (NoSuchFieldException e) {
+                    throw new RuntimeException(String.format("【%s】无效的主键【%s】", clz.getName(), primaryKey));
+                }
             }
-            try {
-                clz.getDeclaredField(primaryKey);
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException(String.format("【%s】无效的主键【%s】", clz.getName(), primaryKey));
+        } else {
+            LOGGER.warn(String.format("[%s]中没有找到主键", clz.getName()));
+        }
+
+        if (tableDesc.getIndex() < 0) {
+            throw new RuntimeException(String.format("【%s】无效的index索引【%d】", clz.getName(), tableDesc.getIndex()));
+        }
+        if (tableDesc.getHeader() < 0) {
+            throw new RuntimeException(String.format("【%s】无效的header索引【%d】", clz.getName(), tableDesc.getHeader()));
+        }
+        if (tableDesc.getIgnoreRow() != null) {
+            for (int row : tableDesc.getIgnoreRow()) {
+                if (row < 0) {
+                    throw new RuntimeException(String.format("【%s】无效的忽略行索引【%d】", clz.getName(), row));
+                }
             }
         }
 
         Map<String, String> warnKey = new HashMap<>();
         Map<String, String> errorKey = new HashMap<>();
 
-        List<Map<Integer, String>> table = ExcelUtils.readExcelSheet(workbook.getSheetAt(0));
-        Map<Integer, String> header = table.remove(0);
-        Map<String, Object> collect = table.stream().map(rowData -> {
+        Map<Integer, Map<Integer, String>> table = ExcelUtils.readExcelSheetToMap(workbook.getSheetAt(tableDesc.getIndex()));
+        if (tableDesc.getIgnoreRow() != null) {
+            for (int ignoreRow : tableDesc.getIgnoreRow()) {
+                table.remove(ignoreRow);
+            }
+        }
+        Map<Integer, String> header = table.remove(tableDesc.getHeader());
+        table.forEach((rowIndex, rowData) -> {
             try {
                 Object config = clz.newInstance();
                 header.forEach((columnIndex, columnName) -> {
@@ -110,10 +130,8 @@ public class ExcelConfigWrapper implements IConfigWrapper {
                     try {
                         field.setAccessible(true);
                         Object oldValue = field.get(config);
-                        if (newValue != null) {
-                            BeanUtils.setProperty(config, field.getName(), newValue);
-                            newValue = field.get(config);
-                        }
+                        BeanUtils.setProperty(config, field.getName(), newValue);
+                        newValue = field.get(config);
                         // 如果最后解析成null而默认值不是null则还原回去
                         if (newValue == null && oldValue != null) {
                             field.set(config, oldValue);
@@ -123,30 +141,35 @@ public class ExcelConfigWrapper implements IConfigWrapper {
                         e.printStackTrace();
                     }
                 });
-                return config;
+                if (primaryKeys != null) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < primaryKeys.length; i++) {
+                        String primaryKey = primaryKeys[i];
+                        Field field = null;
+                        try {
+                            field = clz.getDeclaredField(primaryKey);
+                        } catch (NoSuchFieldException e) {
+                            errorKey.put(primaryKey, String.format("[%s]中无效的主键[%s]", clz.getName(), primaryKey));
+                        }
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(config);
+                            if (i == 0) {
+                                sb.append(value);
+                            } else {
+                                sb.append(getKeyDelimiter()).append(value);
+                            }
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    container.getConfigMap().put(sb.toString(), config);
+                }
+                container.getConfigList().add(config);
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            return null;
-        }).collect(Collectors.toMap(config -> {
-            StringBuilder sb = new StringBuilder();
-            for (String primaryKey : primaryKeys) {
-                Field field = null;
-                try {
-                    field = clz.getDeclaredField(primaryKey);
-                } catch (NoSuchFieldException e) {
-                    errorKey.put(primaryKey, String.format("[%s]中无效的主键[%s]", clz.getName(), primaryKey));
-                }
-                field.setAccessible(true);
-                try {
-                    Object value = field.get(config);
-                    sb.append(value).append(getKeyDelimiter());
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-            return sb.substring(0, sb.length() - 1);
-        }, Function.identity()));
+        });
 
         if (!warnKey.isEmpty()) {
             warnKey.forEach((key, warn) -> LOGGER.warn(warn));
@@ -156,10 +179,6 @@ public class ExcelConfigWrapper implements IConfigWrapper {
             errorKey.forEach((key, error) -> LOGGER.error(error));
             throw new RuntimeException(String.format("[%s]解析失败", tableDesc.getName()));
         }
-
-        collect.forEach((key, config) -> {
-            container.getConfigMap().put(key, config);
-            container.getConfigList().add(config);
-        });
+        return this;
     }
 }

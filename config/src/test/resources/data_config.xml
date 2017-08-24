@@ -2,7 +2,7 @@
 
 <configData xmlns="com/yangqiang/game-config/schema">
     <configs>
-        <config class="com.yangqiang.beans.ItemConfig" name="cfg_item" primaryKeys="id,secondId">
+        <config class="com.yangqiang.beans.ItemConfig" name="cfg_item" primaryKeys="id,secondId" ignoreRow="1,3">
             <field name="id" notNull="1"/>
             <field name="secondId" columnName="id2"/>
             <field name="map">

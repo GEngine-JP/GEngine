@@ -27,5 +27,24 @@ public @interface Table{
      *
      * @return
      */
-    String[] primaryKey();
+    String[] primaryKey() default {};
+
+    /**
+     * sheet页索引
+     *
+     * @return
+     */
+    int index() default 0;
+
+    /**
+     * 表头行数
+     * @return
+     */
+    int header() default 0;
+
+    /**
+     * 忽略的行号
+     * @return
+     */
+    int[] ignoreRow() default {};
 }

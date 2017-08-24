@@ -11,7 +11,7 @@ package info.xiaomo.gameCore.config;
  */
 @FunctionalInterface
 public interface IConfigBuilder {
-    void build();
+    IConfigBuilder build();
 
     default String getKeyDelimiter() {
         return "_";
