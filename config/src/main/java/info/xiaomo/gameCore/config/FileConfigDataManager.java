@@ -24,13 +24,13 @@ import java.util.Set;
  * @author YangQiang
  */
 public abstract class FileConfigDataManager extends AbstractConfigDataManager {
-    protected FileDataManagerConfig config;
+    protected FileConfigDataManagerConfig config;
 
     public FileConfigDataManager() {
-        config = new FileDataManagerConfig();
+        config = new FileConfigDataManagerConfig();
     }
 
-    public FileConfigDataManager(FileDataManagerConfig config) {
+    public FileConfigDataManager(FileConfigDataManagerConfig config) {
         this.config = config;
     }
 

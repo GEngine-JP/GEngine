@@ -4,7 +4,6 @@
  */
 package com.yangqiang;
 
-import info.xiaomo.gameCore.config.FileDataManagerConfig;
 import info.xiaomo.gameCore.config.FileConfigDataManager;
 import info.xiaomo.gameCore.config.IConfigDataManager;
 import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public class ConfigDataManager implements IConfigDataManager {
     private static final ConfigDataManager INSTANCE = new ConfigDataManager();
-    private FileConfigDataManager fileConfigDataManager = new ExcelConfigDataManager(new DataManagerConfig());
+    private FileConfigDataManager fileConfigDataManager = new ExcelConfigDataManager(new ExcelConfigDataManagerConfig());
 
     private ConfigDataManager() {
     }
