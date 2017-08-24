@@ -58,6 +58,15 @@
         </dependency>
 ```
 
+# 各模块代码说明
+
+- [all](/all/README.md)
+- [base](/base/README.md)
+- [logger](/logger/README.md)
+- [persist](/persist/README.md)
+- [protocol](/protocol/README.md)
+
+
 # 更新日志
 - 2017 7.13 开始搭建gameCore底层
 - 2017 7.15 分模块构建,解耦
@@ -76,7 +85,8 @@
 - 2017 8.19 添加开发进度描述
 - 2017 8.19 添加github Pages页面
 - 2017 8.19 添加`develop`分支,将master作用稳定版本
-- 2017 8.24 `config`模块实现excel配置表读取功能,支持`.xls`,`.xlsx`等多种excel文件格式(默认为``)
+- 2017 8.24 `config`模块实现excel配置表读取功能,支持`.xls`,`.xlsx`等多种excel文件格式(默认为`xlsx`)
+- 2017 8.24 发布版本`2017.1`,定为以年份为开头
 
 
 # 项目沟通群
