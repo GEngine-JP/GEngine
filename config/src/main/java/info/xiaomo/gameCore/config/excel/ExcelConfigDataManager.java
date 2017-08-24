@@ -15,7 +15,12 @@ import java.io.File;
  * @author YangQiang
  */
 public class ExcelConfigDataManager extends FileConfigDataManager {
+
     public ExcelConfigDataManager() {
+    }
+
+    public ExcelConfigDataManager(Class<?> configClz) {
+        super(configClz);
     }
 
     public ExcelConfigDataManager(FileConfigDataManagerConfig config) {

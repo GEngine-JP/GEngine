@@ -27,5 +27,5 @@ public @interface ConfigFileScan {
      *
      * @return
      */
-    String suffix();
+    String suffix() default "";
 }

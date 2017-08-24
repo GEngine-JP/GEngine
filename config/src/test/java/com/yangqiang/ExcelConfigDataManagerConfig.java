@@ -12,7 +12,10 @@ import info.xiaomo.gameCore.config.annotation.PackageScan;
  * excel配置管理器的配置 通过注解的形式配置
  * @author YangQiang
  */
-@ConfigFileScan(value = "E:\\ChessGame\\GameCore\\config\\src\\test\\resources", suffix = ".xlsx")
+@ConfigFileScan(value = "E:\\ChessGame\\GameCore\\config\\src\\test\\resources", suffix = ".xls")
 @PackageScan("com.yangqiang.beans")
 public class ExcelConfigDataManagerConfig extends FileConfigDataManagerConfig {
+    public ExcelConfigDataManagerConfig() {
+        super(ExcelConfigDataManagerConfig.class);
+    }
 }

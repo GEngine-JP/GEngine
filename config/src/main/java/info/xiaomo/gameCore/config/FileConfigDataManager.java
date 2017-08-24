@@ -27,7 +27,12 @@ public abstract class FileConfigDataManager extends AbstractConfigDataManager {
     protected FileConfigDataManagerConfig config;
 
     public FileConfigDataManager() {
-        config = new FileConfigDataManagerConfig();
+        Class<?> clz = getClass();
+        this.config = new FileConfigDataManagerConfig(clz);
+    }
+
+    public FileConfigDataManager(Class<?> configClz) {
+        this(new FileConfigDataManagerConfig(configClz));
     }
 
     public FileConfigDataManager(FileConfigDataManagerConfig config) {

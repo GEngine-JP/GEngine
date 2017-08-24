@@ -26,16 +26,27 @@ public class FileConfigDataManagerConfig {
     protected String configFileSuffix = "";
 
     public FileConfigDataManagerConfig() {
-        PackageScan packageScan = getClass().getAnnotation(PackageScan.class);
+    }
+
+    /**
+     * 使用一个外部的带有相关注解的类初始化当前类
+     *
+     * @param configClz
+     */
+    public FileConfigDataManagerConfig(Class<?> configClz) {
+        if (configClz == null) {
+            return;
+        }
+        PackageScan packageScan = configClz.getAnnotation(PackageScan.class);
         if (packageScan != null) {
             this.configPackage = packageScan.value();
         }
-        ConfigFileScan configFileScan = getClass().getAnnotation(ConfigFileScan.class);
+        ConfigFileScan configFileScan = configClz.getAnnotation(ConfigFileScan.class);
         if (configFileScan != null) {
             this.configFileDir = configFileScan.value();
             this.configFileSuffix = configFileScan.suffix();
         }
-        XmlFileScan xmlFileScan = getClass().getAnnotation(XmlFileScan.class);
+        XmlFileScan xmlFileScan = configClz.getAnnotation(XmlFileScan.class);
         if (xmlFileScan != null) {
             this.xmlConfigFile = xmlFileScan.value();
         }
