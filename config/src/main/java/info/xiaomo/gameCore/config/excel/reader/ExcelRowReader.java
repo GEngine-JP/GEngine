@@ -60,6 +60,9 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
     @Override
     @SuppressWarnings("unchecked")
     public R read(Row row) {
+        if (row == null) {
+            return null;
+        }
         R result = getResultSupplier().get();
         if (result == null) {
             return null;

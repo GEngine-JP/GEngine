@@ -58,6 +58,9 @@ public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
     @Override
     @SuppressWarnings("unchecked")
     public R read(Sheet sheet) {
+        if (sheet == null) {
+            return null;
+        }
         R result = getResultSupplier().get();
         if (result == null) {
             return null;
