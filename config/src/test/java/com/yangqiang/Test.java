@@ -5,11 +5,15 @@
 package com.yangqiang;
 
 import com.yangqiang.beans.ItemConfig;
+import info.xiaomo.gameCore.config.annotation.ConfigFileScan;
+import info.xiaomo.gameCore.config.annotation.PackageScan;
 import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
 
 /**
  * @author YangQiang
  */
+@ConfigFileScan(value = "E:\\ChessGame\\GameCore\\config\\src\\test\\resources", suffix = ".xlsx")
+@PackageScan("com.yangqiang.beans")
 public class Test {
     public static void main(String[] args) throws Exception {
         // System.out.println(Test.class.getClassLoader().getResource(""));
