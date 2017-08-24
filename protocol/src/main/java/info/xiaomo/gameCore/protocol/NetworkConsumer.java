@@ -9,7 +9,6 @@ public interface NetworkConsumer {
      *
      * @param message message
      * @param channel channel
-     * @return
      */
     void consume(Message message, Channel channel);
 
