@@ -9,6 +9,8 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
@@ -97,7 +99,9 @@ public class NetworkService {
         @Override
         protected void initChannel(Channel ch) throws Exception {
             ChannelPipeline pip = ch.pipeline();
+            pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
             pip.addLast(new MessageDecoder(builder.getMessagePool()));
+            pip.addLast(new LengthFieldPrepender(4));
             pip.addLast(new MessageEncoder(builder.getMessagePool()));
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
