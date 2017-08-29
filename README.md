@@ -1,14 +1,14 @@
 
-[![Build Status](https://travis-ci.org/ChessGame/GameCore.svg?branch=master)](https://travis-ci.org/ChessGame/GameCore)
-[![GitHub issues](https://img.shields.io/github/issues/ChessGame/GameCore.svg)](https://github.com/ChessGame/GameCore/issues)
-[![GitHub forks](https://img.shields.io/github/forks/ChessGame/GameCore.svg)](https://github.com/ChessGame/GameCore/network)
-[![GitHub stars](https://img.shields.io/github/stars/ChessGame/GameCore.svg)](https://github.com/ChessGame/GameCore/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/ChessGame/GameCore/master/LICENSE)
+[![Build Status](https://travis-ci.org/ChessGame/ServerCore.svg?branch=master)](https://travis-ci.org/ChessGame/ServerCore)
+[![GitHub issues](https://img.shields.io/github/issues/ChessGame/ServerCore.svg)](https://github.com/ChessGame/ServerCore/issues)
+[![GitHub forks](https://img.shields.io/github/forks/ChessGame/ServerCore.svg)](https://github.com/ChessGame/ServerCore/network)
+[![GitHub stars](https://img.shields.io/github/stars/ChessGame/ServerCore.svg)](https://github.com/ChessGame/ServerCore/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/ChessGame/ServerCore/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/ChessGame/GameCore.svg?style=social&label=Watch)]()
+[![GitHub watchers](https://img.shields.io/github/watchers/ChessGame/ServerCore.svg?style=social&label=Watch)]()
 
-# GameCore架构设计图
+# ServerCore架构设计图
 ![](https://static.xiaomo.info/image/project/GameCore.png)
 
 
