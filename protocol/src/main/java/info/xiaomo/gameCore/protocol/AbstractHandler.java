@@ -67,7 +67,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
                 return;
             }
             doAction();
-            LOGGER.error(this.getClass().getSimpleName() + "耗时：" + (System.currentTimeMillis() - time) + "ms");
+            LOGGER.warn(this.getClass().getSimpleName() + "耗时：" + (System.currentTimeMillis() - time) + "ms");
             if (filter != null) {
                 filter.after(this);
             }
