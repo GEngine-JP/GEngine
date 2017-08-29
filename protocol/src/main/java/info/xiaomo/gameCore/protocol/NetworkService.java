@@ -8,7 +8,6 @@ import info.xiaomo.gameCore.protocol.websocket.WebSocketMessageEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
@@ -56,36 +55,57 @@ public class NetworkService {
         bootstrap.childOption(ChannelOption.SO_SNDBUF, 128 * 1024);
 
         bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
-        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
-
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pip = ch.pipeline();
-                if (builder.isWebSocket()) {
-                    if (builder.isWebSocket()) {
-                        //添加websocket相关内容
-                        pip.addLast(new HttpServerCodec());
-                        pip.addLast(new HttpObjectAggregator(65536));
-                        pip.addLast(new WebSocketServerProtocolHandler("/"));
-                        pip.addLast(new WebSocketFrameToByteHandler());
-                    }
-                }
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
-
-                if (builder.isWebSocket()) {
-                    pip.addLast("NettyMessageEncoder", new WebSocketMessageEncoder(builder.getMessagePool()));
-                } else {
-                    pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMessagePool()));
-                }
-
-                pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getListener()));
-                for (ChannelHandler handler : builder.getExtraHandlers()) {
-                    pip.addLast(handler);
-                }
-            }
-        });
-
+        if (builder.isWebSocket()) {
+            bootstrap.childHandler(new WebSocketHandler(builder));
+        } else {
+            bootstrap.childHandler(new SocketHandler(builder));
+        }
     }
+
+
+    class WebSocketHandler extends ChannelInitializer {
+        private NetworkServiceBuilder builder;
+
+        WebSocketHandler(NetworkServiceBuilder builder) {
+            this.builder = builder;
+        }
+
+        @Override
+        protected void initChannel(Channel ch) throws Exception {
+            //添加websocket相关内容
+            ChannelPipeline pip = ch.pipeline();
+            pip.addLast(new HttpServerCodec());
+            pip.addLast(new HttpObjectAggregator(65536));
+            pip.addLast(new WebSocketServerProtocolHandler("/"));
+            pip.addLast(new WebSocketFrameToByteHandler());
+            pip.addLast(new MessageDecoder(builder.getMessagePool()));
+            pip.addLast(new WebSocketMessageEncoder(builder.getMessagePool()));
+            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+            for (ChannelHandler handler : builder.getExtraHandlers()) {
+                pip.addLast(handler);
+            }
+        }
+    }
+
+    class SocketHandler extends ChannelInitializer {
+        private NetworkServiceBuilder builder;
+
+        SocketHandler(NetworkServiceBuilder builder) {
+            this.builder = builder;
+        }
+
+        @Override
+        protected void initChannel(Channel ch) throws Exception {
+            ChannelPipeline pip = ch.pipeline();
+            pip.addLast(new MessageDecoder(builder.getMessagePool()));
+            pip.addLast(new MessageEncoder(builder.getMessagePool()));
+            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+            for (ChannelHandler handler : builder.getExtraHandlers()) {
+                pip.addLast(handler);
+            }
+        }
+    }
+
 
     public void start() {
         try {
