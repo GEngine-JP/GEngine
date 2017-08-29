@@ -88,6 +88,7 @@
 - 2017 8.24 `config`模块实现excel配置表读取功能,支持`.xls`,`.xlsx`等多种excel文件格式(默认为`xlsx`)
 - 2017 8.24 发布版本`2017.1`,定为以年份为开头
 - 2017 8.24 支持socket和webSocket连接方式(默认为socket),如果是websocket只需要在NetworkServiceBuilder构建的时候把isWebsocket设为true
+- 2017 8.29 优化消息协议
 
 
 # 项目沟通群
