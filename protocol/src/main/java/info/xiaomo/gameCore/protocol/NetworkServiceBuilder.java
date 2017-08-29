@@ -1,5 +1,6 @@
 package info.xiaomo.gameCore.protocol;
 
+import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 

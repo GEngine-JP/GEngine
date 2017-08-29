@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.protocol.handler;
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
 import info.xiaomo.gameCore.protocol.NetworkConsumer;
 import info.xiaomo.gameCore.protocol.NetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,7 +21,7 @@ public class MessageExecutor extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        consumer.consume((Message) msg, ctx.channel());
+        consumer.consume((AbstractMessage) msg, ctx.channel());
     }
 
     @Override

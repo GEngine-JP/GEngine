@@ -73,9 +73,9 @@ public class NetworkService {
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMessagePool()));
 
                 if (builder.isWebSocket()) {
-                    pip.addLast("NettyMessageEncoder", new WebSocketMessageEncoder());
+                    pip.addLast("NettyMessageEncoder", new WebSocketMessageEncoder(builder.getMessagePool()));
                 } else {
-                    pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                    pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMessagePool()));
                 }
 
                 pip.addLast("NettyMessageExecutor", new MessageExecutor(builder.getConsumer(), builder.getListener()));

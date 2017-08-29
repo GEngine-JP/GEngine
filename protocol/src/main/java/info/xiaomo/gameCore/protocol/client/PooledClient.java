@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.util.concurrent.Future;
@@ -107,7 +107,7 @@ public class PooledClient extends Client {
 
 
     @Override
-    public void ping(Message msg) {
+    public void ping(AbstractMessage msg) {
 
         for (int i = 0; i < channels.length; i++) {
             Channel channel = channels[i];

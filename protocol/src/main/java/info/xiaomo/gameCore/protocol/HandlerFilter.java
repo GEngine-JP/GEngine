@@ -5,20 +5,20 @@ package info.xiaomo.gameCore.protocol;
  *
  * @author Administrator
  */
-public interface MessageFilter {
+public interface HandlerFilter {
 
     /**
      * message执行逻辑之前调用
      *
      * @return
      */
-    boolean before(Message msg);
+    boolean before(AbstractHandler handler);
 
     /**
      * message执行逻辑之后调用
      *
-     * @param msg
+     * @param handler
      * @return
      */
-    boolean after(Message msg);
+    boolean after(AbstractHandler handler);
 }

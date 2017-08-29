@@ -1,7 +1,8 @@
 package info.xiaomo.gameCore.protocol.client;
 
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
+import com.google.protobuf.MessageLite;
 import info.xiaomo.gameCore.protocol.NetworkConsumer;
 import info.xiaomo.gameCore.protocol.NetworkEventListener;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
@@ -17,11 +18,11 @@ public class ClientMessageExecutor extends MessageExecutor {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ClientMessageExecutor.class);
 
-    protected Map<Short, ClientFuture<Message>> futureMap;
+    protected Map<Short, ClientFuture<AbstractMessage>> futureMap;
 
     public ClientMessageExecutor(NetworkConsumer consumer,
                                  NetworkEventListener listener,
-                                 Map<Short, ClientFuture<Message>> futureMap) {
+                                 Map<Short, ClientFuture<AbstractMessage>> futureMap) {
         super(consumer, listener);
         this.futureMap = futureMap;
     }
@@ -29,7 +30,7 @@ public class ClientMessageExecutor extends MessageExecutor {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        Message m = (Message) msg;
+        MessageLite m = (MessageLite) msg;
 //        ClientFuture<AbstractMessage> f = futureMap.get(m.getValidateId());
 //        if (f != null) {
 //            if (!f.isCancelled()) {

@@ -1,6 +1,7 @@
 package info.xiaomo.gameCore.protocol.websocket;
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
+import info.xiaomo.gameCore.protocol.MessagePool;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -11,6 +12,10 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.util.ReferenceCountUtil;
 
 public class WebSocketMessageEncoder extends MessageEncoder {
+    public WebSocketMessageEncoder(MessagePool msgPool) {
+        super(msgPool);
+    }
+
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
 
@@ -18,7 +23,7 @@ public class WebSocketMessageEncoder extends MessageEncoder {
         try {
             if (acceptOutboundMessage(msg)) {
                 @SuppressWarnings("unchecked")
-                Message cast = (Message) msg;
+                AbstractMessage cast = (AbstractMessage) msg;
                 buf = allocateBuffer(ctx, cast, isPreferDirect());
                 try {
                     encode(ctx, cast, buf);

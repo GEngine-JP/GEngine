@@ -1,7 +1,7 @@
 package info.xiaomo.gameCore.protocol.client;
 
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
 
 /**
  * 心跳，处理client的channel心跳，负责发送ping消息到服务器端
@@ -21,7 +21,7 @@ public class ClientHeart implements Runnable {
     @Override
     public void run() {
 
-        Message ping = pingMessageFactory.getPingMessage();
+        AbstractMessage ping = pingMessageFactory.getPingMessage();
         client.ping(ping);
 
     }
@@ -30,7 +30,7 @@ public class ClientHeart implements Runnable {
     public interface PingMessageFactory {
 
 
-        Message getPingMessage();
+        AbstractMessage getPingMessage();
 
 
     }

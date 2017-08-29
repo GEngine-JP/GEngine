@@ -1,9 +1,15 @@
 package info.xiaomo.gameCore.protocol;
 
 
+import com.google.protobuf.AbstractMessage;
+
 public interface MessagePool {
 
-    Message getMessage(int messageId);
+    AbstractMessage getMessage(int messageId);
 
-    void register(int messageId, Class<? extends Message> messageClazz);
+    int getMessageId(AbstractMessage message);
+
+    AbstractHandler getHandler(String handlerName);
+
+    void register(int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler);
 }

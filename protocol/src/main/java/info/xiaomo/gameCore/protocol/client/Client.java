@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.protocol.client;
 
-import info.xiaomo.gameCore.protocol.Message;
+import com.google.protobuf.AbstractMessage;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
@@ -46,7 +46,7 @@ public class Client {
 
     protected EventLoopGroup group;
 
-    protected Map<Short, ClientFuture<Message>> futureMap = new ConcurrentHashMap<>();
+    protected Map<Short, ClientFuture<AbstractMessage>> futureMap = new ConcurrentHashMap<>();
 
     protected boolean stopped = false;
 
@@ -73,7 +73,7 @@ public class Client {
                     pip.addLast("Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
                 }
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getMsgPool()));
                 pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(builder.getConsumer(), builder.getListener(), futureMap));
 
 
@@ -92,7 +92,7 @@ public class Client {
      * @param message
      * @return
      */
-    public boolean sendMsg(Message message) {
+    public boolean sendMsg(AbstractMessage message) {
         Channel channel = getChannel();
         if (channel != null && channel.isActive()) {
             channel.writeAndFlush(message);
@@ -186,7 +186,7 @@ public class Client {
      *
      * @param msg
      */
-    public void ping(Message msg) {
+    public void ping(AbstractMessage msg) {
         sendMsg(msg);
     }
 

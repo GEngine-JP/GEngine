@@ -1,5 +1,6 @@
 package info.xiaomo.gameCore.protocol;
 
+import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;
 
 public interface NetworkConsumer {
@@ -10,7 +11,7 @@ public interface NetworkConsumer {
      * @param message message
      * @param channel channel
      */
-    void consume(Message message, Channel channel);
+    void consume(AbstractMessage message, Channel channel);
 
 
 }
