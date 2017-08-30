@@ -99,9 +99,9 @@ public class NetworkService {
         @Override
         protected void initChannel(Channel ch) throws Exception {
             ChannelPipeline pip = ch.pipeline();
-            pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
+            pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, -4, 4));
             pip.addLast(new MessageDecoder(builder.getMessagePool()));
-            pip.addLast(new LengthFieldPrepender(4));
+            pip.addLast(new LengthFieldPrepender(4, true));
             pip.addLast(new MessageEncoder(builder.getMessagePool()));
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {

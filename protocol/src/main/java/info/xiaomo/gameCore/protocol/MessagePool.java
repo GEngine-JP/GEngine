@@ -12,4 +12,6 @@ public interface MessagePool {
     AbstractHandler getHandler(String handlerName);
 
     void register(int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler);
+
+    void register(int messageId, AbstractMessage messageClazz);
 }

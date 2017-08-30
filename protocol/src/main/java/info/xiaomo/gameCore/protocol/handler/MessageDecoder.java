@@ -22,9 +22,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        int messageId = in.readInt();
-        byte[] bytes = new byte[in.readableBytes()];
+        int messageId = in.readInt(); // int占4个字节
+        byte[] bytes = new byte[in.readableBytes()]; // 消息体的长度(假设长度为20)
         in.readBytes(bytes);
+        // 4+20 =24
         AbstractMessage message = msgPool.getMessage(messageId);
         if (message == null) {
             LOGGER.error("未注册的消息id{}", messageId);
