@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.base.concurrent;
+package info.xiaomo.gameCore.base.command;
 
 /**
  * 游戏总的命令接口.</br>

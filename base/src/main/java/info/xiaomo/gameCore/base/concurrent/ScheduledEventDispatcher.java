@@ -1,5 +1,7 @@
 package info.xiaomo.gameCore.base.concurrent;
 
+import info.xiaomo.gameCore.base.concurrent.queue.QueueDriver;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author 张力
  * @date 2015-3-11 上午5:49:11
  */
+@Data
 public class ScheduledEventDispatcher implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledEventDispatcher.class);
@@ -135,30 +138,6 @@ public class ScheduledEventDispatcher implements Runnable {
     public void start(ScheduledExecutorService service) {
         service.scheduleAtFixedRate(this, 0, 100, TimeUnit.MILLISECONDS);
         this.running = true;
-    }
-
-    public Future<?> getFuture() {
-        return future;
-    }
-
-    public void setFuture(Future<?> future) {
-        this.future = future;
-    }
-
-    public int getMapId() {
-        return mapId;
-    }
-
-    public void setMapId(int mapId) {
-        this.mapId = mapId;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line = line;
     }
 
 }

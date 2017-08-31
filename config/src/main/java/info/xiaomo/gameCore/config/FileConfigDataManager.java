@@ -8,7 +8,7 @@ import info.xiaomo.gameCore.config.annotation.Cache;
 import info.xiaomo.gameCore.config.annotation.Config;
 import info.xiaomo.gameCore.config.beans.TableDesc;
 import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
-import info.xiaomo.gameCore.config.parser.DataConfigXmlParser;
+import info.xiaomo.gameCore.config.excel.parser.DataConfigXmlParser;
 import info.xiaomo.gameCore.config.util.ClassFileUtils;
 import info.xiaomo.gameCore.config.util.ReflectUtils;
 

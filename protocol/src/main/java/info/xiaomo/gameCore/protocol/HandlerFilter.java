@@ -16,9 +16,6 @@ public interface HandlerFilter {
 
     /**
      * message执行逻辑之后调用
-     *
-     * @param handler
-     * @return
      */
     boolean after(AbstractHandler handler);
 }

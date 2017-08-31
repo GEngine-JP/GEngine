@@ -3,7 +3,8 @@ package info.xiaomo.gameCore.logger;
 
 import info.xiaomo.gameCore.logger.annotation.Column;
 import info.xiaomo.gameCore.logger.annotation.Table;
-@Table(tableName="item_log",primaryKey="id",cycle=TableCycle.DAY)
+
+@Table(tableName = "item_log", primaryKey = "id", cycle = TableCycle.DAY)
 public class ItemLog extends AbstractLog {
 	
 	@Column(allowNull = false, fieldType = FieldType.INT, size = 11, commit = "日志ID", colName = "id", autoIncrement = true)

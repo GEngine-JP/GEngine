@@ -6,13 +6,6 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-/**
- * 消息处理器
- *
- * @author 张力
- * @date 2014-12-4 上午10:39:37
- */
 @Data
 public abstract class AbstractHandler<T> implements IQueueDriverCommand {
 

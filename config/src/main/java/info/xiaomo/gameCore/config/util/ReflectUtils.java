@@ -39,12 +39,12 @@ public class ReflectUtils {
         Table table = (Table) clz.getAnnotation(Table.class);
         if (table != null) {
             String tableName = table.name();
-            if (tableName != null && !tableName.trim().isEmpty()) {
+            if (!tableName.trim().isEmpty()) {
                 tableDesc.setName(tableName);
             }
 
             String[] primaryKeys = table.primaryKey();
-            if (primaryKeys != null && primaryKeys.length > 0) {
+            if (primaryKeys.length > 0) {
                 tableDesc.setPrimaryKeys(primaryKeys);
             }
 
@@ -84,7 +84,7 @@ public class ReflectUtils {
             if (column != null) {
                 String columnName = column.name();
                 // 有单独设置列名
-                if (columnName != null && !columnName.trim().isEmpty()) {
+                if (!columnName.trim().isEmpty()) {
                     columnDesc.setName(columnName);
                 }
                 // 字段不为null
@@ -92,7 +92,7 @@ public class ReflectUtils {
 
                 // 将多个转换器转为一个
                 Class<? extends IConverter>[] converters = column.value();
-                if (converters != null && converters.length > 0) {
+                if (converters.length > 0) {
                     IConverter converter = converters[0].newInstance();
                     for (int i = 1; i < converters.length; i++) {
                         converter = converter.andThen(converters[i].newInstance());

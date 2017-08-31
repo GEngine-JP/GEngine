@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月21日 12:02
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package info.xiaomo.gameCore.config.parser;
+package info.xiaomo.gameCore.config.excel.parser;
 
 import info.xiaomo.gameCore.config.IConverter;
 import info.xiaomo.gameCore.config.beans.ColumnDesc;
@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static info.xiaomo.gameCore.config.parser.XmlElement.*;
+import static info.xiaomo.gameCore.config.excel.parser.XmlElement.*;
 
 /**
  * xml数据配置解析

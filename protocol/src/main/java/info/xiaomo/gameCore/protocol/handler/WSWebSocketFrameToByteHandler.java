@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.websocket;
+package info.xiaomo.gameCore.protocol.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -18,7 +18,7 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class WebSocketFrameToByteHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
+public class WSWebSocketFrameToByteHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, BinaryWebSocketFrame msg) throws Exception {

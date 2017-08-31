@@ -3,8 +3,8 @@ package info.xiaomo.gameCore.protocol;
 import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
 import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
 import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
-import info.xiaomo.gameCore.protocol.websocket.WebSocketFrameToByteHandler;
-import info.xiaomo.gameCore.protocol.websocket.WebSocketMessageEncoder;
+import info.xiaomo.gameCore.protocol.handler.WSByteToWebSocketFrameHandler;
+import info.xiaomo.gameCore.protocol.handler.WSWebSocketFrameToByteHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -79,9 +79,9 @@ public class NetworkService {
             pip.addLast(new HttpServerCodec());
             pip.addLast(new HttpObjectAggregator(65536));
             pip.addLast(new WebSocketServerProtocolHandler("/"));
-            pip.addLast(new WebSocketFrameToByteHandler());
+            pip.addLast(new WSWebSocketFrameToByteHandler());
             pip.addLast(new MessageDecoder(builder.getMessagePool()));
-            pip.addLast(new WebSocketMessageEncoder(builder.getMessagePool()));
+            pip.addLast(new WSByteToWebSocketFrameHandler());
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
                 pip.addLast(handler);
@@ -99,7 +99,11 @@ public class NetworkService {
         @Override
         protected void initChannel(Channel ch) throws Exception {
             ChannelPipeline pip = ch.pipeline();
-            pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, -4, 4));
+            int maxLength = 1048576;
+            int lengthFieldLength = 4;
+            int ignoreLength = -4;
+            int offset = 0;
+            pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
             pip.addLast(new MessageDecoder(builder.getMessagePool()));
             pip.addLast(new LengthFieldPrepender(4, true));
             pip.addLast(new MessageEncoder(builder.getMessagePool()));

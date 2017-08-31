@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.websocket;
+package info.xiaomo.gameCore.protocol.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,7 +21,7 @@ import java.util.List;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class ByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteBuf> {
+public class WSByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteBuf> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
