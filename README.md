@@ -12,6 +12,10 @@
 ![](https://static.xiaomo.info/image/project/GameCore.png)
 
 
+- 网络通讯模块
+![](/screenshot/network.png)
+
+
 # 注意事项
 请一定要先安装`lombok`插件，少写很多getter/setter。不装插件会找不到getter/setter方法
 
