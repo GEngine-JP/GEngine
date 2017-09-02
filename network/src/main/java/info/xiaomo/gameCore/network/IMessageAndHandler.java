@@ -1,9 +1,9 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
 
 import com.google.protobuf.AbstractMessage;
 
-public interface MessagePool {
+public interface IMessageAndHandler {
 
     AbstractMessage getMessage(int messageId);
 

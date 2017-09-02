@@ -1,5 +1,6 @@
 package info.xiaomo.gameCore.base.concurrent;
 
+import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

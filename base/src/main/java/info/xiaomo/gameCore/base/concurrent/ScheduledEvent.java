@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.base.concurrent;
 
-import info.xiaomo.gameCore.base.command.AbstractCommand;
+import info.xiaomo.gameCore.base.concurrent.command.AbstractCommand;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

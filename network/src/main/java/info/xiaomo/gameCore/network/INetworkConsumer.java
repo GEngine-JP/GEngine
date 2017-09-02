@@ -1,9 +1,9 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;
 
-public interface NetworkConsumer {
+public interface INetworkConsumer {
 
     /**
      * 执行具体的指令

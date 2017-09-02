@@ -12,7 +12,7 @@
         <module>logger</module>
         <module>persist</module>
         <module>base</module>
-        <module>protocol</module>
+        <module>network</module>
         <module>all</module>
     </modules>
     <artifactId>gameCore</artifactId>

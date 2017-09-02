@@ -1,6 +1,5 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
-import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -26,17 +25,17 @@ public class NetworkServiceBuilder {
     /**
      * 网络消费者
      */
-    private NetworkConsumer consumer;
+    private INetworkConsumer consumer;
 
     /**
      * 事件监听器
      */
-    private NetworkEventListener listener;
+    private INetworkEventListener listener;
 
     /**
      * 消息池
      */
-    private MessagePool messagePool;
+    private IMessageAndHandler IMessageAndHandler;
 
     /**
      * 默认为false
@@ -47,10 +46,6 @@ public class NetworkServiceBuilder {
      * 额外的handler
      */
     private List<ChannelHandler> extraHandlers = new ArrayList<>();
-
-    public NetworkService createService() {
-        return new NetworkService(this);
-    }
 
     /**
      * 添加一个handler，该handler由外部定义.</br>
@@ -66,4 +61,7 @@ public class NetworkServiceBuilder {
         extraHandlers.add(handler);
     }
 
+    public NetworkService createService() {
+        return new NetworkService(this);
+    }
 }

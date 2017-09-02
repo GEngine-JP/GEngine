@@ -1,10 +1,6 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
-import info.xiaomo.gameCore.protocol.handler.MessageDecoder;
-import info.xiaomo.gameCore.protocol.handler.MessageEncoder;
-import info.xiaomo.gameCore.protocol.handler.MessageExecutor;
-import info.xiaomo.gameCore.protocol.handler.WSByteToWebSocketFrameHandler;
-import info.xiaomo.gameCore.protocol.handler.WSWebSocketFrameToByteHandler;
+import info.xiaomo.gameCore.network.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -22,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class NetworkService {
+public class NetworkService implements IService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkService.class);
 
@@ -34,11 +30,7 @@ public class NetworkService {
 
     private ServerBootstrap bootstrap;
 
-    private int state = 0;
-
-    private static final byte STATE_STOP = 0;
-    private static final byte STATE_START = 1;
-
+    private ServiceState state;
 
     NetworkService(final NetworkServiceBuilder builder) {
         int bossLoopGroupCount = builder.getBossLoopGroupCount();
@@ -80,7 +72,7 @@ public class NetworkService {
             pip.addLast(new HttpObjectAggregator(65536));
             pip.addLast(new WebSocketServerProtocolHandler("/"));
             pip.addLast(new WSWebSocketFrameToByteHandler());
-            pip.addLast(new MessageDecoder(builder.getMessagePool()));
+            pip.addLast(new MessageDecoder(builder.getIMessageAndHandler()));
             pip.addLast(new WSByteToWebSocketFrameHandler());
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
@@ -104,9 +96,9 @@ public class NetworkService {
             int ignoreLength = -4;
             int offset = 0;
             pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
-            pip.addLast(new MessageDecoder(builder.getMessagePool()));
+            pip.addLast(new MessageDecoder(builder.getIMessageAndHandler()));
             pip.addLast(new LengthFieldPrepender(4, true));
-            pip.addLast(new MessageEncoder(builder.getMessagePool()));
+            pip.addLast(new MessageEncoder(builder.getIMessageAndHandler()));
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
                 pip.addLast(handler);
@@ -122,13 +114,13 @@ public class NetworkService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        this.state = STATE_START;
+        this.state = ServiceState.RUNNING;
         LOGGER.info("Server on port:{} is start", port);
     }
 
 
     public void stop() {
-        this.state = STATE_STOP;
+        this.state = ServiceState.STOPPED;
         Future<?> bf = bossGroup.shutdownGracefully();
         Future<?> wf = workerGroup.shutdownGracefully();
         try {
@@ -140,8 +132,19 @@ public class NetworkService {
         LOGGER.info("Netty Server on port:{} is closed", port);
     }
 
-    public boolean isRunning() {
-        return this.state == STATE_START;
+
+    @Override
+    public ServiceState getState() {
+        return this.state;
     }
 
+    @Override
+    public boolean isOpened() {
+        return state == ServiceState.RUNNING;
+    }
+
+    @Override
+    public boolean isClosed() {
+        return state == ServiceState.STOPPED;
+    }
 }

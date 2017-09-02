@@ -1,7 +1,7 @@
-package info.xiaomo.gameCore.protocol.handler;
+package info.xiaomo.gameCore.network.handler;
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.protocol.MessagePool;
+import info.xiaomo.gameCore.network.IMessageAndHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -14,9 +14,9 @@ public class MessageDecoder extends ByteToMessageDecoder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageDecoder.class);
 
-    private MessagePool msgPool;
+    private IMessageAndHandler msgPool;
 
-    public MessageDecoder(MessagePool msgPool) {
+    public MessageDecoder(IMessageAndHandler msgPool) {
         this.msgPool = msgPool;
     }
 

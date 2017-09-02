@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>2017.1</version>
 
-    <artifactId>protocol</artifactId>
+    <artifactId>network</artifactId>
     <dependencies>
         <dependency>
             <groupId>info.xiaomo</groupId>

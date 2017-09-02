@@ -1,11 +1,11 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
 /**
  * message执行过滤器,可以过滤掉一些特殊条件
  *
  * @author Administrator
  */
-public interface HandlerFilter {
+public interface IHandlerFilter {
 
     /**
      * message执行逻辑之前调用

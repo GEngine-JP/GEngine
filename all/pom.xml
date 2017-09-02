@@ -14,7 +14,7 @@
         <config.version>2017.1</config.version>
         <logger.version>2017.1</logger.version>
         <persist.version>2017.1</persist.version>
-        <protocol.version>2017.1</protocol.version>
+        <network.version>2017.1</network.version>
         <base.version>2017.1</base.version>
     </properties>
 
@@ -37,8 +37,8 @@
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
-            <artifactId>protocol</artifactId>
-            <version>${protocol.version}</version>
+            <artifactId>network</artifactId>
+            <version>${network.version}</version>
         </dependency>
         <dependency>
             <groupId>info.xiaomo</groupId>
@@ -49,29 +49,29 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.sh.game.GameBootstrap</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>assembly</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<appendAssemblyId>false</appendAssemblyId>-->
+                    <!--<descriptorRefs>-->
+                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<mainClass>com.sh.game.GameBootstrap</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>make-assembly</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>assembly</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

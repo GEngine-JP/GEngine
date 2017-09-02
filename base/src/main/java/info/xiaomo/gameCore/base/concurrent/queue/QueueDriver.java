@@ -1,6 +1,6 @@
 package info.xiaomo.gameCore.base.concurrent.queue;
 
-import info.xiaomo.gameCore.base.concurrent.IQueueDriverCommand;
+import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gameCore.base.concurrent.QueueExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,6 @@
-package info.xiaomo.gameCore.base.concurrent;
+package info.xiaomo.gameCore.base.concurrent.command;
 
 
-import info.xiaomo.gameCore.base.command.ICommand;
 import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
 
 /**

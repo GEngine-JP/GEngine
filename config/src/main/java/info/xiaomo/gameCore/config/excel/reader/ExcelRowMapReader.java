@@ -21,6 +21,7 @@ public class ExcelRowMapReader extends ExcelRowReader<Map> {
         this(resultSupplier, null);
     }
 
+    @SuppressWarnings("unchecked")
     public ExcelRowMapReader(Supplier<? extends Map> resultSupplier, Map<Integer, ICellReader> cellReaders) {
         this(resultSupplier, new ExcelCellStingReader(), (map, objs) -> {
             Object[] params = (Object[]) objs;

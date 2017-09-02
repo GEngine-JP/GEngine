@@ -1,6 +1,6 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
-import info.xiaomo.gameCore.base.concurrent.IQueueDriverCommand;
+import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
     /**
      * 过滤器
      */
-    protected HandlerFilter filter;
+    protected IHandlerFilter filter;
 
     @Override
     public int getQueueId() {

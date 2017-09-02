@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol.handler;
+package info.xiaomo.gameCore.network.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

@@ -1,19 +1,19 @@
-package info.xiaomo.gameCore.protocol.handler;
+package info.xiaomo.gameCore.network.handler;
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.protocol.NetworkConsumer;
-import info.xiaomo.gameCore.protocol.NetworkEventListener;
+import info.xiaomo.gameCore.network.INetworkConsumer;
+import info.xiaomo.gameCore.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class MessageExecutor extends ChannelInboundHandlerAdapter {
 
-    private NetworkConsumer consumer;
+    private INetworkConsumer consumer;
 
-    private NetworkEventListener listener;
+    private INetworkEventListener listener;
 
 
-    public MessageExecutor(NetworkConsumer consumer, NetworkEventListener listener) {
+    public MessageExecutor(INetworkConsumer consumer, INetworkEventListener listener) {
         this.consumer = consumer;
         this.listener = listener;
     }

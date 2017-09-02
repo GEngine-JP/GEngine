@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.protocol;
+package info.xiaomo.gameCore.network;
 
 import io.netty.channel.ChannelHandlerContext;
 
@@ -7,7 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
  *
  * @author 小莫
  */
-public interface NetworkEventListener {
+public interface INetworkEventListener {
 
     /**
      * 连接建立
