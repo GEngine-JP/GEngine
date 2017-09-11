@@ -14,7 +14,7 @@
         <config.version>2017.1</config.version>
         <logger.version>2017.1</logger.version>
         <persist.version>2017.1</persist.version>
-        <network.version>2017.1</network.version>
+        <network.version>2017.2</network.version>
         <base.version>2017.1</base.version>
     </properties>
 
