@@ -3,13 +3,11 @@ package info.xiaomo.gameCore.network;
 import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 public abstract class AbstractHandler<T> implements IQueueDriverCommand {
-
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractHandler.class);
 
     protected T message;
 
@@ -60,12 +58,12 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
                 return;
             }
             doAction();
-            LOGGER.warn(this.getClass().getSimpleName() + "耗时：" + (System.currentTimeMillis() - time) + "ms");
+            log.warn(this.getClass().getSimpleName() + "耗时：" + (System.currentTimeMillis() - time) + "ms");
             if (filter != null) {
                 filter.after(this);
             }
         } catch (Throwable e) {
-            LOGGER.error("命令执行错误", e);
+            log.error("命令执行错误", e);
         }
     }
 
