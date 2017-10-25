@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
 
 import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;

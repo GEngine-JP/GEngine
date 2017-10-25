@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;

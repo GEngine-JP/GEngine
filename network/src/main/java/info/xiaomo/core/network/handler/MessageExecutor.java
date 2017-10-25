@@ -1,8 +1,8 @@
-package info.xiaomo.gameCore.network.handler;
+package info.xiaomo.core.network.handler;
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.network.INetworkConsumer;
-import info.xiaomo.gameCore.network.INetworkEventListener;
+import info.xiaomo.core.network.INetworkConsumer;
+import info.xiaomo.core.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

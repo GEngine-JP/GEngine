@@ -1,7 +1,7 @@
-package info.xiaomo.gameCore.network.handler;
+package info.xiaomo.core.network.handler;
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.network.IMessageAndHandler;
+import info.xiaomo.core.network.IMessageAndHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;

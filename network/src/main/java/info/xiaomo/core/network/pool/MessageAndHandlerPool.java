@@ -1,8 +1,8 @@
-package info.xiaomo.gameCore.network.pool;
+package info.xiaomo.core.network.pool;
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.network.AbstractHandler;
-import info.xiaomo.gameCore.network.IMessageAndHandler;
+import info.xiaomo.core.network.AbstractHandler;
+import info.xiaomo.core.network.IMessageAndHandler;
 
 import java.util.HashMap;
 import java.util.Map;

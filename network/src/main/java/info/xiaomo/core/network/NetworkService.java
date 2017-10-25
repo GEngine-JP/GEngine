@@ -1,5 +1,6 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
+import info.xiaomo.core.network.handler.*;
 import info.xiaomo.gameCore.network.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;

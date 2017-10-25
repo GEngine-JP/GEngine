@@ -1,11 +1,8 @@
-package info.xiaomo.gameCore.network.handler;
+package info.xiaomo.core.network.handler;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
-
-import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -17,14 +14,14 @@ import java.util.List;
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
  * QQ    : 83387856
- * Date  : 2017/8/21 17:38
+ * Date  : 2017/8/21 17:43
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class WSByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteBuf> {
+public class WsWebSocketFrameToByteHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-        out.add(new BinaryWebSocketFrame(msg).retain());
+    protected void channelRead0(ChannelHandlerContext ctx, BinaryWebSocketFrame msg) throws Exception {
+        ctx.fireChannelRead(msg.content().retain());
     }
 }

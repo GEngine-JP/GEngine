@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
 import io.netty.channel.ChannelHandlerContext;
 

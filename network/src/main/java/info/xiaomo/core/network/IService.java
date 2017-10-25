@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

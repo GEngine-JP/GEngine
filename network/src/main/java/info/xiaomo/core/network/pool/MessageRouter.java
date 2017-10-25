@@ -1,6 +1,7 @@
-package info.xiaomo.gameCore.network.pool;
+package info.xiaomo.core.network.pool;
 
 import com.google.protobuf.AbstractMessage;
+import info.xiaomo.core.network.*;
 import info.xiaomo.gameCore.base.common.AttributeUtil;
 import info.xiaomo.gameCore.network.*;
 import io.netty.channel.Channel;

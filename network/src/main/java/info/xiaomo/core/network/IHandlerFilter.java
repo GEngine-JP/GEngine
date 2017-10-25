@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.network;
+package info.xiaomo.core.network;
 
 /**
  * message执行过滤器,可以过滤掉一些特殊条件
