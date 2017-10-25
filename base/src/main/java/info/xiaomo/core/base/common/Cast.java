@@ -64,10 +64,13 @@ public class Cast {
         int i = isNumeric(str);
         if (i == 1) {
             return Integer.parseInt(str);
-        } else if (i == 2) {
-            return Double.valueOf(str).intValue();
         } else {
-            return 0;
+            int temp = 2;
+            if (i == temp) {
+                return Double.valueOf(str).intValue();
+            } else {
+                return 0;
+            }
         }
     }
 
@@ -286,7 +289,8 @@ public class Cast {
         } else if (p > -1) {
             return 0.0;
         }
-        if ("true".equals(str)) {
+        String trueString = "true";
+        if (trueString.equals(str)) {
             return 1;
         } else {
             return toDouble(str);

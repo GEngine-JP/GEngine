@@ -52,16 +52,13 @@ public class QueueDriver {
 
 	/**
 	 * 添加一个命令到队列中
-	 * 
-	 * @param command
+	 *
+	 * @param command command
 	 */
 	public boolean addCommand(IQueueDriverCommand command) {
 
 		if (command.getQueueId() > 0 && command.getQueueId() != this.queueId) {
 			return false;
-		}
-
-		if (queue.size() > 200) {
 		}
 
 		boolean result;
