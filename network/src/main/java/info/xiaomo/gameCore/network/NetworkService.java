@@ -71,7 +71,7 @@ public class NetworkService implements IService {
             pip.addLast(new HttpServerCodec());
             pip.addLast(new HttpObjectAggregator(65536));
             pip.addLast(new WebSocketServerProtocolHandler("/"));
-            pip.addLast(new WSWebSocketFrameToByteHandler());
+            pip.addLast(new WsWebSocketFrameToByteHandler());
             pip.addLast(new MessageDecoder(builder.getIMessageAndHandler()));
             pip.addLast(new WSByteToWebSocketFrameHandler());
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));

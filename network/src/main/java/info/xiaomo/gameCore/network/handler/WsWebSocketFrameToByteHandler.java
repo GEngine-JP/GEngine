@@ -10,7 +10,7 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
- * author: xiaomo
+ * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
  * QQ    : 83387856
@@ -18,10 +18,10 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class WSWebSocketFrameToByteHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
+public class WsWebSocketFrameToByteHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, BinaryWebSocketFrame msg) throws Exception {
-        ctx.fireChannelRead(msg.content());
+        ctx.fireChannelRead(msg.content().retain());
     }
 }

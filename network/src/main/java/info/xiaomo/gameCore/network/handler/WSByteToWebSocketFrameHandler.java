@@ -13,7 +13,7 @@ import java.util.List;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
- * author: xiaomo
+ * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
  * QQ    : 83387856
@@ -25,6 +25,6 @@ public class WSByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteB
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-        out.add(new BinaryWebSocketFrame(msg));
+        out.add(new BinaryWebSocketFrame(msg).retain());
     }
 }
