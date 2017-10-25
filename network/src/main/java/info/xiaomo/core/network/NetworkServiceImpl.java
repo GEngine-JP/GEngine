@@ -76,7 +76,7 @@ public class NetworkServiceImpl implements IService {
             pip.addLast(new WebSocketServerProtocolHandler("/"));
             pip.addLast(new WsWebSocketFrameToByteHandler());
             pip.addLast(new MessageDecoder(builder.getImessageandhandler()));
-            pip.addLast(new WSByteToWebSocketFrameHandler());
+            pip.addLast(new WsByteToWebSocketFrameHandler());
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
                 pip.addLast(handler);

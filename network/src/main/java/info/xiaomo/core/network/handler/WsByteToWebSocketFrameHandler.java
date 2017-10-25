@@ -21,7 +21,7 @@ import java.util.List;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class WSByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteBuf> {
+public class WsByteToWebSocketFrameHandler extends MessageToMessageEncoder<ByteBuf> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
