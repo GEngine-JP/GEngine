@@ -16,7 +16,7 @@ import java.util.Map;
 public class MessageRouter implements INetworkConsumer {
 
 
-    private Map<Integer, IProcessor> processors = new HashMap<>();
+    private Map<Integer, IProcessor> processors = new HashMap<>(10);
 
     private IMessageAndHandler msgPool;
 

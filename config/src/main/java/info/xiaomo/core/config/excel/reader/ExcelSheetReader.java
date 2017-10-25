@@ -21,7 +21,7 @@ public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
     protected Supplier<? extends R> resultSupplier;
     protected IRowReader defaultRowReader;
     protected BiConverter<? super R, Object, ? extends R> rowParser;
-    protected Map<Integer, IRowReader> rowReaders = new HashMap<>();
+    protected Map<Integer, IRowReader> rowReaders = new HashMap<>(10);
 
     public ExcelSheetReader(Supplier<? extends R> resultSupplier, IRowReader defaultRowReader, BiConverter<? super R, Object, ? extends R> rowParser, Map<Integer, IRowReader> rowReaders) {
         this.resultSupplier = resultSupplier;

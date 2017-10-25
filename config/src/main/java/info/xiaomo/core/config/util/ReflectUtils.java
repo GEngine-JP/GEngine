@@ -52,7 +52,7 @@ public class ReflectUtils {
             tableDesc.setIgnoreRow(table.ignoreRow());
         }
 
-        Map<String, ColumnDesc> columns = new HashMap<>();
+        Map<String, ColumnDesc> columns = new HashMap<>(10);
         Field[] declaredFields = clz.getDeclaredFields();
         if (declaredFields != null) {
             for (Field field : declaredFields) {

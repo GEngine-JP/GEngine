@@ -24,14 +24,14 @@ import java.util.Map;
 public class MessageAndHandlerPool implements IMessageAndHandler {
 
     // 消息类字典
-    private final Map<Integer, AbstractMessage> messages = new HashMap<>();
+    private final Map<Integer, AbstractMessage> messages = new HashMap<>(10);
 
     /**
      * 类和
      */
-    private final Map<String, Integer> ids = new HashMap<>();
+    private final Map<String, Integer> ids = new HashMap<>(10);
 
-    private final Map<String, Class<? extends AbstractHandler>> handlers = new HashMap<>();
+    private final Map<String, Class<? extends AbstractHandler>> handlers = new HashMap<>(10);
 
     @Override
     public AbstractMessage getMessage(int messageId) {

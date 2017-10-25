@@ -130,7 +130,7 @@ public class ExcelUtils {
      * @return
      */
     public static Map<Integer,Map<Integer, String>> readExcelSheetToMap(Sheet sheet) {
-        Map<Integer,Map<Integer, String>> sheetResult = new HashMap<>();
+        Map<Integer, Map<Integer, String>> sheetResult = new HashMap<>(10);
         new ExcelSheetMapReader(() -> sheetResult).read(sheet);
         return sheetResult;
     }

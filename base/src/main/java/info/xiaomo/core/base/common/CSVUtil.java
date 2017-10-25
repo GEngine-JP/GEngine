@@ -119,7 +119,7 @@ public class CSVUtil {
 			String line;
 			String[] lineArray;
 			for (String line1 : lines) {
-				Map<String, String> tr = new HashMap<>();
+				Map<String, String> tr = new HashMap<>(10);
 				line = line1;
 				lineArray = line.split(Symbol.DOUHAO);
 				for (int j = 0; j < lineArray.length; j++) {

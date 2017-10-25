@@ -10,7 +10,7 @@ class TableCompareUtil {
 	/**
 	 * 属性变更规则
 	 */
-	private static Map<String, List<String>> FIELD_CHANGE_RULES = new HashMap<>();
+    private static Map<String, List<String>> FIELD_CHANGE_RULES = new HashMap<>(10);
 
 	/**
 	 * 初始化变更规则
@@ -91,8 +91,8 @@ class TableCompareUtil {
 	}
 
 	public static List<String> compare(String tableName, List<ColumnDesc> newColumns, List<ColumnDesc> oldColumns) throws Exception {
-		HashMap<String, ColumnDesc> oldColumnMap = new HashMap<>();
-		List<String> ret = new ArrayList<>();
+        HashMap<String, ColumnDesc> oldColumnMap = new HashMap<>(10);
+        List<String> ret = new ArrayList<>();
 		for (ColumnDesc columnInfo : oldColumns) {
 			oldColumnMap.put(columnInfo.getName(), columnInfo);
 		}

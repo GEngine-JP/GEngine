@@ -29,9 +29,9 @@ public class MysqlDataProvider {
 	/**
 	 * 持久化任务map
 	 */
-	private Map<Integer, PersistTask> persistTaskMap = new HashMap<>();
+    private Map<Integer, PersistTask> persistTaskMap = new HashMap<>(10);
 
-	private Map<Integer, PersistableCache> cacheMap = new HashMap<>();
+    private Map<Integer, PersistableCache> cacheMap = new HashMap<>(10);
 
 	/**
 	 * JDBC模板类

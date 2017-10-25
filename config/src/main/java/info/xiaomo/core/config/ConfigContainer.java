@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Data
 public class ConfigContainer<T> implements IConfigContainer {
-    private Map<Object, T> configMap = new HashMap<>();
+    private Map<Object, T> configMap = new HashMap<>(10);
     private List<T> configList = new ArrayList<>();
 
     @Override

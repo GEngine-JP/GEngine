@@ -92,8 +92,8 @@ public abstract class AbstractFileConfigDataManager extends AbstractConfigDataMa
             throw new RuntimeException(String.format("excel文件路径错误[%s]", configFileDir));
         }
 
-        Map<String, Class> cacheClz = new HashMap<>();
-        Map<String, TableDesc> configTable = new HashMap<>();
+        Map<String, Class> cacheClz = new HashMap<>(10);
+        Map<String, TableDesc> configTable = new HashMap<>(10);
 
         String configPackage = getConfigPackage();
         if (configPackage != null) {
@@ -125,7 +125,7 @@ public abstract class AbstractFileConfigDataManager extends AbstractConfigDataMa
             cacheClz.putAll(xmlCaches);
         }
 
-        Map<String, IConfigWrapper> tempConfigs = new HashMap<>();
+        Map<String, IConfigWrapper> tempConfigs = new HashMap<>(10);
         configTable.forEach((clzName, tableDesc) -> {
             IConfigWrapper wrapper = parseTableDesc(tableDesc);
             wrapper.getList().forEach(e -> {
@@ -137,7 +137,7 @@ public abstract class AbstractFileConfigDataManager extends AbstractConfigDataMa
             tempConfigs.put(clzName, wrapper);
         });
 
-        Map<String, Object> tempCaches = new HashMap<>();
+        Map<String, Object> tempCaches = new HashMap<>(10);
         cacheClz.forEach((clzName, clz) -> {
             try {
                 Object obj = clz.newInstance();

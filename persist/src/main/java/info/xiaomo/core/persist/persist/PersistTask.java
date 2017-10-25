@@ -32,7 +32,7 @@ public class PersistTask extends Thread {
     /**
      * 需要持久化的id列表
      */
-    private Map<Long, PersistType> persistMap = new HashMap<>();
+    private Map<Long, PersistType> persistMap = new HashMap<>(10);
 
 
     /**
@@ -129,7 +129,7 @@ public class PersistTask extends Thread {
             rescueErrorUpdate();
 
             //插入本次数据
-            Map<Long, PersistType> cloneMap = new HashMap<>();
+            Map<Long, PersistType> cloneMap = new HashMap<>(10);
             synchronized (LOCK) {
                 cloneMap.putAll(persistMap);
                 persistMap.clear();

@@ -246,7 +246,7 @@ public class JdbcTemplate {
 
         @Override
         public Map<String, Object> mapping(ResultSet rs) throws SQLException {
-            Map<String, Object> ret = new HashMap<>();
+            Map<String, Object> ret = new HashMap<>(10);
             ResultSetMetaData rsmd = threadLocal.get();
             if (rsmd == null) {
                 rsmd = rs.getMetaData();

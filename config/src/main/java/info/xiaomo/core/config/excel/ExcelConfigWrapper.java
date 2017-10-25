@@ -90,8 +90,8 @@ public class ExcelConfigWrapper implements IConfigWrapper {
             }
         }
 
-        Map<String, String> warnKey = new HashMap<>();
-        Map<String, String> errorKey = new HashMap<>();
+        Map<String, String> warnKey = new HashMap<>(10);
+        Map<String, String> errorKey = new HashMap<>(10);
 
         Map<Integer, Map<Integer, String>> table = ExcelUtils.readExcelSheetToMap(workbook.getSheetAt(tableDesc.getIndex()));
         if (tableDesc.getIgnoreRow() != null) {

@@ -21,7 +21,7 @@ public abstract class AbstractLog implements Runnable {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(AbstractLog.class);
 
-    private final static Map<Class<?>, TableDesc> TABLE_DESC_MAP = new HashMap<>();
+	private final static Map<Class<?>, TableDesc> TABLE_DESC_MAP = new HashMap<>(10);
 
 	void init() throws Exception {
 
@@ -134,13 +134,12 @@ public abstract class AbstractLog implements Runnable {
 					statement.executeBatch();
 				}
 			} else {
-				// 当前数据库没有这个表
-                if (TABLE_DESC_MAP.get(this.getClass()).getCycle() == TableCycle.SINGLE) {// 不按时间周期滚动的表，预先创建
-                    String createSql = this.buildCreateSql();
+				// 当前数据库没有这个表,不按时间周期滚动的表，预先创建
+				if (TABLE_DESC_MAP.get(this.getClass()).getCycle() == TableCycle.SINGLE) {
+					String createSql = this.buildCreateSql();
 					try {
 						LogService.template.update(createSql);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

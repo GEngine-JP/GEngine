@@ -23,7 +23,7 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
     protected Supplier<? extends R> resultSupplier;
     protected ICellReader defaultCellReader;
     protected BiConverter<? super R, Object, ? extends R> cellParser;
-    protected Map<Integer, ICellReader> cellReaders = new HashMap<>();
+    protected Map<Integer, ICellReader> cellReaders = new HashMap<>(10);
 
     public ExcelRowReader(Supplier<? extends R> resultSupplier, ICellReader defaultCellReader, BiConverter<? super R, Object, ? extends R> cellParser, Map<Integer, ICellReader> cellReaders) {
         this.resultSupplier = resultSupplier;

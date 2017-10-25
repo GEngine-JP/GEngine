@@ -36,7 +36,7 @@ public class DataConfigXmlParser {
      */
     @SuppressWarnings("unchecked")
     public static Map<String, TableDesc> parseConfigs(String xmlFilePath) throws Exception {
-        Map<String, TableDesc> tableDescs = new HashMap<>();
+        Map<String, TableDesc> tableDescs = new HashMap<>(10);
 
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlFilePath));
@@ -213,7 +213,7 @@ public class DataConfigXmlParser {
      * @throws Exception 解析错误
      */
     public static Map<String, Class> parseCaches(String xmlFilePath) throws Exception {
-        Map<String, Class> caches = new HashMap<>();
+        Map<String, Class> caches = new HashMap<>(10);
 
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlFilePath));

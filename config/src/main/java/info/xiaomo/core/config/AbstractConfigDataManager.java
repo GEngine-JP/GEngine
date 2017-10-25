@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public abstract class AbstractConfigDataManager implements IConfigDataManager {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractConfigDataManager.class);
-    protected Map<String, IConfigWrapper> configs = new HashMap<>();
-    protected Map<String, Object> caches = new HashMap<>();
+    protected Map<String, IConfigWrapper> configs = new HashMap<>(10);
+    protected Map<String, Object> caches = new HashMap<>(10);
 
     @Override
     public <T> T getConfig(Class<T> clz, Object... primaryKey) {
