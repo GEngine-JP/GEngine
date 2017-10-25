@@ -4,7 +4,7 @@
  */
 package com.yangqiang;
 
-import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
+import info.xiaomo.core.config.excel.ExcelConfigDataManager;
 
 /**
  * @author YangQiang

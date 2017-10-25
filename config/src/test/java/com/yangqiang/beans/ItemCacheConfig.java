@@ -5,9 +5,9 @@
 package com.yangqiang.beans;
 
 
-import info.xiaomo.gameCore.config.IConfigCache;
-import info.xiaomo.gameCore.config.annotation.Cache;
-import info.xiaomo.gameCore.config.annotation.Config;
+import info.xiaomo.core.config.IConfigCache;
+import info.xiaomo.core.config.annotation.Cache;
+import info.xiaomo.core.config.annotation.Config;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;

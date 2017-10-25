@@ -33,9 +33,10 @@ public class CSVUtil {
 			return null;
 		} finally {
 			try {
-				if (reader != null)
-					reader.close();
-			} catch (IOException ignored) {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException ignored) {
 			}
 		}
 	}

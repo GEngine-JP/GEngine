@@ -3,10 +3,10 @@ package com.yangqiang.beans;
 import com.yangqiang.converters.IntegerArrayConverter;
 import com.yangqiang.converters.IntegerMapConverter;
 import com.yangqiang.converters.Matrix3IntConverter;
-import info.xiaomo.gameCore.config.IConfig;
-import info.xiaomo.gameCore.config.annotation.Column;
-import info.xiaomo.gameCore.config.annotation.Config;
-import info.xiaomo.gameCore.config.annotation.Table;
+import info.xiaomo.core.config.IConfig;
+import info.xiaomo.core.config.annotation.Column;
+import info.xiaomo.core.config.annotation.Config;
+import info.xiaomo.core.config.annotation.Table;
 import lombok.Data;
 import lombok.ToString;
 

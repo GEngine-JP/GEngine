@@ -32,6 +32,7 @@ public class DruidConnectionPool implements ConnectionPool {
      *
      * @return Connection
      */
+    @Override
     public Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
@@ -43,10 +44,12 @@ public class DruidConnectionPool implements ConnectionPool {
      *                   连接池名称
      * @throws SQLException SQLException
      */
+    @Override
     public void release(Connection connection) throws SQLException {
         connection.close();
     }
 
+    @Override
     public String toString() {
         return ds.toString();
     }

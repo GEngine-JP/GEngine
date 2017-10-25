@@ -4,9 +4,9 @@
  */
 package com.yangqiang;
 
-import info.xiaomo.gameCore.config.FileConfigDataManagerConfig;
-import info.xiaomo.gameCore.config.annotation.ConfigFileScan;
-import info.xiaomo.gameCore.config.annotation.PackageScan;
+import info.xiaomo.core.config.FileConfigDataManagerConfig;
+import info.xiaomo.core.config.annotation.ConfigFileScan;
+import info.xiaomo.core.config.annotation.PackageScan;
 
 /**
  * excel配置管理器的配置 通过注解的形式配置

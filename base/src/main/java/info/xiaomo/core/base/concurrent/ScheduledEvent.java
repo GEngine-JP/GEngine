@@ -49,6 +49,7 @@ public abstract class ScheduledEvent extends AbstractCommand {
     }
 
 
+    @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }

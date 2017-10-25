@@ -19,9 +19,10 @@ public class TwoTuple<A, B> {
 		second = b;
 	}
 
-	public String toString() {
-		return "(" + first + ", " + second + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
 
 	@Override
 	public int hashCode() {

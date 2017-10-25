@@ -5,7 +5,7 @@
 package com.yangqiang.converters;
 
 
-import info.xiaomo.gameCore.config.IConverter;
+import info.xiaomo.core.config.IConverter;
 
 /**
  * @author YangQiang

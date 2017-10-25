@@ -16,8 +16,8 @@ public class ThreeTuple<A, B, C> extends TwoTuple<A, B>
         return third;
     }
 
-    public String toString()
-    {
+    @Override
+    public String toString() {
         return "(" + first + ", " + second + ", " + third + ")";
     }
 

@@ -5,9 +5,8 @@
 package com.yangqiang;
 
 import com.yangqiang.beans.ItemConfig;
-import info.xiaomo.gameCore.config.annotation.ConfigFileScan;
-import info.xiaomo.gameCore.config.annotation.PackageScan;
-import info.xiaomo.gameCore.config.excel.ExcelConfigDataManager;
+import info.xiaomo.core.config.annotation.ConfigFileScan;
+import info.xiaomo.core.config.annotation.PackageScan;
 
 /**
  * @author YangQiang

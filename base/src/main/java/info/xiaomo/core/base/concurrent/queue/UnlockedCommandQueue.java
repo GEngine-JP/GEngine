@@ -42,6 +42,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
      *
      * @return
      */
+    @Override
     public V poll() {
         return this.queueList.poll();
     }
@@ -49,6 +50,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
     /**
      * 增加执行指令
      */
+    @Override
     public boolean offer(V value) {
         return this.queueList.offer(value);
     }
@@ -56,6 +58,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
     /**
      * 清理
      */
+    @Override
     public void clear() {
         this.queueList.clear();
     }
@@ -65,6 +68,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
      *
      * @return
      */
+    @Override
     public int size() {
         return this.queueList.size();
     }
@@ -79,10 +83,12 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
         this.running = running;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
