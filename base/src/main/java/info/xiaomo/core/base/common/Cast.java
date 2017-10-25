@@ -133,7 +133,8 @@ public class Cast {
         int length = 4;
         int intValue = 0;
         for (int i = length - 1; i >= 0; i--) {
-            int offset = i * 8; // 24, 16, 8
+            // 24, 16, 8
+            int offset = i * 8;
             intValue |= (bytes[i] & 0xFF) << offset;
         }
         return intValue;

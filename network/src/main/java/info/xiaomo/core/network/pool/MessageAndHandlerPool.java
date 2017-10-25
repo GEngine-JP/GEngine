@@ -13,6 +13,7 @@ import java.util.Map;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
+ *
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
@@ -23,7 +24,9 @@ import java.util.Map;
  */
 public class MessageAndHandlerPool implements IMessageAndHandler {
 
-    // 消息类字典
+    /**
+     * 消息类字典
+     */
     private final Map<Integer, AbstractMessage> messages = new HashMap<>(10);
 
     /**

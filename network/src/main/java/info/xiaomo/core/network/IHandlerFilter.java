@@ -10,12 +10,16 @@ public interface IHandlerFilter {
     /**
      * message执行逻辑之前调用
      *
-     * @return
+     * @param handler handler
+     * @return boolean
      */
     boolean before(AbstractHandler handler);
 
     /**
      * message执行逻辑之后调用
+     *
+     * @param handler handler
+     * @return boolean
      */
     boolean after(AbstractHandler handler);
 }

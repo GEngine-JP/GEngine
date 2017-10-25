@@ -100,7 +100,8 @@ class TableDesc {
         StringBuilder fields = new StringBuilder("(");
         StringBuilder values = new StringBuilder("(");
         for (ColumnDesc col : columns) {
-            if (col.isAutoIncrement()) {//自增列不插入
+            //自增列不插入
+            if (col.isAutoIncrement()) {
                 continue;
             }
             fields.append("`").append(col.getName()).append("`,");

@@ -249,7 +249,7 @@ public class DataConfigXmlParser {
 }
 
 class XmlElement {
-    // xml文件的所有节点
+
     static final String ROOT_ELEMENT = "configData";
     static final String CONFIGS_ELEMENT = "configs";
     static final String CACHES_ELEMENT = "caches";
@@ -258,7 +258,7 @@ class XmlElement {
     static final String FIELD_ELEMENT = "field";
     static final String CONVERTER_ELEMENT = "converter";
 
-    // config节点属性
+
     static final String CONFIG_CLASS_ATTRIBUTE = "class";
     static final String CONFIG_NAME_ATTRIBUTE = "name";
     static final String CONFIG_PRIMARY_KEYS_ATTRIBUTE = "primaryKeys";
@@ -266,15 +266,15 @@ class XmlElement {
     static final String CONFIG_HEADER_ATTRIBUTE = "header";
     static final String CONFIG_IGNORE_ROW_ATTRIBUTE = "ignoreRow";
 
-    // field节点属性
+
     static final String FIELD_NAME_ATTRIBUTE = "name";
     static final String FIELD_COLUMN_NAME_ATTRIBUTE = "columnName";
     static final String FIELD_NOTNULL_ATTRIBUTE = "notNull";
     static final String FIELD_CONVERTERS_ATTRIBUTE = "converters";
 
-    // converter节点属性
+
     static final String CONVERTER_CLASS_ATTRIBUTE = "class";
 
-    // cache节点属性
+
     static final String CACHE_CLASS_ATTRIBUTE = "class";
 }

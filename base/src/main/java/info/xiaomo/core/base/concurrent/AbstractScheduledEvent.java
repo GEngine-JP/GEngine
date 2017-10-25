@@ -14,16 +14,24 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class AbstractScheduledEvent extends AbstractCommand {
 
-    // 定时结束时间
+    /**
+     * 定时结束时间
+     */
     private long end;
 
-    // 定时剩余时间
+    /**
+     * 定时剩余时间
+     */
     private long remain;
 
-    // 执行次数
+    /**
+     * 执行次数
+     */
     private int loop;
 
-    // 间隔时间
+    /**
+     * 间隔时间
+     */
     private long delay;
 
     /**

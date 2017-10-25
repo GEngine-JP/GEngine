@@ -110,7 +110,8 @@ public class ScheduledEventDispatcher implements Runnable {
         long curTime = System.currentTimeMillis();
         while (it.hasNext()) {
             AbstractScheduledEvent event = it.next();
-            if (event.getEnd() - curTime <= 0L) {// 定时时间到
+            // 定时时间到
+            if (event.getEnd() - curTime <= 0L) {
                 if (event.getLoop() > 0) {
                     // 设置下一个循环（同时更新了下一次的end时间）
                     int loop = event.getLoop();

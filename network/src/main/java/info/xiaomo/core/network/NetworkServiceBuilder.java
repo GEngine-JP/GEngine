@@ -6,6 +6,9 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author qq
+ */
 @Data
 public class NetworkServiceBuilder {
 

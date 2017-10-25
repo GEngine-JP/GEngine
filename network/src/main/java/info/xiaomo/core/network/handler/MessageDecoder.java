@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * @author qq
+ */
 public class MessageDecoder extends ByteToMessageDecoder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageDecoder.class);
@@ -22,8 +25,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        int messageId = in.readInt(); // int占4个字节
-        byte[] bytes = new byte[in.readableBytes()]; // 消息体的长度(假设长度为20)
+        // int占4个字节
+        int messageId = in.readInt();
+        // 消息体的长度(假设长度为20)
+        byte[] bytes = new byte[in.readableBytes()];
         in.readBytes(bytes);
         // 4+20 =24
         AbstractMessage message = msgPool.getMessage(messageId);

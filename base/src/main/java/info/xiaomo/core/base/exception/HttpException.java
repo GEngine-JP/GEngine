@@ -1,5 +1,8 @@
 package info.xiaomo.core.base.exception;
 
+/**
+ * @author qq
+ */
 public class HttpException extends RuntimeException {
 	private int status;
 

@@ -109,7 +109,8 @@ public class PersistTask extends Thread {
                 persistMap.putIfAbsent(obj.getId(), persistType);
             } else if (persistType == PersistType.DELETE) {
                 PersistType type = persistMap.get(obj.getId());
-                if (type != null && type == PersistType.INSERT) {// 如果当前数据还未入库，那么不必入库了，直接从缓存中删除
+                // 如果当前数据还未入库，那么不必入库了，直接从缓存中删除
+                if (type != null && type == PersistType.INSERT) {
                     persistMap.remove(obj.getId());
                 } else {
                     // 否则设置删除标志

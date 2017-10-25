@@ -69,7 +69,8 @@ public class ExcelUtils {
                     }
                 } else {
                     double value = cell.getNumericCellValue();
-                    if (value % 1 == 0) {//为整数的小数去掉后面的0
+                    //为整数的小数去掉后面的0
+                    if (value % 1 == 0) {
                         return String.valueOf(Double.valueOf(value).longValue());
                     }
                     return String.valueOf(value);
@@ -86,7 +87,8 @@ public class ExcelUtils {
                     try {
                         // 按照数字类型获取结果
                         double value = cell.getNumericCellValue();
-                        if (value % 1 == 0) {//为整数的小数去掉后面的0
+                        //为整数的小数去掉后面的0
+                        if (value % 1 == 0) {
                             return String.valueOf(Double.valueOf(value).longValue());
                         }
                         return String.valueOf(value);

@@ -12,10 +12,14 @@ import java.util.Queue;
  */
 public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
 
-    // 命令队列
+    /**
+     * 命令队列
+     */
     private final Queue<V> queueList;
 
-    // 是否正在运行中
+    /**
+     * 是否正在运行中
+     */
     private boolean running = false;
 
     /**
@@ -40,7 +44,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
     /**
      * 下一执行命令
      *
-     * @return
+     * @return v
      */
     @Override
     public V poll() {
@@ -66,7 +70,7 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
     /**
      * 获取指令数量
      *
-     * @return
+     * @return int
      */
     @Override
     public int size() {

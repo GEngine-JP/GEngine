@@ -35,8 +35,10 @@ public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
             LOGGER.error("消息过大，编码失败 {} -> {}", messageId, length);
             return;
         }
-        out.writeInt(messageId); // int->4
-        out.writeBytes(bytes); // ->20(假设)
+        // int->4
+        out.writeInt(messageId);
+        // ->20(假设)
+        out.writeBytes(bytes);
 
     }
 
