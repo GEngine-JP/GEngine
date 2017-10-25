@@ -54,38 +54,6 @@ public class SystemUtil {
     }
 
     /**
-     * 获取C盘卷 序列号
-     *
-     * @return
-     */
-    public static String getDiskNumber() {
-        String line = "";
-        String HdSerial = "";// 记录硬盘序列号
-
-        try {
-
-            Process process = Runtime.getRuntime().exec("cmd /c dir c:");// 获取命令行参数
-            BufferedReader buffReader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
-
-            while ((line = buffReader.readLine()) != null) {
-
-                if (line.contains("卷的序列号是 ")) { // 读取参数并获取硬盘序列号
-
-                    HdSerial = line.substring(line.indexOf("卷的序列号是 ")
-                            + "卷的序列号是 ".length(), line.length());
-                    break;
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return HdSerial;
-    }
-
-    /**
      * 获取Mac地址
      *
      * @return Mac地址，例如：F0-4D-A2-39-24-A6

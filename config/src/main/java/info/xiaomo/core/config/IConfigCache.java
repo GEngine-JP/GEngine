@@ -6,8 +6,13 @@ package info.xiaomo.core.config;
 
 /**
  * 配置文件缓存
+ * @author qq
  */
 public interface IConfigCache {
+
+    /**
+     * build
+     */
     default void build() {
     }
 }

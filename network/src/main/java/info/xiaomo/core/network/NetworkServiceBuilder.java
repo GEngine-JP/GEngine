@@ -35,7 +35,7 @@ public class NetworkServiceBuilder {
     /**
      * 消息池
      */
-    private IMessageAndHandler IMessageAndHandler;
+    private IMessageAndHandler imessageandhandler;
 
     /**
      * 默认为false

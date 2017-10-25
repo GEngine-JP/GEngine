@@ -12,7 +12,20 @@ import java.util.List;
  * @author YangQiang
  */
 public interface IConfigContainer {
+    /**
+     * 获取配置
+     *
+     * @param key key
+     * @param <T> <T>
+     * @return <T>
+     */
     <T> T getConfig(Object key);
 
+    /**
+     * 获取list
+     *
+     * @param <T> <T>
+     * @return <T>
+     */
     <T> List<T> getList();
 }

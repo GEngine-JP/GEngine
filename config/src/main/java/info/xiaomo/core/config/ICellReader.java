@@ -9,10 +9,26 @@ package info.xiaomo.core.config; /**
  * @author YangQiang
  */
 public interface ICellReader<T, R> extends IReader<T, R> {
+
+    /**
+     * 获取默认值
+     *
+     * @param t t
+     * @return R
+     */
     R getDefaultValue(T t);
 
+    /**
+     * 获取转换器
+     * @return IConverter
+     */
     IConverter<T, R> getConverter();
 
+    /**
+     * 读取
+     * @param t t
+     * @return R
+     */
     @Override
     default R read(T t) {
         IConverter<T, R> converter = getConverter();

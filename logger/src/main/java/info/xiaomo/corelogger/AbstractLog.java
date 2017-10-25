@@ -173,7 +173,6 @@ public abstract class AbstractLog implements Runnable {
 			info.setSize(columns.getInt("COLUMN_SIZE"));
 			info.setAllowNull(columns.getBoolean("IS_NULLABLE"));
 			infos.add(info);
-			//LOGGER.error("table:" + tableName + ",type:" + info.getType() + ",name:" + info.getName() + ",size:" + info.getSize());
 		}
 		
 

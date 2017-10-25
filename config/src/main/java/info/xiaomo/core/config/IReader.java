@@ -10,8 +10,19 @@ package info.xiaomo.core.config; /**
  */
 @FunctionalInterface
 public interface IReader<T, R> extends IConverter<T, R> {
+    /**
+     * read
+     *
+     * @param t
+     * @return
+     */
     R read(T t);
 
+    /**
+     * convert
+     * @param t t
+     * @return
+     */
     @Override
     default R convert(T t) {
         return read(t);

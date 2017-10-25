@@ -34,7 +34,7 @@ public class QueueDriver {
 	/**
 	 * 任务队列
 	 */
-	private ICommandQueue<IQueueDriverCommand> queue;
+	private final ICommandQueue<IQueueDriverCommand> queue;
 
 	/**
 	 * 任务执行器
@@ -58,14 +58,10 @@ public class QueueDriver {
 	public boolean addCommand(IQueueDriverCommand command) {
 
 		if (command.getQueueId() > 0 && command.getQueueId() != this.queueId) {
-			// LOGGER.error("场景驱动[" + this.name + "]-" + queueId +
-			// "执行到不属于本场景的命令,命令所在场景：" + command.getQueueId());
 			return false;
 		}
 
 		if (queue.size() > 200) {
-			// LOGGER.error("场景驱动[" + this.name + "]-" + queueId + "队列长度超过200<"
-			// + queue.size());
 		}
 
 		boolean result;
@@ -74,7 +70,6 @@ public class QueueDriver {
 			// 队列中的元素已经超过允许的最大个数时，就将改队列清空，丢弃多有的指令
 			if (this.maxQueueSize > 0 && queue.size() > this.maxQueueSize) {
 				// LOGGER.error("场景驱动[" + this.name + "]-" + queueId + "抛弃指令!" +
-				// Thread.currentThread().getName());
 				queue.clear();
 			}
 

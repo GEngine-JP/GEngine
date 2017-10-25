@@ -156,5 +156,11 @@ public abstract class AbstractFileConfigDataManager extends AbstractConfigDataMa
         caches = tempCaches;
     }
 
+    /**
+     * 转换table
+     *
+     * @param tableDesc tableDesc
+     * @return IConfigWrapper
+     */
     public abstract IConfigWrapper parseTableDesc(TableDesc tableDesc);
 }

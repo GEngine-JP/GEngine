@@ -19,5 +19,10 @@ import io.netty.channel.Channel;
  */
 public interface Session {
 
+    /**
+     * channel
+     *
+     * @param channel channel
+     */
     void setChannel(Channel channel);
 }

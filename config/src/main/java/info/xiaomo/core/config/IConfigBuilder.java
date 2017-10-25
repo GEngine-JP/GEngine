@@ -11,8 +11,17 @@ package info.xiaomo.core.config;
  */
 @FunctionalInterface
 public interface IConfigBuilder {
+    /**
+     * 构建
+     *
+     * @return IConfigBuilder
+     */
     IConfigBuilder build();
 
+    /**
+     * delimiter
+     * @return String
+     */
     default String getKeyDelimiter() {
         return "_";
     }

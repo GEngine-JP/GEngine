@@ -10,6 +10,9 @@ package info.xiaomo.core.config;
  * @author YangQiang
  */
 public interface IConfig {
+    /**
+     * after load
+     */
     default void afterLoad() {
     }
 }

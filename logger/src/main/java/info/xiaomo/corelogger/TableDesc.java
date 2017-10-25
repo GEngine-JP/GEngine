@@ -84,17 +84,17 @@ class TableDesc {
     }
 
     private String buildCreateSql() {
-        StringBuilder DDL = new StringBuilder();
-        DDL.append("CREATE TABLE IF NOT EXISTS `%s` (\n");
+        StringBuilder ddl = new StringBuilder();
+        ddl.append("CREATE TABLE IF NOT EXISTS `%s` (\n");
         for (ColumnDesc col : columns) {
-            DDL.append(col.toDDL()).append(",\n");
+            ddl.append(col.toDDL()).append(",\n");
         }
-        DDL.append("PRIMARY KEY (`").append(this.primaryKey).append("`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8");
-        return DDL.toString();
+        ddl.append("PRIMARY KEY (`").append(this.primaryKey).append("`)) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8");
+        return ddl.toString();
     }
 
     private String buildInsertSQL() {
-        StringBuffer sql = new StringBuffer();
+        StringBuilder sql = new StringBuilder();
         sql.append("insert into `%s` ");
 
         StringBuilder fields = new StringBuilder("(");

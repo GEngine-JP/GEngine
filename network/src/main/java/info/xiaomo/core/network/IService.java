@@ -6,6 +6,7 @@ package info.xiaomo.core.network;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
+ *
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email : xiaomo@xiaomo.info
@@ -16,8 +17,14 @@ package info.xiaomo.core.network;
  */
 public interface IService {
 
+    /**
+     * start
+     */
     void start();
 
+    /**
+     * stop
+     */
     void stop();
 
     /**
