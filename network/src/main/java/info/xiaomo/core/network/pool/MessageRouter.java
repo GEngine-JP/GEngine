@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author xiaomo
+ */
 @Slf4j
 public class MessageRouter implements INetworkConsumer {
 

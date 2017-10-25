@@ -8,6 +8,9 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author xiaomo
+ */
 public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MessageEncoder.class);

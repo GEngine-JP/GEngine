@@ -1,7 +1,7 @@
 package info.xiaomo.core.base.concurrent.command;
 
 /**
- * @author qq
+ * @author xiaomo
  */
 @FunctionalInterface
 public interface ICommand extends Runnable {

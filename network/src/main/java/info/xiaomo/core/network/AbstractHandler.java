@@ -5,6 +5,9 @@ import info.xiaomo.core.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author xiaomo
+ */
 @Data
 @Slf4j
 public abstract class AbstractHandler<T> implements IQueueDriverCommand {

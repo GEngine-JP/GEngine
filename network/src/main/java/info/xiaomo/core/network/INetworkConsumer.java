@@ -3,6 +3,9 @@ package info.xiaomo.core.network;
 import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;
 
+/**
+ * @author xiaomo
+ */
 public interface INetworkConsumer {
 
     /**

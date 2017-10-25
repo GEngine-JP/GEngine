@@ -4,86 +4,88 @@ package info.xiaomo.corelogger;
 import info.xiaomo.corelogger.annotation.Column;
 import info.xiaomo.corelogger.annotation.Table;
 
+/**
+ * @author xiaomo
+ */
 @Table(tableName = "item_log", primaryKey = "id", cycle = TableCycle.DAY)
 public class ItemLog extends AbstractLog {
-	
-	@Column(allowNull = false, fieldType = FieldType.INT, size = 11, commit = "日志ID", colName = "id", autoIncrement = true)
-	private int id;
 
-	@Column(fieldType = FieldType.INT, size = 11, commit="服务器id")
-	private int serverId;
+    @Column(allowNull = false, fieldType = FieldType.INT, size = 11, commit = "日志ID", colName = "id", autoIncrement = true)
+    private int id;
 
-	@Column(fieldType = FieldType.VARCHAR, size = 64, commit="道具名称")
-	private String name;
+    @Column(fieldType = FieldType.INT, size = 11, commit="服务器id")
+    private int serverId;
 
-	@Column(fieldType = FieldType.INT, size = 11, commit="时间")
-	private long time;
+    @Column(fieldType = FieldType.VARCHAR, size = 64, commit="道具名称")
+    private String name;
 
-	@Column(fieldType = FieldType.INT, size = 11, commit="道具ID")
-	private int itemId;
+    @Column(fieldType = FieldType.INT, size = 11, commit="时间")
+    private long time;
 
-	@Column(fieldType = FieldType.INT, size = 11, commit="数量")
-	private int num;
+    @Column(fieldType = FieldType.INT, size = 11, commit="道具ID")
+    private int itemId;
 
-	@Column(fieldType = FieldType.VARCHAR, size = 256, allowNull=true, commit="触发动作")
-	private String action;
+    @Column(fieldType = FieldType.INT, size = 11, commit="数量")
+    private int num;
 
-	public int getServerId() {
-		return serverId;
-	}
+    @Column(fieldType = FieldType.VARCHAR, size = 256, allowNull=true, commit="触发动作")
+    private String action;
 
-	public void setServerId(int serverId) {
-		this.serverId = serverId;
-	}
+    public int getServerId() {
+        return serverId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setServerId(int serverId) {
+        this.serverId = serverId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public long getTime() {
-		return time;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTime(long time) {
-		this.time = time;
-	}
+    public long getTime() {
+        return time;
+    }
 
-	public int getItemId() {
-		return itemId;
-	}
+    public void setTime(long time) {
+        this.time = time;
+    }
 
-	public void setItemId(int itemId) {
-		this.itemId = itemId;
-	}
+    public int getItemId() {
+        return itemId;
+    }
 
-	public int getNum() {
-		return num;
-	}
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
 
-	public void setNum(int num) {
-		this.num = num;
-	}
+    public int getNum() {
+        return num;
+    }
 
-	public String getAction() {
-		return action;
-	}
+    public void setNum(int num) {
+        this.num = num;
+    }
 
-	public void setAction(String action) {
-		this.action = action;
-	}
+    public String getAction() {
+        return action;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setAction(String action) {
+        this.action = action;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
 }

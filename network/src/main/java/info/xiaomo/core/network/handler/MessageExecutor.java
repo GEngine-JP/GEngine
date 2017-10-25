@@ -6,6 +6,9 @@ import info.xiaomo.core.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+/**
+ * @author xiaomo
+ */
 public class MessageExecutor extends ChannelInboundHandlerAdapter {
 
     private INetworkConsumer consumer;

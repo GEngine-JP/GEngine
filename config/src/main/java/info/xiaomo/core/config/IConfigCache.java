@@ -6,7 +6,7 @@ package info.xiaomo.core.config;
 
 /**
  * 配置文件缓存
- * @author qq
+ * @author xiaomo
  */
 public interface IConfigCache {
 

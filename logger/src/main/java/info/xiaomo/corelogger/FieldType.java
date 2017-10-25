@@ -1,7 +1,7 @@
 package info.xiaomo.corelogger;
 
 /**
- * @author qq
+ * @author xiaomo
  */
 
 public enum FieldType {

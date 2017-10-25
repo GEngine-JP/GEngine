@@ -1,5 +1,8 @@
 package info.xiaomo.core.base.tuple;
 
+/**
+ * @author xiaomo
+ */
 public class Tuple {
     public static <A, B> TwoTuple<A, B> tuple(A a, B b) {
         return new TwoTuple<A, B>(a, b);

@@ -1,5 +1,8 @@
 package info.xiaomo.core.base.common;
 
+/**
+ * @author xiaomo
+ */
 public class Symbol {
     public static final String JINHAO = "#";
     public static final String AND = "&";

@@ -16,6 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 
 /**
  * RSA加密方法
+ * @author xiaomo
  */
 public class EncrypRSAUtil {
 

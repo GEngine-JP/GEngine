@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author qq
+ * @author xiaomo
  */
 public class NetworkServiceImpl implements IService {
 

@@ -3,6 +3,9 @@ package info.xiaomo.core.base.common;
 import java.io.*;
 import java.nio.ByteBuffer;
 
+/**
+ * @author xiaomo
+ */
 public class Cast {
 
     private final static ByteArrayOutputStream OUT = new ByteArrayOutputStream();

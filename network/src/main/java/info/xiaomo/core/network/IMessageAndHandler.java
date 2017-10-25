@@ -3,6 +3,9 @@ package info.xiaomo.core.network;
 
 import com.google.protobuf.AbstractMessage;
 
+/**
+ * @author xiaomo
+ */
 public interface IMessageAndHandler {
 
     /**
