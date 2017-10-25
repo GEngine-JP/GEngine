@@ -42,8 +42,8 @@ public class ClassFileUtils {
      * 获取指定包下满足要求的类
      *
      * @param packageName 包名
-     * @param recursive 是否递归查找
-     * @param predicate 判定条件
+     * @param recursive   是否递归查找
+     * @param predicate   判定条件
      * @return
      */
     public static Set<Class> getClasses(String packageName, boolean recursive, Predicate<Class> predicate) {
@@ -98,7 +98,8 @@ public class ClassFileUtils {
                 continue;
             }
             // 不是指定包的类并且不满足子包的类
-            if ((!newPackageName.equals(packageName)) && !(recursive && newPackageName.startsWith(packageName))) {
+            boolean check = !newPackageName.equals(packageName) && !(recursive && newPackageName.startsWith(packageName));
+            if (check) {
                 continue;
             }
             try {

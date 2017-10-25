@@ -7,15 +7,18 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
 
-public class CSVUtil {
+/**
+ * @author xiaomo
+ */
+public class CsvUtil {
 
     /**
      * 网络地址
      * @param str str
      * @param skipLine skipLine
-     * @return CSVData
-     */
-	public static CSVData readConfigDataFromUrl(String str, int skipLine) {
+	 * @return CsvData
+	 */
+	public static CsvData readConfigDataFromUrl(String str, int skipLine) {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(new URL(str).openStream()));
@@ -27,7 +30,7 @@ public class CSVUtil {
 				lines.add(tempString);
 			}
 			reader.close();
-			return new CSVData(lines, skipLine);
+			return new CsvData(lines, skipLine);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -45,9 +48,9 @@ public class CSVUtil {
      * 本地文件
      * @param filepath filepath
      * @param skipLine skipLine
-     * @return CSVData
-     */
-	public static CSVData read(String filepath, int skipLine) {
+	 * @return CsvData
+	 */
+	public static CsvData read(String filepath, int skipLine) {
 		BufferedReader br = null;
 		try {
 
@@ -59,7 +62,7 @@ public class CSVUtil {
 				lines.add(line);
 			}
 
-			return new CSVData(lines, skipLine);
+			return new CsvData(lines, skipLine);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,7 +78,7 @@ public class CSVUtil {
 		}
 	}
 
-	public static class CSVData {
+	public static class CsvData {
 
 		private String[] tableHead;
 
@@ -84,7 +87,7 @@ public class CSVUtil {
 		private int skipLine;
 
 
-		public CSVData(List<String> lines, int skipLine) {
+		public CsvData(List<String> lines, int skipLine) {
 
 			this.skipLine = skipLine;
 
@@ -140,7 +143,7 @@ public class CSVUtil {
 	}
 
 	public static void main(String[] args) {
-		CSVData csvData = readConfigDataFromUrl("http://xiaomo-app.oss-ap-northeast-1.aliyuncs.com/cfg_test.csv", 3);
+		CsvData csvData = readConfigDataFromUrl("http://xiaomo-app.oss-ap-northeast-1.aliyuncs.com/cfg_test.csv", 3);
 		if (csvData == null) {
 			return;
 		}

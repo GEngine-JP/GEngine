@@ -18,9 +18,9 @@ import java.security.interfaces.RSAPublicKey;
  * RSA加密方法
  * @author xiaomo
  */
-public class EncrypRSAUtil {
+public class EncryptRcaUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EncrypRSAUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EncryptRcaUtil.class);
 
     /**
      * 加密
@@ -66,8 +66,8 @@ public class EncrypRSAUtil {
         return null;
     }
 
-    public static SSHKey createSSHKey() throws NoSuchAlgorithmException {
-        SSHKey sshKey = new SSHKey();
+    public static SshKey createSSHKey() throws NoSuchAlgorithmException {
+        SshKey sshKey = new SshKey();
 
         //KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
@@ -86,13 +86,13 @@ public class EncrypRSAUtil {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
         String msg = "郭XX-精品相声";
-        SSHKey sshKey = EncrypRSAUtil.createSSHKey();
+        SshKey sshKey = EncryptRcaUtil.createSSHKey();
 
         //用公钥加密
-        byte[] resultBytes = EncrypRSAUtil.encrypt(sshKey.getRsaPublicKey(), msg);
+        byte[] resultBytes = EncryptRcaUtil.encrypt(sshKey.getRsaPublicKey(), msg);
 
         //用私钥解密
-        byte[] decBytes = EncrypRSAUtil.decrypt(sshKey.getRsaPrivateKey(), resultBytes);
+        byte[] decBytes = EncryptRcaUtil.decrypt(sshKey.getRsaPrivateKey(), resultBytes);
 
         LOGGER.info("明文是:" + msg);
         LOGGER.info("加密后是:" + new String(resultBytes));
@@ -100,7 +100,7 @@ public class EncrypRSAUtil {
     }
 
 
-    public static class SSHKey {
+    public static class SshKey {
         private RSAPrivateKey rsaPrivateKey;
         private RSAPublicKey rsaPublicKey;
 
