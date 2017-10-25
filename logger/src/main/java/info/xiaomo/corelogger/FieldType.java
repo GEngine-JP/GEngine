@@ -1,14 +1,36 @@
 package info.xiaomo.corelogger;
 
+/**
+ * @author qq
+ */
+
 public enum FieldType {
-	TINYINT,
-	SMALLINT,
-	INT,
-	BIGINT,
-	VARCHAR,
-	DOUBLE,
-	TEXT,
-	LONGTEXT,
-	BIT,
-	BLOB
+    /**
+     * byte
+     */
+    TINYINT,
+    /**
+     * short
+     */
+    SMALLINT,
+    /**
+     * int
+     */
+    INT,
+    /**
+     * long
+     */
+    BIGINT,
+    /**
+     * string
+     */
+    VARCHAR,
+    /**
+     * double
+     */
+    DOUBLE,
+    /**
+     * bit
+     */
+    BIT,
 }

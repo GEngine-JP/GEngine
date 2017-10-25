@@ -23,38 +23,38 @@ import java.util.Set;
  * 文件配置管理器
  * @author YangQiang
  */
-public abstract class FileConfigDataManager extends AbstractConfigDataManager {
+public abstract class AbstractFileConfigDataManager extends AbstractConfigDataManager {
     protected FileConfigDataManagerConfig config;
 
-    public FileConfigDataManager() {
+    public AbstractFileConfigDataManager() {
         Class<?> clz = getClass();
         this.config = new FileConfigDataManagerConfig(clz);
     }
 
-    public FileConfigDataManager(Class<?> configClz) {
+    public AbstractFileConfigDataManager(Class<?> configClz) {
         this(new FileConfigDataManagerConfig(configClz));
     }
 
-    public FileConfigDataManager(FileConfigDataManagerConfig config) {
+    public AbstractFileConfigDataManager(FileConfigDataManagerConfig config) {
         this.config = config;
     }
 
-    public FileConfigDataManager setXmlConfigFile(String file) {
+    public AbstractFileConfigDataManager setXmlConfigFile(String file) {
         this.config.setXmlConfigFile(file);
         return this;
     }
 
-    public FileConfigDataManager setConfigPackage(String configPackage) {
+    public AbstractFileConfigDataManager setConfigPackage(String configPackage) {
         this.config.setConfigPackage(configPackage);
         return this;
     }
 
-    public FileConfigDataManager setConfigFileDir(String configFileDir) {
+    public AbstractFileConfigDataManager setConfigFileDir(String configFileDir) {
         this.config.setConfigFileDir(configFileDir);
         return this;
     }
 
-    public FileConfigDataManager setConfigFileSuffix(String configFileSuffix) {
+    public AbstractFileConfigDataManager setConfigFileSuffix(String configFileSuffix) {
         if (configFileSuffix == null) {
             configFileSuffix = "";
         }

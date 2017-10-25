@@ -21,7 +21,7 @@ public abstract class AbstractLog implements Runnable {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(AbstractLog.class);
 
-	private final static Map<Class<?>, TableDesc> tableDescMap = new HashMap<>();
+    private final static Map<Class<?>, TableDesc> TABLE_DESC_MAP = new HashMap<>();
 
 	void init() throws Exception {
 
@@ -77,27 +77,27 @@ public abstract class AbstractLog implements Runnable {
 			}
 		}
 		desc.init();
-		tableDescMap.put(this.getClass(), desc);
-		checkTable();
+        TABLE_DESC_MAP.put(this.getClass(), desc);
+        checkTable();
 	}
 
 	private String buildCreateSql() {
-		return String.format(tableDescMap.get(this.getClass()).getCreateSql(),
-		        tableDescMap.get(this.getClass()).buildName(System.currentTimeMillis()));
-	}
+        return String.format(TABLE_DESC_MAP.get(this.getClass()).getCreateSql(),
+                TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
+    }
 
 	String buildInsertSQL() {
-		return String.format(tableDescMap.get(this.getClass()).getInsertSql(),
-		        tableDescMap.get(this.getClass()).buildName(System.currentTimeMillis()));
-	}
+        return String.format(TABLE_DESC_MAP.get(this.getClass()).getInsertSql(),
+                TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
+    }
 
 	Object[] buildInsertParam() {
-		return tableDescMap.get(this.getClass()).buildInsertParam(this);
-	}
+        return TABLE_DESC_MAP.get(this.getClass()).buildInsertParam(this);
+    }
 
 	private void checkTable() throws Exception {
-		String buildName = tableDescMap.get(this.getClass()).buildName(System.currentTimeMillis());
-		LOGGER.info("检测查表" + buildName);
+        String buildName = TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis());
+        LOGGER.info("检测查表" + buildName);
 		Connection connection = null;
 		Statement statement = null;
 		try {
@@ -118,9 +118,9 @@ public abstract class AbstractLog implements Runnable {
 
 				// 去除主键
 				List<ColumnDesc> newColumns = new ArrayList<>();
-				for (ColumnDesc col : tableDescMap.get(this.getClass()).getColumns()) {
-					if (!tableDescMap.get(this.getClass()).getPrimaryKey().equals(col.getName())) {
-						newColumns.add(col);
+                for (ColumnDesc col : TABLE_DESC_MAP.get(this.getClass()).getColumns()) {
+                    if (!TABLE_DESC_MAP.get(this.getClass()).getPrimaryKey().equals(col.getName())) {
+                        newColumns.add(col);
 					}
 				}
 
@@ -135,8 +135,8 @@ public abstract class AbstractLog implements Runnable {
 				}
 			} else {
 				// 当前数据库没有这个表
-				if (tableDescMap.get(this.getClass()).getCycle() == TableCycle.SINGLE) {// 不按时间周期滚动的表，预先创建
-					String createSql = this.buildCreateSql();
+                if (TABLE_DESC_MAP.get(this.getClass()).getCycle() == TableCycle.SINGLE) {// 不按时间周期滚动的表，预先创建
+                    String createSql = this.buildCreateSql();
 					try {
 						LogService.template.update(createSql);
 					} catch (Exception e) {

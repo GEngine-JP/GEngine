@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public abstract class ScheduledEvent extends AbstractCommand {
+public abstract class AbstractScheduledEvent extends AbstractCommand {
 
     // 定时结束时间
     private long end;
@@ -31,7 +31,7 @@ public abstract class ScheduledEvent extends AbstractCommand {
      *
      * @param end 执行事件
      */
-    protected ScheduledEvent(long end) {
+    protected AbstractScheduledEvent(long end) {
         this.end = end;
         this.loop = 1;
     }
@@ -42,7 +42,7 @@ public abstract class ScheduledEvent extends AbstractCommand {
      * @param loop  循环次数
      * @param delay 间隔时间
      */
-    protected ScheduledEvent(int loop, long delay) {
+    protected AbstractScheduledEvent(int loop, long delay) {
         this.loop = loop;
         this.delay = delay;
         this.end = (System.currentTimeMillis() + delay);

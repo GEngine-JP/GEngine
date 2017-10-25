@@ -4,7 +4,7 @@
  */
 package info.xiaomo.core.config.excel;
 
-import info.xiaomo.core.config.FileConfigDataManager;
+import info.xiaomo.core.config.AbstractFileConfigDataManager;
 import info.xiaomo.core.config.FileConfigDataManagerConfig;
 import info.xiaomo.core.config.IConfigWrapper;
 import info.xiaomo.core.config.beans.TableDesc;
@@ -16,7 +16,7 @@ import java.io.File;
  *
  * @author YangQiang
  */
-public class ExcelConfigDataManager extends FileConfigDataManager {
+public class ExcelConfigDataManager extends AbstractFileConfigDataManager {
 
     public ExcelConfigDataManager() {
     }

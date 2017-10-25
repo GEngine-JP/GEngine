@@ -32,7 +32,7 @@ public class ScheduledEventDispatcher implements Runnable {
     /**
      * 事件列表
      */
-    private List<ScheduledEvent> events = new ArrayList<>();
+    private List<AbstractScheduledEvent> events = new ArrayList<>();
 
     /**
      * 场景id
@@ -63,7 +63,7 @@ public class ScheduledEventDispatcher implements Runnable {
      *
      * @param event 定时事件
      */
-    public void addTimerEvent(ScheduledEvent event) {
+    public void addTimerEvent(AbstractScheduledEvent event) {
         if (running) {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
@@ -76,12 +76,12 @@ public class ScheduledEventDispatcher implements Runnable {
      *
      * @param event 定时事件
      */
-    public void removeTimerEvent(ScheduledEvent event) {
+    public void removeTimerEvent(AbstractScheduledEvent event) {
         if (running) {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.remove(event);
-        LOGGER.debug("ScheduledEvent事件:ScheduledEvent=remove");
+        LOGGER.debug("ScheduledEvent事件:AbstractScheduledEvent=remove");
     }
 
     /**
@@ -92,7 +92,7 @@ public class ScheduledEventDispatcher implements Runnable {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.clear();
-        LOGGER.debug("ScheduledEvent事件:ScheduledEvent=clear");
+        LOGGER.debug("ScheduledEvent事件:AbstractScheduledEvent=clear");
     }
 
     /**
@@ -106,10 +106,10 @@ public class ScheduledEventDispatcher implements Runnable {
 
     @Override
     public void run() {
-        Iterator<ScheduledEvent> it = this.events.iterator();
+        Iterator<AbstractScheduledEvent> it = this.events.iterator();
         long curTime = System.currentTimeMillis();
         while (it.hasNext()) {
-            ScheduledEvent event = it.next();
+            AbstractScheduledEvent event = it.next();
             if (event.getEnd() - curTime <= 0L) {// 定时时间到
                 if (event.getLoop() > 0) {
                     // 设置下一个循环（同时更新了下一次的end时间）
