@@ -18,9 +18,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class NetworkService implements IService {
+/**
+ * @author qq
+ */
+public class NetworkServiceImpl implements IService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkServiceImpl.class);
 
     private int port;
 
@@ -32,7 +35,7 @@ public class NetworkService implements IService {
 
     private ServiceState state;
 
-    NetworkService(final NetworkServiceBuilder builder) {
+    NetworkServiceImpl(final NetworkServiceBuilder builder) {
         int bossLoopGroupCount = builder.getBossLoopGroupCount();
         int workerLoopGroupCount = builder.getWorkerLoopGroupCount();
         this.port = builder.getPort();

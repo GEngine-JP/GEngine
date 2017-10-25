@@ -61,7 +61,7 @@ public class NetworkServiceBuilder {
         extraHandlers.add(handler);
     }
 
-    public NetworkService createService() {
-        return new NetworkService(this);
+    public NetworkServiceImpl createService() {
+        return new NetworkServiceImpl(this);
     }
 }
