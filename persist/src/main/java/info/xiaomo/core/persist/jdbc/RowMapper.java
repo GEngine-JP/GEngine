@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.persist.jdbc;
+package info.xiaomo.core.persist.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

@@ -1,6 +1,6 @@
-package info.xiaomo.gameCore.persist.persist;
+package info.xiaomo.core.persist.persist;
 
-import info.xiaomo.gameCore.persist.jdbc.JdbcTemplate;
+import info.xiaomo.core.persist.jdbc.JdbcTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 持久化数据的线程任务

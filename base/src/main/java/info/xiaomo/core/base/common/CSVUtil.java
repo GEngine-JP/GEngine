@@ -117,7 +117,7 @@ public class CSVUtil {
 			// 读数据
 			tableRows = new ArrayList<>();
 			String line;
-			String lineArray[];
+			String[] lineArray;
 			for (String line1 : lines) {
 				Map<String, String> tr = new HashMap<>();
 				line = line1;

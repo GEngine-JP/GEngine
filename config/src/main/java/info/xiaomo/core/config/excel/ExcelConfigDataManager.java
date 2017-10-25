@@ -7,7 +7,6 @@ package info.xiaomo.core.config.excel;
 import info.xiaomo.core.config.FileConfigDataManager;
 import info.xiaomo.core.config.FileConfigDataManagerConfig;
 import info.xiaomo.core.config.IConfigWrapper;
-import info.xiaomo.gameCore.config.*;
 import info.xiaomo.core.config.beans.TableDesc;
 
 import java.io.File;

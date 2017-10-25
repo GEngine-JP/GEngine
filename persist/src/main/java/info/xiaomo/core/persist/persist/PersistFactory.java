@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.persist.persist;
+package info.xiaomo.core.persist.persist;
 
 /**
  * 

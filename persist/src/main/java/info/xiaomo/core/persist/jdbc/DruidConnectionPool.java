@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.persist.jdbc;
+package info.xiaomo.core.persist.jdbc;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import info.xiaomo.core.base.common.FileLoaderUtil;

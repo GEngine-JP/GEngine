@@ -1,8 +1,8 @@
-package info.xiaomo.gameCore.persist.persist;
+package info.xiaomo.core.persist.persist;
 
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 import com.googlecode.concurrentlinkedhashmap.Weighers;
-import info.xiaomo.gameCore.persist.jdbc.JdbcTemplate;
+import info.xiaomo.core.persist.jdbc.JdbcTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

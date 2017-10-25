@@ -1,8 +1,8 @@
 package info.xiaomo.corelogger;
 
-import info.xiaomo.gameCore.persist.jdbc.ConnectionPool;
-import info.xiaomo.gameCore.persist.jdbc.DruidConnectionPool;
-import info.xiaomo.gameCore.persist.jdbc.JdbcTemplate;
+import info.xiaomo.core.persist.jdbc.ConnectionPool;
+import info.xiaomo.core.persist.jdbc.DruidConnectionPool;
+import info.xiaomo.core.persist.jdbc.JdbcTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

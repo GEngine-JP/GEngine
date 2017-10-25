@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.persist.jdbc;
+package info.xiaomo.core.persist.jdbc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

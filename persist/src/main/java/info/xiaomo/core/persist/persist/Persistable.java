@@ -1,4 +1,4 @@
-package info.xiaomo.gameCore.persist.persist;
+package info.xiaomo.core.persist.persist;
 
 /**
  * 可持久化的数据接口
