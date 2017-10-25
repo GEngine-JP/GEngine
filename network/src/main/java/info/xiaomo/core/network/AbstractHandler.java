@@ -1,7 +1,7 @@
 package info.xiaomo.core.network;
 
-import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
-import info.xiaomo.gameCore.base.concurrent.queue.ICommandQueue;
+import info.xiaomo.core.base.concurrent.command.IQueueDriverCommand;
+import info.xiaomo.core.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,7 +1,7 @@
 package info.xiaomo.gameCore.persist.jdbc;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import info.xiaomo.gameCore.base.common.FileLoaderUtil;
+import info.xiaomo.core.base.common.FileLoaderUtil;
 
 import javax.sql.DataSource;
 import java.io.InputStream;

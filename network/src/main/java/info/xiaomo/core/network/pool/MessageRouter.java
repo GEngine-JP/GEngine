@@ -2,7 +2,7 @@ package info.xiaomo.core.network.pool;
 
 import com.google.protobuf.AbstractMessage;
 import info.xiaomo.core.network.*;
-import info.xiaomo.gameCore.base.common.AttributeUtil;
+import info.xiaomo.core.base.common.AttributeUtil;
 import info.xiaomo.gameCore.network.*;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
