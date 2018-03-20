@@ -39,7 +39,7 @@ public class Dispatcher {
     public static void load(String packageName) {
 
         //加载所有@Path的方法
-        Set<Class<?>> controllerClasses = ClassUtil.findClassWithAnnotaion(packageName, Controller.class);
+        Set<Class<?>> controllerClasses = ClassUtil.findClassWithAnnotation(packageName, Controller.class);
 
         for (Class<?> clazz : controllerClasses) {
 

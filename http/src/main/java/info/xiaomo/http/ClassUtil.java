@@ -17,6 +17,7 @@ import java.util.jar.JarFile;
 
 /**
  * class工具类，包含
+ *
  * @author 张力
  * @date 2015-4-3 下午4:21:22
  */
@@ -31,11 +32,12 @@ class ClassUtil {
 
     /**
      * 获取指定包下的具有指定注解的类
-     * @param packageName 指定包名，注意，这里只能是包名，不能是具体class，否则找不到该具体class
+     *
+     * @param packageName     指定包名，注意，这里只能是包名，不能是具体class，否则找不到该具体class
      * @param annotationClass 指定注解类型
-     * @return
+     * @return Set
      */
-    public static Set<Class<?>> findClassWithAnnotaion(String packageName, Class<? extends Annotation> annotationClass) {
+    public static Set<Class<?>> findClassWithAnnotation(String packageName, Class<? extends Annotation> annotationClass) {
 
 
         Set<Class<?>> allClazz = new LinkedHashSet<>();
@@ -62,22 +64,21 @@ class ClassUtil {
         Set<Class<?>> ret = new LinkedHashSet<>();
         allClazz.stream()
                 .filter(v -> v.getAnnotation(annotationClass) != null)
-                .forEach(v -> ret.add(v));
+                .forEach(ret::add);
         return ret;
     }
 
     /**
-     *
-     * @param jar jar归档文件
+     * @param jar        jar归档文件
      * @param packageDir package转换成文件目录格式的字符串
-     * @return
+     * @return Set
      */
     private static Set<Class<?>> findClassFromJar(JarFile jar, String packageDir) {
 
         Set<Class<?>> ret = new LinkedHashSet<>();
 
         Enumeration<JarEntry> entries = jar.entries();
-        while(entries.hasMoreElements()) {
+        while (entries.hasMoreElements()) {
             JarEntry entry = entries.nextElement();
             if (entry.isDirectory()) {
                 //jar中的entry是所有层级的文件都列出来的，所以文件夹实际上一点用都没有
@@ -104,10 +105,11 @@ class ClassUtil {
 
     /**
      * 获取文件夹下所有的类
+     *
      * @param packageName 包名,该目录下的class文件对应的包名，因为文件是绝对路径的，无法计算包名，所以从外部传入
-     * @param filePath 文件夹路径
-     * @param recursive 是否递归寻找子文件夹下的内容
-     * @return
+     * @param filePath    文件夹路径
+     * @param recursive   是否递归寻找子文件夹下的内容
+     * @return Set
      */
     private static Set<Class<?>> findClassFromDir(String packageName, String filePath, boolean recursive) {
 
@@ -119,12 +121,14 @@ class ClassUtil {
         Set<Class<?>> ret = new LinkedHashSet<>();
 
         File[] files = dir.listFiles(file -> (recursive && file.isDirectory()) || file.getName().endsWith(".class"));
+        if (files == null) {
+            return Collections.emptySet();
+        }
 
         for (File file : files) {
 
             if (file.isDirectory()) {
                 ret.addAll(findClassFromDir(packageName + "." + file.getName(), file.getAbsolutePath(), recursive));
-                continue;
             } else {
                 String className = file.getName().substring(0, file.getName().length() - 6);
                 try {
