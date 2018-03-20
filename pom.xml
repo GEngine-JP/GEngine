@@ -14,6 +14,8 @@
         <module>base</module>
         <module>network</module>
         <module>all</module>
+        <module>scriptEngine</module>
+        <module>http</module>
     </modules>
     <artifactId>gameCore</artifactId>
 
