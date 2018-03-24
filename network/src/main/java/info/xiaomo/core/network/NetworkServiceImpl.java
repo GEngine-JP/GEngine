@@ -60,7 +60,10 @@ public class NetworkServiceImpl implements IService {
 
         if (builder.isSsl()) {
             try {
-                sslCtx = SslContextBuilder.forServer(new File(builder.getSslKeyCertChainFile()), new File(builder.getSslKeyFile())).build();
+                File keyCertChainFile = new File(builder.getSslKeyCertChainFile());
+                File keyFile = new File(builder.getSslKeyFile());
+                SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(keyCertChainFile, keyFile);
+                sslCtx = sslContextBuilder.build();
             } catch (SSLException var4) {
                 throw new RuntimeException("sslCtx create failed.", var4);
             }
