@@ -45,6 +45,12 @@ public class NetworkServiceBuilder {
      */
     private boolean isWebSocket = false;
 
+    private boolean ssl;
+
+    private String sslKeyCertChainFile;
+
+    private String sslKeyFile;
+
     /**
      * 额外的handler
      */

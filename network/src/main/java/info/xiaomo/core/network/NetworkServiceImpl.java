@@ -1,8 +1,18 @@
 package info.xiaomo.core.network;
 
-import info.xiaomo.core.network.handler.*;
+import info.xiaomo.core.network.handler.MessageDecoder;
+import info.xiaomo.core.network.handler.MessageEncoder;
+import info.xiaomo.core.network.handler.MessageExecutor;
+import info.xiaomo.core.network.handler.WebSocketDecoder;
+import info.xiaomo.core.network.handler.WebSocketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -12,10 +22,14 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.net.ssl.SSLException;
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,10 +53,20 @@ public class NetworkServiceImpl implements IService {
         int bossLoopGroupCount = builder.getBossLoopGroupCount();
         int workerLoopGroupCount = builder.getWorkerLoopGroupCount();
         this.port = builder.getPort();
+        final SslContext sslCtx;
 
         bossGroup = new NioEventLoopGroup(bossLoopGroupCount);
         workerGroup = new NioEventLoopGroup(workerLoopGroupCount);
 
+        if (builder.isSsl()) {
+            try {
+                sslCtx = SslContextBuilder.forServer(new File(builder.getSslKeyCertChainFile()), new File(builder.getSslKeyFile())).build();
+            } catch (SSLException var4) {
+                throw new RuntimeException("sslCtx create failed.", var4);
+            }
+        } else {
+            sslCtx = null;
+        }
         bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroup, workerGroup);
         bootstrap.channel(NioServerSocketChannel.class);
@@ -53,7 +77,7 @@ public class NetworkServiceImpl implements IService {
 
         bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
         if (builder.isWebSocket()) {
-            bootstrap.childHandler(new WebSocketHandler(builder));
+            bootstrap.childHandler(new WebSocketHandler(builder, sslCtx));
         } else {
             bootstrap.childHandler(new SocketHandler(builder));
         }
@@ -62,15 +86,20 @@ public class NetworkServiceImpl implements IService {
 
     class WebSocketHandler extends ChannelInitializer {
         private NetworkServiceBuilder builder;
+        private SslContext sslCtx;
 
-        WebSocketHandler(NetworkServiceBuilder builder) {
+        WebSocketHandler(NetworkServiceBuilder builder, SslContext sslCtx) {
             this.builder = builder;
+            this.sslCtx = sslCtx;
         }
 
         @Override
-        protected void initChannel(Channel ch) throws Exception {
-            //添加websocket相关内容
+        protected void initChannel(Channel ch) {
+            //添加web socket相关内容
             ChannelPipeline pip = ch.pipeline();
+            if (sslCtx != null) {
+                pip.addLast("sslHandler", sslCtx.newHandler(ch.alloc()));
+            }
             pip.addLast(new HttpServerCodec());
             pip.addLast(new HttpObjectAggregator(65536));
             pip.addLast(new WebSocketServerProtocolHandler("/"));
@@ -92,7 +121,7 @@ public class NetworkServiceImpl implements IService {
         }
 
         @Override
-        protected void initChannel(Channel ch) throws Exception {
+        protected void initChannel(Channel ch) {
             ChannelPipeline pip = ch.pipeline();
             int maxLength = 1048576;
             int lengthFieldLength = 4;
