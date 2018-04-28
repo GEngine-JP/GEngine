@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月19日 14:13
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.beans;
+package info.xiaomo.beans;
 
 
 import info.xiaomo.core.config.IConfigCache;

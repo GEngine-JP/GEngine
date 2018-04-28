@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xs:schema xmlns="com/yangqiang/game-config/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="com/yangqiang/game-config/schema" elementFormDefault="qualified">
+<xs:schema xmlns="info/xiaomo/config/schema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="info/xiaomo/config/schema" elementFormDefault="qualified">
     <xs:element name="configData">
         <xs:complexType>
             <xs:all>
