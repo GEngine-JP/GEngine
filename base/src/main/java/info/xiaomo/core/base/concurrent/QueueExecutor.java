@@ -4,8 +4,7 @@ import info.xiaomo.core.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.core.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -22,9 +21,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Slf4j
 public class QueueExecutor extends ThreadPoolExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueueExecutor.class);
 
     /**
      * 执行器名称
@@ -43,14 +42,14 @@ public class QueueExecutor extends ThreadPoolExecutor {
 
     public QueueExecutor(final String name, int corePoolSize, int maxPoolSize) {
 
-        super(corePoolSize, maxPoolSize, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(),
+        super(corePoolSize, maxPoolSize, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
                 new ThreadFactory() {
                     AtomicInteger count = new AtomicInteger(0);
 
                     @Override
                     public Thread newThread(Runnable r) {
                         int curCount = count.incrementAndGet();
-                        LOGGER.error("创建线程:" + name + "-" + curCount);
+                        log.error("创建线程:" + name + "-" + curCount);
                         return new Thread(r, name + "-" + curCount);
                     }
                 });
@@ -76,8 +75,6 @@ public class QueueExecutor extends ThreadPoolExecutor {
             if (nextCommand == null) {
                 // 执行完毕后如果队列中没有任务了，那么设置运行标记为false
                 queue.setRunning(false);
-
-
             } else {
                 // 执行完毕后如果队列中还有任务，那么继续执行下一个
                 execute(nextCommand);

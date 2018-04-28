@@ -3,8 +3,7 @@ package info.xiaomo.core.base.concurrent.command;
 
 import info.xiaomo.core.base.concurrent.queue.ICommandQueue;
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -13,9 +12,8 @@ import org.slf4j.LoggerFactory;
  * @author Administrator
  */
 @Data
+@Slf4j
 public abstract class AbstractCommand implements IQueueDriverCommand {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommand.class);
 
     private ICommandQueue<IQueueDriverCommand> commandQueue;
 

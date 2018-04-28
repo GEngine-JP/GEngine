@@ -43,13 +43,10 @@ public class ThreeTuple<A, B, C> extends TwoTuple<A, B> {
         }
         ThreeTuple other = (ThreeTuple) obj;
         if (third == null) {
-            if (other.third != null) {
-                return false;
-            }
-        } else if (!third.equals(other.third)) {
-            return false;
+            return other.third == null;
+        } else {
+            return third.equals(other.third);
         }
-        return true;
     }
 
 }
