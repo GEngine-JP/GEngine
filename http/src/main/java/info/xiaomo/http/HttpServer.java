@@ -1,5 +1,6 @@
 package info.xiaomo.http;
 
+import info.xiaomo.http.annotation.ControllerPackage;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -11,12 +12,16 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import lombok.Data;
 
 /**
  * http服务器
+ *
  * @author 张力
  * @date 2017/12/22 09:20
  */
+
+@Data
 public class HttpServer {
 
     private NioEventLoopGroup bossGroup;
@@ -24,6 +29,7 @@ public class HttpServer {
     private ServerBootstrap bootstrap;
 
     private int port;
+    private Class<?> main;
 
 
     private int bossThreadCount = 4;
@@ -33,15 +39,25 @@ public class HttpServer {
     private String controllerPackage = "";
 
 
-    public HttpServer(int port) {
+    public HttpServer(int port, Class<?> main) {
         this.port = port;
+        this.main = main;
     }
 
     public void start() {
-
+        controllerPackage = findControllerPackage();
         Dispatcher.load(controllerPackage);
         createNetWork();
         bootstrap.bind(this.port);
+    }
+
+
+    private String findControllerPackage() {
+        ControllerPackage annotation = main.getAnnotation(ControllerPackage.class);
+        if (annotation == null) {
+            return controllerPackage;
+        }
+        return annotation.value();
     }
 
 
@@ -63,39 +79,15 @@ public class HttpServer {
         bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
 
             @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
+            protected void initChannel(SocketChannel ch) {
                 ChannelPipeline pip = ch.pipeline();
                 pip.addLast("codec", new HttpServerCodec());
-                pip.addLast("aggregator", new HttpObjectAggregator(512*1024));
-                pip.addLast("responseEncoder",new ResponseEncoder());
-                pip.addLast("requestDecoder",new RequestDecoder());
+                pip.addLast("aggregator", new HttpObjectAggregator(512 * 1024));
+                pip.addLast("responseEncoder", new ResponseEncoder());
+                pip.addLast("requestDecoder", new RequestDecoder());
                 pip.addLast("requestHandler", new HttpHandler());
 
             }
         });
-    }
-
-    public int getBossThreadCount() {
-        return bossThreadCount;
-    }
-
-    public void setBossThreadCount(int bossThreadCount) {
-        this.bossThreadCount = bossThreadCount;
-    }
-
-    public int getWorkThreadCount() {
-        return workThreadCount;
-    }
-
-    public void setWorkThreadCount(int workThreadCount) {
-        this.workThreadCount = workThreadCount;
-    }
-
-    public String getControllerPackage() {
-        return controllerPackage;
-    }
-
-    public void setControllerPackage(String controllerPackage) {
-        this.controllerPackage = controllerPackage;
     }
 }
