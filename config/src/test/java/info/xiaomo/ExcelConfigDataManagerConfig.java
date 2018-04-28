@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月24日 17:54
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang;
+package info.xiaomo;
 
 import info.xiaomo.core.config.FileConfigDataManagerConfig;
 import info.xiaomo.core.config.annotation.ConfigFileScan;

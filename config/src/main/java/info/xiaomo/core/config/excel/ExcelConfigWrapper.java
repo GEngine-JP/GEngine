@@ -1,7 +1,3 @@
-/**
- * 创建日期:  2017年08月22日 10:19
- * 创建作者:  杨 强  <281455776@qq.com>
- */
 package info.xiaomo.core.config.excel;
 
 import info.xiaomo.core.config.ConfigContainer;
@@ -19,6 +15,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * excel配置包装器
@@ -40,17 +37,20 @@ public class ExcelConfigWrapper implements IConfigWrapper {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getConfig(Object key) {
         return (T) container.getConfig(key);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> List<T> getList() {
         return container.getList();
     }
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public ExcelConfigWrapper build() {
         LOGGER.info("加载配置表【{}】...", tableDesc.getName());
         Workbook workbook = ExcelUtils.getWorkbook(excelFile);
@@ -150,7 +150,7 @@ public class ExcelConfigWrapper implements IConfigWrapper {
                         } catch (NoSuchFieldException e) {
                             errorKey.put(primaryKey, String.format("[%s]中无效的主键[%s]", clz.getName(), primaryKey));
                         }
-                        field.setAccessible(true);
+                        Objects.requireNonNull(field).setAccessible(true);
                         try {
                             Object value = field.get(config);
                             if (i == 0) {
