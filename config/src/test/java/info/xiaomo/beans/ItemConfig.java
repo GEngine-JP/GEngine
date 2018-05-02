@@ -1,8 +1,8 @@
-package com.yangqiang.beans;
+package info.xiaomo.beans;
 
-import com.yangqiang.converters.IntegerArrayConverter;
-import com.yangqiang.converters.IntegerMapConverter;
-import com.yangqiang.converters.Matrix3IntConverter;
+import info.xiaomo.converters.IntegerArrayConverter;
+import info.xiaomo.converters.IntegerMapConverter;
+import info.xiaomo.converters.Matrix3IntConverter;
 import info.xiaomo.core.config.IConfig;
 import info.xiaomo.core.config.annotation.Column;
 import info.xiaomo.core.config.annotation.Config;

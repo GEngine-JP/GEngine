@@ -2,8 +2,7 @@ package info.xiaomo.core.base.concurrent;
 
 import info.xiaomo.core.base.concurrent.queue.QueueDriver;
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +22,8 @@ import java.util.concurrent.TimeUnit;
  * @date 2015-3-11 上午5:49:11
  */
 @Data
+@Slf4j
 public class ScheduledEventDispatcher implements Runnable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledEventDispatcher.class);
 
     private boolean running = false;
 
@@ -68,7 +66,7 @@ public class ScheduledEventDispatcher implements Runnable {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.add(event);
-        LOGGER.debug("ScheduledEvent事件:addScheduledEvent=" + this.mapId + "=event=" + event.getClass().getName());
+        log.debug("ScheduledEvent事件:addScheduledEvent=" + this.mapId + "=event=" + event.getClass().getName());
     }
 
     /**
@@ -81,7 +79,7 @@ public class ScheduledEventDispatcher implements Runnable {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.remove(event);
-        LOGGER.debug("ScheduledEvent事件:AbstractScheduledEvent=remove");
+        log.debug("ScheduledEvent事件:AbstractScheduledEvent=remove");
     }
 
     /**
@@ -92,7 +90,7 @@ public class ScheduledEventDispatcher implements Runnable {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.clear();
-        LOGGER.debug("ScheduledEvent事件:AbstractScheduledEvent=clear");
+        log.debug("ScheduledEvent事件:AbstractScheduledEvent=clear");
     }
 
     /**
@@ -119,7 +117,7 @@ public class ScheduledEventDispatcher implements Runnable {
                     if (loop == 0) {
                         // 循环次数为0之后移除该事件
                         it.remove();
-                        LOGGER.info(this.mapId + "移除定时事件：" + event.getClass().getName());
+                        log.info(this.mapId + "移除定时事件：" + event.getClass().getName());
                     } else {
                         event.setLoop(loop);
                         event.setEnd(curTime + event.getDelay());

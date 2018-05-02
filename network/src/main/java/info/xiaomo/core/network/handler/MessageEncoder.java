@@ -23,7 +23,7 @@ public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
 
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
         int messageId = msgPool.getMessageId(msg);
         if (messageId == 0) {
             LOGGER.error("编码到未知的消息{}", messageId);

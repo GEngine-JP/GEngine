@@ -2,9 +2,9 @@
  * 创建日期:  2017年08月19日 10:20
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang;
+package info.xiaomo;
 
-import com.yangqiang.beans.ItemConfig;
+import info.xiaomo.beans.ItemConfig;
 import info.xiaomo.core.config.annotation.ConfigFileScan;
 import info.xiaomo.core.config.annotation.PackageScan;
 
@@ -12,7 +12,7 @@ import info.xiaomo.core.config.annotation.PackageScan;
  * @author YangQiang
  */
 @ConfigFileScan(value = "E:\\ChessGame\\GameCore\\config\\src\\test\\resources", suffix = ".xlsx")
-@PackageScan("com.yangqiang.beans")
+@PackageScan("info.xiaomo.beans")
 public class Test {
     public static void main(String[] args) throws Exception {
         // System.out.println(Test.class.getClassLoader().getResource(""));
