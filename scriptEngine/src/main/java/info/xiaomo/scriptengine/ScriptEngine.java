@@ -29,7 +29,10 @@ public class ScriptEngine {
     private static boolean dev = false;
 
 
-
+    /**
+     *
+     * @param dev dev
+     */
     public static void setDev(boolean dev) {
         ScriptEngine.dev = dev;
     }
@@ -37,7 +40,7 @@ public class ScriptEngine {
     /**
      * 通过指定的引导事件来初始化脚本引擎
      *
-     * @param bootstrapImpl
+     * @param bootstrapImpl bootstrapImpl
      */
     public static boolean load(String packageName, String bootstrapImpl) {
         ScriptClassLoader classLoader = new ScriptClassLoader(packageName, dev);
@@ -57,17 +60,17 @@ public class ScriptEngine {
             return false;
         }
 
-        Map<Class<?>, IScript> script_1_to_1 = new HashMap<>();
+        Map<Class<?>, IScript> script1To1 = new HashMap<>(10);
 
-        Map<Class<?>, List<IScript>> script_1_to_n = new HashMap<>();
+        Map<Class<?>, List<IScript>> script1ToN = new HashMap<>(10);
 
 
         List<Class<? extends IScript>> scriptList = bootstrapScript.registerScript();
 
         //去重
         List<Class<? extends IScript>> uniqueScriptList = new ArrayList<>();
-        for(Class<? extends IScript> script : scriptList) {
-            if(uniqueScriptList.contains(script)) {
+        for (Class<? extends IScript> script : scriptList) {
+            if (uniqueScriptList.contains(script)) {
                 LOGGER.warn("脚本[{}]重复注册", script.getName());
                 continue;
             }
@@ -86,21 +89,21 @@ public class ScriptEngine {
             try {
                 IScript script = scriptImpl.newInstance();
                 for (Class<?> intf : scriptIntfList) {
-                    if (script_1_to_n.containsKey(intf)) {
+                    if (script1ToN.containsKey(intf)) {
                         //已经是1对N的关系，直接加入列表
-                        List<IScript> list = script_1_to_n.get(intf);
+                        List<IScript> list = script1ToN.get(intf);
                         list.add(script);
-                        script_1_to_n.put(intf, list);
-                    } else if (script_1_to_1.containsKey(intf)) {
+                        script1ToN.put(intf, list);
+                    } else if (script1To1.containsKey(intf)) {
                         //目前为止是1对1的关系，修改为1对N的关系
-                        IScript exist = script_1_to_1.remove(intf);
+                        IScript exist = script1To1.remove(intf);
                         List<IScript> list = new ArrayList<>();
                         list.add(exist);
                         list.add(script);
-                        script_1_to_n.put(intf, list);
+                        script1ToN.put(intf, list);
                     } else {
                         //1对1
-                        script_1_to_1.put(intf, script);
+                        script1To1.put(intf, script);
                     }
                 }
 
@@ -112,8 +115,8 @@ public class ScriptEngine {
         }
 
         //整体替换
-        ScriptEngine.script_1_to_1 = script_1_to_1;
-        ScriptEngine.script_1_to_n = script_1_to_n;
+        ScriptEngine.script_1_to_1 = script1To1;
+        ScriptEngine.script_1_to_n = script1ToN;
 
         return true;
 
@@ -122,8 +125,8 @@ public class ScriptEngine {
     /**
      * 获取脚本实现的事件接口
      *
-     * @param scriptImpl
-     * @return
+     * @param scriptImpl scriptImpl
+     * @return list
      */
     private static List<Class<?>> fetchInterface(Class<? extends IScript> scriptImpl) {
 
@@ -156,6 +159,7 @@ public class ScriptEngine {
     }*/
 
 
+    @SuppressWarnings("unchecked")
     public static <T extends IScript> T get1t1(Class<T> clazz) {
         T ret = (T) script_1_to_1.get(clazz);
         if (ret != null) {
@@ -169,6 +173,7 @@ public class ScriptEngine {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends IScript> List<T> get1tn(Class<T> clazz) {
         List<IScript> ret = script_1_to_n.get(clazz);
         if (ret != null) {

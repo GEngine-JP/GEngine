@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * 自定义类加载器，加载classpath之外的脚本
+ *
  * @author 张力
  * @date 2018/3/3 14:08
  */
@@ -14,36 +15,19 @@ public class SelfClassLoader extends ClassLoader {
 
     private String classPath;
 
-    public static void main(String[] args) throws ClassNotFoundException {
-
-        /*System.out.println(Thread.currentThread().getContextClassLoader());//系统类加载器
-        System.out.println(ClassLoaderTest.class.getClassLoader());// 系统类加载器
-        System.out.println(System.class.getClassLoader()); //ScriptBootstrap SelfClassLoader
-        System.out.println(SelfClassLoader.getSystemClassLoader()); //系统类加载器
-        System.out.println(SelfClassLoader.getSystemClassLoader().getParent());//扩展类加载器
-        System.out.println(SelfClassLoader.getSystemClassLoader().getParent().getParent());*/ //ScriptBootstrap classLoader
-
-        SelfClassLoader scriptClassLoader = new SelfClassLoader("F:\\work\\cqlj\\code\\server\\frame\\base-script-engine\\target\\classes");
-        Class<?> c = scriptClassLoader.loadClass("com.sh.script.BootstrapEvent");
-        System.out.println(c.getClassLoader());
-    }
-
     public SelfClassLoader(String classPath) {
         this.classPath = classPath;
     }
 
 
-
-
     @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
+    protected Class<?> findClass(String name) {
         byte[] data = readClassFile(name);
-        if(data == null) {
+        if (data == null) {
             return null;
         }
-        return defineClass(name,data, 0, data.length,null);
+        return defineClass(name, data, 0, data.length, null);
     }
-
 
 
     private byte[] readClassFile(String name) {
@@ -69,7 +53,7 @@ public class SelfClassLoader extends ClassLoader {
     private String classNameToFilePath(String className) {
         String[] array = className.split(".");
         StringBuilder builder = new StringBuilder();
-        for(String str : array) {
+        for (String str : array) {
             builder.append("/").append(str);
         }
         builder.append(".class");
