@@ -2,7 +2,7 @@
  * 创建日期:  2017年08月19日 10:01
  * 创建作者:  杨 强  <281455776@qq.com>
  */
-package com.yangqiang.converters;
+package info.xiaomo.converters;
 
 
 import info.xiaomo.core.config.IConverter;

@@ -16,11 +16,17 @@ import java.util.Map;
 @Data
 public class TableDesc {
     private Class clz;
+
     private String name;
+
     private int index;
+
     private int header;
+
     private int[] ignoreRow;
+
     private String[] primaryKeys;
+
     private Map<String, ColumnDesc> columns;
 
     public TableDesc(Class clz) {
