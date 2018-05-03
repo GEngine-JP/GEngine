@@ -17,9 +17,9 @@ public interface RowMapper<T> {
     /**
      * mapping
      *
-     * @param rs
-     * @return
-     * @throws SQLException
+     * @param rs rs
+     * @return rs
+     * @throws SQLException SQLException
      */
     T mapping(ResultSet rs) throws SQLException;
 
