@@ -35,10 +35,10 @@ public class JdbcTemplate {
     /**
      * 查询一条指定数据
      *
-     * @param sql
-     * @param mapper
-     * @param parameters
-     * @return
+     * @param sql sql
+     * @param mapper mapper
+     * @param parameters parameters
+     * @return T
      */
     public <T> T query(String sql, RowMapper<T> mapper, Object... parameters) {
 
