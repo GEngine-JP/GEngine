@@ -25,7 +25,7 @@ public class WebSocketDecoder extends MessageToMessageDecoder<BinaryWebSocketFra
 
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, BinaryWebSocketFrame msg, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, BinaryWebSocketFrame msg, List<Object> out) {
         out.add(msg.content().retain());
     }
 }
