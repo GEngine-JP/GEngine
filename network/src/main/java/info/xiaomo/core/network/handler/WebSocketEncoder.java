@@ -24,7 +24,7 @@ import java.util.List;
 public class WebSocketEncoder extends MessageToMessageEncoder<ByteBuf> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) {
         out.add(new BinaryWebSocketFrame(msg).retain());
     }
 }
