@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(MessageEncoder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageEncoder.class);
 
     private IMessageAndHandler msgPool;
 
