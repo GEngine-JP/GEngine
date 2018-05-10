@@ -16,7 +16,7 @@ public class JdbcTemplate {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(JdbcTemplate.class);
 
-    public final static RowMapper<Integer> INT_MAPPER = new IntegerRowMaper();
+    public final static RowMapper<Integer> INT_MAPPER = new IntegerRowMapper();
     public final static RowMapper<Long> LONG_MAPPER = new LongRowMapper();
     public final static RowMapper<String> STRING_MAPPER = new StringRowMapper();
     public final static RowMapper<Date> DATE_MAPPER = new DateRowMaper();
@@ -28,7 +28,7 @@ public class JdbcTemplate {
      */
     private ConnectionPool pool;
 
-    public JdbcTemplate(ConnectionPool pool) throws Exception {
+    public JdbcTemplate(ConnectionPool pool) {
         this.pool = pool;
     }
 
@@ -43,23 +43,23 @@ public class JdbcTemplate {
     public <T> T query(String sql, RowMapper<T> mapper, Object... parameters) {
 
         Connection conn = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pStatement = null;
         ResultSet rs = null;
 
         try {
             conn = pool.getConnection();
-            pstmt = conn.prepareStatement(sql);
+            pStatement = conn.prepareStatement(sql);
             for (int i = 0; i < parameters.length; i++) {
-                pstmt.setObject(i + 1, parameters[i]);
+                pStatement.setObject(i + 1, parameters[i]);
             }
-            rs = pstmt.executeQuery();
+            rs = pStatement.executeQuery();
             if (rs.next()) {
                 return mapper.mapping(rs);
             }
         } catch (Exception e) {
             LOGGER.error("查询单条数据失败,sql:" + sql, e);
         } finally {
-            release(conn, pstmt, rs, mapper);
+            release(conn, pStatement, rs, mapper);
         }
         return null;
     }
@@ -67,15 +67,15 @@ public class JdbcTemplate {
     public <T> List<T> queryList(String sql, RowMapper<T> mapper, Object... parameters) {
 
         Connection conn = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pStatement = null;
         ResultSet rs = null;
         try {
             conn = pool.getConnection();
-            pstmt = conn.prepareStatement(sql);
+            pStatement = conn.prepareStatement(sql);
             for (int i = 0; i < parameters.length; i++) {
-                pstmt.setObject(i + 1, parameters[i]);
+                pStatement.setObject(i + 1, parameters[i]);
             }
-            rs = pstmt.executeQuery();
+            rs = pStatement.executeQuery();
             List<T> ret = new ArrayList<>();
             while (rs.next()) {
                 ret.add(mapper.mapping(rs));
@@ -84,7 +84,7 @@ public class JdbcTemplate {
         } catch (Exception e) {
             LOGGER.error("查询多条数据失败,sql:" + sql, e);
         } finally {
-            release(conn, pstmt, rs, mapper);
+            release(conn, pStatement, rs, mapper);
         }
         return Collections.emptyList();
     }
@@ -92,19 +92,19 @@ public class JdbcTemplate {
     public int update(String sql, Object... parameters) {
 
         Connection conn = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pStatement = null;
         try {
             conn = pool.getConnection();
-            pstmt = conn.prepareStatement(sql);
+            pStatement = conn.prepareStatement(sql);
             for (int i = 0; i < parameters.length; i++) {
-                pstmt.setObject(i + 1, parameters[i]);
+                pStatement.setObject(i + 1, parameters[i]);
             }
-            return pstmt.executeUpdate();
+            return pStatement.executeUpdate();
         } catch (Exception e) {
             LOGGER.error("数据库更新失败,sql:" + sql, e);
             return -1;
         } finally {
-            release(conn, pstmt, null, null);
+            release(conn, pStatement, null, null);
         }
     }
 
@@ -112,39 +112,39 @@ public class JdbcTemplate {
     public void createTable(String sql) {
 
         Connection conn = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pStatement = null;
         try {
             conn = pool.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.execute(sql);
+            pStatement = conn.prepareStatement(sql);
+            pStatement.execute(sql);
         } catch (Exception e) {
             LOGGER.error("数据库更新失败,sql:" + sql, e);
         } finally {
-            release(conn, pstmt, null, null);
+            release(conn, pStatement, null, null);
         }
     }
 
     public void batchUpdate(String sql, List<Object[]> parameters) {
-        PreparedStatement pstmt = null;
+        PreparedStatement pStatement = null;
         Connection conn = null;
         try {
             conn = pool.getConnection();
-            pstmt = conn.prepareStatement(sql);
+            pStatement = conn.prepareStatement(sql);
             for (Object[] parameterArray : parameters) {
                 for (int i = 0; i < parameterArray.length; i++) {
-                    pstmt.setObject(i + 1, parameterArray[i]);
+                    pStatement.setObject(i + 1, parameterArray[i]);
                 }
-                pstmt.addBatch();
+                pStatement.addBatch();
             }
-            pstmt.executeBatch();
+            pStatement.executeBatch();
         } catch (Exception e) {
             LOGGER.error("批处理更新失败,sql:" + sql, e);
         } finally {
-            release(conn, pstmt, null, null);
+            release(conn, pStatement, null, null);
         }
     }
 
-    private void release(Connection conn, PreparedStatement pstmt, ResultSet rs, RowMapper<?> mapper) {
+    private void release(Connection conn, PreparedStatement pStatement, ResultSet rs, RowMapper<?> mapper) {
 
         if (rs != null) {
             try {
@@ -154,9 +154,9 @@ public class JdbcTemplate {
             }
         }
 
-        if (pstmt != null) {
+        if (pStatement != null) {
             try {
-                pstmt.close();
+                pStatement.close();
             } catch (SQLException e) {
                 LOGGER.error("PreparedStatement关闭出错。", e);
             }
@@ -179,7 +179,7 @@ public class JdbcTemplate {
         }
     }
 
-    private static class IntegerRowMaper implements RowMapper<Integer> {
+    private static class IntegerRowMapper implements RowMapper<Integer> {
 
         @Override
         public Integer mapping(ResultSet rs) throws SQLException {

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * @author qq
+ * @author xiaomo
  */
 public class MessageDecoder extends ByteToMessageDecoder {
 
