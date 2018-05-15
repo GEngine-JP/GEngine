@@ -3,6 +3,7 @@ package info.xiaomo.scriptengine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
@@ -17,16 +18,32 @@ public class ScriptClassLoader extends URLClassLoader {
 
     private String classPackage;
 
+    private ClassLoader defaultClassLoader;
+
     /**
      * 开发模式，开发模式直接加载，不走自定义加载逻辑
      */
     private boolean dev;
 
-    public ScriptClassLoader(String classPackage, boolean dev) {
-        //将当前类加载器的URL赋值给本类，这样可以完整的使用ClassPath，而不用自己重新定义
-        super(((URLClassLoader) ScriptClassLoader.class.getClassLoader()).getURLs());
+    public static ScriptClassLoader newInstance(URL url, String classPackage, boolean dev) {
+        URL[] urls;
+        if (dev) {
+            //调试模式下用父加载器的URL列表
+            urls = ((URLClassLoader) ScriptClassLoader.class.getClassLoader()).getURLs();
+        } else {
+            urls = new URL[]{url};
+        }
+
+        return new ScriptClassLoader(urls, classPackage, dev);
+
+    }
+
+
+    protected ScriptClassLoader(URL[] urls, String classPackage, boolean dev) {
+        super(urls);
         this.classPackage = classPackage;
         this.dev = dev;
+        this.defaultClassLoader = ScriptClassLoader.class.getClassLoader();
     }
 
     @Override
@@ -57,27 +74,6 @@ public class ScriptClassLoader extends URLClassLoader {
             return super.loadClass(name, resolve);
         }
 
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException {
-
-//        ScriptClassLoader scriptClassLoader1 = new ScriptClassLoader("com.sh.script");
-//
-//        Class<?> c1 = scriptClassLoader1.loadClass("com.sh.script.BootstrapScript");
-//
-//        Class<?> c2 = scriptClassLoader1.loadClass("com.sh.script.BootstrapScript");
-//
-//        System.out.println(c1.equals(c2));
-//
-//        System.out.println(c1.equals(BootstrapScript.class));
-//
-//        scriptClassLoader1.loadClass("com.sh.test.TestScript");
-//
-//        ScriptClassLoader myClassLoader2 = new ScriptClassLoader("com.sh.script");
-//
-//        Class<?> c3 = myClassLoader2.loadClass("com.sh.script.BootstrapScript");
-//        System.out.println(c1.equals(c3));
-//
     }
 
 
