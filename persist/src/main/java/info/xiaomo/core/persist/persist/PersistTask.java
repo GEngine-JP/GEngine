@@ -135,29 +135,32 @@ public class PersistTask extends Thread {
                 cloneMap.putAll(persistMap);
                 persistMap.clear();
             }
-            for (Entry<Long, PersistType> longPersistTypeEntry : cloneMap.entrySet()) {
 
+            cloneMap.entrySet().stream().filter(longPersistTypeEntry -> {
                 //检查是否已经达到300条，然后执行批量更新
                 checkAndUpdate();
-
                 if (longPersistTypeEntry == null) {
-                    continue;
+                    return false;
                 }
                 Long id = longPersistTypeEntry.getKey();
                 if (id == null) {
-                    continue;
+                    return false;
                 }
-
                 PersistType type = longPersistTypeEntry.getValue();
                 if (type == null) {
-                    continue;
+                    return false;
                 }
-
                 Persistable data = cache.get(id);
-                if (data == null) {
-                    continue;
-                }
+                return data != null;
+            }).forEach(longPersistTypeEntry -> {
 
+            });
+
+
+            for (Entry<Long, PersistType> longPersistTypeEntry : cloneMap.entrySet()) {
+                Long id = longPersistTypeEntry.getKey();
+                PersistType type = longPersistTypeEntry.getValue();
+                Persistable data = cache.get(id);
                 if (type == PersistType.UPDATE) {
                     updateParams.add(persistFactory.createUpdateParameters(data));
                     data.setDirty(false);
@@ -168,7 +171,6 @@ public class PersistTask extends Thread {
                     deleteParams.add(persistFactory.createDeleteParameters(data));
                 }
             }
-
             //执行剩下的数据更新操作
             finallyUpdate();
         } catch (Throwable e) {
