@@ -43,14 +43,12 @@
 
     <distributionManagement>
         <repository>
-            <id>maven-releases</id>
-            <name>Releases</name>
-            <url>http://xiaomo.info:8081/nexus/content/repositories/releases/</url>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/33441-release-0yIk2R</url>
         </repository>
         <snapshotRepository>
-            <id>maven-snapshot</id>
-            <name>Snapshot</name>
-            <url>http://xiaomo.info:8081/content/repositories/snapshots</url>
+            <id>rdc-snapshots</id>
+            <url>https://repo.rdc.aliyun.com/repository/33441-snapshot-Dwx2d6</url>
         </snapshotRepository>
     </distributionManagement>
 
