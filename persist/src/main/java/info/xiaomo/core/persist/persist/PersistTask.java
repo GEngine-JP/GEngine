@@ -153,11 +153,6 @@ public class PersistTask extends Thread {
                 Persistable data = cache.get(id);
                 return data != null;
             }).forEach(longPersistTypeEntry -> {
-
-            });
-
-
-            for (Entry<Long, PersistType> longPersistTypeEntry : cloneMap.entrySet()) {
                 Long id = longPersistTypeEntry.getKey();
                 PersistType type = longPersistTypeEntry.getValue();
                 Persistable data = cache.get(id);
@@ -170,7 +165,7 @@ public class PersistTask extends Thread {
                 } else if (type == PersistType.DELETE) {
                     deleteParams.add(persistFactory.createDeleteParameters(data));
                 }
-            }
+            });
             //执行剩下的数据更新操作
             finallyUpdate();
         } catch (Throwable e) {
