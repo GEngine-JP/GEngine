@@ -1,9 +1,9 @@
 package info.xiaomo.core.base.common;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * @author xiaomo
@@ -25,12 +25,10 @@ public class FileLoaderUtil {
      * @param fileName 文件名
      * @return 输入流
      */
-    public static InputStream findInputStreamByFileName(String fileName) {
+    public static InputStreamReader findInputStreamByFileName(String fileName) {
         try {
-            URL url = findURLByFileName(fileName);
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.setUseCaches(false);
-            return urlConnection.getInputStream();
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            return new InputStreamReader(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
