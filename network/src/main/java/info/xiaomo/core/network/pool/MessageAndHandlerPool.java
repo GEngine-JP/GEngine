@@ -19,7 +19,7 @@ import java.util.Map;
  * email : xiaomo@xiaomo.info
  * QQ    : 83387856
  * Date  : 2017/9/11 15:51
- * desc  :
+ * desc  : 消息池的父类
  * Copyright(©) 2017 by xiaomo.
  */
 public class MessageAndHandlerPool implements IMessageAndHandler {
