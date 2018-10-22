@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import javax.net.ssl.SSLException;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.SocketHandler;
 
 /**
  * @author xiaomo
@@ -87,6 +88,9 @@ public class NetworkServiceImpl implements IService {
     }
 
 
+    /**
+     * web socket的handler
+     */
     class WebSocketHandler extends ChannelInitializer {
         private NetworkServiceBuilder builder;
         private SslContext sslCtx;
@@ -116,6 +120,10 @@ public class NetworkServiceImpl implements IService {
         }
     }
 
+
+    /**
+     *  socket的handler
+     */
     class SocketHandler extends ChannelInitializer {
         private NetworkServiceBuilder builder;
 
@@ -155,6 +163,9 @@ public class NetworkServiceImpl implements IService {
     }
 
 
+    /**
+     * 停止網絡服務
+     */
     @Override
     public void stop() {
         this.state = ServiceState.STOPPED;
@@ -170,16 +181,28 @@ public class NetworkServiceImpl implements IService {
     }
 
 
+    /**
+     * 獲取當前網絡服務狀態
+     * @return state
+     */
     @Override
     public ServiceState getState() {
         return this.state;
     }
 
+    /**
+     * 服務是否開啟
+     * @return bool
+     */
     @Override
     public boolean isOpened() {
         return state == ServiceState.RUNNING;
     }
 
+    /**
+     * 服務是否關閉
+     * @return bool
+     */
     @Override
     public boolean isClosed() {
         return state == ServiceState.STOPPED;

@@ -70,6 +70,10 @@ public class NetworkServiceBuilder {
         extraHandlers.add(handler);
     }
 
+    /**
+     * 創建網絡服務
+     * @return 服務實例
+     */
     public NetworkServiceImpl createService() {
         return new NetworkServiceImpl(this);
     }
