@@ -104,7 +104,7 @@
 
 # [协议声明](LICENSE)
 
-       Copyright 2017 ChessGame Group
+       Copyright 2017-2019 GameUnion Group
     
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
