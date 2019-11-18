@@ -23,15 +23,12 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLException;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.SocketHandler;
 
 /**
  * @author xiaomo
@@ -63,9 +60,8 @@ public class NetworkServiceImpl implements IService {
             try {
                 File keyCertChainFile = new File(builder.getSslKeyCertChainFile());
                 File keyFile = new File(builder.getSslKeyFile());
-                SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(keyCertChainFile, keyFile);
-                sslCtx = sslContextBuilder.build();
-            } catch (SSLException var4) {
+                sslCtx = SslContext.newServerContext(keyCertChainFile, keyFile);
+            } catch (Exception var4) {
                 throw new RuntimeException("sslCtx create failed.", var4);
             }
         } else {

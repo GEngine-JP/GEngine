@@ -2,10 +2,7 @@ package info.xiaomo.http;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.HttpMethod;
-import io.netty.handler.codec.http.HttpUtil;
-import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
@@ -54,7 +51,7 @@ public class Request {
     }
 
     public void sendResponse(Response res) {
-        if (HttpUtil.isKeepAlive(msg)) {
+        if (HttpHeaderUtil.isKeepAlive(msg)) {
             this.channel.writeAndFlush(res);
         } else {
             res.setKeepAlive(this.keepAlive);

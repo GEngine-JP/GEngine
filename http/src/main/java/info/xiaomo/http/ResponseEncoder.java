@@ -39,7 +39,7 @@ public class ResponseEncoder extends MessageToMessageEncoder<Response> {
         DefaultFullHttpResponse httpResponse
                 = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, msg.getStatus(), buf);
         httpResponse.headers().set(HttpHeaderNames.CONTENT_TYPE, String.format("%s;charset=%s",msg.getContentType(),msg.getCharset()));
-        httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, httpResponse.content().readableBytes());
+        httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, httpResponse.content().toString());
         if(msg.isKeepAlive()) {
             httpResponse.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
         }
