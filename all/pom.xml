@@ -5,17 +5,17 @@
     <parent>
         <artifactId>gameCore</artifactId>
         <groupId>info.xiaomo</groupId>
-        <version>2017.1</version>
+        <version>2019.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>2017.1</version>
+    <version>2019.1</version>
 
     <properties>
-        <config.version>2017.1</config.version>
-        <logger.version>2017.1</logger.version>
-        <persist.version>2017.1</persist.version>
+        <config.version>2019.1</config.version>
+        <logger.version>2019.1</logger.version>
+        <persist.version>2019.1</persist.version>
         <network.version>2017.2</network.version>
-        <base.version>2017.1</base.version>
+        <base.version>2019.1</base.version>
     </properties>
 
     <artifactId>all</artifactId>
