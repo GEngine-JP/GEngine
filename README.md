@@ -97,6 +97,7 @@
 - 2017 8.24 支持socket和webSocket连接方式(默认为socket),如果是websocket只需要在NetworkServiceBuilder构建的时候把isWebsocket设为true
 - 2017 8.29 优化消息协议
 - 2019 11.18 更新netty到`4.1.42`
+- 2019 11.19 发布2019.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
 
 
 # 项目沟通群

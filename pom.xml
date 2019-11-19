@@ -43,13 +43,10 @@
 
     <distributionManagement>
         <repository>
-            <id>rdc-releases</id>
-            <url>https://repo.rdc.aliyun.com/repository/33441-release-0yIk2R</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/GameUnion/ServerCore</url>
         </repository>
-        <snapshotRepository>
-            <id>rdc-snapshots</id>
-            <url>https://repo.rdc.aliyun.com/repository/33441-snapshot-Dwx2d6</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <dependencyManagement>
