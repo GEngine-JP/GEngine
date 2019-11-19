@@ -1,7 +1,3 @@
-/**
- * 创建日期:  2017年08月12日 11:23
- * 创建作者:  杨 强  <281455776@qq.com>
- */
 package info.xiaomo.core.config.excel.reader;
 
 import info.xiaomo.core.config.BiConverter;

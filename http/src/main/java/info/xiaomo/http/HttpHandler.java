@@ -1,7 +1,7 @@
 package info.xiaomo.http;
 
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author 张力
  * @date 2017/12/22 15:33
  */
-public class HttpHandler extends ChannelInboundHandlerAdapter {
+public class HttpHandler extends ChannelHandlerAdapter {
 
     private static Logger LOGGER = LoggerFactory.getLogger(HttpHandler.class);
 
