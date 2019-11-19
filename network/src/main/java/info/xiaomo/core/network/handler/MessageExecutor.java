@@ -3,13 +3,13 @@ package info.xiaomo.core.network.handler;
 import com.google.protobuf.AbstractMessage;
 import info.xiaomo.core.network.INetworkConsumer;
 import info.xiaomo.core.network.INetworkEventListener;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * @author xiaomo
  */
-public class MessageExecutor extends ChannelInboundHandlerAdapter {
+public class MessageExecutor extends ChannelHandlerAdapter {
 
     private INetworkConsumer consumer;
 
