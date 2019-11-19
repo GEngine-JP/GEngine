@@ -8,7 +8,7 @@
         <version>2019.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>2017.2</version>
+    <version>2019.1</version>
 
     <artifactId>network</artifactId>
     <dependencies>

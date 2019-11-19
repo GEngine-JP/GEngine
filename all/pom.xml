@@ -14,7 +14,7 @@
         <config.version>2019.1</config.version>
         <logger.version>2019.1</logger.version>
         <persist.version>2019.1</persist.version>
-        <network.version>2017.2</network.version>
+        <network.version>2019.1</network.version>
         <base.version>2019.1</base.version>
     </properties>
 
@@ -46,33 +46,5 @@
             <version>${base.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!--<plugin>-->
-                <!--<artifactId>maven-assembly-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<appendAssemblyId>false</appendAssemblyId>-->
-                    <!--<descriptorRefs>-->
-                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
-                    <!--</descriptorRefs>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<mainClass>com.sh.game.GameBootstrap</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>make-assembly</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>assembly</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-        </plugins>
-    </build>
 
 </project>
