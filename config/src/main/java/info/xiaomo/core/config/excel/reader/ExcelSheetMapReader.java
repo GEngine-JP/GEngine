@@ -18,6 +18,7 @@ public class ExcelSheetMapReader extends ExcelSheetReader<Map> {
         this(resultSupplier, null);
     }
 
+    @SuppressWarnings("unchecked")
     public ExcelSheetMapReader(Supplier<? extends Map> resultSupplier, Map<Integer, IRowReader> rowReaders) {
         this(resultSupplier, new ExcelRowMapReader(HashMap::new), (map, objs) -> {
             Object[] params = (Object[]) objs;
