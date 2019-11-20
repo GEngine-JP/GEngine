@@ -1,1 +1,4 @@
+os: linux
 language: java
+jdk:
+  - oraclejdk11
