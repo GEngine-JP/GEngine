@@ -5,10 +5,10 @@
     <parent>
         <artifactId>gameCore</artifactId>
         <groupId>info.xiaomo</groupId>
-        <version>2019.1</version>
+        <version>2021.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>2019.1</version>
+    <version>2021.1</version>
 
     <artifactId>base</artifactId>
 

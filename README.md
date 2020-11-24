@@ -98,15 +98,13 @@
 - 2017 8.29 优化消息协议
 - 2019 11.18 更新netty到`4.1.42`
 - 2019 11.19 发布2019.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
+- 2021 01.01 发布2021.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
 
-
-# 项目沟通群
-665419015
 
 
 # [协议声明](LICENSE)
 
-       Copyright 2017-2019 GameUnion Group
+       Copyright 2017-2021 GameUnion Group
     
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
