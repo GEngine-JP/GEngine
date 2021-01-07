@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>gameCore</artifactId>
+        <groupId>info.xiaomo</groupId>
+        <version>2021.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>2021.1</version>
+
+    <properties>
+        <config.version>2021.1</config.version>
+        <logger.version>2021.1</logger.version>
+        <persist.version>2021.1</persist.version>
+        <network.version>2021.1</network.version>
+        <base.version>2021.1</base.version>
+    </properties>
+
+    <artifactId>all</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>config</artifactId>
+            <version>${config.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>logger</artifactId>
+            <version>${logger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>persist</artifactId>
+            <version>${persist.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>network</artifactId>
+            <version>${network.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.xiaomo</groupId>
+            <artifactId>base</artifactId>
+            <version>${base.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
