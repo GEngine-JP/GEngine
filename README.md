@@ -13,7 +13,7 @@
 
 
 - 网络通讯模块
-![](/screenshot/network.png)
+![](/docs/network.png)
 
 
 # 注意事项

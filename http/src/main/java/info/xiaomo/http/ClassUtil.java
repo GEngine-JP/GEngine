@@ -27,7 +27,7 @@ class ClassUtil {
 
     private static final String PROTOCOL_JAR = "jar";
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
 
     /**

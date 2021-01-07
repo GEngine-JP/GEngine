@@ -20,6 +20,7 @@
     <artifactId>gameCore</artifactId>
 
     <properties>
+        <github.global.server>github</github.global.server>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -44,10 +45,30 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
+            <name>GitHub</name>
             <url>https://maven.pkg.github.com/GameUnion/ServerCore</url>
         </repository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <!-- id需要与上面的server对应的id匹配 -->
+                    <id>github</id>
+                    <name>GitHub OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/GameUnion/ServerCore</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -165,44 +186,41 @@
     </dependencyManagement>
 
     <build>
-        <defaultGoal>compile</defaultGoal>
-        <!--<finalName>page</finalName>-->
         <plugins>
+            <!--1.作用：将jar deploy(发布)到本地储存库位置(altDeploymentRepository)-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
                 <configuration>
-                    <skip>true</skip>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/ServerCore</altDeploymentRepository>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version >0.12</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <compilerArgs>
-                        <arg>-XDignore.symbol.file</arg>
-                    </compilerArgs>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-            <!-- 打包源代码插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <configuration>
-                    <attach>true</attach>
+                    <message >Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <!--本地jar相关文件地址，与上方配置储存库位置(altDeploymentRepository)保持一致-->
+                    <outputDirectory>${project.build.directory}/ServerCore</outputDirectory>
+                    <!--配置上传到github哪个分支，此处配置格式必须以refs/heads/+分支名称-->
+                    <branch>refs/heads/packages</branch>
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <!--对应github上创建的仓库名称 name-->
+                    <repositoryName>ServerCore</repositoryName>
+                    <!--github 仓库所有者即登录用户名-->
+                    <repositoryOwner>GameUnion</repositoryOwner>
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>site</goal>
                         </goals>
+                        <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
