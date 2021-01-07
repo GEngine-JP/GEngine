@@ -22,6 +22,22 @@
 # 引用方式
 第一种方式比较方便,可以引用整个标准库,第二种方式比较灵活。如果你只用得上其中某个模块的功能，适合单独引用。
 
+# 添加仓库
+```
+    <repositories>
+        <repository>
+            <id>ServerCore</id>
+            <url>https://raw.github.com/GameUnion/ServerCore/packages</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+```
+
+如果项目的pom.xml文件不加这段内容会找不到对应的jar包
+
 ## 1. 一次引用全部
 
 ```
