@@ -60,39 +60,7 @@
  ```
    <dependency>
    <groupId>info.xiaomo</groupId>
-   <artifactId>all</artifactId>
+   <artifactId>gameCore</artifactId>
    <version>RELEASE</version>
    </dependency>
  ```
-2. 单独引用
-```
-<dependency>
-<groupId>info.xiaomo</groupId>
-<artifactId>base</artifactId>
-<version>RELEASE</version>
-</dependency>
-
-<dependency>
-<groupId>info.xiaomo</groupId>
-<artifactId>config</artifactId>
-<version>RELEASE</version>
-</dependency>
-
-<dependency>
-<groupId>info.xiaomo</groupId>
-<artifactId>persist</artifactId>
-<version>RELEASE</version>
-</dependency>
-
-<dependency>
-<groupId>info.xiaomo</groupId>
-<artifactId>logger</artifactId>
-<version>RELEASE</version>
-</dependency>
-
-<dependency>
-<groupId>info.xiaomo</groupId>
-<artifactId>protocol</artifactId>
-<version>RELEASE</version>
-</dependency>
-```

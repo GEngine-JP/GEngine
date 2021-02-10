@@ -1,4 +1,4 @@
 os: linux
 language: java
 jdk:
-  - oraclejdk11
+  - oraclejdk8
