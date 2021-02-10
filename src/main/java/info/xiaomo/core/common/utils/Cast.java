@@ -2,7 +2,6 @@ package info.xiaomo.core.common.utils;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author xiaomo
@@ -32,7 +31,7 @@ public class Cast {
 		} else if (number instanceof String) {
 			final String str = (String) number;
 			if (isNumeric(str) > 0) {
-				return Double.parseDouble(str);
+				return Double.valueOf(str);
 			} else {
 				return 0L;
 			}
@@ -111,7 +110,7 @@ public class Cast {
 			try {
 				ObjectOutputStream oos = new ObjectOutputStream(out);
 				oos.writeObject(obj);
-				return out.toString(StandardCharsets.ISO_8859_1);
+				return out.toString("ISO-8859-1");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -121,7 +120,7 @@ public class Cast {
 
 	public static Object stringToObject(String string) {
 		try {
-			byte[] bytes = string.getBytes(StandardCharsets.ISO_8859_1);
+			byte[] bytes = string.getBytes("ISO-8859-1");
 			ByteArrayInputStream in = new ByteArrayInputStream(bytes);
 			ObjectInputStream ois;
 			ois = new ObjectInputStream(in);
@@ -242,7 +241,7 @@ public class Cast {
 	 * @return hex string
 	 */
 	public static String bytesToHexString(byte[] src) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder("");
 		if (src == null || src.length <= 0) {
 			return null;
 		}
@@ -285,7 +284,7 @@ public class Cast {
 		int len = str.length();
 		int p = str.indexOf('%');
 		if (p == len - 1) {
-			return Double.parseDouble(str.substring(0, len - 1)) / 100;
+			return Double.valueOf(str.substring(0, len - 1)) / 100;
 		} else if (p > -1) {
 			return 0.0;
 		}
