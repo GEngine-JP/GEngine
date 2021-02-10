@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  *
  * </p>
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public class ServerThread extends Thread implements Executor {

@@ -9,7 +9,7 @@ import java.util.List;
  * 缓存对象
  *
  * @param <T>
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * @date 2017-04-26
  */
@@ -40,7 +40,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 * 放回对象池并释放资源属性
 	 *
 	 * @param value a T object.
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月8日 下午2:46:59
 	 */
 	public void put(T value) {
@@ -56,7 +56,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 * 批量放回
 	 *
 	 * @param values a T object.
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月8日 下午2:53:22
 	 */
 	@SuppressWarnings("unchecked")
@@ -79,7 +79,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 *
 	 * @param c a {@link Class} object.
 	 * @return a T object.
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月8日 下午2:50:05
 	 */
 	public T get(Class<? extends T> c) {

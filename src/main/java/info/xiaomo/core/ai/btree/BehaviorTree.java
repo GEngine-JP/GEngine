@@ -157,7 +157,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 *
 	 * @param task
 	 * @param index
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午4:00:00
 	 */
 	public void notifyChildAdded(Task<E> task, int index) {
@@ -171,7 +171,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 *
 	 * @param task
 	 * @param previousStatus
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午5:04:00
 	 */
 	public void notifyStatusUpdated(Task<E> task, Status previousStatus) {
@@ -203,7 +203,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 * 添加监听器
 	 *
 	 * @param listener
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午5:39:57
 	 */
 	public void addListener(Listener<E> listener) {
@@ -229,7 +229,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 * 行为树事件
 	 *
 	 * @param <E>
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午3:50:50
 	 */
 	public interface Listener<E> {
@@ -239,7 +239,7 @@ public class BehaviorTree<E> extends Task<E> {
 		 *
 		 * @param task
 		 * @param previousStatus 之前状态
-		 * @author JiangZhiYong
+		 * 
 		 * 2017年11月22日 下午3:52:23
 		 */
 		public void statusUpdated(Task<E> task, Status previousStatus);
@@ -249,7 +249,7 @@ public class BehaviorTree<E> extends Task<E> {
 		 *
 		 * @param task  子任务
 		 * @param index 子任务位置
-		 * @author JiangZhiYong
+		 * 
 		 * 2017年11月22日 下午3:55:20
 		 */
 		public void childAdded(Task<E> task, int index);

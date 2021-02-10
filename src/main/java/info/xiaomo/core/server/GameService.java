@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
  * 抽象服务
  *
  * @param <Conf>
- * @author JiangZhiYong
+ *
  * @date 2017-03-30
  */
-public abstract class Service<Conf extends BaseServerConfig> implements Runnable {
+public abstract class GameService<Conf extends BaseServerConfig> implements Runnable {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Service.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 	/**
 	 * 线程容器
 	 */
@@ -33,7 +33,7 @@ public abstract class Service<Conf extends BaseServerConfig> implements Runnable
 	 *
 	 * @param threadPoolExecutorConfig
 	 */
-	public Service(ThreadPoolExecutorConfig threadPoolExecutorConfig) {
+	public GameService(ThreadPoolExecutorConfig threadPoolExecutorConfig) {
 		// 初始化
 		if (threadPoolExecutorConfig != null) {
 			// IO默认线程池 客户端的请求,默认使用其执行
@@ -124,17 +124,17 @@ public abstract class Service<Conf extends BaseServerConfig> implements Runnable
 	/**
 	 * 关服回调
 	 *
-	 * @author JiangZhiYong
+	 *
 	 * @date 2017-03-30
 	 */
 	private static final class CloseByExit implements Runnable {
 
 		private static final Logger log = LoggerFactory.getLogger(CloseByExit.class);
 		@SuppressWarnings("rawtypes")
-		private final Service server;
+		private final GameService server;
 
 		@SuppressWarnings("rawtypes")
-		private CloseByExit(Service server) {
+		private CloseByExit(GameService server) {
 			this.server = server;
 		}
 

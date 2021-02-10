@@ -6,7 +6,7 @@ import info.xiaomo.core.network.mina.message.IDMessage;
 /**
  * 连接多服务器客户端接口
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年8月29日 上午9:48:52
  */
@@ -16,7 +16,7 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * 移除一个客户端
 	 *
 	 * @param serverId
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年8月29日 上午10:00:27
 	 */
@@ -33,7 +33,7 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * 服务器列表
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年8月29日 上午10:06:41
 	 */

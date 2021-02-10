@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * 多边形定制四叉树,用于快速判断一个坐标点位于哪个多边形中 <br>
  * 多边形和和象限相交,包含与被包含者插入
  *
- * @author JiangZhiYong
+ * 
  */
 public class PolygonGuadTree extends QuadTree<Vector3, Polygon> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PolygonGuadTree.class);

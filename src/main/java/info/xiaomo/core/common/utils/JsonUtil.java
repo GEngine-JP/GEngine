@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 /**
  * json 工具类
  *
- * @author JiangZhiYong
+ * 
  * 2017年7月7日 上午11:22:15
  * @version $Id: $Id
  */
@@ -122,7 +122,7 @@ public final class JsonUtil {
 	 * @param cls            a {@link Class} object.
 	 * @param parameterClass 参数类，null加载所有方法
 	 * @return a {@link Map} object.
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年10月16日 下午5:25:23
 	 */
@@ -367,7 +367,7 @@ public final class JsonUtil {
 	 *
 	 * @param object a {@link Object} object.
 	 * @return a {@link String} object.
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年9月29日 下午7:33:09
 	 */

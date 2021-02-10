@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * MQ 消费者，监听器
  *
- * @author JiangZhiYong
+ * 
  * 2017年7月28日 上午10:37:44
  */
 public class MQConsumer extends MQService implements Runnable {

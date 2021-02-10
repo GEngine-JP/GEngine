@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import info.xiaomo.core.network.mina.code.ProtocolCodecFactoryImpl;
 import info.xiaomo.core.network.mina.config.MinaClientConfig;
-import info.xiaomo.core.network.mina.service.MinaClientService;
+import info.xiaomo.core.network.mina.service.MinaClientGameService;
 import org.apache.mina.core.service.IoHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 /**
  * 多客戶端管理,连接多个服务器
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-04-01 QQ:359135103
+ * @date 2017-04-01
  */
 public class MinaMultiTcpClient {
 
@@ -35,7 +35,7 @@ public class MinaMultiTcpClient {
 	 *
 	 * @param clientProtocolHandler a {@link IoHandler} object.
 	 */
-	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler) {
+	public void addTcpClient(MinaClientGameService service, MinaClientConfig config, IoHandler clientProtocolHandler) {
 		MinaTcpClient client = null;
 		if (tcpClients.containsKey(config.getId())) {
 			client = tcpClients.get(config.getId());
@@ -51,7 +51,7 @@ public class MinaMultiTcpClient {
 	 *
 	 * @param clientProtocolHandler a {@link IoHandler} object.
 	 */
-	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler,
+	public void addTcpClient(MinaClientGameService service, MinaClientConfig config, IoHandler clientProtocolHandler,
 	                         ProtocolCodecFactoryImpl factory) {
 		MinaTcpClient client = null;
 		if (tcpClients.containsKey(config.getId())) {

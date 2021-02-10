@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 数学工具
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-23
  */
 public final class MathUtil {

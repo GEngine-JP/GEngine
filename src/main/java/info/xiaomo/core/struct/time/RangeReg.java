@@ -5,7 +5,7 @@ import info.xiaomo.core.common.utils.SymbolUtil;
 /**
  * 区间表达
  *
- * @author JiangZhiYong
+ *
  * <p>
  * 2017年8月2日 上午9:53:24
  */

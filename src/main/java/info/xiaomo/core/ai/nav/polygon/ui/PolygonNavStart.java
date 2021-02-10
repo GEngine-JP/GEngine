@@ -7,7 +7,7 @@ import info.xiaomo.core.common.utils.TimeUtil;
 /**
  * navmesh主界面
  *
- * @author JiangZhiYong
+ * 
  */
 public class PolygonNavStart extends javax.swing.JFrame {
 

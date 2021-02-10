@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 消息工具
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-31
  */
 public final class MsgUtil {
@@ -213,7 +213,7 @@ public final class MsgUtil {
 	 *
 	 * @param bytes
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年7月21日 上午11:01:10
 	 */
 	public static byte[] clientToGame(int msgID, byte[] bytes) {

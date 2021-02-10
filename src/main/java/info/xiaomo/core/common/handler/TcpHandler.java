@@ -8,7 +8,7 @@ import info.xiaomo.core.struct.Person;
  * Tcp 处理器
  * <br>也可能处理udp请求
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  */
 public abstract class TcpHandler extends AbsHandler {

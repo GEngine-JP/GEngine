@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 系统工具
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-31
  */
 public final class SysUtil {
@@ -42,7 +42,7 @@ public final class SysUtil {
 	 * 虚拟机可用cpu
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午1:56:46
 	 */
 	public static int availableProcessors() {
@@ -53,7 +53,7 @@ public final class SysUtil {
 	 * 空闲内存
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午1:59:56
 	 */
 	public static int freeMemory() {
@@ -64,7 +64,7 @@ public final class SysUtil {
 	 * 可用内存
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午2:01:32
 	 */
 	public static int totalMemory() {
@@ -75,7 +75,7 @@ public final class SysUtil {
 	 * 虚拟机能获取的最大内存
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午2:03:08
 	 */
 	public static int maxMemory() {
@@ -87,7 +87,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午3:39:22
 	 */
 	public static String classLoadInfo(String spliteStr) {
@@ -104,7 +104,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午3:39:22
 	 */
 	public static String compilationInfo(String spliteStr) {
@@ -121,7 +121,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午3:39:22
 	 */
 	public static String collectionInfo(String spliteStr) {
@@ -140,7 +140,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午3:39:22
 	 */
 	public static String memoryInfo(String spliteStr) {
@@ -172,7 +172,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年10月12日 下午5:21:19
 	 */
@@ -192,7 +192,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年10月12日 下午5:21:19
 	 */
@@ -215,7 +215,7 @@ public final class SysUtil {
 	 *
 	 * @param spliteStr 分隔符
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年10月12日 下午2:18:01
 	 */
 	public static String jvmInfo(String spliteStr) {

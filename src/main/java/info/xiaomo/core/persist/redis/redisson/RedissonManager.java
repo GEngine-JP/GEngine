@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * {@link RList} 迭代器每迭代一次都需要向redis服务器请求
  * </p>
  *
- * @author JiangZhiYong
+ *
  * 2017年9月15日 下午3:25:55
  */
 public final class RedissonManager {
@@ -42,7 +42,7 @@ public final class RedissonManager {
 	 * 连接服务器
 	 *
 	 * @param configPath
-	 * @author JiangZhiYong
+	 *
 	 * 2017年9月15日 下午3:36:06
 	 */
 	public static void connectRedis(String configPath) {

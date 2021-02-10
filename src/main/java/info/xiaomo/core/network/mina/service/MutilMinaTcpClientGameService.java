@@ -19,11 +19,11 @@ import org.apache.mina.core.session.IoSession;
  * 一般用于子游戏服务器和网关服，所有玩家共享连接
  * </p>
  *
- * @author JiangZhiYong
+ * 
  * 2017年6月30日 下午3:23:32
  * @version $Id: $Id
  */
-public class MutilMinaTcpClientService extends MinaClientService implements IMutilTcpClientService<MinaServerConfig> {
+public class MutilMinaTcpClientGameService extends MinaClientGameService implements IMutilTcpClientService<MinaServerConfig> {
 	protected final MinaMultiTcpClient multiTcpClient = new MinaMultiTcpClient();
 	/**
 	 * 网关服务器
@@ -33,14 +33,14 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	/**
 	 * <p>Constructor for MutilMinaTcpClientService.</p>
 	 */
-	public MutilMinaTcpClientService(MinaClientConfig minaClientConfig) {
+	public MutilMinaTcpClientGameService(MinaClientConfig minaClientConfig) {
 		super(minaClientConfig);
 	}
 
 	/**
 	 * <p>Constructor for MutilMinaTcpClientService.</p>
 	 */
-	public MutilMinaTcpClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
+	public MutilMinaTcpClientGameService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig, minaClientConfig);
 	}
 
@@ -176,14 +176,14 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	/**
 	 * 多连接消息处理器
 	 *
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年7月4日 下午3:22:48
 	 */
 	public class MutilTcpProtocolHandler extends DefaultClientProtocolHandler {
 
 		private final ServerInfo serverInfo;
 
-		public MutilTcpProtocolHandler(ServerInfo serverInfo, MinaClientService service) {
+		public MutilTcpProtocolHandler(ServerInfo serverInfo, MinaClientGameService service) {
 			super(12, service);
 			this.serverInfo = serverInfo;
 		}

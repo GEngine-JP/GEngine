@@ -3,7 +3,7 @@ package info.xiaomo.core.server;
 /**
  * 服务器类型
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public enum ServerType {

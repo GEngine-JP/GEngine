@@ -8,9 +8,9 @@ import info.xiaomo.core.thread.ThreadType;
 /**
  * 消息处理注解
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-03-30 QQ:359135103
+ * @date 2017-03-30
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HandlerEntity {

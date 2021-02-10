@@ -8,10 +8,10 @@ import org.simpleframework.xml.Root;
 /**
  * 主要配置Mina服务器相关配置
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * @date 2017-03-30
- * QQ:359135103
+ *
  */
 @Root
 public class MinaServerConfig extends BaseServerConfig {

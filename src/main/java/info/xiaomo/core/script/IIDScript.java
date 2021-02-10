@@ -3,7 +3,7 @@ package info.xiaomo.core.script;
 /**
  * 有ID的脚本
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public interface IIDScript extends IScript {

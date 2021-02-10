@@ -3,7 +3,7 @@ package info.xiaomo.core.common.mail;
 /**
  * 文本邮件
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年8月22日 下午5:14:12
  */

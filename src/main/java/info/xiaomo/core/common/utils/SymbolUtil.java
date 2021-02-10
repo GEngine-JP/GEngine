@@ -4,7 +4,7 @@ package info.xiaomo.core.common.utils;
 /**
  * 符号工具
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年8月2日 上午9:53:55
  */

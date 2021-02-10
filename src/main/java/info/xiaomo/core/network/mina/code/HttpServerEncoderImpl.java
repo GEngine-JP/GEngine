@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 /**
  * 消息编码
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-03-31 QQ:359135103
+ * @date 2017-03-31
  */
 public class HttpServerEncoderImpl extends HttpServerEncoder {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServerEncoderImpl.class);

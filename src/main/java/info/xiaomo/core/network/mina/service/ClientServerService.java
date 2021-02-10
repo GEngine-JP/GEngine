@@ -5,7 +5,7 @@ import info.xiaomo.core.network.mina.TcpServer;
 import info.xiaomo.core.network.mina.code.ClientProtocolCodecFactory;
 import info.xiaomo.core.network.mina.config.MinaServerConfig;
 import info.xiaomo.core.network.mina.handler.ClientProtocolHandler;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import info.xiaomo.core.thread.ServerThread;
 import info.xiaomo.core.thread.ThreadPoolExecutorConfig;
 import info.xiaomo.core.thread.ThreadType;
@@ -15,11 +15,11 @@ import org.apache.mina.core.filterchain.IoFilter;
 /**
  * 游戏前端消息接收 服务
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  * 2017年6月29日 下午2:15:38
  */
-public class ClientServerService extends Service<MinaServerConfig> {
+public class ClientServerService extends GameService<MinaServerConfig> {
 	protected final TcpServer tcpServer;
 	protected final MinaServerConfig minaServerConfig;
 	protected final ClientProtocolHandler clientProtocolHandler;
@@ -98,7 +98,6 @@ public class ClientServerService extends Service<MinaServerConfig> {
 	/**
 	 * <p>Getter for the field <code>minaServerConfig</code>.</p>
 	 *
-	 * @return a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
 	 */
 	public MinaServerConfig getMinaServerConfig() {
 		return minaServerConfig;
@@ -107,7 +106,6 @@ public class ClientServerService extends Service<MinaServerConfig> {
 	/**
 	 * <p>Getter for the field <code>tcpServer</code>.</p>
 	 *
-	 * @return a {@link com.jzy.game.engine.mina.TcpServer} object.
 	 */
 	public TcpServer getTcpServer() {
 		return tcpServer;

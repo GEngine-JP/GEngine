@@ -3,7 +3,7 @@ package info.xiaomo.core.common.utils;
 /**
  * 参数对象
  *
- * @author JiangZhiYong
+ *
  * @date 2017-03-03
  */
 public interface Args {

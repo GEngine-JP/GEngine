@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * mina udp 客户端
  *
- * @author JiangZhiYong
+ * 
  * 2017年9月1日 上午11:31:39
  * @version $Id: $Id
  */

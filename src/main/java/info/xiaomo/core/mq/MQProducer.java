@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * MQ 消息生产者，消息发送
  *
- * @author JiangZhiYong
+ *
  * 2017年7月28日 上午10:38:30
  */
 public class MQProducer extends MQService {
@@ -22,7 +22,7 @@ public class MQProducer extends MQService {
 	 *
 	 * @param destName
 	 * @param msg
-	 * @author JiangZhiYong
+	 *
 	 * 2017年7月28日 下午2:43:29
 	 */
 	public void sendMsg(String destName, String msg) {
@@ -34,7 +34,7 @@ public class MQProducer extends MQService {
 	 *
 	 * @param destName
 	 * @param msg
-	 * @author JiangZhiYong
+	 *
 	 * 2017年7月28日 下午2:43:39
 	 */
 	public void sendPresistentMsg(String destName, String msg) {

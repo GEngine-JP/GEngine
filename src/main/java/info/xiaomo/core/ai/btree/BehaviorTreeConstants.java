@@ -3,7 +3,7 @@ package info.xiaomo.core.ai.btree;
 /**
  * 行为树常量
  *
- * @author JiangZhiYong
+ * 
  */
 public class BehaviorTreeConstants {
 

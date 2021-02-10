@@ -3,7 +3,7 @@ package info.xiaomo.core.ai.quadtree;
 /**
  * 数据
  *
- * @author JiangZhiYong
+ * 
  */
 public abstract class Data<T> implements Comparable<Data<T>> {
 

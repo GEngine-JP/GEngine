@@ -12,7 +12,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * Delaunay 三角形
  *
- * @author JiangZhiYong
+ * 
  */
 public class DelaunayTriangle extends Triangle {
 

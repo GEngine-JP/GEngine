@@ -10,10 +10,10 @@ import org.apache.mina.core.session.IoSession;
  * <br>
  * netty消息发送必须设置msgID,mina不能设置
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * @date 2017-03-31
- * QQ:359135103
+ *
  */
 public final class IDMessage implements Runnable {
 

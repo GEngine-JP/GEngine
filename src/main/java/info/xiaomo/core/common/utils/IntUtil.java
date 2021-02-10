@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * int 位标识
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-31
  */
 public final class IntUtil {
@@ -170,7 +170,7 @@ public final class IntUtil {
      * @param src
      * @param byteOrder
      * @return
-     * @author JiangZhiYong
+     * 
      * <p>
      * 2017年10月16日 下午3:06:40
      */

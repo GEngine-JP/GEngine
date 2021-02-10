@@ -13,7 +13,7 @@ import org.simpleframework.xml.Root;
  * https://github.com/redisson/redisson/wiki/2.-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95<br>
  * TODO 完善配置
  *
- * @author JiangZhiYong
+ *
  * <p>
  * 2017年9月15日 下午3:37:46
  */

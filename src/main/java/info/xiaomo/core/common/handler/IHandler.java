@@ -5,7 +5,7 @@ import org.apache.mina.core.session.IoSession;
 /**
  * 处理器接口
  *
- * @author jiangzhiyong
+ *
  * @version $Id: $Id
  */
 public interface IHandler extends Runnable {

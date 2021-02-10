@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * UDP服务器
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  * 2017年9月1日 上午10:50:45
  */

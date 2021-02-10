@@ -11,11 +11,11 @@ import org.apache.mina.core.service.IoHandler;
 /**
  * 单个tcp连接客户端
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-04-09 QQ:359135103
+ * @date 2017-04-09
  */
-public class SingleMinaTcpClientService extends MinaClientService {
+public class SingleMinaTcpClientService extends MinaClientGameService {
 	private final MinaTcpClient tcpClient;
 
 

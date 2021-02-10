@@ -9,7 +9,7 @@ import org.simpleframework.xml.Root;
 /**
  * 线程池配置
  *
- * @author JiangZhiYong
+ *
  * @date 2017-03-30
  */
 @Root

@@ -12,7 +12,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 地图显示面板
  *
- * @author JiangZhiYong
+ *
  */
 public class PolygonViewPane extends JPanel {
 

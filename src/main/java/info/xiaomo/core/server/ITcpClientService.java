@@ -3,7 +3,7 @@ package info.xiaomo.core.server;
 /**
  * 客户端接口
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年8月29日 上午10:31:07
  */
@@ -14,7 +14,7 @@ public interface ITcpClientService<T extends BaseServerConfig> extends Runnable 
 	 *
 	 * @param object
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年8月29日 上午10:28:04
 	 */
@@ -23,7 +23,7 @@ public interface ITcpClientService<T extends BaseServerConfig> extends Runnable 
 	/**
 	 * 检测服务器状态
 	 *
-	 * @author JiangZhiYong
+	 * 
 	 * <p>
 	 * 2017年8月29日 上午10:43:07
 	 */

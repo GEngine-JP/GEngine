@@ -7,7 +7,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * navmesh寻路入口
  *
- * @author JiangZhiYong
+ * 
  */
 public abstract class NavMesh {
 

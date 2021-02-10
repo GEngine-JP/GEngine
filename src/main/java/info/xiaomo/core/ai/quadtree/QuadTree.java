@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 四叉树
  *
- * @author JiangZhiYong
+ *
  */
 public abstract class QuadTree<K, V> {
 	/**

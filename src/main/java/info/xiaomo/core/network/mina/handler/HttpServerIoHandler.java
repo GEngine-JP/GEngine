@@ -6,7 +6,7 @@ import info.xiaomo.core.common.handler.IHandler;
 import info.xiaomo.core.common.utils.MsgUtil;
 import info.xiaomo.core.network.mina.config.MinaServerConfig;
 import info.xiaomo.core.script.ScriptManager;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 /**
  * http消息处理器
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-03-31 QQ:359135103
+ * @date 2017-03-31
  */
 public abstract class HttpServerIoHandler implements IoHandler {
 
@@ -138,5 +138,5 @@ public abstract class HttpServerIoHandler implements IoHandler {
 	/**
 	 * 对应的服务
 	 */
-	protected abstract Service<MinaServerConfig> getService();
+	protected abstract GameService<MinaServerConfig> getService();
 }

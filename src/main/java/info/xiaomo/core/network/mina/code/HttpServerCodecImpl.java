@@ -8,9 +8,9 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 /**
  * http消息解码编码工厂
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-03-31 QQ:359135103
+ * @date 2017-03-31
  */
 public class HttpServerCodecImpl extends ProtocolCodecFilter {
 

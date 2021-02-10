@@ -9,9 +9,9 @@ import org.apache.mina.http.api.HttpStatus;
 /**
  * http请求
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
- * @date 2017-03-31 QQ:359135103
+ * @date 2017-03-31
  */
 public abstract class HttpHandler implements IHandler {
 

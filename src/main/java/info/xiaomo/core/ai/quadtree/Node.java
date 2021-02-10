@@ -8,7 +8,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 节点
  *
- * @author JiangZhiYong
+ *
  */
 public class Node<T> {
 	// 多边形

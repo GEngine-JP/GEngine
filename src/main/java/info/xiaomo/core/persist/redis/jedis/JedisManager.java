@@ -14,7 +14,7 @@ import redis.clients.jedis.JedisCluster;
 /**
  * redis集群管理类
  *
- * @author JiangZhiYong
+ *
  * 2017年8月18日 下午5:32:34
  */
 public class JedisManager {
@@ -85,7 +85,7 @@ public class JedisManager {
 	/**
 	 * 初始化脚本
 	 *
-	 * @author JiangZhiYong
+	 *
 	 * 2017年8月7日 下午6:18:37
 	 * 脚本路径
 	 */
@@ -143,7 +143,7 @@ public class JedisManager {
 	 * 获取脚本 sha
 	 *
 	 * @param fileName 脚本名称
-	 * @author JiangZhiYong
+	 *
 	 * 2017年8月7日 下午6:05:24
 	 */
 	private String getSha(String fileName) {
@@ -161,7 +161,7 @@ public class JedisManager {
 	 * @param keys       redis key列表
 	 * @param args       参数集合
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年8月7日 下午6:10:31
 	 */
 	@SuppressWarnings("unchecked")
@@ -184,7 +184,7 @@ public class JedisManager {
 	 * @param keyClass
 	 * @param valueClass
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年10月24日 上午10:05:43
 	 */
 	@SuppressWarnings("unchecked")
@@ -206,7 +206,7 @@ public class JedisManager {
 	 * @param key
 	 * @param field
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年10月24日 上午10:08:43
 	 */
 	public <V> V hget(final String key, final Object field, Class<V> clazz) {
@@ -224,7 +224,7 @@ public class JedisManager {
 	 * @param field
 	 * @param value
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * <p>
 	 * 2017年10月24日 上午10:13:21
 	 */
@@ -238,7 +238,7 @@ public class JedisManager {
 	 * @param key
 	 * @param keyClass
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年10月24日 上午9:57:45
 	 */
 	private Object parseKey(String key, Class<?> keyClass) {

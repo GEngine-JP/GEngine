@@ -8,7 +8,7 @@ import info.xiaomo.core.common.handler.IHandler;
 /**
  * 脚本管理
  *
- * @author JiangZhiYong
+ *
  * @date 2017-03-30
  */
 public class ScriptManager {
@@ -116,7 +116,7 @@ public class ScriptManager {
 	 * </p>
 	 *
 	 * @param clazz
-	 * @author JiangZhiYong
+	 *
 	 * 2017年7月24日 下午1:37:13
 	 */
 	public void addIHandler(Class<? extends IHandler> clazz) {

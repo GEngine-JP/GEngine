@@ -5,7 +5,7 @@ import java.util.Arrays;
 import info.xiaomo.core.common.utils.MsgUtil;
 import info.xiaomo.core.network.mina.message.MassMessage;
 import info.xiaomo.core.server.BaseServerConfig;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
@@ -133,5 +133,5 @@ public abstract class MassProtocolHandler implements IoHandler {
 	/**
 	 * <p>getService.</p>
 	 */
-	protected abstract Service<? extends BaseServerConfig> getService();
+	protected abstract GameService<? extends BaseServerConfig> getService();
 }

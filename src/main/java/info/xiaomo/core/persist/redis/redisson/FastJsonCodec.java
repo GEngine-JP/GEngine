@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  * TODO 待完善
  *
- * @author JiangZhiYong
+ * 
  * 2017年9月29日 下午5:36:35
  */
 public class FastJsonCodec implements Codec {

@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  * 服务定位器模式
  *
- * @author JiangZhiYong
+ *
  * @date 2017-03-30
  */
 public final class ScriptPool {
@@ -439,7 +439,7 @@ public final class ScriptPool {
 	 * 添加handler
 	 *
 	 * @param clazz
-	 * @author JiangZhiYong
+	 *
 	 * <p>
 	 * 2017年7月24日 下午1:36:27
 	 */

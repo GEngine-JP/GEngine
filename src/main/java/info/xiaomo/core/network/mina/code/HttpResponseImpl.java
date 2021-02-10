@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 /**
  * http返回消息
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  * @date 2017-03-31
- * QQ:359135103
+ *
  */
 public class HttpResponseImpl implements HttpResponse {
 

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * mongodb 管理类
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-04-14
  */
 public abstract class AbsMongoManager {

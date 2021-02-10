@@ -7,7 +7,7 @@ import info.xiaomo.core.script.IScript;
 /**
  * 订阅消息处理器
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年7月10日 上午10:29:29
  */

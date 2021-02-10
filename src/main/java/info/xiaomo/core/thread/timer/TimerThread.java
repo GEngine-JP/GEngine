@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 定时任务
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public class TimerThread extends Timer {

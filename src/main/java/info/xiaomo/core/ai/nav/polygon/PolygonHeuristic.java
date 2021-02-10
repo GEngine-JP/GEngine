@@ -5,7 +5,7 @@ import info.xiaomo.core.ai.pfa.Heuristic;
 /**
  * 多边形消耗计算
  *
- * @author JiangZhiYong
+ *
  * @date 2018年2月20日
  */
 public class PolygonHeuristic implements Heuristic<Polygon> {

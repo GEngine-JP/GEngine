@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  * TODO 组合替换继承
  *
- * @author JiangZhiYong
+ * 
  * 2017年7月26日 下午1:40:11
  */
 public abstract class Person {
@@ -207,7 +207,7 @@ public abstract class Person {
 	/**
 	 * 发送消息，带ID头
 	 *
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年8月3日 下午2:53:28
 	 */
 	public boolean sendMsg(Object message) {

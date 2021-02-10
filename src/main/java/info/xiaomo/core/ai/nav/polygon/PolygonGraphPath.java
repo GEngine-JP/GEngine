@@ -7,7 +7,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 多边形路径点
  *
- * @author JiangZhiYong
+ * 
  * @date 2018年2月20日
  */
 public class PolygonGraphPath extends DefaultGraphPath<Connection<Polygon>> {

@@ -3,7 +3,7 @@ package info.xiaomo.core.ai.quadtree;
 /**
  * 四叉树异常
  *
- * @author JiangZhiYong
+ * 
  */
 public class QuadTreeException extends RuntimeException {
 	/**

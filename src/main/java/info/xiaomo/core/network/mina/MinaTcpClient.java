@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import info.xiaomo.core.network.mina.code.DefaultProtocolCodecFactory;
 import info.xiaomo.core.network.mina.code.ProtocolCodecFactoryImpl;
 import info.xiaomo.core.network.mina.config.MinaClientConfig;
-import info.xiaomo.core.network.mina.service.MinaClientService;
+import info.xiaomo.core.network.mina.service.MinaClientGameService;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.future.ConnectFuture;
@@ -20,17 +20,17 @@ import org.slf4j.LoggerFactory;
 /**
  * Mina客户端
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  * @date 2017-04-01
- * QQ:359135103
+ *
  */
 public final class MinaTcpClient implements Runnable {
 
 	private static final Logger log = LoggerFactory.getLogger(MinaTcpClient.class);
 	private final IoHandler clientProtocolHandler;        //消息处理器
 	private final ProtocolCodecFilter codecFilter;        //消息过滤器
-	private final MinaClientService service;    //附属的客户端服务
+	private final MinaClientGameService service;    //附属的客户端服务
 	private final ProtocolCodecFactoryImpl factory;        //消息工厂
 	private NioSocketConnector connector;        //TCP连接
 	private MinaClientConfig minaClientConfig;            //客户端配置
@@ -44,7 +44,7 @@ public final class MinaTcpClient implements Runnable {
 	 *
 	 * @param filters a {@link Map} object.
 	 */
-	public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory, Map<String, IoFilter> filters) {
+	public MinaTcpClient(MinaClientGameService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory, Map<String, IoFilter> filters) {
 		this.factory = factory;
 		codecFilter = new ProtocolCodecFilter(factory);
 		this.service = service;
@@ -57,7 +57,7 @@ public final class MinaTcpClient implements Runnable {
 	/**
 	 * <p>Constructor for MinaTcpClient.</p>
 	 */
-	public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
+	public MinaTcpClient(MinaClientGameService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
 		this.factory = factory;
 		codecFilter = new ProtocolCodecFilter(factory);
 		this.service = service;
@@ -71,7 +71,7 @@ public final class MinaTcpClient implements Runnable {
 	 *
 	 * @param clientProtocolHandler a {@link IoHandler} object.
 	 */
-	public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
+	public MinaTcpClient(MinaClientGameService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
 		factory = new DefaultProtocolCodecFactory();
 		codecFilter = new ProtocolCodecFilter(factory);
 		this.service = service;
@@ -229,7 +229,7 @@ public final class MinaTcpClient implements Runnable {
 	/**
 	 * <p>Getter for the field <code>service</code>.</p>
 	 */
-	public MinaClientService getService() {
+	public MinaClientGameService getService() {
 		return service;
 	}
 

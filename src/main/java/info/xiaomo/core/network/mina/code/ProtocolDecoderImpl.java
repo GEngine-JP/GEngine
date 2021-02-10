@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 /**
  * 消息解码
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
  * @date 2017-03-30
- * QQ:359135103
+ *
  */
 public class ProtocolDecoderImpl extends CumulativeProtocolDecoder {
 

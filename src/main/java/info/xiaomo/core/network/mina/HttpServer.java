@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
 /**
  * http服务
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
- * @date 2017-03-31 QQ:359135103
+ * @date 2017-03-31
  */
 public class HttpServer implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
@@ -82,9 +82,9 @@ public class HttpServer implements Runnable {
 	/**
 	 * 绑定端口
 	 *
-	 * @author JiangZhiYong
+	 *
 	 * @date 2017-03-31
-	 * QQ:359135103
+	 *
 	 */
 	private class BindServer implements Runnable {
 

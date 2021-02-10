@@ -1,25 +1,25 @@
 package info.xiaomo.core.network.mina.handler;
 
 import info.xiaomo.core.common.utils.IntUtil;
-import info.xiaomo.core.network.mina.service.MinaClientService;
+import info.xiaomo.core.network.mina.service.MinaClientGameService;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.FilterEvent;
 
 /**
  * 默认内部客户端消息处理器
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
- * @date 2017-04-09 QQ:359135103
+ * @date 2017-04-09
  */
 public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
-	private final MinaClientService service;
+	private final MinaClientGameService service;
 
 	/**
 	 * <p>Constructor for DefaultClientProtocolHandler.</p>
 	 */
-	public DefaultClientProtocolHandler(MinaClientService service) {
+	public DefaultClientProtocolHandler(MinaClientGameService service) {
 		super(4);
 		this.service = service;
 	}
@@ -30,7 +30,7 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	 *
 	 * @param messageHeaderLength a int.
 	 */
-	public DefaultClientProtocolHandler(int messageHeaderLength, MinaClientService service) {
+	public DefaultClientProtocolHandler(int messageHeaderLength, MinaClientGameService service) {
 		super(messageHeaderLength);
 		this.service = service;
 	}
@@ -57,7 +57,7 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public MinaClientService getService() {
+	public MinaClientGameService getService() {
 		return service;
 	}
 

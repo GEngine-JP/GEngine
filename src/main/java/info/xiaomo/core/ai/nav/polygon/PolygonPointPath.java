@@ -12,7 +12,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * NavMesh 生成坐标路径点
  *
- * @author JiangZhiYong
+ *
  * @date 2018年2月20日
  */
 public class PolygonPointPath implements Iterable<Vector3> {

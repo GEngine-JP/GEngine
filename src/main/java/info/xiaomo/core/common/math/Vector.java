@@ -3,7 +3,7 @@ package info.xiaomo.core.common.math;
 /**
  * 向量接口
  *
- * @author JiangZhiYong
+ * 
  */
 public interface Vector<T extends Vector<T>> {
 

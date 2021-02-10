@@ -2,19 +2,19 @@ package info.xiaomo.core.network.mina.service;
 
 import java.util.concurrent.PriorityBlockingQueue;
 import info.xiaomo.core.network.mina.config.MinaClientConfig;
+import info.xiaomo.core.server.GameService;
 import info.xiaomo.core.server.ITcpClientService;
-import info.xiaomo.core.server.Service;
 import info.xiaomo.core.thread.ThreadPoolExecutorConfig;
 import org.apache.mina.core.session.IoSession;
 
 /**
  * 内部客户端服务
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-04-01 QQ:359135103
+ * @date 2017-04-01
  */
-public abstract class MinaClientService extends Service<MinaClientConfig> implements ITcpClientService<MinaClientConfig> {
+public abstract class MinaClientGameService extends GameService<MinaClientConfig> implements ITcpClientService<MinaClientConfig> {
 
 	private final MinaClientConfig minaClientConfig;
 
@@ -33,14 +33,14 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 	/**
 	 * 无线程池
 	 */
-	public MinaClientService(MinaClientConfig minaClientConfig) {
+	public MinaClientGameService(MinaClientConfig minaClientConfig) {
 		this(null, minaClientConfig);
 	}
 
 	/**
 	 * <p>Constructor for MinaClientService.</p>
 	 */
-	public MinaClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
+	public MinaClientGameService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig);
 		this.minaClientConfig = minaClientConfig;
 	}

@@ -7,7 +7,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 坐标点数据结构
  *
- * @author JiangZhiYong
+ *
  */
 public class PointData<T> extends Data<T> {
 

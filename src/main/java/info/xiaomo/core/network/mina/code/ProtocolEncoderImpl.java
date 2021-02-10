@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 /**
  * 消息编码
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * @date 2017-03-30
- * QQ:359135103
+ *
  */
 public class ProtocolEncoderImpl implements ProtocolEncoder {
 

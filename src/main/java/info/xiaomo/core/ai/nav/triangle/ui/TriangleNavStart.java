@@ -5,7 +5,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * navmesh主界面
  *
- * @author JiangZhiYong
+ * 
  */
 public class TriangleNavStart extends javax.swing.JFrame {
 

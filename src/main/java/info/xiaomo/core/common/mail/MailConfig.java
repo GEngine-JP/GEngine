@@ -8,7 +8,7 @@ import org.simpleframework.xml.Root;
 /***
  * 邮件收发配置
  *
- * @author JiangZhiYong
+ *
  *  2017年8月22日 下午5:10:19
  */
 @Root

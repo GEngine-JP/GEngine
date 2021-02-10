@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  * TODO 加解密
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  */
 public class ClientProtocolDecoder extends ProtocolDecoderImpl {
@@ -174,7 +174,7 @@ public class ClientProtocolDecoder extends ProtocolDecoderImpl {
 	 * 检测玩家消息发送频率
 	 *
 	 * @param session
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年8月21日 下午1:47:58
 	 */
 	private boolean checkMsgFrequency(IoSession session) {

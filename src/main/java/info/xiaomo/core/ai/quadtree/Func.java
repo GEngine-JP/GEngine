@@ -9,7 +9,7 @@ import info.xiaomo.core.ai.quadtree.polygon.PolygonGuadTree;
  *
  * @param <K>
  * @param <V>
- * @author JiangZhiYong
+ * 
  */
 public interface Func<V> {
 	public default void call(PointQuadTree<V> quadTree, Node<V> node) {

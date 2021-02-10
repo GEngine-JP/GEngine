@@ -8,7 +8,7 @@ package info.xiaomo.core.network.mina.code;
 /**
  * 客户端消息解码
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  */
 public class ClientProtocolCodecFactory extends ProtocolCodecFactoryImpl {

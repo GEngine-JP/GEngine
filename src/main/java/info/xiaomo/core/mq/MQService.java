@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * MQ服务
  *
- * @author JiangZhiYong
+ *
  * 2017年7月28日 下午1:31:13
  */
 public abstract class MQService {
@@ -36,7 +36,7 @@ public abstract class MQService {
 	 * 获取连接
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * <p>
 	 * 2017年7月28日 下午1:38:28
 	 */
@@ -55,7 +55,7 @@ public abstract class MQService {
 	/**
 	 * 关闭连接
 	 *
-	 * @author JiangZhiYong
+	 *
 	 * <p>
 	 * 2017年7月28日 下午1:38:20
 	 */

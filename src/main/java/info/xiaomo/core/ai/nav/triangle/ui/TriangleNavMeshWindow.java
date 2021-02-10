@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 地图显示窗口
  *
- * @author JiangZhiYong
+ *
  */
 public class TriangleNavMeshWindow {
 

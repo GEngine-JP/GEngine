@@ -247,7 +247,7 @@ public final class FileUtil {
      *
      * @param file
      * @return
-     * @author JiangZhiYong
+     *
      * <p>
      * 2017年9月28日 下午2:11:20
      */

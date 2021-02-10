@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
  * 服务器信息 <br>
  * 封装了mina和netty连接会话
  *
- * @author JiangZhiYong
- * @date 2017-04-01 QQ:359135103
+ * 
+ * @date 2017-04-01
  */
 public class ServerInfo {
 	private static final Logger log = LoggerFactory.getLogger(ServerInfo.class);
@@ -113,7 +113,7 @@ public class ServerInfo {
 	 * 获取空闲连接
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年8月29日 下午3:36:38
 	 */
 	public Channel getMostIdleChannel() {

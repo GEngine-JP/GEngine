@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * http请求工具
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  */
 public final class HttpUtil {

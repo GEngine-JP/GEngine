@@ -8,10 +8,10 @@ import org.simpleframework.xml.Root;
 /**
  * 客户端配置
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * @date 2017-03-31
- * QQ:359135103
+ *
  */
 @Root
 public class MinaClientConfig extends BaseServerConfig {
@@ -143,9 +143,9 @@ public class MinaClientConfig extends BaseServerConfig {
 	/**
 	 * 连接配置
 	 *
-	 * @author JiangZhiYong
+	 * 
 	 * @date 2017-03-31
-	 * QQ:359135103
+	 *
 	 */
 	@Root
 	public static class MinaClienConnToConfig extends BaseServerConfig {

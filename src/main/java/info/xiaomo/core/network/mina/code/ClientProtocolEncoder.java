@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 游戏客户端返回消息编码
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  */
 public class ClientProtocolEncoder extends ProtocolEncoderImpl {

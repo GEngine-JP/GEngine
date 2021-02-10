@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 多边形,用于navmesh寻路
  *
- * @author JiangZhiYong
+ * 
  * @date 2018年2月20日
  */
 public class Polygon implements Shape {

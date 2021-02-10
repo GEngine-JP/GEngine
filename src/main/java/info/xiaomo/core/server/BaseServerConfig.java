@@ -6,7 +6,7 @@ import org.simpleframework.xml.Element;
 /**
  * mina 基本配置
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public abstract class BaseServerConfig {

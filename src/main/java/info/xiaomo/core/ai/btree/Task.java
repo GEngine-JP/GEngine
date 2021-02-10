@@ -55,7 +55,7 @@ public abstract class Task<E> implements IMemoryObject, Serializable {
 	 *
 	 * @param childTask
 	 * @return 子任务所在下标
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午2:54:08
 	 */
 	public final int addChild(Task<E> childTask) {
@@ -70,7 +70,7 @@ public abstract class Task<E> implements IMemoryObject, Serializable {
 	 * 子任务个数
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午4:01:24
 	 */
 	public abstract int getChildCount();
@@ -80,7 +80,7 @@ public abstract class Task<E> implements IMemoryObject, Serializable {
 	 *
 	 * @param childTask 子任务
 	 * @return 任务下标
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午3:32:26
 	 */
 	protected abstract int addChildToTask(Task<E> childTask);
@@ -107,7 +107,7 @@ public abstract class Task<E> implements IMemoryObject, Serializable {
 	/**
 	 * 设置控制任务
 	 *
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午4:06:58
 	 */
 	public void setControl(Task<E> control) {
@@ -120,7 +120,7 @@ public abstract class Task<E> implements IMemoryObject, Serializable {
 	 *
 	 * @param parentTask 父任务
 	 * @return
-	 * @author JiangZhiYong
+	 * 
 	 * 2017年11月22日 下午4:09:57
 	 */
 	public boolean checkGuard(Task<E> parentTask) {

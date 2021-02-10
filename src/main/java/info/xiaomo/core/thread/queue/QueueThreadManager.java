@@ -14,7 +14,7 @@ import info.xiaomo.core.thread.queue.executor.ActionExecutor;
  * <p>
  * 可选择模型
  *
- * @author JiangZhiYong
+ *
  * 2017年8月15日 上午10:16:28
  */
 public class QueueThreadManager {
@@ -41,7 +41,7 @@ public class QueueThreadManager {
 	/**
 	 * 初始化队列
 	 *
-	 * @author JiangZhiYong
+	 *
 	 * <p>
 	 * 2017年8月16日 下午5:07:10
 	 */

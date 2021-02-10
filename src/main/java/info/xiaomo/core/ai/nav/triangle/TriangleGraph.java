@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * 导航网格图像数据 <br>
  * 数据对象预处理
  *
- * @author JiangZhiYong
+ *
  * 2017年11月7日 下午4:43:33
  */
 public class TriangleGraph implements IndexedGraph<Triangle> {
@@ -63,7 +63,7 @@ public class TriangleGraph implements IndexedGraph<Triangle> {
 	 *
 	 * @param indices 顶点下标列表
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年11月8日 下午4:12:33
 	 */
 	private static Set<IndexConnection> getIndexConnections(int[] indices) {
@@ -252,7 +252,7 @@ public class TriangleGraph implements IndexedGraph<Triangle> {
 	 * 创建三角形列表
 	 *
 	 * @return
-	 * @author JiangZhiYong
+	 *
 	 * 2017年11月7日 下午5:58:20
 	 */
 	private List<Triangle> createTriangles(int scale) {

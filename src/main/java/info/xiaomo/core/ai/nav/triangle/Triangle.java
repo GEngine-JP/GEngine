@@ -14,7 +14,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 三角形
  *
- * @author JiangZhiYong
+ * 
  * 2017年11月7日 下午4:41:27
  */
 public class Triangle implements Shape {

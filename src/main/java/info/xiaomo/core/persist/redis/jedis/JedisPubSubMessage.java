@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * redis的订阅发布消息
  *
- * @author JiangZhiYong
+ * 
  * <p>
  * 2017年7月10日 上午10:27:29
  */

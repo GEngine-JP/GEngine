@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 行为树 <br>
  *
- * @author JiangZhiYong
+ * 
  * 2017年11月24日
  */
 public class BehaviorTreeManager {

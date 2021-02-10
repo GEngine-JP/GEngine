@@ -3,7 +3,7 @@ package info.xiaomo.core.network.mina.service;
 import info.xiaomo.core.network.mina.HttpServer;
 import info.xiaomo.core.network.mina.config.MinaServerConfig;
 import info.xiaomo.core.network.mina.handler.HttpServerIoHandler;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import info.xiaomo.core.thread.ThreadPoolExecutorConfig;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.FilterEvent;
@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
 /**
  * 游戏服http服务器
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  * <p>
  * 2017年7月24日 上午11:28:28
  */
 @SuppressWarnings("MultipleTopLevelClassesInFile")
-public class GameHttpSevice extends Service<MinaServerConfig> {
+public class GameHttpSevice extends GameService<MinaServerConfig> {
 
 	private static final Logger log = LoggerFactory.getLogger(GameHttpSevice.class);
 
@@ -80,22 +80,22 @@ public class GameHttpSevice extends Service<MinaServerConfig> {
 /**
  * 消息处理器
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-31
- * QQ:359135103
+ *
  */
 class GameHttpServerHandler extends HttpServerIoHandler {
 
 	//private static final Logger log = LoggerFactory.getLogger(ClusterHttpServerHandler.class);
 
-	private final Service<MinaServerConfig> service;
+	private final GameService<MinaServerConfig> gameService;
 
-	public GameHttpServerHandler(Service<MinaServerConfig> service) {
-		this.service = service;
+	public GameHttpServerHandler(GameService<MinaServerConfig> gameService) {
+		this.gameService = gameService;
 	}
 
-	protected Service<MinaServerConfig> getService() {
-		return service;
+	protected GameService<MinaServerConfig> getService() {
+		return gameService;
 	}
 
 	@Override

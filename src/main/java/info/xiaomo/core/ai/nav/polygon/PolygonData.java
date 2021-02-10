@@ -9,7 +9,7 @@ import info.xiaomo.core.ai.nav.NavMeshData;
 /**
  * 多边形数据
  *
- * @author JiangZhiYong
+ * 
  */
 public class PolygonData extends NavMeshData {
     private static final long serialVersionUID = 1L;

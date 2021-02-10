@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 服务器主定时器
  *
- * @author JiangZhiYong
+ *
  * @date 2017-04-09
  */
 public class ServerHeartTimer extends TimerEvent {

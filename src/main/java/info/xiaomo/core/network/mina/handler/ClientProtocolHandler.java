@@ -9,7 +9,7 @@ import info.xiaomo.core.common.utils.MsgUtil;
 import info.xiaomo.core.network.mina.config.MinaServerConfig;
 import info.xiaomo.core.script.ScriptManager;
 import info.xiaomo.core.server.BaseServerConfig;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.FilterEvent;
 import org.slf4j.Logger;
@@ -24,14 +24,14 @@ import org.slf4j.LoggerFactory;
  * decoder 已去掉包长度
  * </p>
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-04-01 QQ:359135103
+ * @date 2017-04-01
  */
 public class ClientProtocolHandler extends DefaultProtocolHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(ClientProtocolHandler.class);
-	protected Service<MinaServerConfig> service;
+	protected GameService<MinaServerConfig> gameService;
 
 	/**
 	 * <p>Constructor for ClientProtocolHandler.</p>
@@ -94,17 +94,17 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Service<? extends BaseServerConfig> getService() {
-		return service;
+	public GameService<? extends BaseServerConfig> getService() {
+		return gameService;
 	}
 
 	/**
 	 * <p>Setter for the field <code>service</code>.</p>
 	 *
-	 * @param service a {@link com.jzy.game.engine.server.Service} object.
+	 * @param gameService a {@link com.jzy.game.engine.server.Service} object.
 	 */
-	public void setService(Service<MinaServerConfig> service) {
-		this.service = service;
+	public void setService(GameService<MinaServerConfig> gameService) {
+		this.gameService = gameService;
 	}
 
 }

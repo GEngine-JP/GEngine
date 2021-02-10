@@ -6,7 +6,7 @@ import org.apache.mina.core.session.IoSession;
 /**
  * 抽象handler
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
  */
 public abstract class AbsHandler implements IHandler {

@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
 /**
  * TCP服务器
  *
- * @author JiangZhiYong
+ * 
  * @version $Id: $Id
- * @date 2017-03-30 QQ:359135103
+ * @date 2017-03-30
  */
 public class TcpServer implements Runnable {
 

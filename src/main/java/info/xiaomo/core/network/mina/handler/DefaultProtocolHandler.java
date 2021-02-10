@@ -8,7 +8,7 @@ import info.xiaomo.core.common.handler.TcpHandler;
 import info.xiaomo.core.common.utils.MsgUtil;
 import info.xiaomo.core.script.ScriptManager;
 import info.xiaomo.core.server.BaseServerConfig;
-import info.xiaomo.core.server.Service;
+import info.xiaomo.core.server.GameService;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
  * 消息头可能有消息长度、消息ID、用户ID
  * </p>
  *
- * @author JiangZhiYong
+ *
  * @version $Id: $Id
- * @date 2017-03-30 QQ:359135103
+ * @date 2017-03-30
  */
 public abstract class DefaultProtocolHandler implements IoHandler {
 
@@ -171,5 +171,5 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	/**
 	 * <p>getService.</p>
 	 */
-	public abstract Service<? extends BaseServerConfig> getService();
+	public abstract GameService<? extends BaseServerConfig> getService();
 }

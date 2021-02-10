@@ -3,7 +3,7 @@ package info.xiaomo.core.thread;
 /**
  * 线程类型
  *
- * @author JiangZhiYong
+ * 
  * @date 2017-03-30
  */
 public enum ThreadType {

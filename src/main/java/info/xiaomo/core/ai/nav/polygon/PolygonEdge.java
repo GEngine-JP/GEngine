@@ -7,7 +7,7 @@ import info.xiaomo.core.common.math.Vector3;
 /**
  * 多边形共享边
  *
- * @author JiangZhiYong
+ *
  */
 public class PolygonEdge implements Connection<Polygon> {
 

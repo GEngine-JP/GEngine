@@ -3,7 +3,7 @@ package info.xiaomo.core.server;
 /**
  * 服务器状态
  *
- * @author JiangZhiYong
+ *
  * 2017年7月13日 下午3:28:38
  */
 public enum ServerState {

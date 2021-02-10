@@ -9,7 +9,7 @@ import info.xiaomo.core.common.math.Vector3;
  * 点四叉树
  * <br>一个象限只有一个点,不限深度，比较适合存储地图对象，如快速检测玩家和周围玩家或怪物的距离，是否碰撞
  *
- * @author JiangZhiYong
+ * 
  */
 public class PointQuadTree<V> extends QuadTree<Vector3, V> {
 
