@@ -1,6 +1,5 @@
 package info.xiaomo.core.logger;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
@@ -55,11 +54,9 @@ public abstract class AbstractLog implements Runnable {
 					// 全部使用默认值
 				}
 
-				PropertyDescriptor pd = new PropertyDescriptor(field.getName(), cl);
-				Method readMethod = pd.getReadMethod();
-				if (readMethod == null) {
-					continue;
-				}
+//				PropertyDescriptor pd = new PropertyDescriptor(field.getName(), cl);
+//				Method readMethod = pd.getReadMethod();
+				Method readMethod = field.getClass().getMethod(field.getName(), cl);
 				ColumnDesc colDesc = new ColumnDesc();
 				colDesc.setAllowNull(column.allowNull());
 				colDesc.setAutoIncrement(column.autoIncrement());

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.xiaomo</groupId>
     <artifactId>gameCore</artifactId>
-    <version>2.0.5</version>
+    <version>200000.0.0-</version>
     <name>gameCore</name>
 
     <properties>
@@ -19,7 +19,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/GameUnion/ServerCore</url>
+            <url>https://maven.pkg.github.com/houko/ServerCore</url>
         </repository>
     </distributionManagement>
 
