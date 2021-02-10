@@ -56,7 +56,7 @@ public class ExcelUtils {
 		}
 		String retValue = null;
 		switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_NUMERIC:
+			case NUMERIC:
 				if (DateUtil.isCellDateFormatted(cell)) {
 					Date date = cell.getDateCellValue();
 					if (date != null) {
@@ -71,10 +71,10 @@ public class ExcelUtils {
 					return String.valueOf(value);
 				}
 				break;
-			case Cell.CELL_TYPE_STRING:
+			case STRING:
 				retValue = cell.getRichStringCellValue().getString();
 				break;
-			case Cell.CELL_TYPE_FORMULA:
+			case FORMULA:
 				try {
 					// 先按照字符串格式获取 如果是生成的是数字 会抛出异常
 					retValue = cell.getStringCellValue();
@@ -93,11 +93,11 @@ public class ExcelUtils {
 					}
 				}
 				break;
-			case Cell.CELL_TYPE_BOOLEAN:
+			case BOOLEAN:
 				retValue = String.valueOf(cell.getBooleanCellValue());
 				break;
-			case Cell.CELL_TYPE_BLANK:
-			case Cell.CELL_TYPE_ERROR:
+			case BLANK:
+			case ERROR:
 			default:
 				retValue = null;
 				break;

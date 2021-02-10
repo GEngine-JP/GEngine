@@ -5,6 +5,8 @@ import info.xiaomo.core.network.mina.config.MinaServerConfig;
 import info.xiaomo.core.network.mina.handler.HttpServerIoHandler;
 import info.xiaomo.core.server.Service;
 import info.xiaomo.core.thread.ThreadPoolExecutorConfig;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.FilterEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,5 +96,10 @@ class GameHttpServerHandler extends HttpServerIoHandler {
 
 	protected Service<MinaServerConfig> getService() {
 		return service;
+	}
+
+	@Override
+	public void event(IoSession ioSession, FilterEvent filterEvent) throws Exception {
+
 	}
 }

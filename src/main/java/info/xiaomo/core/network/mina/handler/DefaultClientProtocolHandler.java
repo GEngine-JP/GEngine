@@ -3,6 +3,7 @@ package info.xiaomo.core.network.mina.handler;
 import info.xiaomo.core.common.utils.IntUtil;
 import info.xiaomo.core.network.mina.service.MinaClientService;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.FilterEvent;
 
 /**
  * 默认内部客户端消息处理器
@@ -67,6 +68,11 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	public void sessionClosed(IoSession session) {
 		super.sessionClosed(session);
 		getService().onIoSessionClosed(session);
+	}
+
+	@Override
+	public void event(IoSession ioSession, FilterEvent filterEvent) throws Exception {
+
 	}
 
 }

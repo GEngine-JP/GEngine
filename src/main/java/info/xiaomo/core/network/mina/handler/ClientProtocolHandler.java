@@ -11,6 +11,7 @@ import info.xiaomo.core.script.ScriptManager;
 import info.xiaomo.core.server.BaseServerConfig;
 import info.xiaomo.core.server.Service;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.FilterEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,10 +65,8 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 					Message message = MsgUtil.buildMessage(handlerEntity.msg(), bytes, messageHeaderLength,
 							bytes.length - messageHeaderLength);
 					TcpHandler handler = (TcpHandler) handlerClass.newInstance();
-					if (handler != null) {
-						messageHandler(session, handlerEntity, message, handler);
-						return;
-					}
+					messageHandler(session, handlerEntity, message, handler);
+					return;
 				}
 			}
 			forward(session, mid, bytes);
@@ -75,6 +74,11 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 		} catch (Exception e) {
 			log.error("messageReceived", e);
 		}
+	}
+
+	@Override
+	public void event(IoSession ioSession, FilterEvent filterEvent) throws Exception {
+
 	}
 
 	/**
