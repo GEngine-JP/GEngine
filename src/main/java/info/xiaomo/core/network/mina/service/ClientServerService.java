@@ -35,20 +35,20 @@ public class ClientServerService extends GameService<MinaServerConfig> {
 	/**
 	 * 使用默认消息处理器
 	 */
-	public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
-		this(threadExcutorConfig, minaServerConfig, new ClientProtocolHandler(8));
+	public ClientServerService(ThreadPoolExecutorConfig threadExecutorConfig, MinaServerConfig minaServerConfig) {
+		this(threadExecutorConfig, minaServerConfig, new ClientProtocolHandler(8));
 	}
 
 	/**
 	 * <p>Constructor for ClientServerService.</p>
 	 *
-	 * @param threadExcutorConfig   线程池配置
+	 * @param threadExecutorConfig   线程池配置
 	 * @param minaServerConfig      服务器配置
 	 * @param clientProtocolHandler 消息处理器
 	 */
-	public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig,
+	public ClientServerService(ThreadPoolExecutorConfig threadExecutorConfig, MinaServerConfig minaServerConfig,
 	                           ClientProtocolHandler clientProtocolHandler) {
-		super(threadExcutorConfig);
+		super(threadExecutorConfig);
 		this.minaServerConfig = minaServerConfig;
 		this.clientProtocolHandler = clientProtocolHandler;
 		tcpServer = new TcpServer(minaServerConfig, clientProtocolHandler, new ClientProtocolCodecFactory());
@@ -57,14 +57,14 @@ public class ClientServerService extends GameService<MinaServerConfig> {
 	/**
 	 * <p>Constructor for ClientServerService.</p>
 	 *
-	 * @param threadExcutorConfig   线程池配置
+	 * @param threadExecutorConfig   线程池配置
 	 * @param minaServerConfig      服务器配置
 	 * @param clientProtocolHandler 消息处理器
 	 * @param filters               a {@link Map} object.
 	 */
-	public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig,
+	public ClientServerService(ThreadPoolExecutorConfig threadExecutorConfig, MinaServerConfig minaServerConfig,
 	                           ClientProtocolHandler clientProtocolHandler, Map<String, IoFilter> filters) {
-		super(threadExcutorConfig);
+		super(threadExecutorConfig);
 		this.minaServerConfig = minaServerConfig;
 		this.clientProtocolHandler = clientProtocolHandler;
 		tcpServer = new TcpServer(minaServerConfig, clientProtocolHandler, new ClientProtocolCodecFactory(), filters);

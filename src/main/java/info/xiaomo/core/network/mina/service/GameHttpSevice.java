@@ -29,8 +29,8 @@ public class GameHttpSevice extends GameService<MinaServerConfig> {
 	/**
 	 * <p>Constructor for GameHttpSevice.</p>
 	 */
-	public GameHttpSevice(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
-		super(threadExcutorConfig);
+	public GameHttpSevice(ThreadPoolExecutorConfig threadExecutorConfig, MinaServerConfig minaServerConfig) {
+		super(threadExecutorConfig);
 		this.minaServerConfig = minaServerConfig;
 		httpServer = new HttpServer(minaServerConfig, new GameHttpServerHandler(this));
 	}

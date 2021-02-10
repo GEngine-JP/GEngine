@@ -37,8 +37,8 @@ public abstract class GameService<Conf extends BaseServerConfig> implements Runn
 		// 初始化
 		if (threadPoolExecutorConfig != null) {
 			// IO默认线程池 客户端的请求,默认使用其执行
-			ThreadPoolExecutor ioHandlerThreadExcutor = threadPoolExecutorConfig.newThreadPoolExecutor();
-			serverThreads.put(ThreadType.IO, ioHandlerThreadExcutor);
+			ThreadPoolExecutor ioHandlerThreadExecutor = threadPoolExecutorConfig.newThreadPoolExecutor();
+			serverThreads.put(ThreadType.IO, ioHandlerThreadExecutor);
 
 			//全局sync线程
 			ServerThread syncThread = new ServerThread(new ThreadGroup("全局同步线程"),
