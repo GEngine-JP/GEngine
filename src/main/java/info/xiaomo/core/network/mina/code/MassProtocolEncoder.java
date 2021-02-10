@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author wzyi
  * @version $Id: $Id
- * @QQ 156320312
- * @Te 18202020823
  */
 public class MassProtocolEncoder extends ProtocolEncoderImpl {
 

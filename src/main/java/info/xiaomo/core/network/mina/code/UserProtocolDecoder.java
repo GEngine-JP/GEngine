@@ -12,8 +12,6 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
  *
  * @author wzyi
  * @version $Id: $Id
- * @QQ 156320312
- * @Te 18202020823
  */
 public class UserProtocolDecoder extends ProtocolDecoderImpl {
 

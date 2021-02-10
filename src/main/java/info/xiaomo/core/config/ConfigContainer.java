@@ -1,7 +1,3 @@
-/**
- * 创建日期:  2017年08月21日 17:39
- * 创建作者:  杨 强  <281455776@qq.com>
- */
 package info.xiaomo.core.config;
 
 import java.util.ArrayList;

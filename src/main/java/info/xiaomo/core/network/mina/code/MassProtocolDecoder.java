@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author wzyi
  * @version $Id: $Id
- * @QQ 156320312
- * @Te 18202020823
  */
 public class MassProtocolDecoder extends ProtocolDecoderImpl {
 
@@ -42,7 +40,7 @@ public class MassProtocolDecoder extends ProtocolDecoderImpl {
 			int id = ib.getInt();
 			ib.clear();
 			log.warn("消息解析异常：长度{},id {}, 大于长度 maxReadSize {}", length, id, maxReadSize);
-			session.close(true);
+			session.closeNow();
 			return false;
 		}
 
