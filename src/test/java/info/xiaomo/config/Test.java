@@ -5,8 +5,8 @@
 package info.xiaomo.config;
 
 import info.xiaomo.config.beans.ItemConfig;
-import info.xiaomo.core.config.annotation.ConfigFileScan;
-import info.xiaomo.core.config.annotation.PackageScan;
+import info.xiaomo.gengine.config.annotation.ConfigFileScan;
+import info.xiaomo.gengine.config.annotation.PackageScan;
 
 /**
  * @author YangQiang

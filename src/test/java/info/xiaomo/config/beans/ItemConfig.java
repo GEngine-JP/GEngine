@@ -4,10 +4,10 @@ import java.util.Map;
 import info.xiaomo.config.converters.IntegerArrayConverter;
 import info.xiaomo.config.converters.IntegerMapConverter;
 import info.xiaomo.config.converters.Matrix3IntConverter;
-import info.xiaomo.core.config.IConfig;
-import info.xiaomo.core.config.annotation.Column;
-import info.xiaomo.core.config.annotation.Config;
-import info.xiaomo.core.config.annotation.Table;
+import info.xiaomo.gengine.config.IConfig;
+import info.xiaomo.gengine.config.annotation.Column;
+import info.xiaomo.gengine.config.annotation.Config;
+import info.xiaomo.gengine.config.annotation.Table;
 import lombok.Data;
 import lombok.ToString;
 

@@ -6,7 +6,7 @@ package info.xiaomo.config.converters;
 
 
 import java.util.Map;
-import info.xiaomo.core.config.IConverter;
+import info.xiaomo.gengine.config.IConverter;
 
 /**
  * @author YangQiang

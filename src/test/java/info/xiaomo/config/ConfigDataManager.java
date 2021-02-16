@@ -4,7 +4,7 @@
  */
 package info.xiaomo.config;
 
-import info.xiaomo.core.config.excel.ExcelConfigDataManager;
+import info.xiaomo.gengine.config.excel.ExcelConfigDataManager;
 
 /**
  * @author YangQiang

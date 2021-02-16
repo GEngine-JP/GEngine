@@ -24,7 +24,7 @@
     <repositories>
         <repository>
             <id>ServerCore</id>
-            <url>https://raw.github.com/GameUnion/ServerCore/packages</url>
+            <url>https://raw.github.com/GEngine-JP/GEngine/packages</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -40,8 +40,8 @@
 ```
     <dependency>
       <groupId>info.xiaomo</groupId>
-      <artifactId>game-core</artifactId>
-      <version>RELEASE</version>
+      <artifactId>g-engine</artifactId>
+      <version>3.0.0</version>
     </dependency>
 ```
 
@@ -72,6 +72,7 @@
 - 2019 11.19 发布2019.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
 - 2021 01.01 发布2021.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
 - 2021 02.10 发布2021.2版本,整合模块。
+- 2021 02.16 发布3.0.0,取消以年份滚版本行为。
 
 # [协议声明](LICENSE)
 

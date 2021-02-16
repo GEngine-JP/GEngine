@@ -4,9 +4,9 @@
  */
 package info.xiaomo.config;
 
-import info.xiaomo.core.config.FileConfigDataManagerConfig;
-import info.xiaomo.core.config.annotation.ConfigFileScan;
-import info.xiaomo.core.config.annotation.PackageScan;
+import info.xiaomo.gengine.config.FileConfigDataManagerConfig;
+import info.xiaomo.gengine.config.annotation.ConfigFileScan;
+import info.xiaomo.gengine.config.annotation.PackageScan;
 
 /**
  * excel配置管理器的配置 通过注解的形式配置

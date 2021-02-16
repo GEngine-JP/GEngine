@@ -5,9 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.xiaomo</groupId>
-    <artifactId>game-core</artifactId>
-    <version>2.0.7</version>
-    <name>game-core</name>
+    <artifactId>g-engine</artifactId>
+    <version>3.0.0</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -19,7 +18,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/houko/ServerCore</url>
+            <url>https://maven.pkg.github.com/GEngine-JP/GEngine</url>
         </repository>
     </distributionManagement>
 

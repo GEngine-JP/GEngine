@@ -60,7 +60,7 @@
  ```
    <dependency>
    <groupId>info.xiaomo</groupId>
-   <artifactId>game-core</artifactId>
+   <artifactId>g-engine</artifactId>
    <version>RELEASE</version>
    </dependency>
  ```

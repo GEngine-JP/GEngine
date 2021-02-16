@@ -7,9 +7,9 @@ package info.xiaomo.config.beans;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
-import info.xiaomo.core.config.IConfigCache;
-import info.xiaomo.core.config.annotation.Cache;
-import info.xiaomo.core.config.annotation.Config;
+import info.xiaomo.gengine.config.IConfigCache;
+import info.xiaomo.gengine.config.annotation.Cache;
+import info.xiaomo.gengine.config.annotation.Config;
 
 /**
  *
