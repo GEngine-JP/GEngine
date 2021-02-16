@@ -10,7 +10,7 @@ import info.xiaomo.gengine.thread.ThreadType;
  *
  * 
  * @version $Id: $Id
- * @date 2017-03-30
+ *  2017-03-30
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HandlerEntity {

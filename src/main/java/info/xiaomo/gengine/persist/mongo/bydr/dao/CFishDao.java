@@ -9,7 +9,7 @@ import org.mongodb.morphia.dao.BasicDAO;
  * 角色
  *
  *
- * @date 2017-02-27
+ *  2017-02-27
  */
 public class CFishDao extends BasicDAO<CFish, Integer> {
 

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  * 游戏世界驱动器,用于驱动游戏世界中的心跳,AI等
  *
  * @author 张力
- * @date 2015-3-10 上午4:28:26
+ *  2015-3-10 上午4:28:26
  */
 public class QueueDriver {
 

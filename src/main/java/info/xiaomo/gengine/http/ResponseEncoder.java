@@ -13,7 +13,7 @@ import io.netty.handler.codec.http.HttpVersion;
 /**
  * 将自定义的Response转化为Netty的HttpResponse
  * @author 张力
- * @date 2017/12/22 20:23
+ *  2017/12/22 20:23
  */
 public class ResponseEncoder extends MessageToMessageEncoder<Response> {
 

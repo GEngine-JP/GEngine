@@ -1,7 +1,7 @@
 /**
 * 工具自动生成,暂时不支持泛型和对象
 *
-* @date 2017-10-31
+*  2017-10-31
 */
 package info.xiaomo.gengine.persist.mongo.bydr.entity;
 
@@ -13,7 +13,7 @@ import org.mongodb.morphia.annotations.Indexed;
 
 /**
  *
- * @date 2017-10-31
+ *  2017-10-31
  */
 @Entity(value = "config_fish_boom", noClassnameStored = true)
 public class ConfigFishBoom implements IConfigChecker {

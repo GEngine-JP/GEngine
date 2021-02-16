@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
  *
  * 
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  *
  */
 @Root
@@ -144,7 +144,7 @@ public class MinaClientConfig extends BaseServerConfig {
 	 * 连接配置
 	 *
 	 * 
-	 * @date 2017-03-31
+	 *  2017-03-31
 	 *
 	 */
 	@Root

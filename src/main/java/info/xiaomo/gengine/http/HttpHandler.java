@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * http请求处理器
  *
  * @author 张力
- * @date 2017/12/22 15:33
+ *  2017/12/22 15:33
  */
 public class HttpHandler extends ChannelHandlerAdapter {
 

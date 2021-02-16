@@ -4,7 +4,7 @@ package info.xiaomo.gengine.thread.timer;
  * 定时器,end时间大于0表示截至时间到即销毁；loop为-1标识永久循环
  *
  *
- * @date 2017-03-30
+ *  2017-03-30
  */
 public abstract class TimerEvent implements Runnable {
 

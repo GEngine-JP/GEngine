@@ -10,7 +10,7 @@ import org.apache.mina.filter.FilterEvent;
  *
  *
  * @version $Id: $Id
- * @date 2017-04-09
+ *  2017-04-09
  */
 public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 

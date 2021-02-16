@@ -4,7 +4,7 @@ package info.xiaomo.gengine.thread;
  * 线程类型
  *
  * 
- * @date 2017-03-30
+ *  2017-03-30
  */
 public enum ThreadType {
 	/**

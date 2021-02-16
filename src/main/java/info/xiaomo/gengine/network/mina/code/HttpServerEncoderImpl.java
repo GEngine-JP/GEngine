@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  *
  * 
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  */
 public class HttpServerEncoderImpl extends HttpServerEncoder {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServerEncoderImpl.class);

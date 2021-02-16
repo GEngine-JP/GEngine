@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  *
  * 
  * @version $Id: $Id
- * @date 2017-04-01
+ *  2017-04-01
  */
 public class MinaMultiTcpClient {
 

@@ -13,7 +13,7 @@ import info.xiaomo.gengine.common.math.Vector3;
  * NavMesh 生成坐标路径点
  *
  *
- * @date 2018年2月20日
+ *  2018年2月20日
  */
 public class PolygonPointPath implements Iterable<Vector3> {
 	public static final Vector3 V3_UP = Vector3.Y;

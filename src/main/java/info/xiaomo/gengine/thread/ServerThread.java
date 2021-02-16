@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  *
  * 
- * @date 2017-03-30
+ *  2017-03-30
  */
 public class ServerThread extends Thread implements Executor {
 

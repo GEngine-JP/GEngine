@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * TODO 空间分割算法，四叉数;多边形额外参数，如草地，水，公路等消耗标识
  *
  * 
- * @date 2018年2月23日
+ *  2018年2月23日
  */
 public final class PolygonNavMesh extends NavMesh {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PolygonNavMesh.class);

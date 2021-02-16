@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * management of telegrams.
  *
  * @author davebaol
- * @fix JiangZhiYong
+ *
  */
 public class MessageDispatcher implements Telegraph {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MessageDispatcher.class);

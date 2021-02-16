@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class MQProducer extends MQService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MQProducer.class);
 
-	public MQProducer(com.jzy.game.engine.mq.MQConfig mqConfig) {
+	public MQProducer(MQConfig mqConfig) {
 		super(mqConfig);
 	}
 

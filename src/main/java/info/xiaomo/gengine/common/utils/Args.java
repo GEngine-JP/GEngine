@@ -4,7 +4,7 @@ package info.xiaomo.gengine.common.utils;
  * 参数对象
  *
  *
- * @date 2017-03-03
+ *  2017-03-03
  */
 public interface Args {
 

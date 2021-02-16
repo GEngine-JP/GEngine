@@ -31,7 +31,7 @@ import java.util.List;
  * @param <E> the type of the entity owning this state machine
  * @param <S> the type of the states of this state machine
  * @author Daniel Holderbaum
- * @fix JiangZhiYong
+ *
  */
 public class StackStateMachine<E, S extends State<E>> extends DefaultStateMachine<E, S> {
 

@@ -13,7 +13,7 @@ import org.apache.mina.core.service.IoHandler;
  *
  * 
  * @version $Id: $Id
- * @date 2017-04-09
+ *  2017-04-09
  */
 public class SingleMinaTcpClientService extends MinaClientGameService {
 	private final MinaTcpClient tcpClient;

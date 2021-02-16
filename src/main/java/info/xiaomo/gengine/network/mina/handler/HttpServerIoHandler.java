@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  *
  * 
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  */
 public abstract class HttpServerIoHandler implements IoHandler {
 

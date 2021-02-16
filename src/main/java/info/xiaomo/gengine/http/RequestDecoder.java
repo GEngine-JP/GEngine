@@ -8,7 +8,7 @@ import io.netty.handler.codec.http.FullHttpRequest;
 /**
  * http请求解码器，该解码器会把FullHttpRequest转化成自定义Request
  * @author 张力
- * @date 2017/12/22 20:19
+ *  2017/12/22 20:19
  */
 public class RequestDecoder extends MessageToMessageDecoder<FullHttpRequest> {
     @Override

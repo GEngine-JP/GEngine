@@ -19,7 +19,7 @@ public class MQConsumer extends MQService implements Runnable {
 	private final String queueName; // 队列名称
 	private boolean connected; // 是否连接
 
-	public MQConsumer(com.jzy.game.engine.mq.MQConfig mqConfig) {
+	public MQConsumer(MQConfig mqConfig) {
 		super(mqConfig);
 		queueName = mqConfig.getQueueName();
 	}

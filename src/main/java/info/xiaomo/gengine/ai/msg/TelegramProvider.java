@@ -3,14 +3,12 @@ package info.xiaomo.gengine.ai.msg;
 
 /**
  * 提供額外信息接口
- * Telegram providers respond to {@link MessageDispatcher#addListener} by providing optional {@link Telegram#extraInfo} to be sent
  * in a Telegram of a given type to the newly registered {@link Telegraph}.
  *
  * @author avianey
  */
 public interface TelegramProvider {
 	/**
-	 * Provides {@link Telegram#extraInfo} to dispatch immediately when a {@link Telegraph} is registered for the given message
 	 * type.
 	 *
 	 * @param msg      the message type to provide

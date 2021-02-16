@@ -1,10 +1,12 @@
 
 package info.xiaomo.gengine.ai.msg;
 
+
+
 /**
  * 处理电报接口
  * Any object implementing the {@code Telegraph} interface can act as the sender
- * or the receiver of a {@link Telegram}.
+ * or the receiver of a {@link}.
  *
  * @author davebaol
  */

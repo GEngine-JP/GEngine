@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * IO线程池工厂
  *
  *
- * @date 2017-03-24
+ *  2017-03-24
  */
 public class IoThreadFactory implements ThreadFactory {
 	private static final AtomicInteger threadId = new AtomicInteger(1);

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * you learned in your math class.
  *
  * @author badlogicgames@gmail.com
- * @fix JiangZhiYong
+ *
  */
 public class Plane implements Serializable {
 	private static final long serialVersionUID = -1240652082930747866L;

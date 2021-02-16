@@ -81,7 +81,7 @@ public class GameHttpSevice extends GameService<MinaServerConfig> {
  * 消息处理器
  *
  * 
- * @date 2017-03-31
+ *  2017-03-31
  *
  */
 class GameHttpServerHandler extends HttpServerIoHandler {

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  *
  * @param <N> Type of node
  * @author davebaol
- * @fix JiangZhiYong
+ *
  */
 public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexedAStarPathFinder.class);

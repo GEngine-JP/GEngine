@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 日志对象获取函数
  * @author 张力
- * @date 2015-4-3 下午4:21:22
+ *  2015-4-3 下午4:21:22
  *
  */
 class LogBeanUtil {

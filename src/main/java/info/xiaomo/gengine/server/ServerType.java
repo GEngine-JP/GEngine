@@ -4,7 +4,7 @@ package info.xiaomo.gengine.server;
  * 服务器类型
  *
  * 
- * @date 2017-03-30
+ *  2017-03-30
  */
 public enum ServerType {
 	NONE(-1),

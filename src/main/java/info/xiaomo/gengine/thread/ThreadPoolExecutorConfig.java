@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
  * 线程池配置
  *
  *
- * @date 2017-03-30
+ *  2017-03-30
  */
 @Root
 public class ThreadPoolExecutorConfig {

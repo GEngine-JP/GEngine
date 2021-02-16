@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  *
  * @version $Id: $Id
- * @date 2017-03-30
+ *  2017-03-30
  *
  */
 public class ProtocolDecoderImpl extends CumulativeProtocolDecoder {

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * 消息工具
  *
  * 
- * @date 2017-03-31
+ *  2017-03-31
  */
 public final class MsgUtil {
 

@@ -9,7 +9,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * 鱼配置信息
  *
  *
- * @date 2017-04-24
+ *  2017-04-24
  */
 @Entity(value = "c_fish", noClassnameStored = true)
 public class CFish implements IConfigChecker {

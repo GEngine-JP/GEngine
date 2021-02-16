@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
  * 定时事件
  *
  * @author 张力
- * @date 2015-3-11 上午5:47:44
+ *  2015-3-11 上午5:47:44
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

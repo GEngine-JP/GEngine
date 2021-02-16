@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author implicit-invocation
  * @author davebaol
- * @fix JiangZhiYong
+ *
  * 2017年11月22日 下午2:43:23
  */
 public class BehaviorTree<E> extends Task<E> {

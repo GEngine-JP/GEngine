@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  *
  * @param <Conf>
  *
- * @date 2017-03-30
+ *  2017-03-30
  */
 public abstract class GameService<Conf extends BaseServerConfig> implements Runnable {
 
@@ -125,7 +125,7 @@ public abstract class GameService<Conf extends BaseServerConfig> implements Runn
 	 * 关服回调
 	 *
 	 *
-	 * @date 2017-03-30
+	 *  2017-03-30
 	 */
 	private static final class CloseByExit implements Runnable {
 

@@ -5,7 +5,7 @@ package info.xiaomo.gengine.network.mina.code;
  *
  *
  * @version $Id: $Id
- * @date 2017-03-30
+ *  2017-03-30
  *
  */
 public class DefaultProtocolCodecFactory extends ProtocolCodecFactoryImpl {

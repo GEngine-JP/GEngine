@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * 用于指定controller的方法对的path
  * @author 张力
- * @date 2017/12/22 16:33
+ *  2017/12/22 16:33
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})

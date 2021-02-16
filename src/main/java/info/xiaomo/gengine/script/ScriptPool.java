@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * 服务定位器模式
  *
  *
- * @date 2017-03-30
+ *  2017-03-30
  */
 public final class ScriptPool {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScriptPool.class);

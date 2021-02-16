@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * class工具类，包含
  *
  * @author 张力
- * @date 2015-4-3 下午4:21:22
+ *  2015-4-3 下午4:21:22
  */
 class ClassUtil {
 

@@ -15,17 +15,17 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class MQService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MQService.class);
-	protected final com.jzy.game.engine.mq.MQConfig mqConfig; // 配置
+	protected final MQConfig mqConfig; // 配置
 	protected ActiveMQConnectionFactory activeMQConnectionFactory; // 连接工厂
 	protected Connection connection; // 连接
 
-	public MQService(com.jzy.game.engine.mq.MQConfig mqConfig) {
+	public MQService(MQConfig mqConfig) {
 		this.mqConfig = mqConfig;
 		activeMQConnectionFactory = new ActiveMQConnectionFactory(mqConfig.getMqConnectionUrl());
 	}
 
 	public MQService(String configPath) {
-		mqConfig = FileUtil.getConfigXML(configPath, "mqConfig.xml", com.jzy.game.engine.mq.MQConfig.class);
+		mqConfig = FileUtil.getConfigXML(configPath, "mqConfig.xml", MQConfig.class);
 		if (mqConfig == null) {
 			throw new RuntimeException(String.format("配置文件%s/mqConfig.xml未配置", configPath));
 		}

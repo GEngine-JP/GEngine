@@ -10,7 +10,7 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  *
  * 
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  */
 public class HttpServerCodecImpl extends ProtocolCodecFilter {
 

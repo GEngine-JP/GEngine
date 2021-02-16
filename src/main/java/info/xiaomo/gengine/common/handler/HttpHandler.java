@@ -11,7 +11,7 @@ import org.apache.mina.http.api.HttpStatus;
  *
  *
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  */
 public abstract class HttpHandler implements IHandler {
 

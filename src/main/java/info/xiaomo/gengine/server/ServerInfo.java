@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * 封装了mina和netty连接会话
  *
  * 
- * @date 2017-04-01
+ *  2017-04-01
  */
 public class ServerInfo {
 	private static final Logger log = LoggerFactory.getLogger(ServerInfo.class);

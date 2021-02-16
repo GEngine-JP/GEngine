@@ -1,4 +1,4 @@
-package com.jzy.game.engine.mq;
+package info.xiaomo.gengine.mq;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
  * mq配置
  *
  *
- * @date 2017-04-18
+ *  2017-04-18
  */
 @Root
 public class MQConfig {

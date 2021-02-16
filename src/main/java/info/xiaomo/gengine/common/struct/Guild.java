@@ -14,7 +14,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * <p>直接操作mongodb数据库，不缓存</p>
  *
  *
- * @Date 2017/9/18 0018
+ *  2017/9/18 0018
  */
 @Entity
 public class Guild {

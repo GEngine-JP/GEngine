@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * 只有初始化场景的时候，才能向派发器添加定时事件。
  *
  * @author 张力
- * @date 2015-3-11 上午5:49:11
+ *  2015-3-11 上午5:49:11
  */
 @Data
 @Slf4j

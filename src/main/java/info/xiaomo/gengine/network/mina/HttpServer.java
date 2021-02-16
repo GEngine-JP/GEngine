@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  *
  *
  * @version $Id: $Id
- * @date 2017-03-31
+ *  2017-03-31
  */
 public class HttpServer implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
@@ -83,7 +83,7 @@ public class HttpServer implements Runnable {
 	 * 绑定端口
 	 *
 	 *
-	 * @date 2017-03-31
+	 *  2017-03-31
 	 *
 	 */
 	private class BindServer implements Runnable {

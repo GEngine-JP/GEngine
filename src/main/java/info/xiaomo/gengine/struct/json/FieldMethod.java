@@ -1,4 +1,4 @@
-package com.jzy.game.engine.struct.json;
+package info.xiaomo.gengine.struct.json;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

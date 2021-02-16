@@ -5,7 +5,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 /**
  * http返回，该消息只支持<tt>text/plain</tt>类型;
  * @author 张力
- * @date 2017/12/22 20:20
+ *  2017/12/22 20:20
  */
 public class Response {
 

@@ -12,7 +12,7 @@ import org.apache.mina.core.session.IoSession;
  *
  * 
  * @version $Id: $Id
- * @date 2017-04-01
+ *  2017-04-01
  */
 public abstract class MinaClientGameService extends GameService<MinaClientConfig> implements ITcpClientService<MinaClientConfig> {
 

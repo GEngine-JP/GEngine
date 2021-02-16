@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * 数学工具
  *
  * 
- * @date 2017-03-23
+ *  2017-03-23
  */
 public final class MathUtil {
 

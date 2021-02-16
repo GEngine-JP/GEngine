@@ -28,7 +28,7 @@ import info.xiaomo.gengine.common.math.MathUtil;
  *            game state
  * @author implicit-invocation
  * @author davebaol
- * @fix JiangZhiYong
+ *
  */
 public abstract class SingleRunningChildBranch<E> extends BranchTask<E> {
 

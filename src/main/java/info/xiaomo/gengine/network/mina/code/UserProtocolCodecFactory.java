@@ -14,7 +14,7 @@ public class UserProtocolCodecFactory extends ProtocolCodecFactoryImpl {
 	public UserProtocolCodecFactory() {
 		super(new UserProtocolDecoder(), new ProtocolEncoderImpl());
 		encoder.overScheduledWriteBytesHandler = io -> {
-			io.close(true);
+			io.closeNow();
 			return true;
 		};
 	}

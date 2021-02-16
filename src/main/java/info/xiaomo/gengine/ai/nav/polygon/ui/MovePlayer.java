@@ -11,7 +11,7 @@ import info.xiaomo.gengine.common.utils.TimeUtil;
 /**
  * 移动玩家
  *
- * @fix JiangZhiYong
+ *
  */
 public class MovePlayer {
 

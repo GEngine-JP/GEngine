@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * 该executor执行完毕一个任务的时候，会自动从该任务所属队列中获取下一个任务执行，直到队列为空
  *
  * @author 张力
- * @date 2015-3-11 下午10:51:20
+ *  2015-3-11 下午10:51:20
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

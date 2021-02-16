@@ -24,7 +24,7 @@ package info.xiaomo.gengine.ai.btree;
  * @param <E> type of the blackboard object that tasks use to read or modify
  *            game state
  * @author davebaol
- * @fix JiangZhiYong
+ *
  */
 public abstract class LoopDecorator<E> extends Decorator<E> {
 

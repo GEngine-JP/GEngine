@@ -20,6 +20,21 @@
 ## 引用
 
 ```
+    <repositories>
+        <repository>
+            <id>ServerCore</id>
+            <url>https://raw.github.com/GEngine-JP/GEngine/packages</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+```
+
+如果项目的pom.xml文件不加这段内容会找不到对应的jar包
+
+```
     <dependency>
       <groupId>info.xiaomo</groupId>
       <artifactId>g-engine</artifactId>
