@@ -27,8 +27,9 @@
     </dependency>
 ```
 
-# 更新日志
+#### 更新日志
 [release](https://github.com/GEngine-JP/GEngine/releases)
 
 
-# [协议声明](LICENSE)
+#### 协议声明
+[LICENSE](LICENSE)
