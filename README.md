@@ -46,37 +46,12 @@
 ```
 
 # 更新日志
+[release](https://github.com/GEngine-JP/GEngine/releases)
 
-- 2017 7.13 开始搭建gameCore底层
-- 2017 7.15 分模块构建,解耦
-- 2017 8.10 添加websocket分支
-- 2017 8.10 搭建私有仓库nexus
-- 2017 8.10 添加 apache license
-- 2017 8.10 添加travis CI自动化构建
-- 2017 8.11 修改部分线程模型
-- 2017 8.11 添加`all`模块,支持单个模块引用和一次全部引用
-- 2017 8.12 添加excel解析支持
-- 2017 8.12 使用`lombok`
-- 2017 8.12 使用protobuf协议通讯
-- 2017 8.15 添加客户端功能连接
-- 2017 8.16 添加后台支持,允许通过后台关服
-- 2017 8.18 java客户端和服务端通讯模块调通
-- 2017 8.19 添加开发进度描述
-- 2017 8.19 添加github Pages页面
-- 2017 8.19 添加`develop`分支,将master作用稳定版本
-- 2017 8.24 `config`模块实现excel配置表读取功能,支持`.xls`,`.xlsx`等多种excel文件格式(默认为`xlsx`)
-- 2017 8.24 发布版本`2017.1`,定为以年份为开头
-- 2017 8.24 支持socket和webSocket连接方式(默认为socket),如果是websocket只需要在NetworkServiceBuilder构建的时候把isWebsocket设为true
-- 2017 8.29 优化消息协议
-- 2019 11.18 更新netty到`4.1.42`
-- 2019 11.19 发布2019.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
-- 2021 01.01 发布2021.1版本到[github maven仓库](https://github.com/GameUnion/ServerCore/packages)
-- 2021 02.10 发布2021.2版本,整合模块。
-- 2021 02.16 发布3.0.0,取消以年份滚版本行为。
 
 # [协议声明](LICENSE)
 
-       Copyright 2017-2021 GameUnion Group
+       Copyright 2017-2021 GEngine-JP Group
     
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
