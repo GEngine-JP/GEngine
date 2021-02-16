@@ -13,8 +13,6 @@ import info.xiaomo.gengine.common.handler.IHandler;
  */
 public class ScriptManager {
 
-	// private static final Logger LOGGER =
-	// LoggerFactory.getLogger(ScriptManager.class);
 	private static final ScriptManager instance = new ScriptManager();
 	private static final ScriptPool scriptPool; // 基础脚本类
 
@@ -52,8 +50,8 @@ public class ScriptManager {
 	/**
 	 * 加载指定实例，可以是文件也可以是目录
 	 *
-	 * @param source
-	 * @return
+	 * @param source source
+	 * @return String
 	 */
 	public String loadJava(String... source) {
 		return scriptPool.loadJava(source);
@@ -63,7 +61,7 @@ public class ScriptManager {
 	 * 获取消息处理器
 	 *
 	 * @param mid 消息ID
-	 * @return
+	 * @return  Class
 	 */
 	public Class<? extends IHandler> getTcpHandler(int mid) {
 		return scriptPool.getHandlerMap().get(mid);
@@ -72,8 +70,8 @@ public class ScriptManager {
 	/**
 	 * 获取handler配置
 	 *
-	 * @param mid
-	 * @return
+	 * @param mid mid
+	 * @return HandlerEntity
 	 */
 	public HandlerEntity getTcpHandlerEntity(int mid) {
 		return scriptPool.getHandlerEntityMap().get(mid);

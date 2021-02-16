@@ -1,7 +1,3 @@
-/**
- * 创建日期:  2017年08月25日 17:31
- * 创建作者:  杨 强  <281455776@qq.com>
- */
 package info.xiaomo.gengine.common.utils;
 
 
@@ -29,7 +25,7 @@ public final class StringUtil {
      * @param params
      * @return
      */
-    public static final String format(String format, Object... params) {
+    public static String format(String format, Object... params) {
         return MessageFormatter.arrayFormat(format, params).getMessage();
     }
 }

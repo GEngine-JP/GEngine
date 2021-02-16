@@ -66,7 +66,7 @@ public class ServerThread extends Thread implements Executor {
 			log.error("ServerThread.setUncaughtExceptionHandler", e);
 			MailConfig mailConfig = MailManager.getInstance().getMailConfig();
 			MailManager.getInstance().sendTextMailAsync("线程异常", "线程" + threadName,
-					mailConfig.getReciveUser().toArray(new String[mailConfig.getReciveUser().size()]));
+					mailConfig.getReceivedUser().toArray(new String[mailConfig.getReceivedUser().size()]));
 			if (timer != null) {
 				timer.stop(true);
 			}

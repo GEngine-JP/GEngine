@@ -35,7 +35,7 @@ public class Config {
 	public static long getId() {
 		synchronized (obj) {
 			id += 1;
-			return (((long) SERVER_ID) & 0xFFFF) << 48 | (System.currentTimeMillis() / 1000L & 0xFFFFFFFF) << 16
+			return (((long) SERVER_ID) & 0xFFFF) << 48 | (System.currentTimeMillis() / 1000L) << 16
 					| id & 0xFFFF;
 		}
 	}

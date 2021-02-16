@@ -14,7 +14,7 @@ public interface ITimerEventScript extends IScript {
 	/**
 	 * 每秒执行
 	 *
-	 * @param localTime
+	 * @param localTime localTime
 	 */
 	default void secondHandler(LocalTime localTime) {
 

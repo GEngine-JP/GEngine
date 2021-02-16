@@ -1,9 +1,3 @@
-/**
- * 文   件  名：  RandomUtil.java
- * 工   程  名：  MainServer
- * 创建日期：  2015年2月5日 下午2:38:48
- * 创建作者：  杨  强 <281455776@qq.com>
- */
 package info.xiaomo.gengine.common.utils;
 
 import java.text.DecimalFormat;

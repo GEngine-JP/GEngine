@@ -51,7 +51,7 @@ public class ReloadConfigHandler extends HttpHandler {
     LOGGER.info(info);
     MailConfig mailConfig = MailManager.getInstance().getMailConfig();
     String[] recives =
-        mailConfig.getReciveUser().toArray(new String[mailConfig.getReciveUser().size()]);
+        mailConfig.getReceivedUser().toArray(new String[mailConfig.getReceivedUser().size()]);
     MailManager.getInstance().sendTextMail("加载配置", Config.SERVER_NAME + "\r\n" + info, recives);
     sendMsg(info);
   }

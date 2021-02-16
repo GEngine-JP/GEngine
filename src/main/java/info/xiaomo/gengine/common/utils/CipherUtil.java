@@ -24,13 +24,12 @@ public final class CipherUtil {
 			int mdCodeLength = mdCode.length;
 			char[] strMd5 = new char[mdCodeLength * 2];
 			int k = 0;
-			for (int i = 0; i < mdCodeLength; i++) {
-				byte byte0 = mdCode[i];
+			for (byte byte0 : mdCode) {
 				strMd5[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
 				strMd5[(k++)] = hexDigits[(byte0 & 0xF)];
 			}
 			return new String(strMd5);
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		return "";
 	}

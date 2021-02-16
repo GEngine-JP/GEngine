@@ -27,8 +27,8 @@ public class ExitServerHandler extends HttpHandler {
     LOGGER.info(info);
     sendMsg(info);
     MailConfig mailConfig = MailManager.getInstance().getMailConfig();
-    String[] recives = mailConfig.getReciveUser().toArray(new String[0]);
-    MailManager.getInstance().sendTextMail("服务器关闭", Config.SERVER_NAME + info, recives);
+    String[] receives = mailConfig.getReceivedUser().toArray(new String[0]);
+    MailManager.getInstance().sendTextMail("服务器关闭", Config.SERVER_NAME + info, receives);
     System.exit(1);
   }
 }

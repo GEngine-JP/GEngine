@@ -2,15 +2,16 @@ package info.xiaomo.gengine.common.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+
 import org.apache.mina.core.buffer.IoBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * int 位标识
- *
- * 
- *  2017-03-31
+ * <p>
+ * <p>
+ * 2017-03-31
  */
 public final class IntUtil {
 
@@ -49,8 +50,8 @@ public final class IntUtil {
      */
     public static String BytesToStr(byte[] target) {
         StringBuilder buf = new StringBuilder("[");
-        for (int i = 0, j = target.length; i < j; i++) {
-            buf.append(target[i]).append(",");
+        for (byte b : target) {
+            buf.append(b).append(",");
         }
         if (buf.length() > 2) {
             buf.setLength(buf.length() - 1);
@@ -169,9 +170,7 @@ public final class IntUtil {
      *
      * @param src
      * @param byteOrder
-     * @return
-     * 
-     * <p>
+     * @return <p>
      * 2017年10月16日 下午3:06:40
      */
     public static long bytes2Long(byte[] src, int offset, int length, ByteOrder byteOrder) {

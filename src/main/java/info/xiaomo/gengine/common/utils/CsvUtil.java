@@ -19,9 +19,7 @@ public class CsvUtil {
 	 * @return CsvData
 	 */
 	public static CsvData readConfigDataFromUrl(String str, int skipLine) {
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new InputStreamReader(new URL(str).openStream()));
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(str).openStream()))) {
 			String tempString;
 			List<String> lines = new ArrayList<>();
 			// 一次读入一行，直到读入null为文件结束
@@ -34,13 +32,6 @@ public class CsvUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		} finally {
-			try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException ignored) {
-			}
 		}
 	}
 
@@ -84,7 +75,7 @@ public class CsvUtil {
 
 		public List<Map<String, String>> tableRows;
 
-		private int skipLine;
+		private final int skipLine;
 
 
 		public CsvData(List<String> lines, int skipLine) {
@@ -113,7 +104,7 @@ public class CsvUtil {
 
 		public void readTH(List<String> lines) {
 			String line = lines.remove(0);
-			tableHead = line.trim().split(Symbol.DOUHAO);
+			tableHead = line.trim().split(SymbolUtil.DOUHAO);
 		}
 
 		public void readTR(List<String> lines) {
@@ -124,7 +115,7 @@ public class CsvUtil {
 			for (String line1 : lines) {
 				Map<String, String> tr = new HashMap<>(10);
 				line = line1;
-				lineArray = line.split(Symbol.DOUHAO);
+				lineArray = line.split(SymbolUtil.DOUHAO);
 				for (int j = 0; j < lineArray.length; j++) {
 					if (j >= tableHead.length) {
 						continue;
