@@ -1,4 +1,4 @@
-package com.jzy.game.engine.struct;
+package info.xiaomo.gengine.struct;
 
 /**
  * A bitset, without size limitation, allows comparison via bitwise operators to other bitfields.
