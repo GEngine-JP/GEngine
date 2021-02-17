@@ -4,9 +4,10 @@ import java.security.MessageDigest;
 
 /**
  * 密码工具
- *
- *
+ * <p>
+ * <p>
  * 2017年10月16日 下午3:41:31
+ *
  * @version $Id: $Id
  */
 public final class CipherUtil {

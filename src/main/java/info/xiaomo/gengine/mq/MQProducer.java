@@ -34,7 +34,7 @@ public class MQProducer extends MQService {
    * @param msg
    *     <p>2017年7月28日 下午2:43:39
    */
-  public void sendPresistentMsg(String destName, String msg) {
+  public void sendPersistentMsg(String destName, String msg) {
     sendMsg(destName, msg, DeliveryMode.PERSISTENT);
   }
 

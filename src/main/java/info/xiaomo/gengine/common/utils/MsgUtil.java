@@ -16,23 +16,21 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 消息工具
- *
- * 
- *  2017-03-31
+ * <p>
+ * <p>
+ * 2017-03-31
  */
 public final class MsgUtil {
 
 	/**
 	 * session空闲程度排序
 	 */
-	public static final Comparator<IoSession> sessionIdleComparator = new Comparator<IoSession>() {
-		public int compare(IoSession o1, IoSession o2) {
-			int res = o1.getScheduledWriteMessages() - o2.getScheduledWriteMessages();
-			if (res == 0) {
-				res = (int) (o1.getWrittenBytes() - o2.getWrittenBytes());
-			}
-			return res;
+	public static final Comparator<IoSession> sessionIdleComparator = (o1, o2) -> {
+		int res = o1.getScheduledWriteMessages() - o2.getScheduledWriteMessages();
+		if (res == 0) {
+			res = (int) (o1.getWrittenBytes() - o2.getWrittenBytes());
 		}
+		return res;
 	};
 	protected static final Logger log = LoggerFactory.getLogger(MsgUtil.class);
 
@@ -45,7 +43,7 @@ public final class MsgUtil {
 	 * @param message
 	 * @return 【length|msgid|data】
 	 */
-	public static IoBuffer toIobuffer(final Message message) {
+	public static IoBuffer toIOBuffer(final Message message) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int msgDataLength = msgData.length;
@@ -57,7 +55,7 @@ public final class MsgUtil {
 		return buf;
 	}
 
-	public static IoBuffer toIobuffer(final MassMessage message) {
+	public static IoBuffer toIOBuffer(final MassMessage message) {
 		IoBuffer buf = IoBuffer.allocate(8 + message.getLength());
 		buf.putInt(message.getLength() + 4); // 总长度
 		buf.putInt(message.getBuffLength()); // 内容长度
@@ -70,17 +68,17 @@ public final class MsgUtil {
 	}
 
 	/**
-	 * 转换为发送的iobuff
+	 * 转换为发送的io buff
 	 *
 	 * @param message
 	 * @return
 	 */
-	public static IoBuffer toIobuffer(final IDMessage message) {
+	public static IoBuffer toIOBuffer(final IDMessage message) {
 		if (message.getMsg() == null) {
 			return null;
 		}
-		byte[] msgData = null;
-		IoBuffer buf = null;
+		byte[] msgData;
+		IoBuffer buf;
 		if (message.getMsg() instanceof byte[]) { // 包含消息id和内容【msgid|data】
 			msgData = (byte[]) message.getMsg();
 			if (msgData.length < 1) {
@@ -212,9 +210,7 @@ public final class MsgUtil {
 	 * 游戏前端收到消息改为网关内部消息进行转发
 	 *
 	 * @param bytes
-	 * @return
-	 * 
-	 * 2017年7月21日 上午11:01:10
+	 * @return 2017年7月21日 上午11:01:10
 	 */
 	public static byte[] clientToGame(int msgID, byte[] bytes) {
 		IoBuffer ioBuffer = IoBuffer.allocate(bytes.length - 4);
@@ -232,10 +228,9 @@ public final class MsgUtil {
 	public static String getIp(IoSession session) {
 		try {
 			if (session != null && session.isConnected()) {
-				String clientIP = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
-				return clientIP;
+				return ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		return "0.0.0.0";
 	}
@@ -250,30 +245,29 @@ public final class MsgUtil {
 		Descriptors.EnumValueDescriptor field = (Descriptors.EnumValueDescriptor) message
 				.getField(message.getDescriptorForType().findFieldByNumber(1));
 		int msgID = field.getNumber();
-		// if (msgID < 99999) {
-		// log.warn("消息类型异常{},id{}", message.getClass().getName(), msgID);
-		// }
+		if (msgID < 99999) {
+			log.warn("消息类型异常{},id{}", message.getClass().getName(), msgID);
+		}
 		return msgID;
 	}
 
 	public static int getMessageID(final byte[] bytes, final int offset) throws Exception {
 		int msgID = bytes[offset + 3] & 0xFF | (bytes[offset + 2] & 0xFF) << 8 | (bytes[offset + 1] & 0xFF) << 16
 				| (bytes[offset] & 0xFF) << 24;
-		// if (msgID < 99999) {
-		// int head = bytes[3] & 0xFF | (bytes[2] & 0xFF) << 8 | (bytes[1] &
-		// 0xFF) << 16 | (bytes[0] & 0xFF) << 24;
-		// log.warn("消息类型异常offset{},id{},head{},bytes{}", offset, msgID, head,
-		// IntUtil.BytesToStr(bytes));
-		// }
+		if (msgID < 99999) {
+			int head = bytes[3] & 0xFF | (bytes[2] & 0xFF) << 8 | (bytes[1] &
+					0xFF) << 16 | (bytes[0] & 0xFF) << 24;
+			log.warn("消息类型异常offset{},id{},head{},bytes{}", offset, msgID, head,
+					IntUtil.BytesToStr(bytes));
+		}
 		return msgID;
 	}
 
 	public static long getMessageRID(final byte[] bytes, final int offset) {
-		long uID = ((((long) bytes[0 + offset] & 0xff) << 56) | (((long) bytes[1 + offset] & 0xff) << 48)
+		return ((((long) bytes[offset] & 0xff) << 56) | (((long) bytes[1 + offset] & 0xff) << 48)
 				| (((long) bytes[2 + offset] & 0xff) << 40) | (((long) bytes[3 + offset] & 0xff) << 32)
 				| (((long) bytes[4 + offset] & 0xff) << 24) | (((long) bytes[5 + offset] & 0xff) << 16)
 				| (((long) bytes[6 + offset] & 0xff) << 8) | (((long) bytes[7 + offset] & 0xff)));
-		return uID;
 	}
 
 	/**
@@ -301,8 +295,8 @@ public final class MsgUtil {
 	 * @return
 	 */
 	public static Message buildMessage(Class<? extends Message> clazz, byte[] bytes) throws Exception {
-		Method parseFromMethod = clazz.getDeclaredMethod("parseFrom", new Class<?>[]{byte[].class});
-		Object object = parseFromMethod.invoke(null, bytes);
+		Method parseFromMethod = clazz.getDeclaredMethod("parseFrom", byte[].class);
+		Object object = parseFromMethod.invoke(null, (Object) bytes);
 		return (Message) object;
 	}
 

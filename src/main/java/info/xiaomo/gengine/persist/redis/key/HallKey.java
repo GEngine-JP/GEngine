@@ -4,7 +4,7 @@ package info.xiaomo.gengine.persist.redis.key;
  * 大厅redis数据key枚举
  *
  *
- * @mail 359135103@qq.com
+ *
  */
 public enum HallKey {
 	/** 服务器启动时间 */

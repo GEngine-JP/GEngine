@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 行为树 <br>
- *
- * 
+ * <p>
+ * <p>
  * 2017年11月24日
  */
 public class BehaviorTreeManager {
@@ -37,7 +37,7 @@ public class BehaviorTreeManager {
 	/**
 	 * 行为树对象缓存
 	 */
-	private Map<String, BehaviorTree<? extends Person>> behaviorTrees = new HashMap<>();
+	private final Map<String, BehaviorTree<? extends Person>> behaviorTrees = new HashMap<>();
 
 	private BehaviorTreeManager() {
 
@@ -71,7 +71,7 @@ public class BehaviorTreeManager {
 				for (File file : files) {
 					if (file.exists()) {
 						// 加载行为树
-						info.xiaomo.gengine.common.utils.Args.Two<String, BehaviorTree<? extends Person>> tree = createBehaviorTree(file);
+						Args.Two<String, BehaviorTree<? extends Person>> tree = createBehaviorTree(file);
 						behaviorTrees.put(tree.a(), tree.b());
 						// LOGGER.debug("行为树{} 加入容器", tree.a());
 					}
@@ -89,9 +89,9 @@ public class BehaviorTreeManager {
 	 * @param file
 	 * @return
 	 */
-	private info.xiaomo.gengine.common.utils.Args.Two<String, BehaviorTree<? extends Person>> createBehaviorTree(File file) throws Exception {
+	private Args.Two<String, BehaviorTree<? extends Person>> createBehaviorTree(File file) throws Exception {
 		String xmlStr = FileUtil.readTxtFile(file.getPath());
-		Document document = DocumentHelper.parseText(xmlStr);
+		Document document = DocumentHelper.parseText(Objects.requireNonNull(xmlStr));
 		Element rootElement = document.getRootElement(); // 根节点
 
 		Element idElement = rootElement.element(XML_ID); // id节点
@@ -151,7 +151,7 @@ public class BehaviorTreeManager {
 		if (element == null) {
 			throw new RuntimeException("传入行为数节点为空");
 		}
-		Task<Person> task = null;
+		Task<Person> task;
 
 		switch (element.getName()) {
 			case XML_SELECTOR:
@@ -258,7 +258,7 @@ public class BehaviorTreeManager {
 		}
 		String classStr = leafAttr.getValue();
 		LeafTask<Person> leafTask = null;
-		Class<?> leafTaskClass = null;
+		Class<?> leafTaskClass;
 		try {
 			leafTaskClass = Class.forName(classStr);
 			leafTask = (LeafTask<Person>) leafTaskClass.newInstance();
@@ -269,7 +269,7 @@ public class BehaviorTreeManager {
 			}
 			Map<String, Method> writeMethods = ReflectUtil.getWriteMethod(leafTaskClass);
 			Map<String, String> attrMap = new HashMap<>();
-			for (Attribute attribute : (List<Attribute>) element.attributes()) {
+			for (Attribute attribute : element.attributes()) {
 				String name = attribute.getName();
 				if (name.equalsIgnoreCase(XML_ATTRIBUTE_CLASS)) {
 					continue;

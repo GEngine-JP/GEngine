@@ -6,7 +6,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import info.xiaomo.gengine.common.utils.FileUtil;
@@ -16,8 +15,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 邮件发送
  *
- *
- * 2017年8月22日 下午5:09:21
+ * <p>2017年8月22日 下午5:09:21
  */
 public class MailManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MailManager.class);
@@ -41,9 +39,7 @@ public class MailManager {
 	/**
 	 * 初始化邮件配置，如果不存在，使用默认配置
 	 *
-	 * @param configPath
-	 *
-	 * 2017年8月22日 下午5:18:20
+	 * @param configPath <p>2017年8月22日 下午5:18:20
 	 */
 	public void initMailConfig(String configPath) {
 		mailConfig = FileUtil.getConfigXML(configPath, "mailConfig.xml", MailConfig.class);
@@ -70,51 +66,50 @@ public class MailManager {
 	 * 邮件发送比较耗时
 	 *
 	 * @param title
-	 * @param content
-	 *
-	 * 2017年8月22日 下午5:24:57
+	 * @param content <p>2017年8月22日 下午5:24:57
 	 */
-	public void sendTextMailAsync(String title, String content, String... recives) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				sendTextMail(title, content, recives);
-			}
-		}).start();
+	public void sendTextMailAsync(String title, String content, String... receives) {
+		new Thread(() -> sendTextMail(title, content, false, receives)).start();
+	}
+
+	public void sendTextMail(String title, String content, String... receives) {
+		sendTextMail(title, content, false, receives);
 	}
 
 	/**
 	 * 发送文本邮件
 	 *
 	 * @param title
-	 * @param content
-	 *
-	 * 2017年8月22日 下午5:36:45
+	 * @param content <p>2017年8月22日 下午5:36:45
 	 */
-	public void sendTextMail(String title, String content, String... recives) {
+	public void sendTextMail(String title, String content, boolean isHtml, String... receives) {
 		try {
 			Properties props = new Properties();
 			// 使用smtp：简单邮件传输协议
-			props.put("mail.smtp.ssl.enable", getMailConfig().getMailSmtpSslEnable());
-			props.put("mail.smtp.host", getMailConfig().getMailSmtpHost());// 存储发送邮件服务器的信息
-			props.put("mail.smtp.auth", getMailConfig().getMailSmtpAuth());// 同时通过验证
+//			props.put("mail.smtp.starttls.enable", true);
+			props.put("mail.smtp.ssl.enable", getMailConfig().isMailSmtpSslEnable());
+			props.put("mail.smtp.host", getMailConfig().getMailSmtpHost()); // 存储发送邮件服务器的信息
+			props.put("mail.smtp.auth", getMailConfig().isMailSmtpAuth()); // 同时通过验证
+			props.put("mail.smtp.port", getMailConfig().getPort()); // 同时通过验证
 
-			Session session = Session.getInstance(props);// 根据属性新建一个邮件会话
-			// session.setDebug(true); //有他会打印一些调试信息。
-			MimeMessage message = new MimeMessage(session);// 由邮件会话新建一个消息对象
+			Session session = Session.getInstance(props); // 根据属性新建一个邮件会话
+			session.setDebug(getMailConfig().isDebug()); //有他会打印一些调试信息。
+			MimeMessage message = new MimeMessage(session); // 由邮件会话新建一个消息对象
 
-			message.setFrom(new InternetAddress(getMailConfig().getSendUser()));// 设置发件人的地址
-			for (String recive : recives) {
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(recive));
+			message.setFrom(new InternetAddress(getMailConfig().getSendUser())); // 设置发件人的地址
+			for (String receive : receives) {
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(receive));
 			}
 			// 设置标题
 			message.setSubject(title);
 			// 设置信件内容
-			message.setText(content, "utf-8"); // 发送文本文件
-			// message.setContent(context, "text/html;charset=utf-8");
-			// //发送HTML邮件，内容样式比较丰富
-			message.setSentDate(new Date());// 设置发信时间
-			message.saveChanges();// 存储邮件信息
+			if (isHtml) {
+				message.setContent(content, "text/html;charset=utf-8");
+			} else {
+				message.setText(content, "utf-8"); // 发送文本文件
+			}
+			message.setSentDate(new Date()); // 设置发信时间
+			message.saveChanges(); // 存储邮件信息
 			// 发送邮件
 			Transport transport = null;
 			try {
@@ -129,11 +124,8 @@ public class MailManager {
 					transport.close();
 				}
 			}
-		} catch (AddressException e) {
-			LOGGER.error("邮件", e);
 		} catch (MessagingException e) {
 			LOGGER.error("邮件", e);
 		}
 	}
-
 }

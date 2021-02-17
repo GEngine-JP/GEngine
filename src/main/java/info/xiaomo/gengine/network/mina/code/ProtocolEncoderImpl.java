@@ -61,9 +61,9 @@ public class ProtocolEncoderImpl implements ProtocolEncoder {
         }
         IoBuffer buf = null;
         if (obj instanceof Message) {
-            buf = MsgUtil.toIobuffer((Message) obj);
+            buf = MsgUtil.toIOBuffer((Message) obj);
         } else if (obj instanceof IDMessage) {
-            buf = MsgUtil.toIobuffer((IDMessage) obj);
+            buf = MsgUtil.toIOBuffer((IDMessage) obj);
         } else if (obj instanceof IoBuffer) {//必须符合完整的编码格式
             buf = (IoBuffer) obj;
         } else if (obj instanceof byte[]) {//必须符合除去消息长度后的编码格式

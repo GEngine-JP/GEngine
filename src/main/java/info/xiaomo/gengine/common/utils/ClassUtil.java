@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -87,24 +88,21 @@ public final class ClassUtil {
 											.replace('/', '.');
 								}
 								// 如果可以迭代下去 并且是一个包
-								if ((idx != -1) || recursive) {
-									// 如果是一个.class文件 而且不是目录
-									if (name.endsWith(".class")
-											&& !entry.isDirectory()) {
-										// 去掉后面的".class" 获取真正的类名
-										String className = name.substring(
-												packageName.length() + 1, name
-														.length() - 6);
-										try {
-											// 添加到classes
-											classes.add(Class
-													.forName(packageName + '.'
-															+ className));
-										} catch (ClassNotFoundException e) {
-											// log
-											// .error("添加用户自定义视图类错误 找不到此类的.class文件");
-											e.printStackTrace();
-										}
+								// 如果是一个.class文件 而且不是目录
+								if (name.endsWith(".class")
+										&& !entry.isDirectory()) {
+									// 去掉后面的".class" 获取真正的类名
+									String className = name.substring(
+											packageName.length() + 1, name
+													.length() - 6);
+									try {
+										// 添加到classes
+										classes.add(Class
+												.forName(packageName + '.'
+														+ className));
+									} catch (ClassNotFoundException e) {
+										// .error("添加用户自定义视图类错误 找不到此类的.class文件");
+										e.printStackTrace();
 									}
 								}
 							}
@@ -147,7 +145,7 @@ public final class ClassUtil {
 			}
 		});
 		// 循环所有文件
-		for (File file : dirfiles) {
+		for (File file : Objects.requireNonNull(dirfiles)) {
 			// 如果是目录 则继续扫描
 			if (file.isDirectory()) {
 				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
@@ -184,7 +182,7 @@ public final class ClassUtil {
 			Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
 			boolean accessible = method.isAccessible();        // 获取方法的访问权限
 			try {
-				if (accessible == false) {
+				if (!accessible) {
 					method.setAccessible(true);        // 设置方法的访问权限
 				}
 				// 获取系统类加载器

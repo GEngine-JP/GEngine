@@ -44,8 +44,8 @@ public class ReloadScriptHandler extends HttpHandler {
 		String info = String.format("%s加载脚本：%s", MsgUtil.getIp(getSession()),loadClasss);
 		LOGGER.info(info);
 		MailConfig mailConfig = MailManager.getInstance().getMailConfig();
-		String[] recives = mailConfig.getReceivedUser().toArray(new String[mailConfig.getReceivedUser().size()]);
-		MailManager.getInstance().sendTextMail("加载脚本", Config.SERVER_NAME +"\r\n"+ info, recives);
+		String[] receives = mailConfig.getReceivedUser().toArray(new String[0]);
+		MailManager.getInstance().sendTextMail("加载脚本", Config.SERVER_NAME +"\r\n"+ info, receives);
 		sendMsg(info);
 	}
 

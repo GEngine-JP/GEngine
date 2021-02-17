@@ -75,7 +75,7 @@ public final class IDMessage implements Runnable {
 	@Override
 	public void run() {
 		if (session != null && session.isConnected()) {
-			IoBuffer buf = MsgUtil.toIobuffer(this);
+			IoBuffer buf = MsgUtil.toIOBuffer(this);
 			session.write(buf);
 		} else if (channel != null && channel.isActive()) {
 			channel.write(this);

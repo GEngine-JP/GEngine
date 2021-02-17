@@ -1,6 +1,7 @@
 package info.xiaomo.gengine.network.netty.handler;
 
 import com.google.protobuf.Message;
+import java.util.concurrent.Executor;
 import info.xiaomo.gengine.common.handler.HandlerEntity;
 import info.xiaomo.gengine.common.handler.IHandler;
 import info.xiaomo.gengine.common.handler.TcpHandler;
@@ -14,8 +15,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.Executor;
 
 /**
  * 默认接收消息处理器 <br>

@@ -1,6 +1,8 @@
 package info.xiaomo.gengine.network.netty.code;
 
 import com.google.protobuf.Message;
+import java.util.List;
+import java.util.Objects;
 import info.xiaomo.gengine.common.utils.MsgUtil;
 import info.xiaomo.gengine.common.utils.TimeUtil;
 import info.xiaomo.gengine.network.mina.message.IDMessage;
@@ -9,9 +11,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
-import java.util.Objects;
 
 /**
  * 内部默认消息解码器
@@ -45,9 +44,9 @@ public class DefaultMessageCodec extends ByteToMessageCodec<Object> {
         long start = TimeUtil.currentTimeMillis();
         byte[] bytes = null; //消息体
         if (obj instanceof IDMessage) {    //消息头12 消息ID+角色ID
-            bytes = Objects.requireNonNull(MsgUtil.toIobuffer((IDMessage) obj)).array();
+            bytes = Objects.requireNonNull(MsgUtil.toIOBuffer((IDMessage) obj)).array();
         } else if (obj instanceof Message) {    //消息头4 消息ID
-            bytes = MsgUtil.toIobuffer((Message) obj).array();
+            bytes = MsgUtil.toIOBuffer((Message) obj).array();
         }
 
         if (bytes != null) {

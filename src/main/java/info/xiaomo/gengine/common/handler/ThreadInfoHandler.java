@@ -14,19 +14,19 @@ import org.slf4j.LoggerFactory;
  */
 @HandlerEntity(path = "/server/thread/info")
 public class ThreadInfoHandler extends HttpHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadInfoHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ThreadInfoHandler.class);
 
-    @Override
-    public void run() {
-        String auth = getString("auth");
-        if (!Config.SERVER_AUTH.equals(auth)) {
-            sendMsg("验证失败");
-            return;
-        }
-        String info = SysUtil.threadInfo("<br>");
-        LOGGER.info(info);
-        info = info.trim().replaceAll("/n", "").replaceAll("/t", "&nbsp;&nbsp;");
+	@Override
+	public void run() {
+		String auth = getString("auth");
+		if (!Config.SERVER_AUTH.equals(auth)) {
+			sendMsg("验证失败");
+			return;
+		}
+		String info = SysUtil.threadInfo("<br>");
+		LOGGER.info(info);
+		info = info.trim().replaceAll("/n", "").replaceAll("/t", "&nbsp;&nbsp;");
 
-        sendMsg(info);
-    }
+		sendMsg(info);
+	}
 }

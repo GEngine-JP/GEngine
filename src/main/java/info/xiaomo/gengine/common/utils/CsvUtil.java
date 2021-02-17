@@ -12,10 +12,11 @@ import java.util.*;
  */
 public class CsvUtil {
 
-    /**
-     * 网络地址
-     * @param str str
-     * @param skipLine skipLine
+	/**
+	 * 网络地址
+	 *
+	 * @param str      str
+	 * @param skipLine skipLine
 	 * @return CsvData
 	 */
 	public static CsvData readConfigDataFromUrl(String str, int skipLine) {
@@ -35,10 +36,11 @@ public class CsvUtil {
 		}
 	}
 
-    /**
-     * 本地文件
-     * @param filepath filepath
-     * @param skipLine skipLine
+	/**
+	 * 本地文件
+	 *
+	 * @param filepath filepath
+	 * @param skipLine skipLine
 	 * @return CsvData
 	 */
 	public static CsvData read(String filepath, int skipLine) {
@@ -93,9 +95,9 @@ public class CsvUtil {
 		}
 
 
-		public void skip(List<String> lines){
-			for(int i = 0; i <  skipLine; i++) {
-				if(lines.isEmpty()){
+		public void skip(List<String> lines) {
+			for (int i = 0; i < skipLine; i++) {
+				if (lines.isEmpty()) {
 					break;
 				}
 				lines.remove(0);

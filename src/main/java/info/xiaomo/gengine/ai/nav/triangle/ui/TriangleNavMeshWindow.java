@@ -3,7 +3,9 @@ package info.xiaomo.gengine.ai.nav.triangle.ui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import javax.swing.*;
 import info.xiaomo.gengine.ai.nav.NavMeshData;
@@ -15,8 +17,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 地图显示窗口
- *
- *
  */
 public class TriangleNavMeshWindow {
 
@@ -52,7 +52,7 @@ public class TriangleNavMeshWindow {
 		Menu menu = new Menu();
 		MenuItem file = null;
 		try {
-			menu.setLabel(new String("菜单".getBytes(), "UTF-8"));
+			menu.setLabel(new String("菜单".getBytes(), StandardCharsets.UTF_8));
 			file = new MenuItem();
 			file.setLabel("选择NavMesh");
 		} catch (Exception e) {
@@ -61,24 +61,20 @@ public class TriangleNavMeshWindow {
 
 		menu.add(file);
 
-		file.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int result;
-				chooser = new JFileChooser();
-				chooser.setCurrentDirectory(new File("."));
-				chooser.setDialogTitle(choosertitle);
-				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				chooser.setAcceptAllFileFilterUsed(false);
-				if (chooser.showOpenDialog(p) == JFileChooser.APPROVE_OPTION) {
-					// log.error("getCurrentDirectory(): "
-					// + chooser.getCurrentDirectory());
-					// log.error("getSelectedFile() : "
-					// + chooser.getSelectedFile());
-					loadMap(chooser.getSelectedFile().getAbsolutePath(), 5);
-				} else {
-					LOGGER.error("No Selection ");
-				}
+		Objects.requireNonNull(file).addActionListener(e -> {
+			chooser = new JFileChooser();
+			chooser.setCurrentDirectory(new File("."));
+			chooser.setDialogTitle(choosertitle);
+			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			chooser.setAcceptAllFileFilterUsed(false);
+			if (chooser.showOpenDialog(p) == JFileChooser.APPROVE_OPTION) {
+				// log.error("getCurrentDirectory(): "
+				// + chooser.getCurrentDirectory());
+				// log.error("getSelectedFile() : "
+				// + chooser.getSelectedFile());
+				loadMap(chooser.getSelectedFile().getAbsolutePath(), 5);
+			} else {
+				LOGGER.error("No Selection ");
 			}
 		});
 
@@ -191,7 +187,7 @@ public class TriangleNavMeshWindow {
 					long currentNanos = System.nanoTime();
 					float seconds = (currentNanos - lastUpdateNanos) / 1000000000f;
 					processEvents();
-					if (pause != true) {
+					if (!pause) {
 						update(seconds);
 						try {
 							Thread.sleep(1);
@@ -283,8 +279,7 @@ public class TriangleNavMeshWindow {
 			}
 		}
 		if (eventsCopy.size() > 0) {
-			for (int i = 0; i < eventsCopy.size(); i++) {
-				AWTEvent awtEvent = eventsCopy.get(i);
+			for (AWTEvent awtEvent : eventsCopy) {
 				if (awtEvent instanceof MouseEvent) {
 					MouseEvent e = (MouseEvent) awtEvent;
 					switch (e.getID()) {
@@ -322,11 +317,7 @@ public class TriangleNavMeshWindow {
 							this.init();
 						}
 						if (e.getKeyCode() == KeyEvent.VK_P) {
-							if (pause == true) {
-								pause = false;
-							} else {
-								pause = true;
-							}
+							pause = pause != true;
 						}
 					}
 				} else if (awtEvent instanceof ComponentEvent) {

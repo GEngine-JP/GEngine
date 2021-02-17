@@ -40,7 +40,7 @@ public class MassProtocolEncoder extends ProtocolEncoderImpl {
         }
         IoBuffer buf = null;
         if (obj instanceof MassMessage) {
-            buf = MsgUtil.toIobuffer((MassMessage) obj);
+            buf = MsgUtil.toIOBuffer((MassMessage) obj);
         } else {
             log.warn("未知的数据类型");
             return;
