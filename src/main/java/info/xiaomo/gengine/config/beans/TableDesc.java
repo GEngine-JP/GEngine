@@ -13,22 +13,22 @@ import lombok.Data;
  * @author YangQiang
  */
 @Data
-public class TableDesc {
-    private Class clz;
+public class TableDesc<T> {
+	private Class<T> clz;
 
-    private String name;
+	private String name;
 
-    private int index;
+	private int index;
 
-    private int header;
+	private int header;
 
-    private int[] ignoreRow;
+	private int[] ignoreRow;
 
-    private String[] primaryKeys;
+	private String[] primaryKeys;
 
-    private Map<String, ColumnDesc> columns;
+	private Map<String, ColumnDesc> columns;
 
-    public TableDesc(Class clz) {
-        this.clz = clz;
-    }
+	public TableDesc(Class<T> clz) {
+		this.clz = clz;
+	}
 }

@@ -31,7 +31,7 @@ public class ColumnDesc {
 	/**
 	 * 字段的转换器
 	 */
-	private IConverter<?, ?> converter;
+	private IConverter converter;
 
 	public ColumnDesc() {
 	}

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import info.xiaomo.gengine.ai.pfa.Connection;
-import info.xiaomo.gengine.common.math.*;
 import info.xiaomo.gengine.math.*;
 
 /**

@@ -10,13 +10,13 @@ import info.xiaomo.gengine.config.excel.ExcelConfigDataManager;
  * @author YangQiang
  */
 public class ConfigDataManager extends ExcelConfigDataManager {
-    private static final ConfigDataManager INSTANCE = new ConfigDataManager();
+	private static final ConfigDataManager INSTANCE = new ConfigDataManager();
 
-    private ConfigDataManager() {
-        super(Test.class);
-    }
+	private ConfigDataManager() {
+		super(ConfigDataTest.class);
+	}
 
-    public static ConfigDataManager getInstance() {
-        return INSTANCE;
-    }
+	public static ConfigDataManager getInstance() {
+		return INSTANCE;
+	}
 }

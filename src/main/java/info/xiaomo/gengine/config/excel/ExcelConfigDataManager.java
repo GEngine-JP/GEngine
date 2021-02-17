@@ -7,6 +7,7 @@ package info.xiaomo.gengine.config.excel;
 import java.io.File;
 import info.xiaomo.gengine.config.AbstractFileConfigDataManager;
 import info.xiaomo.gengine.config.FileConfigDataManagerConfig;
+import info.xiaomo.gengine.config.IConfig;
 import info.xiaomo.gengine.config.IConfigWrapper;
 import info.xiaomo.gengine.config.beans.TableDesc;
 
@@ -17,20 +18,20 @@ import info.xiaomo.gengine.config.beans.TableDesc;
  */
 public class ExcelConfigDataManager extends AbstractFileConfigDataManager {
 
-    public ExcelConfigDataManager() {
-    }
+	public ExcelConfigDataManager() {
+	}
 
-    public ExcelConfigDataManager(Class<?> configClz) {
-        super(configClz);
-    }
+	public ExcelConfigDataManager(Class<?> configClz) {
+		super(configClz);
+	}
 
-    public ExcelConfigDataManager(FileConfigDataManagerConfig config) {
-        super(config);
-    }
+	public ExcelConfigDataManager(FileConfigDataManagerConfig config) {
+		super(config);
+	}
 
-    @Override
-    public IConfigWrapper parseTableDesc(TableDesc tableDesc) {
-        String configFile = getConfigFileDir() + File.separatorChar + tableDesc.getName() + getConfigFileSuffix();
-        return new ExcelConfigWrapper(configFile, tableDesc).build();
-    }
+	@Override
+	public IConfigWrapper parseTableDesc(TableDesc<IConfig> tableDesc) {
+		String configFile = getConfigFileDir() + File.separatorChar + tableDesc.getName() + getConfigFileSuffix();
+		return new ExcelConfigWrapper(configFile, tableDesc).build();
+	}
 }

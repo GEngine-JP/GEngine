@@ -10,7 +10,7 @@ import org.junit.Test;
  * @date 2017-04-01
  * QQ:359135103
  */
-public class DecoderTest {
+public class DecoderConfigDataTest {
 
 	/**
 	 * 测试大小端

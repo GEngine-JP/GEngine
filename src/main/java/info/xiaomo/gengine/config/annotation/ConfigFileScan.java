@@ -5,6 +5,7 @@
 package info.xiaomo.gengine.config.annotation;
 
 import java.lang.annotation.*;
+import info.xiaomo.gengine.config.ConfigSuffix;
 
 /**
  * 配置文件信息注解
@@ -15,17 +16,20 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ConfigFileScan {
-    /**
-     * 配置文件地址
-     *
-     * @return
-     */
-    String value();
+	/**
+	 * 配置文件地址
+	 * 不配置的话默认读取 java/src/resource下的文件路径
+	 * 如果配置的是相对路径则是在以java/src/resources为根路径
+	 *
+	 * @return
+	 */
+	String value();
 
-    /**
-     * 配置文件后缀
-     *
-     * @return
-     */
-    String suffix() default "";
+	/**
+	 * 配置文件后缀
+	 * excel只支持xlsx表格
+	 *
+	 * @return
+	 */
+	ConfigSuffix suffix() default ConfigSuffix.excel;
 }
