@@ -3,8 +3,7 @@ package info.xiaomo.gengine.mq;
 import javax.jms.*;
 import info.xiaomo.gengine.script.ScriptManager;
 import org.apache.activemq.command.ActiveMQQueue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
 
 /**
