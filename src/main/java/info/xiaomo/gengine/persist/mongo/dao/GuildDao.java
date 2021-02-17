@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.persist.mongo.dao;
 
-import info.xiaomo.gengine.common.struct.Guild;
+import info.xiaomo.gengine.entity.BaseGuild;
 import info.xiaomo.gengine.persist.mongo.AbsMongoManager;
 import org.mongodb.morphia.dao.BasicDAO;
 
@@ -9,12 +9,12 @@ import org.mongodb.morphia.dao.BasicDAO;
  *
  *   2017年9月22日 上午10:38:16
  */
-public class GuildDao extends BasicDAO<Guild, Long> {
+public class GuildDao extends BasicDAO<BaseGuild, Long> {
   private static volatile GuildDao guildDao;
 
   public GuildDao(AbsMongoManager mongoManager) {
     super(
-        Guild.class,
+        BaseGuild.class,
         mongoManager.getMongoClient(),
         mongoManager.getMorphia(),
         mongoManager.getMongoConfig().getDbName());
@@ -35,9 +35,9 @@ public class GuildDao extends BasicDAO<Guild, Long> {
    * 存储
    *
    *   2017年9月22日 上午10:45:52
-   * @param guild
+   * @param baseGuild
    */
-  public static void saveGuild(Guild guild) {
-    guildDao.save(guild);
+  public static void saveGuild(BaseGuild baseGuild) {
+    guildDao.save(baseGuild);
   }
 }

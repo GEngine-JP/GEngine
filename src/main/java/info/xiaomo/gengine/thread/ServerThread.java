@@ -2,8 +2,8 @@ package info.xiaomo.gengine.thread;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
-import info.xiaomo.gengine.common.mail.MailConfig;
-import info.xiaomo.gengine.common.mail.MailManager;
+import info.xiaomo.gengine.mail.MailConfig;
+import info.xiaomo.gengine.mail.MailManager;
 import info.xiaomo.gengine.thread.timer.TimerEvent;
 import info.xiaomo.gengine.thread.timer.TimerThread;
 import org.slf4j.Logger;

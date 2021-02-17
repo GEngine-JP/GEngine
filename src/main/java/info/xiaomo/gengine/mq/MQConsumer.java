@@ -3,13 +3,14 @@ package info.xiaomo.gengine.mq;
 import javax.jms.*;
 import info.xiaomo.gengine.script.ScriptManager;
 import org.apache.activemq.command.ActiveMQQueue;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * MQ 消费者，监听器
- *
- * 
+ * <p>
+ * <p>
  * 2017年7月28日 上午10:37:44
  */
 public class MQConsumer extends MQService implements Runnable {

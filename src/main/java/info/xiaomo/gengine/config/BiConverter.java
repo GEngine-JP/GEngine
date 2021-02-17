@@ -13,23 +13,24 @@ import java.util.function.BiFunction;
  */
 @FunctionalInterface
 public interface BiConverter<T, U, R> extends BiFunction<T, U, R> {
-    /**
-     * 转换
-     *
-     * @param t
-     * @param u
-     * @return
-     */
-    R convert(T t, U u);
+	/**
+	 * 转换
+	 *
+	 * @param t
+	 * @param u
+	 * @return
+	 */
+	R convert(T t, U u);
 
-    /**
-     * 应用
-     * @param t
-     * @param u
-     * @return
-     */
-    @Override
-    default R apply(T t, U u) {
-        return convert(t, u);
-    }
+	/**
+	 * 应用
+	 *
+	 * @param t
+	 * @param u
+	 * @return
+	 */
+	@Override
+	default R apply(T t, U u) {
+		return convert(t, u);
+	}
 }

@@ -6,18 +6,20 @@ import java.sql.*;
 import java.util.*;
 import info.xiaomo.gengine.logger.annotation.Column;
 import info.xiaomo.gengine.logger.annotation.Table;
+import info.xiaomo.gengine.logger.desc.ColumnDesc;
+import info.xiaomo.gengine.logger.desc.TableDesc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * 日志基类
- * 
+ *
  * @author 张力
  */
-@Table(cycle = TableCycle.SINGLE, primaryKey = "id")
+@Table(cycle = TableCycle.SINGLE)
 public abstract class AbstractLog implements Runnable {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(AbstractLog.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLog.class);
 
 	private final static Map<Class<?>, TableDesc> TABLE_DESC_MAP = new HashMap<>(10);
 
@@ -73,27 +75,27 @@ public abstract class AbstractLog implements Runnable {
 			}
 		}
 		desc.init();
-        TABLE_DESC_MAP.put(this.getClass(), desc);
-        checkTable();
+		TABLE_DESC_MAP.put(this.getClass(), desc);
+		checkTable();
 	}
 
 	private String buildCreateSql() {
-        return String.format(TABLE_DESC_MAP.get(this.getClass()).getCreateSql(),
-                TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
-    }
+		return String.format(TABLE_DESC_MAP.get(this.getClass()).getCreateSql(),
+				TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
+	}
 
 	String buildInsertSQL() {
-        return String.format(TABLE_DESC_MAP.get(this.getClass()).getInsertSql(),
-                TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
-    }
+		return String.format(TABLE_DESC_MAP.get(this.getClass()).getInsertSql(),
+				TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis()));
+	}
 
 	Object[] buildInsertParam() {
-        return TABLE_DESC_MAP.get(this.getClass()).buildInsertParam(this);
-    }
+		return TABLE_DESC_MAP.get(this.getClass()).buildInsertParam(this);
+	}
 
 	private void checkTable() throws Exception {
-        String buildName = TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis());
-        LOGGER.info("检测查表" + buildName);
+		String buildName = TABLE_DESC_MAP.get(this.getClass()).buildName(System.currentTimeMillis());
+		LOGGER.info("检测查表" + buildName);
 		Connection connection = null;
 		Statement statement = null;
 		try {
@@ -106,17 +108,13 @@ public abstract class AbstractLog implements Runnable {
 				List<String> primaryKeys = getTablePrimaryKeys(connection, buildName);
 				// 去除主键
 				// 主键不进行变更
-				for (ColumnDesc columnDesc : columnDefine) {
-					if (primaryKeys.contains(columnDesc.getName())){
-						columnDefine.remove(columnDesc);
-					}
-				}
+				columnDefine.removeIf(columnDesc -> primaryKeys.contains(columnDesc.getName()));
 
 				// 去除主键
 				List<ColumnDesc> newColumns = new ArrayList<>();
-                for (ColumnDesc col : TABLE_DESC_MAP.get(this.getClass()).getColumns()) {
-                    if (!TABLE_DESC_MAP.get(this.getClass()).getPrimaryKey().equals(col.getName())) {
-                        newColumns.add(col);
+				for (ColumnDesc col : TABLE_DESC_MAP.get(this.getClass()).getColumns()) {
+					if (!TABLE_DESC_MAP.get(this.getClass()).getPrimaryKey().equals(col.getName())) {
+						newColumns.add(col);
 					}
 				}
 
@@ -142,7 +140,7 @@ public abstract class AbstractLog implements Runnable {
 			}
 
 			LOGGER.info(buildName + "检查结束");
-		}finally {
+		} finally {
 			if (statement != null) {
 				try {
 					statement.close();
@@ -169,7 +167,7 @@ public abstract class AbstractLog implements Runnable {
 			info.setAllowNull(columns.getBoolean("IS_NULLABLE"));
 			infos.add(info);
 		}
-		
+
 
 		return infos;
 	}
@@ -201,7 +199,7 @@ public abstract class AbstractLog implements Runnable {
 		try {
 			// 插入
 			int ret = LogService.template.update(insertSql, params);
-			if(ret < 0) {
+			if (ret < 0) {
 				// 建表
 				String createSql = this.buildCreateSql();
 				LogService.template.update(createSql);

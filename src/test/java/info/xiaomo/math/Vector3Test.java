@@ -3,7 +3,7 @@ package info.xiaomo.math;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 import org.junit.Test;
 
 /** 向量测试 */

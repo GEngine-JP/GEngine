@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 定时任务
- *
- * 
- *  2017-03-30
+ * <p>
+ * <p>
+ * 2017-03-30
  */
 public class TimerThread extends Timer {
 
@@ -17,7 +17,7 @@ public class TimerThread extends Timer {
 	// 定时器依附的线程
 	private final ServerThread serverThread;
 	// 定时器任务
-	private final Collection<TimerEvent> events = Collections.synchronizedCollection(new ArrayList<TimerEvent>());
+	private final Collection<TimerEvent> events = Collections.synchronizedCollection(new ArrayList<>());
 
 	// 定时器中记录的定时器类型
 	private final HashSet<String> classLogNames = new HashSet<>();
@@ -60,11 +60,7 @@ public class TimerThread extends Timer {
 						if (event.getLoop() == 0) {
 							it.remove();
 							if (classLogNames.contains(event.getClass().getName())) {
-//                                try {
-//                                    throw new Exception("TimerThread.TimerTask:run=remove");
-//                                } catch (Exception e) {
 								log.error("故意抛出的异常,以做提醒" + Thread.currentThread().getName() + " " + Thread.currentThread().getThreadGroup() + " " + Thread.currentThread());
-//                                }
 							}
 						}
 					}
@@ -78,15 +74,11 @@ public class TimerThread extends Timer {
 	public void stop(boolean flag) {
 		synchronized (events) {
 			events.clear();
-//            try {
-//                throw new Exception("TimerThread:clear");
-//            } catch (Exception e) {
 			log.error("故意抛出的异常,以做提醒" + Thread.currentThread().getName() + " " + Thread.currentThread().getThreadGroup() + " " + Thread.currentThread());
 			if (task != null) {
 				task.cancel();
 			}
 			cancel();
-//            }
 		}
 		int sign = flag ? 1 : 0;
 		log.error("TimerThread:stop=" + serverThread.getThreadName() + "=flag=" + sign);
@@ -105,11 +97,7 @@ public class TimerThread extends Timer {
 		synchronized (events) {
 			events.remove(event);
 			if (classLogNames.contains(event.getClass().getName())) {
-//                try {
-//                    throw new Exception("TimerThread浜嬩欢:removeTimerEvent=remove");
-//                } catch (Exception e) {
 				log.error("故意抛出的异常,以做提醒" + Thread.currentThread().getName() + " " + Thread.currentThread().getThreadGroup() + " " + Thread.currentThread());
-//                }
 			}
 		}
 	}

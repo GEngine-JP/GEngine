@@ -16,25 +16,25 @@ import lombok.Data;
  */
 @Data
 public class ColumnDesc {
-    /**
-     * 列名
-     */
-    private String name;
-    /**
-     * 是否允许不为null
-     */
-    private boolean notNull;
-    /**
-     * 对应的字段属性
-     */
-    private Field field;
-    /**
-     * 字段的转换器
-     */
-    private IConverter converter;
+	/**
+	 * 列名
+	 */
+	private String name;
+	/**
+	 * 是否允许不为null
+	 */
+	private boolean notNull;
+	/**
+	 * 对应的字段属性
+	 */
+	private Field field;
+	/**
+	 * 字段的转换器
+	 */
+	private IConverter<?, ?> converter;
 
-    public ColumnDesc() {
-    }
+	public ColumnDesc() {
+	}
 
 
 }

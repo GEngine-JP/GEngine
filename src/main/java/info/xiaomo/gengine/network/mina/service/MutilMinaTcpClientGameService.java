@@ -7,9 +7,9 @@ import info.xiaomo.gengine.network.mina.config.MinaClientConfig;
 import info.xiaomo.gengine.network.mina.config.MinaServerConfig;
 import info.xiaomo.gengine.network.mina.handler.DefaultClientProtocolHandler;
 import info.xiaomo.gengine.network.mina.message.IDMessage;
-import info.xiaomo.gengine.server.IMutilTcpClientService;
-import info.xiaomo.gengine.server.ServerInfo;
-import info.xiaomo.gengine.server.ServerType;
+import info.xiaomo.gengine.network.server.IMutilTcpClientService;
+import info.xiaomo.gengine.network.server.ServerInfo;
+import info.xiaomo.gengine.network.server.ServerType;
 import info.xiaomo.gengine.thread.ThreadPoolExecutorConfig;
 import org.apache.mina.core.session.IoSession;
 

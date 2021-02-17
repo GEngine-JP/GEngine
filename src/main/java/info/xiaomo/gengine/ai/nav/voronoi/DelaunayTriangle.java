@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import info.xiaomo.gengine.ai.nav.triangle.Triangle;
 import info.xiaomo.gengine.ai.nav.triangle.TriangleEdge;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 
 /**

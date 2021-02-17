@@ -3,7 +3,7 @@ package info.xiaomo.gengine.network.mina.service;
 import info.xiaomo.gengine.network.mina.HttpServer;
 import info.xiaomo.gengine.network.mina.config.MinaServerConfig;
 import info.xiaomo.gengine.network.mina.handler.HttpServerIoHandler;
-import info.xiaomo.gengine.server.GameService;
+import info.xiaomo.gengine.network.server.GameService;
 import info.xiaomo.gengine.thread.ThreadPoolExecutorConfig;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.FilterEvent;

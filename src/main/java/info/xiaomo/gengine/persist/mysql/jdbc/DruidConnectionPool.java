@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.sql.DataSource;
-import info.xiaomo.gengine.common.utils.FileLoaderUtil;
+import info.xiaomo.gengine.utils.FileLoaderUtil;
 
 /**
  * 基于阿里巴巴德鲁伊的连接池实现

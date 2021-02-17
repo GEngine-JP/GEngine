@@ -2,8 +2,8 @@ package info.xiaomo.gengine.network.mina.service;
 
 import java.util.concurrent.PriorityBlockingQueue;
 import info.xiaomo.gengine.network.mina.config.MinaClientConfig;
-import info.xiaomo.gengine.server.GameService;
-import info.xiaomo.gengine.server.ITcpClientService;
+import info.xiaomo.gengine.network.server.GameService;
+import info.xiaomo.gengine.network.server.ITcpClientService;
 import info.xiaomo.gengine.thread.ThreadPoolExecutorConfig;
 import org.apache.mina.core.session.IoSession;
 

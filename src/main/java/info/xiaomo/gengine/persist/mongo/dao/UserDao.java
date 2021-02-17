@@ -5,7 +5,7 @@
  */
 package info.xiaomo.gengine.persist.mongo.dao;
 
-import info.xiaomo.gengine.common.struct.User;
+import info.xiaomo.gengine.entity.BaseUser;
 import info.xiaomo.gengine.persist.mongo.AbsMongoManager;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
@@ -16,12 +16,12 @@ import org.mongodb.morphia.query.Query;
  *
  *
  */
-public class UserDao extends BasicDAO<User, Long> {
+public class UserDao extends BasicDAO<BaseUser, Long> {
 
     private static volatile UserDao userDao;
 
     private UserDao(AbsMongoManager mongoManager) {
-        super(User.class, mongoManager.getMongoClient(), mongoManager.getMorphia(), mongoManager.getMongoConfig().getDbName());
+        super(BaseUser.class, mongoManager.getMongoClient(), mongoManager.getMorphia(), mongoManager.getMongoConfig().getDbName());
     }
 
     public static UserDao getDB(AbsMongoManager mongoManager) {
@@ -35,13 +35,13 @@ public class UserDao extends BasicDAO<User, Long> {
         return userDao;
     }
 
-    public static User findByAccount(String accunt) {
-        Query<User> query = userDao.createQuery().filter("accunt", accunt);
+    public static BaseUser findByAccount(String accunt) {
+        Query<BaseUser> query = userDao.createQuery().filter("accunt", accunt);
         return query.get();
     }
     
-    public static void saveUser(User user){
-        userDao.save(user);
+    public static void saveUser(BaseUser baseUser){
+        userDao.save(baseUser);
     }
 
 }

@@ -2,7 +2,7 @@ package info.xiaomo.gengine.persist.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import info.xiaomo.gengine.common.utils.FileUtil;
+import info.xiaomo.gengine.utils.FileUtil;
 import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

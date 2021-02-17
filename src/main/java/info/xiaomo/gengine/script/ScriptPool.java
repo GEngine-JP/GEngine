@@ -9,11 +9,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.tools.*;
-import info.xiaomo.gengine.common.handler.HandlerEntity;
-import info.xiaomo.gengine.common.handler.HttpHandler;
-import info.xiaomo.gengine.common.handler.IHandler;
-import info.xiaomo.gengine.common.handler.TcpHandler;
-import info.xiaomo.gengine.common.utils.FileUtil;
+import info.xiaomo.gengine.network.handler.HandlerEntity;
+import info.xiaomo.gengine.network.handler.HttpHandler;
+import info.xiaomo.gengine.network.handler.IHandler;
+import info.xiaomo.gengine.network.handler.TcpHandler;
+import info.xiaomo.gengine.utils.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.ai.btree;
 
 import info.xiaomo.gengine.script.IScript;
-import info.xiaomo.gengine.struct.Person;
+import info.xiaomo.gengine.entity.AbsPerson;
 
 /**
  * 行为树脚本
@@ -18,7 +18,7 @@ public interface IBehaviorTreeScript extends IScript {
 	 * @param person
 	 *
 	 */
-	default void addBehaviorTree(Person person) {
+	default void addBehaviorTree(AbsPerson person) {
 
 	}
 }

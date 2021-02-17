@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.persist.redis.redisson;
 
-import info.xiaomo.gengine.common.utils.FileUtil;
+import info.xiaomo.gengine.utils.FileUtil;
 import org.redisson.Redisson;
 import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;

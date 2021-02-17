@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 import info.xiaomo.gengine.ai.nav.triangle.Triangle;
 import info.xiaomo.gengine.ai.nav.triangle.TriangleNavMesh;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 地图显示面板

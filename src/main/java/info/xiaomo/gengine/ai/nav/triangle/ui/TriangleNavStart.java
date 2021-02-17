@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.ai.nav.triangle.ui;
 
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * navmesh主界面

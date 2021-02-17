@@ -1,6 +1,6 @@
 package info.xiaomo.util;
 
-import info.xiaomo.gengine.common.utils.SysUtil;
+import info.xiaomo.gengine.utils.SysUtil;
 import org.junit.Test;
 
 /**

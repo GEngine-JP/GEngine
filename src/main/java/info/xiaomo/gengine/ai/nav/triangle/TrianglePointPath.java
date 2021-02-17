@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import info.xiaomo.gengine.ai.pfa.Connection;
 import info.xiaomo.gengine.common.math.*;
+import info.xiaomo.gengine.math.*;
 
 /**
  * NavMesh 生成坐标路径点

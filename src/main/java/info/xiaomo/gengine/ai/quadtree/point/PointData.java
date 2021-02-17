@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.ai.quadtree.point;
 
 import info.xiaomo.gengine.ai.quadtree.Data;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 
 /**

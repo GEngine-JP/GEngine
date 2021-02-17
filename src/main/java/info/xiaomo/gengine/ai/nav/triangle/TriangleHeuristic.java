@@ -2,7 +2,7 @@ package info.xiaomo.gengine.ai.nav.triangle;
 ///*******************************************************************************
 
 import info.xiaomo.gengine.ai.pfa.Heuristic;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * navmesh 启发式消耗预估

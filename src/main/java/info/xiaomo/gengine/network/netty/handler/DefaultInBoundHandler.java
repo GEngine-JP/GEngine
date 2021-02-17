@@ -2,15 +2,15 @@ package info.xiaomo.gengine.network.netty.handler;
 
 import com.google.protobuf.Message;
 import java.util.concurrent.Executor;
-import info.xiaomo.gengine.common.handler.HandlerEntity;
-import info.xiaomo.gengine.common.handler.IHandler;
-import info.xiaomo.gengine.common.handler.TcpHandler;
-import info.xiaomo.gengine.common.utils.MsgUtil;
-import info.xiaomo.gengine.common.utils.TimeUtil;
+import info.xiaomo.gengine.network.handler.HandlerEntity;
+import info.xiaomo.gengine.network.handler.IHandler;
+import info.xiaomo.gengine.network.handler.TcpHandler;
 import info.xiaomo.gengine.network.mina.message.IDMessage;
 import info.xiaomo.gengine.script.ScriptManager;
-import info.xiaomo.gengine.server.BaseServerConfig;
-import info.xiaomo.gengine.server.GameService;
+import info.xiaomo.gengine.network.server.BaseServerConfig;
+import info.xiaomo.gengine.network.server.GameService;
+import info.xiaomo.gengine.utils.MsgUtil;
+import info.xiaomo.gengine.utils.TimeUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -18,10 +18,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 默认接收消息处理器 <br>
- * 消息直接用netty线程池处理，分发请重新实现messagehandler
- * 
- *
- *  2017年8月25日 上午11:29:37
+ * 消息直接用netty线程池处理，分发请重新实现messageHandler
+ * <p>
+ * <p>
+ * 2017年8月25日 上午11:29:37
  */
 public abstract class DefaultInBoundHandler extends SimpleChannelInboundHandler<IDMessage> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultInBoundHandler.class);
@@ -42,17 +42,14 @@ public abstract class DefaultInBoundHandler extends SimpleChannelInboundHandler<
 		handler.setChannel(ctx.channel());
 		messagehandler(handler, handlerEntity);
 	}
-	
-	
-
-
 
 
 	/**
 	 * 消息处理
-	 * 
+	 * <p>
+	 * <p>
+	 * 2017年8月25日 下午12:01:04
 	 *
-	 *  2017年8月25日 下午12:01:04
 	 * @param handler
 	 */
 	protected void messagehandler(TcpHandler handler, HandlerEntity handlerEntity) {
@@ -68,14 +65,14 @@ public abstract class DefaultInBoundHandler extends SimpleChannelInboundHandler<
 
 	/**
 	 * 消息跳转
-	 * 
-	 *
-	 *  2017年8月25日 下午12:01:51
+	 * <p>
+	 * <p>
+	 * 2017年8月25日 下午12:01:51
 	 */
 	protected void forward(IDMessage msg) {
 		LOGGER.info("消息{} 未实现", msg.getMsgId());
 	}
 
-	public abstract GameService<? extends BaseServerConfig> getService() ;
-	
+	public abstract GameService<? extends BaseServerConfig> getService();
+
 }

@@ -5,20 +5,20 @@
  */
 package info.xiaomo.gengine.persist.mongo.dao;
 
-import info.xiaomo.gengine.common.struct.HallInfo;
+import info.xiaomo.gengine.entity.BaseHallInfo;
 import info.xiaomo.gengine.persist.mongo.AbsMongoManager;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
 /** 大厅信息 */
-public class HallInfoDao extends BasicDAO<HallInfo, Integer> {
+public class HallInfoDao extends BasicDAO<BaseHallInfo, Integer> {
 
   private static volatile HallInfoDao hallInfoDao;
 
   private HallInfoDao(AbsMongoManager mongoManager) {
     super(
-        HallInfo.class,
+        BaseHallInfo.class,
         mongoManager.getMongoClient(),
         mongoManager.getMorphia(),
         mongoManager.getMongoConfig().getDbName());
@@ -41,8 +41,8 @@ public class HallInfoDao extends BasicDAO<HallInfo, Integer> {
    * @return
    */
   public static long getUserId() {
-    HallInfo hallInfo = incFieldNum(1, "userIdNum");
-    return hallInfo.getUserIdNum();
+    BaseHallInfo baseHallInfo = incFieldNum(1, "userIdNum");
+    return baseHallInfo.getUserIdNum();
   }
 
   /**
@@ -51,8 +51,8 @@ public class HallInfoDao extends BasicDAO<HallInfo, Integer> {
    * @return
    */
   public static long getRoleId() {
-    HallInfo hallInfo = incFieldNum(1, "roleIdNum");
-    return hallInfo.getRoleIdNum();
+    BaseHallInfo baseHallInfo = incFieldNum(1, "roleIdNum");
+    return baseHallInfo.getRoleIdNum();
   }
 
   /**
@@ -62,16 +62,16 @@ public class HallInfoDao extends BasicDAO<HallInfo, Integer> {
    * @param fieldName 属性名称
    * @return
    */
-  public static HallInfo incFieldNum(int num, String fieldName) {
-    Query<HallInfo> query = hallInfoDao.createQuery();
-    UpdateOperations<HallInfo> updateOperations =
+  public static BaseHallInfo incFieldNum(int num, String fieldName) {
+    Query<BaseHallInfo> query = hallInfoDao.createQuery();
+    UpdateOperations<BaseHallInfo> updateOperations =
         hallInfoDao.createUpdateOperations().inc(fieldName, num);
-    HallInfo hallInfo = hallInfoDao.getDs().findAndModify(query, updateOperations);
-    if (hallInfo == null) {
-      hallInfo = new HallInfo();
-      hallInfoDao.save(hallInfo);
-      hallInfo = hallInfoDao.getDs().findAndModify(query, updateOperations);
+    BaseHallInfo baseHallInfo = hallInfoDao.getDs().findAndModify(query, updateOperations);
+    if (baseHallInfo == null) {
+      baseHallInfo = new BaseHallInfo();
+      hallInfoDao.save(baseHallInfo);
+      baseHallInfo = hallInfoDao.getDs().findAndModify(query, updateOperations);
     }
-    return hallInfo;
+    return baseHallInfo;
   }
 }

@@ -1,6 +1,6 @@
 package info.xiaomo.util;
 
-import info.xiaomo.gengine.common.utils.StringUtil;
+import info.xiaomo.gengine.utils.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

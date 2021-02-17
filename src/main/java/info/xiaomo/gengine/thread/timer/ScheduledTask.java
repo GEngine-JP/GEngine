@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 独立周期性单线程
- *
- * 
+ * <p>
+ * <p>
  * 2017年7月3日 上午10:43:19
  */
 public abstract class ScheduledTask {
@@ -27,12 +27,10 @@ public abstract class ScheduledTask {
 		Executors.newScheduledThreadPool(1, new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
-				Thread thread = new Thread(getClass().getSimpleName());
-
-				return thread;
+				return new Thread(getClass().getSimpleName());
 			}
 		});
-		period = taskMaxTime < 100 ? 100 : taskMaxTime;
+		period = Math.max(taskMaxTime, 100);
 	}
 
 	/**
@@ -56,8 +54,8 @@ public abstract class ScheduledTask {
 
 	/**
 	 * 任务
-	 *
-	 * 
+	 * <p>
+	 * <p>
 	 * 2017年7月3日 上午10:45:01
 	 */
 	class Task implements Runnable {

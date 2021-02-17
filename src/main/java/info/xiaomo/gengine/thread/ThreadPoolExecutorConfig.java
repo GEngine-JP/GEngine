@@ -8,9 +8,9 @@ import org.simpleframework.xml.Root;
 
 /**
  * 线程池配置
- *
- *
- *  2017-03-30
+ * <p>
+ * <p>
+ * 2017-03-30
  */
 @Root
 public class ThreadPoolExecutorConfig {

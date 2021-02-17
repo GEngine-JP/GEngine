@@ -5,7 +5,7 @@ import java.util.*;
 import info.xiaomo.gengine.ai.nav.NavMeshData;
 import info.xiaomo.gengine.ai.pfa.Connection;
 import info.xiaomo.gengine.ai.pfa.IndexedGraph;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 import org.slf4j.LoggerFactory;
 
 /**

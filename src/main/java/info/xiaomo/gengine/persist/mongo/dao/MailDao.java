@@ -2,7 +2,7 @@ package info.xiaomo.gengine.persist.mongo.dao;
 
 import com.mongodb.WriteResult;
 import java.util.List;
-import info.xiaomo.gengine.common.struct.Mail;
+import info.xiaomo.gengine.entity.BaseMail;
 import info.xiaomo.gengine.persist.mongo.AbsMongoManager;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
@@ -14,11 +14,11 @@ import org.mongodb.morphia.query.UpdateOperations;
  *
  *  2017年9月21日 下午3:32:10
  */
-public class MailDao extends BasicDAO<Mail, Long> {
+public class MailDao extends BasicDAO<BaseMail, Long> {
 	private static volatile MailDao mailDao;
 
 	public MailDao(AbsMongoManager mongoManager) {
-		super(Mail.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),
+		super(BaseMail.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),
 				mongoManager.getMongoConfig().getDbName());
 	}
 
@@ -41,7 +41,7 @@ public class MailDao extends BasicDAO<Mail, Long> {
 	 * @param receiverId
 	 * @return
 	 */
-	public static List<Mail> getMails(long receiverId) {
+	public static List<BaseMail> getMails(long receiverId) {
 		return mailDao.createQuery().filter("receiverId", receiverId).asList();
 	}
 
@@ -52,8 +52,8 @@ public class MailDao extends BasicDAO<Mail, Long> {
 	 *  2017年9月21日 下午4:12:44
 	 * @return
 	 */
-	public static List<Mail> getPublicMails() {
-		return mailDao.createQuery().filter("type", Mail.MailType.PUBLIC_SYSTEM.ordinal()).asList();
+	public static List<BaseMail> getPublicMails() {
+		return mailDao.createQuery().filter("type", BaseMail.MailType.PUBLIC_SYSTEM.ordinal()).asList();
 	}
 
 	/**
@@ -61,10 +61,10 @@ public class MailDao extends BasicDAO<Mail, Long> {
 	 * 
 	 *
 	 *  2017年9月21日 下午4:13:37
-	 * @param mail
+	 * @param baseMail
 	 */
-	public static void saveMail(Mail mail) {
-		mailDao.save(mail);
+	public static void saveMail(BaseMail baseMail) {
+		mailDao.save(baseMail);
 	}
 
 	/**
@@ -75,9 +75,9 @@ public class MailDao extends BasicDAO<Mail, Long> {
 	 * @param id
 	 * @param mailState
 	 */
-	public static Mail modifyMailState(long id, int mailState) {
-		Query<Mail> query = mailDao.createQuery().filter("id", id);
-		UpdateOperations<Mail> operations = mailDao.createUpdateOperations().set("state", mailState);
+	public static BaseMail modifyMailState(long id, int mailState) {
+		Query<BaseMail> query = mailDao.createQuery().filter("id", id);
+		UpdateOperations<BaseMail> operations = mailDao.createUpdateOperations().set("state", mailState);
 		return mailDao.getDs().findAndModify(query, operations);
 	}
 	
@@ -102,7 +102,7 @@ public class MailDao extends BasicDAO<Mail, Long> {
 	 * @param mailId
 	 * @return
 	 */
-	public static Mail getMail(long mailId) {
+	public static BaseMail getMail(long mailId) {
 		return mailDao.get(mailId);
 	}
 	

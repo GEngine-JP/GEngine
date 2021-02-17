@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import info.xiaomo.gengine.ai.pfa.Connection;
-import info.xiaomo.gengine.common.math.Intersector;
-import info.xiaomo.gengine.common.math.Plane;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Intersector;
+import info.xiaomo.gengine.math.Plane;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * NavMesh 生成坐标路径点

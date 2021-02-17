@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.mq;
 
 import javax.jms.Connection;
-import info.xiaomo.gengine.common.utils.FileUtil;
+import info.xiaomo.gengine.utils.FileUtil;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

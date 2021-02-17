@@ -3,7 +3,7 @@ package info.xiaomo.gengine.ai.quadtree;
 import java.util.ArrayList;
 import java.util.List;
 import info.xiaomo.gengine.ai.nav.polygon.Polygon;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 节点

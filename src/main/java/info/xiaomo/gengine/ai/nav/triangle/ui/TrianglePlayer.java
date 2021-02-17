@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import info.xiaomo.gengine.ai.nav.triangle.TriangleNavMesh;
 import info.xiaomo.gengine.ai.nav.triangle.TrianglePointPath;
-import info.xiaomo.gengine.common.math.Vector3;
-import info.xiaomo.gengine.common.utils.TimeUtil;
+import info.xiaomo.gengine.math.Vector3;
+import info.xiaomo.gengine.utils.TimeUtil;
 
 
 /**

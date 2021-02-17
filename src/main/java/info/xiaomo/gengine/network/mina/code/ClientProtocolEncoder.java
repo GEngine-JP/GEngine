@@ -7,8 +7,8 @@ package info.xiaomo.gengine.network.mina.code;
 
 import com.google.protobuf.Message;
 import java.nio.ByteOrder;
-import info.xiaomo.gengine.common.utils.IntUtil;
-import info.xiaomo.gengine.common.utils.MsgUtil;
+import info.xiaomo.gengine.utils.IntUtil;
+import info.xiaomo.gengine.utils.MsgUtil;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;

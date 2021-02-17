@@ -18,7 +18,7 @@ package info.xiaomo.gengine.ai.btree.leaf;
 
 import info.xiaomo.gengine.ai.btree.LeafTask;
 import info.xiaomo.gengine.ai.btree.annotation.TaskAttribute;
-import info.xiaomo.gengine.common.utils.TimeUtil;
+import info.xiaomo.gengine.utils.TimeUtil;
 
 /**
  * 等待执行指定次数<br>

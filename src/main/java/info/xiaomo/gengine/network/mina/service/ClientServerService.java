@@ -5,7 +5,7 @@ import info.xiaomo.gengine.network.mina.TcpServer;
 import info.xiaomo.gengine.network.mina.code.ClientProtocolCodecFactory;
 import info.xiaomo.gengine.network.mina.config.MinaServerConfig;
 import info.xiaomo.gengine.network.mina.handler.ClientProtocolHandler;
-import info.xiaomo.gengine.server.GameService;
+import info.xiaomo.gengine.network.server.GameService;
 import info.xiaomo.gengine.thread.ServerThread;
 import info.xiaomo.gengine.thread.ThreadPoolExecutorConfig;
 import info.xiaomo.gengine.thread.ThreadType;

@@ -3,7 +3,7 @@ package info.xiaomo.gengine.ai.util;
 import java.io.Serializable;
 
 /**
- * A binary minheap of comparable objects.
+ * A binary minimap of comparable objects.
  *
  * @param <E>
  * @author Donald Chinn

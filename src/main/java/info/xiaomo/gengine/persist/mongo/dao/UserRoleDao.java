@@ -5,19 +5,19 @@
  */
 package info.xiaomo.gengine.persist.mongo.dao;
 
-import info.xiaomo.gengine.common.struct.UserRole;
+import info.xiaomo.gengine.entity.BaseRole;
 import info.xiaomo.gengine.persist.mongo.AbsMongoManager;
 import org.mongodb.morphia.dao.BasicDAO;
 
 /**
  * 角色
  */
-public class UserRoleDao extends BasicDAO<UserRole, Long> {
+public class UserRoleDao extends BasicDAO<BaseRole, Long> {
 
 	private static volatile UserRoleDao userRoleDao;
 
 	private UserRoleDao(AbsMongoManager mongoManager) {
-		super(UserRole.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),
+		super(BaseRole.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),
 				mongoManager.getMongoConfig().getDbName());
 	}
 
@@ -32,12 +32,12 @@ public class UserRoleDao extends BasicDAO<UserRole, Long> {
 		return userRoleDao;
 	}
 
-	public static UserRole getRoleByUserId(long userId) {
+	public static BaseRole getRoleByUserId(long userId) {
 		return userRoleDao.createQuery().filter("userId", userId).get();
 	}
 
-	public static void saveRole(UserRole userRole) {
-		userRoleDao.save(userRole);
+	public static void saveRole(BaseRole baseRole) {
+		userRoleDao.save(baseRole);
 	}
 
 }

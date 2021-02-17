@@ -17,7 +17,7 @@
 package info.xiaomo.gengine.ai.fsm;
 
 
-import info.xiaomo.gengine.ai.msg.Telegram;
+import info.xiaomo.gengine.ai.telegram.Telegram;
 
 /**
  * 状态接口<br>

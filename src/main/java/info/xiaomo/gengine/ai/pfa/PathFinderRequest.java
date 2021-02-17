@@ -1,9 +1,9 @@
 
 package info.xiaomo.gengine.ai.pfa;
 
-import info.xiaomo.gengine.ai.msg.MessageDispatcher;
-import info.xiaomo.gengine.ai.msg.MessageManager;
-import info.xiaomo.gengine.ai.msg.Telegraph;
+import info.xiaomo.gengine.ai.telegram.MessageDispatcher;
+import info.xiaomo.gengine.ai.telegram.MessageManager;
+import info.xiaomo.gengine.ai.telegram.Telegraph;
 
 /**
  * 寻路请求

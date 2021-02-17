@@ -1,6 +1,6 @@
 package info.xiaomo.util;
 
-import info.xiaomo.gengine.common.utils.CipherUtil;
+import info.xiaomo.gengine.utils.CipherUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

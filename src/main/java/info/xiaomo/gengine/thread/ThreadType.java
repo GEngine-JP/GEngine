@@ -2,9 +2,9 @@ package info.xiaomo.gengine.thread;
 
 /**
  * 线程类型
- *
- * 
- *  2017-03-30
+ * <p>
+ * <p>
+ * 2017-03-30
  */
 public enum ThreadType {
 	/**

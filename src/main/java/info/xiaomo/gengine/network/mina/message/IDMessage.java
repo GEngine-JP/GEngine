@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.network.mina.message;
 
-import info.xiaomo.gengine.common.utils.MsgUtil;
+import info.xiaomo.gengine.utils.MsgUtil;
 import io.netty.channel.Channel;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
@@ -83,7 +83,7 @@ public final class IDMessage implements Runnable {
 	}
 
 	/**
-	 * <p>Getter for the field <code>msg</code>.</p>
+	 * <p>Getter for the field <code>telegram</code>.</p>
 	 *
 	 * @return a {@link Object} object.
 	 */

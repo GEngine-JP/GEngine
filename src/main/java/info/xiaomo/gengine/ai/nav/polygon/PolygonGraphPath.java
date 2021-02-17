@@ -2,7 +2,7 @@ package info.xiaomo.gengine.ai.nav.polygon;
 
 import info.xiaomo.gengine.ai.pfa.Connection;
 import info.xiaomo.gengine.ai.pfa.DefaultGraphPath;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 多边形路径点

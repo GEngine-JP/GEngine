@@ -20,7 +20,7 @@ import info.xiaomo.gengine.ai.btree.Decorator;
 import info.xiaomo.gengine.ai.btree.Task;
 import info.xiaomo.gengine.ai.btree.annotation.TaskAttribute;
 import info.xiaomo.gengine.ai.btree.annotation.TaskConstraint;
-import info.xiaomo.gengine.common.math.MathUtil;
+import info.xiaomo.gengine.math.MathUtil;
 
 /**
  * 结果随机<br>

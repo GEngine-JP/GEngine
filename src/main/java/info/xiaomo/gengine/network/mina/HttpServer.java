@@ -2,7 +2,7 @@ package info.xiaomo.gengine.network.mina;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import info.xiaomo.gengine.common.utils.SysUtil;
+import info.xiaomo.gengine.utils.SysUtil;
 import info.xiaomo.gengine.network.mina.code.HttpServerCodecImpl;
 import info.xiaomo.gengine.network.mina.config.MinaServerConfig;
 import info.xiaomo.gengine.network.mina.handler.HttpServerIoHandler;

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import info.xiaomo.gengine.logger.entity.ItemLog;
 import info.xiaomo.gengine.persist.mysql.jdbc.ConnectionPool;
 import info.xiaomo.gengine.persist.mysql.jdbc.DruidConnectionPool;
 import info.xiaomo.gengine.persist.mysql.jdbc.JdbcTemplate;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LogService {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(LogService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LogService.class);
 
 	private static  LogService INSTANCE = null;
 

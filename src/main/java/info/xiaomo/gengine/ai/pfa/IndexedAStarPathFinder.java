@@ -3,7 +3,7 @@ package info.xiaomo.gengine.ai.pfa;
 
 
 import java.util.List;
-import info.xiaomo.gengine.common.utils.TimeUtil;
+import info.xiaomo.gengine.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
  *
  * @param <N> Type of node
  * @author davebaol
- *
  */
 public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexedAStarPathFinder.class);
@@ -55,7 +54,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 	public IndexedAStarPathFinder(IndexedGraph<N> graph, boolean calculateMetrics) {
 		this.graph = graph;
 		this.nodeRecords = (NodeRecord<N>[]) new NodeRecord[graph.getNodeCount()];
-		this.openList = new NodeBinaryHeap<NodeRecord<N>>();
+		this.openList = new NodeBinaryHeap<>();
 		if (calculateMetrics) this.metrics = new Metrics();
 	}
 
@@ -209,14 +208,12 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 		List<Connection<N>> connections = graph.getConnections(current.node);
 
 		// Loop through each connection in turn
-		for (int i = 0; i < connections.size(); i++) {
+		for (Connection<N> nConnection : connections) {
 			if (metrics != null) metrics.visitedNodes++;
 
-			Connection<N> connection = connections.get(i);
-
 			// Get the cost estimate for the node
-			N node = connection.getToNode();    //周围目标节点
-			float nodeCost = current.costSoFar + connection.getCost();    //节点到目标的消耗
+			N node = nConnection.getToNode();    //周围目标节点
+			float nodeCost = current.costSoFar + nConnection.getCost();    //节点到目标的消耗
 
 			float nodeHeuristic;
 			NodeRecord<N> nodeRecord = getNodeRecord(node);
@@ -248,7 +245,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 			// Update node record's cost and connection
 			nodeRecord.costSoFar = nodeCost;
-			nodeRecord.connection = connection;
+			nodeRecord.connection = nConnection;
 
 			// Add it to the open list with the estimated total cost
 			addToOpenList(nodeRecord, nodeCost + nodeHeuristic);
@@ -326,7 +323,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 			}
 			return nr;
 		}
-		nr = nodeRecords[index] = new NodeRecord<N>();
+		nr = nodeRecords[index] = new NodeRecord<>();
 		nr.node = node;
 		nr.searchId = searchId;
 		return nr;

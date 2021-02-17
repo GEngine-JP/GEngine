@@ -10,8 +10,8 @@ import java.util.Random;
 import javax.swing.*;
 import info.xiaomo.gengine.ai.nav.NavMeshData;
 import info.xiaomo.gengine.ai.nav.triangle.TriangleNavMesh;
-import info.xiaomo.gengine.common.math.Vector3;
-import info.xiaomo.gengine.common.utils.FileUtil;
+import info.xiaomo.gengine.math.Vector3;
+import info.xiaomo.gengine.utils.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -7,7 +7,7 @@ import info.xiaomo.gengine.ai.pfa.Connection;
 import info.xiaomo.gengine.ai.pfa.IndexedGraph;
 import info.xiaomo.gengine.ai.quadtree.QuadTree;
 import info.xiaomo.gengine.ai.quadtree.polygon.PolygonGuadTree;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

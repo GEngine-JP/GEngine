@@ -2,8 +2,8 @@ package info.xiaomo.gengine.script;
 
 import java.io.File;
 import java.util.function.Consumer;
-import info.xiaomo.gengine.common.handler.HandlerEntity;
-import info.xiaomo.gengine.common.handler.IHandler;
+import info.xiaomo.gengine.network.handler.HandlerEntity;
+import info.xiaomo.gengine.network.handler.IHandler;
 
 /**
  * 脚本管理

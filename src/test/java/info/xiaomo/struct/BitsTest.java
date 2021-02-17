@@ -1,6 +1,6 @@
 package info.xiaomo.struct;
 
-import info.xiaomo.gengine.struct.Bits;
+import info.xiaomo.gengine.bean.Bits;
 import org.junit.Assert;
 import org.junit.Test;
 

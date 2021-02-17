@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import info.xiaomo.gengine.ai.nav.polygon.Polygon;
 import info.xiaomo.gengine.ai.quadtree.*;
 import info.xiaomo.gengine.ai.quadtree.point.PointData;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

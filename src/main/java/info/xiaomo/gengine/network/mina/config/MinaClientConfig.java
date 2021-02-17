@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.mina.config;
 
-import info.xiaomo.gengine.server.BaseServerConfig;
-import info.xiaomo.gengine.server.ServerType;
+import info.xiaomo.gengine.network.server.BaseServerConfig;
+import info.xiaomo.gengine.network.server.ServerType;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 

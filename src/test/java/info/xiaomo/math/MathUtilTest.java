@@ -1,8 +1,8 @@
 package info.xiaomo.math;
 
 import java.util.Random;
-import info.xiaomo.gengine.common.math.MathUtil;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.MathUtil;
+import info.xiaomo.gengine.math.Vector3;
 import org.junit.Assert;
 import org.junit.Test;
 

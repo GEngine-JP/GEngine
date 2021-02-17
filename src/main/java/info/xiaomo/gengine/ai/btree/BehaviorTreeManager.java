@@ -11,12 +11,12 @@ import java.util.*;
 import info.xiaomo.gengine.ai.btree.branch.*;
 import info.xiaomo.gengine.ai.btree.decorator.Random;
 import info.xiaomo.gengine.ai.btree.decorator.*;
-import info.xiaomo.gengine.common.math.Vector3;
-import info.xiaomo.gengine.common.utils.Args;
-import info.xiaomo.gengine.common.utils.FileUtil;
-import info.xiaomo.gengine.common.utils.ReflectUtil;
-import info.xiaomo.gengine.common.utils.StringUtil;
-import info.xiaomo.gengine.struct.Person;
+import info.xiaomo.gengine.math.Vector3;
+import info.xiaomo.gengine.utils.Args;
+import info.xiaomo.gengine.utils.FileUtil;
+import info.xiaomo.gengine.utils.ReflectUtil;
+import info.xiaomo.gengine.utils.StringUtil;
+import info.xiaomo.gengine.entity.AbsPerson;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -37,7 +37,7 @@ public class BehaviorTreeManager {
 	/**
 	 * 行为树对象缓存
 	 */
-	private final Map<String, BehaviorTree<? extends Person>> behaviorTrees = new HashMap<>();
+	private final Map<String, BehaviorTree<? extends AbsPerson>> behaviorTrees = new HashMap<>();
 
 	private BehaviorTreeManager() {
 
@@ -71,7 +71,7 @@ public class BehaviorTreeManager {
 				for (File file : files) {
 					if (file.exists()) {
 						// 加载行为树
-						Args.Two<String, BehaviorTree<? extends Person>> tree = createBehaviorTree(file);
+						Args.Two<String, BehaviorTree<? extends AbsPerson>> tree = createBehaviorTree(file);
 						behaviorTrees.put(tree.a(), tree.b());
 						// LOGGER.debug("行为树{} 加入容器", tree.a());
 					}
@@ -89,7 +89,7 @@ public class BehaviorTreeManager {
 	 * @param file
 	 * @return
 	 */
-	private Args.Two<String, BehaviorTree<? extends Person>> createBehaviorTree(File file) throws Exception {
+	private Args.Two<String, BehaviorTree<? extends AbsPerson>> createBehaviorTree(File file) throws Exception {
 		String xmlStr = FileUtil.readTxtFile(file.getPath());
 		Document document = DocumentHelper.parseText(Objects.requireNonNull(xmlStr));
 		Element rootElement = document.getRootElement(); // 根节点
@@ -111,11 +111,11 @@ public class BehaviorTreeManager {
 		// 行为树xml根节点
 		Element rootTaskElement = (Element) treeRootElements.get(0);
 		// 行为树根任务
-		Task<Person> rootTask = createTask(rootTaskElement);
+		Task<AbsPerson> rootTask = createTask(rootTaskElement);
 		// 递归设置分支节点和叶子节点
 		addTask(rootTaskElement, rootTask);
 
-		BehaviorTree<? extends Person> behaviorTree = new BehaviorTree<>(rootTask);
+		BehaviorTree<? extends AbsPerson> behaviorTree = new BehaviorTree<>(rootTask);
 		return Args.of(id, behaviorTree);
 	}
 
@@ -125,11 +125,11 @@ public class BehaviorTreeManager {
 	 * @param element xml配置节点
 	 * @param task    父任务
 	 */
-	private void addTask(Element element, Task<Person> task) {
+	private void addTask(Element element, Task<AbsPerson> task) {
 		Iterator<Element> iterator = element.elementIterator();
 		while (iterator.hasNext()) {
 			Element secondElement = iterator.next();
-			Task<Person> secondTask = createTask(secondElement);
+			Task<AbsPerson> secondTask = createTask(secondElement);
 			if (secondElement.getName().equalsIgnoreCase(XML_GUARD)) {
 				task.setGuard(secondTask);
 			} else {
@@ -147,11 +147,11 @@ public class BehaviorTreeManager {
 	 * @param element
 	 * @return
 	 */
-	private Task<Person> createTask(Element element) {
+	private Task<AbsPerson> createTask(Element element) {
 		if (element == null) {
 			throw new RuntimeException("传入行为数节点为空");
 		}
-		Task<Person> task;
+		Task<AbsPerson> task;
 
 		switch (element.getName()) {
 			case XML_SELECTOR:
@@ -250,18 +250,18 @@ public class BehaviorTreeManager {
 	 * @return
 	 */
 	@SuppressWarnings({"unchecked",})
-	private LeafTask<Person> createLeafTask(Element element) {
+	private LeafTask<AbsPerson> createLeafTask(Element element) {
 		Attribute leafAttr = element.attribute(XML_ATTRIBUTE_CLASS);
 		if (leafAttr == null) {
 			throw new IllegalStateException(
 					String.format("xml %s %s节点 未配置class属性", element.getUniquePath(), element.getName()));
 		}
 		String classStr = leafAttr.getValue();
-		LeafTask<Person> leafTask = null;
+		LeafTask<AbsPerson> leafTask = null;
 		Class<?> leafTaskClass;
 		try {
 			leafTaskClass = Class.forName(classStr);
-			leafTask = (LeafTask<Person>) leafTaskClass.newInstance();
+			leafTask = (LeafTask<AbsPerson>) leafTaskClass.newInstance();
 
 			// 设置属性
 			if (element.attributeCount() < 2) { // 没有设置属性参数
@@ -326,13 +326,13 @@ public class BehaviorTreeManager {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public BehaviorTree<? extends Person> cloneBehaviorTree(String id) {
-		BehaviorTree<? extends Person> behaviorTree = behaviorTrees.get(id);
+	public BehaviorTree<? extends AbsPerson> cloneBehaviorTree(String id) {
+		BehaviorTree<? extends AbsPerson> behaviorTree = behaviorTrees.get(id);
 		if (behaviorTree == null) {
 			return null;
 		}
 		try {
-			return (BehaviorTree<Person>) ReflectUtil.deepCopy(behaviorTree);
+			return (BehaviorTree<AbsPerson>) ReflectUtil.deepCopy(behaviorTree);
 		} catch (Exception e) {
 			LOGGER.error("克隆行为树", e);
 		}

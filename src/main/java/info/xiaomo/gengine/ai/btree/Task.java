@@ -2,7 +2,7 @@ package info.xiaomo.gengine.ai.btree;
 
 import java.io.Serializable;
 import info.xiaomo.gengine.ai.btree.annotation.TaskConstraint;
-import info.xiaomo.gengine.common.cache.IMemoryObject;
+import info.xiaomo.gengine.persist.cache.IMemoryObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import info.xiaomo.gengine.ai.nav.NavMesh;
 import info.xiaomo.gengine.ai.pfa.IndexedAStarPathFinder;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Vector3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

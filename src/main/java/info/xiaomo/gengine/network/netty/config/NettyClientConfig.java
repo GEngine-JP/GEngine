@@ -1,24 +1,28 @@
 package info.xiaomo.gengine.network.netty.config;
 
-import info.xiaomo.gengine.server.BaseServerConfig;
-import info.xiaomo.gengine.server.ServerType;
+import info.xiaomo.gengine.network.server.BaseServerConfig;
+import info.xiaomo.gengine.network.server.ServerType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
  * netty 客户端配置
- * 
- *
- *  2017年8月24日 下午8:18:20
+ * <p>
+ * <p>
+ * 2017年8月24日 下午8:18:20
  */
+@EqualsAndHashCode(callSuper = true)
 @Root
+@Data
 public class NettyClientConfig extends BaseServerConfig {
 
 	// 工作组线程数
 	@Element(required = false)
 	private int groupThreadNum = 1;
 
-	// 当前服务器的类型,如当前服务器是gameserver.那么对应ServerType.GameServer = 10
+	// 当前服务器的类型,如当前服务器是gameServer.那么对应ServerType.GameServer = 10
 	@Element(required = false)
 	private ServerType type = ServerType.GATE;
 
@@ -28,7 +32,7 @@ public class NettyClientConfig extends BaseServerConfig {
 
 	//
 	@Element(required = false)
-	private boolean tcpNoDealy = true;
+	private boolean tcpNoDelay = true;
 
 	// IP
 	@Element(required = false)
@@ -39,8 +43,8 @@ public class NettyClientConfig extends BaseServerConfig {
 	private int port = 8080;
 
 	//客户端创建的最大连接数
-    @Element(required = false)
-    private int maxConnectCount = 1;
+	@Element(required = false)
+	private int maxConnectCount = 1;
 
 
 	public int getGroupThreadNum() {
@@ -51,53 +55,5 @@ public class NettyClientConfig extends BaseServerConfig {
 		this.groupThreadNum = groupThreadNum;
 	}
 
-	public ServerType getType() {
-		return type;
-	}
 
-	public void setType(ServerType type) {
-		this.type = type;
-	}
-
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
-	}
-
-	public boolean isTcpNoDealy() {
-		return tcpNoDealy;
-	}
-
-	public void setTcpNoDealy(boolean tcpNoDealy) {
-		this.tcpNoDealy = tcpNoDealy;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public int getMaxConnectCount() {
-		return maxConnectCount;
-	}
-
-	public void setMaxConnectCount(int maxConnectCount) {
-		this.maxConnectCount = maxConnectCount;
-	}
-
-	
 }

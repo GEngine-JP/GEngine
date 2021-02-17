@@ -17,7 +17,7 @@
 package info.xiaomo.gengine.ai.btree;
 
 import java.util.List;
-import info.xiaomo.gengine.common.math.MathUtil;
+import info.xiaomo.gengine.math.MathUtil;
 
 /**
  * 只能运行一个子任务的分支任务<br>

@@ -1,8 +1,8 @@
 package info.xiaomo.gengine.ai.nav.polygon.ui;
 
 
-import info.xiaomo.gengine.common.math.Vector3;
-import info.xiaomo.gengine.common.utils.TimeUtil;
+import info.xiaomo.gengine.math.Vector3;
+import info.xiaomo.gengine.utils.TimeUtil;
 
 /**
  * navmesh主界面

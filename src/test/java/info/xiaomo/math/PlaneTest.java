@@ -1,7 +1,7 @@
 package info.xiaomo.math;
 
-import info.xiaomo.gengine.common.math.Plane;
-import info.xiaomo.gengine.common.math.Vector3;
+import info.xiaomo.gengine.math.Plane;
+import info.xiaomo.gengine.math.Vector3;
 import org.junit.Assert;
 import org.junit.Test;
 

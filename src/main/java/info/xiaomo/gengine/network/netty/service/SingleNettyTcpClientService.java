@@ -6,9 +6,9 @@ import info.xiaomo.gengine.network.netty.config.NettyClientConfig;
 
 /**
  * Netty 单链接客户端
- * 
- *
- *  2017年8月25日 下午3:59:07
+ * <p>
+ * <p>
+ * 2017年8月25日 下午3:59:07
  */
 public class SingleNettyTcpClientService extends NettyClientService {
 	private final NettyTcpClient nettyTcpClient;
@@ -26,11 +26,11 @@ public class SingleNettyTcpClientService extends NettyClientService {
 	public NettyTcpClient getNettyTcpClient() {
 		return nettyTcpClient;
 	}
-	
+
 	@Override
 	public void checkStatus() {
 		nettyTcpClient.checkStatus();
 	}
 
-	
+
 }
