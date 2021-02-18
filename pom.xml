@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.xiaomo</groupId>
     <artifactId>g-engine</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
