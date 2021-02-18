@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 public enum ConfigSuffix {
 
-	excel("xlsx"),
-	csv("csv"),
-	json("json"),
+	excel(".xlsx"),
+	csv(".csv"),
+	json(".json"),
 	;
 
 	private final String suffix;
