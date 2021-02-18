@@ -33,14 +33,14 @@ public abstract class DefaultInBoundHandler extends SimpleChannelInboundHandler<
 			return;
 		}
 		Class<? extends IHandler> handlerClass = ScriptManager.getInstance().getTcpHandler(msg.getMsgId());
-		TcpHandler handler = (TcpHandler) handlerClass.newInstance();
+		TcpHandler handler = (TcpHandler) handlerClass.getDeclaredConstructor().newInstance();
 		handler.setCreateTime(TimeUtil.currentTimeMillis());
 		HandlerEntity handlerEntity = ScriptManager.getInstance().getTcpHandlerEntity(msg.getMsgId());
 		Message message = MsgUtil.buildMessage(handlerEntity.msg(), (byte[]) msg.getMsg());
 		handler.setMessage(message);
 		handler.setRid(msg.getUserID());
 		handler.setChannel(ctx.channel());
-		messagehandler(handler, handlerEntity);
+		messageHandler(handler, handlerEntity);
 	}
 
 
@@ -52,7 +52,7 @@ public abstract class DefaultInBoundHandler extends SimpleChannelInboundHandler<
 	 *
 	 * @param handler
 	 */
-	protected void messagehandler(TcpHandler handler, HandlerEntity handlerEntity) {
+	protected void messageHandler(TcpHandler handler, HandlerEntity handlerEntity) {
 		if (getService() != null) {
 			Executor executor = getService().getExecutor(handlerEntity.thread());
 			if (executor != null) {

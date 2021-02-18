@@ -59,6 +59,7 @@ public class BinaryHeap<E extends Comparable<E>> implements Serializable {
 		return (size < 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doubleCapacityIfFull() {
 		if (size >= elements.length - 1) {
 			// not enough room -- create a new array and copy

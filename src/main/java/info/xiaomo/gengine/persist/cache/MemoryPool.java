@@ -83,7 +83,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 				return cache.remove(0);
 			}
 			try {
-				return c.newInstance();
+				return c.getDeclaredConstructor().newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
