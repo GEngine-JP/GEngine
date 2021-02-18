@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<com.jzy.game.engine.mongo.MongoClientConfig>
-    <dbName>bydr_hall</dbName>
-    <url>${MONGO_URL}</url>
-</com.jzy.game.engine.mongo.MongoClientConfig>
-
-
-
