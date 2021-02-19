@@ -261,7 +261,7 @@ public class BehaviorTreeManager {
 		Class<?> leafTaskClass;
 		try {
 			leafTaskClass = Class.forName(classStr);
-			leafTask = (LeafTask<AbsPerson>) leafTaskClass.newInstance();
+			leafTask = (LeafTask<AbsPerson>) leafTaskClass.getDeclaredConstructor().newInstance();
 
 			// 设置属性
 			if (element.attributeCount() < 2) { // 没有设置属性参数
