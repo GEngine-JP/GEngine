@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.handler;
 
 import com.google.protobuf.Message;
-import info.xiaomo.gengine.entity.AbsPerson;
+import info.xiaomo.gengine.bean.AbsPerson;
 import info.xiaomo.gengine.network.mina.message.IDMessage;
 
 /**

@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.ai.btree;
 
+import info.xiaomo.gengine.bean.AbsPerson;
 import info.xiaomo.gengine.script.IScript;
-import info.xiaomo.gengine.entity.AbsPerson;
 
 /**
  * 行为树脚本

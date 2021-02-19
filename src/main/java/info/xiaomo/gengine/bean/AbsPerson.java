@@ -1,4 +1,4 @@
-package info.xiaomo.gengine.entity;
+package info.xiaomo.gengine.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import java.util.Date;

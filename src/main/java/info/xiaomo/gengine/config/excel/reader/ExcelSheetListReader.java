@@ -17,6 +17,7 @@ import info.xiaomo.gengine.config.IRowReader;
  *
  * @author YangQiang
  */
+@SuppressWarnings("unchecked")
 public class ExcelSheetListReader extends ExcelSheetReader<List> {
 
     public ExcelSheetListReader(Supplier<? extends List> resultSupplier) {
