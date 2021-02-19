@@ -18,29 +18,68 @@
 请一定要先安装`lombok`插件，少写很多getter/setter。不装插件会找不到getter/setter方法
 
 ## 引用
-
+添加以下仓库到你的pom.xml文件中
 ```
     <repositories>
         <repository>
-            <id>ServerCore</id>
-            <url>https://raw.github.com/GEngine-JP/GEngine/packages</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/GEngine-JP/GEngine</url>
         </repository>
     </repositories>
 ```
-
 如果项目的pom.xml文件不加这段内容会找不到对应的jar包
 
+
+添加授权信息到你的settings.xml中     
+windows默认放在`C:/Users/用户名/.m2`下   
+mac os默认放在在 ~/.m2/下    
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>github</id>
+          <name>GitHub OWNER Apache Maven Packages</name>
+          <url>https://maven.pkg.github.com/GEngine-JP/GEngin</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>houko</username>
+      <password>0586b09e7a7eb523c301de480f2cfff4eda67d02</password>
+    </server>
+  </servers>
+</settings>
+```
+
+
+在你的pom文件中`dependencies`添加以下引用
 ```
     <dependency>
       <groupId>info.xiaomo</groupId>
       <artifactId>g-engine</artifactId>
-      <version>3.1.1</version>
+      <version>3.2.2</version>
     </dependency>
 ```
+
 
 #### 更新日志
 [release](https://github.com/GEngine-JP/GEngine/releases)
