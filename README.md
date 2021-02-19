@@ -52,12 +52,6 @@ mac os默认放在在 `~/.m2/settings.xml`,下
       <id>github</id>
       <repositories>
         <repository>
-          <id>central</id>
-          <url>https://repo1.maven.org/maven2</url>
-          <releases><enabled>true</enabled></releases>
-          <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
           <id>github</id>
           <name>GitHub OWNER Apache Maven Packages</name>
           <url>https://maven.pkg.github.com/GEngine-JP/GEngin</url>
