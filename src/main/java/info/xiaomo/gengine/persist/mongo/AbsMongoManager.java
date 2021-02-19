@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * mongodb 管理类
- *
- * 
- *  2017-04-14
+ * <p>
+ * <p>
+ * 2017-04-14
  */
 public abstract class AbsMongoManager {
 

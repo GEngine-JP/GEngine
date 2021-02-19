@@ -16,9 +16,9 @@ public interface PersistAble extends CacheAble {
 
 	/**
 	 * 设置是否为脏数据
-     *
-     * @param dirty dirty
-     */
-    void setDirty(boolean dirty);
+	 *
+	 * @param dirty dirty
+	 */
+	void setDirty(boolean dirty);
 
 }
