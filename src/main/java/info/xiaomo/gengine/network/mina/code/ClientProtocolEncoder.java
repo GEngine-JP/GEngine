@@ -38,7 +38,7 @@ public class ClientProtocolEncoder extends ProtocolEncoderImpl {
 
 		IoBuffer buf = null;
 		if (obj instanceof Message) {
-			buf = MsgUtil.toGameClientIobuffer((Message) obj);
+			buf = MsgUtil.toGameClientIoBuffer((Message) obj);
 		} else if (obj instanceof byte[]) {
 			byte[] data = (byte[]) obj; // 消息ID（4字节）+protobuf
 			buf = IoBuffer.allocate(data.length + 6);
