@@ -24,7 +24,7 @@ public class NettyClientConfig extends BaseServerConfig {
 
 	// 当前服务器的类型,如当前服务器是gameServer.那么对应ServerType.GameServer = 10
 	@Element(required = false)
-	private ServerType type = ServerType.GATE;
+	private Integer type = ServerType.GATE;
 
 	// 其他配置,如配置服务器允许开启的地图
 	@Element(required = false)

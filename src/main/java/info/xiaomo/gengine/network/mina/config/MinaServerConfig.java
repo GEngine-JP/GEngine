@@ -54,7 +54,7 @@ public class MinaServerConfig extends BaseServerConfig {
 
     // 服务器类型
     @Element(required = false)
-    private ServerType type = ServerType.GATE;
+    private Integer type = ServerType.GATE;
 
     //http服务器端口
     @Element(required = false)
@@ -233,14 +233,14 @@ public class MinaServerConfig extends BaseServerConfig {
     /**
      * <p>Getter for the field <code>type</code>.</p>
      */
-    public ServerType getType() {
+    public Integer getType() {
         return type;
     }
 
     /**
      * <p>Setter for the field <code>type</code>.</p>
      */
-    public void setType(ServerType type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

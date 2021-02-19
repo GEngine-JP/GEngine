@@ -34,7 +34,7 @@ public class MinaClientConfig extends BaseServerConfig {
 
 	// 当前服务器的类型,如当前服务器是gameserver.那么对应ServerType.GameServer = 10
 	@Element(required = false)
-	private ServerType type = ServerType.GATE;
+	private Integer type = ServerType.GATE;
 
 	// 其他配置,如配置服务器允许开启的地图
 	@Element(required = false)
@@ -79,14 +79,14 @@ public class MinaClientConfig extends BaseServerConfig {
 	/**
 	 * <p>Getter for the field <code>type</code>.</p>
 	 */
-	public ServerType getType() {
+	public Integer getType() {
 		return type;
 	}
 
 	/**
 	 * <p>Setter for the field <code>type</code>.</p>
 	 */
-	public void setType(ServerType type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
@@ -150,7 +150,7 @@ public class MinaClientConfig extends BaseServerConfig {
 	@Root
 	public static class MinaClienConnToConfig extends BaseServerConfig {
 		@Element(required = true)
-		private ServerType type = ServerType.GATE;
+		private Integer type = ServerType.GATE;
 
 		// 链接到服务器的地址
 		@Element(required = true)
@@ -160,11 +160,11 @@ public class MinaClientConfig extends BaseServerConfig {
 		@Element(required = true)
 		private int port = 8500;
 
-		public ServerType getType() {
+		public Integer getType() {
 			return type;
 		}
 
-		public void setType(ServerType type) {
+		public void setType(Integer type) {
 			this.type = type;
 		}
 
@@ -192,7 +192,7 @@ public class MinaClientConfig extends BaseServerConfig {
 		@Override
 		public int hashCode() {
 			int hash = 5;
-			hash = 47 * hash + type.ordinal();
+			hash = 47 * hash + type;
 			hash = 47 * hash + id;
 			return hash;
 		}
@@ -206,7 +206,7 @@ public class MinaClientConfig extends BaseServerConfig {
 				return false;
 			}
 			final MinaClienConnToConfig other = (MinaClienConnToConfig) obj;
-			if (type != other.type) {
+			if (!type.equals(other.type)) {
 				return false;
 			}
 			if (id != other.id) {

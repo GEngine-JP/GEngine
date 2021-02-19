@@ -18,12 +18,12 @@ public class ScriptManager {
 	static {
 		scriptPool = new ScriptPool();
 		try {
-			String property = System.getProperty("user.dir")+"/game-fish";
-			String path = property + "-scripts" + File.separator + "src" + File.separator + "main" + File.separator // 脚本路径
+			String property = System.getProperty("user.dir") + "/game-server-fish";
+			String path = property + "-script" + File.separator + "src" + File.separator + "main" + File.separator // 脚本路径
 					+ "java" + File.separator;
-			String outpath = property + File.separator + "target" + File.separator + "scriptsbin" + File.separator; // class类编译路径
+			String outPath = property + File.separator + "target" + File.separator + "script" + File.separator; // class类编译路径
 			String jarsDir = property + File.separator + "target" + File.separator; // jar包路径
-			scriptPool.setSource(path, outpath, jarsDir);
+			scriptPool.setSource(path, outPath, jarsDir);
 		} catch (Exception ignored) {
 		}
 	}
