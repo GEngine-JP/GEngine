@@ -2,7 +2,7 @@ package info.xiaomo.gengine.script;
 
 import java.io.*;
 import java.lang.reflect.Modifier;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -21,27 +21,33 @@ import org.slf4j.LoggerFactory;
  * 脚本加载管理容器
  * <br>
  * 服务定位器模式
- *
- *
- *  2017-03-30
+ * <p>
+ * <p>
+ * 2017-03-30
  */
 public final class ScriptPool {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScriptPool.class);
+
 	// tcp handler容器
 	final Map<Integer, Class<? extends IHandler>> tcpHandlerMap = new ConcurrentHashMap<>(0);
 	final Map<Integer, HandlerEntity> tcpHandlerEntityMap = new ConcurrentHashMap<>(0);
+
 	// http handler容器
 	final Map<String, Class<? extends IHandler>> httpHandlerMap = new ConcurrentHashMap<>(0);
 	final Map<String, HandlerEntity> httpHandlerEntityMap = new ConcurrentHashMap<>(0);
+
 	// 脚本容器
 	Map<String, Map<String, IScript>> scriptInstances = new ConcurrentHashMap<>(0);
 	Map<String, Map<String, IScript>> tmpScriptInstances = new ConcurrentHashMap<>(0);
 	Map<Integer, IIDScript> idScriptInstances = new ConcurrentHashMap<>(0);
 	Map<Integer, IIDScript> tmpIdScriptInstances = new ConcurrentHashMap<>(0);
+
 	// 源文件夹
 	private String sourceDir;
+
 	// 输出文件夹
 	private String outDir;
+
 	// 附加的jar包地址
 	private String jarsDir;
 
@@ -90,7 +96,7 @@ public final class ScriptPool {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <E> Collection<E> getEvts(String name) {
+	public <E> Collection<E> getScripts(String name) {
 		Map<String, IScript> scripts = scriptInstances.get(name);
 		if (scripts != null) {
 			return (Collection<E>) scripts.values();
@@ -105,7 +111,7 @@ public final class ScriptPool {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <E> Collection<E> getEvts(Class<E> clazz) {
+	public <E> Collection<E> getScripts(Class<E> clazz) {
 		Map<String, IScript> scripts = scriptInstances.get(clazz.getName());
 		if (scripts != null) {
 			return (Collection<E>) scripts.values();
@@ -122,11 +128,11 @@ public final class ScriptPool {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends IScript> void executeScripts(Class<T> scriptClass, Consumer<T> action) {
-		Collection<IScript> evts = getEvts(scriptClass.getName());
-		if (evts != null && !evts.isEmpty() && action != null) {
-			evts.forEach(scrpit -> {
+		Collection<IScript> evts = getScripts(scriptClass.getName());
+		if (!evts.isEmpty() && action != null) {
+			evts.forEach(script -> {
 				try {
-					action.accept((T) scrpit);
+					action.accept((T) script);
 				} catch (Exception e) {
 					LOGGER.error("执行 IScript:" + scriptClass.getName(), e);
 				}
@@ -144,8 +150,8 @@ public final class ScriptPool {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends IScript> boolean predicateScripts(Class<? extends IScript> scriptClass, Predicate<T> condition) {
-		Collection<IScript> evts = getEvts(scriptClass.getName());
-		if (evts != null && !evts.isEmpty() && condition != null) {
+		Collection<IScript> evts = getScripts(scriptClass.getName());
+		if (!evts.isEmpty() && condition != null) {
 			Iterator<IScript> iterator = evts.iterator();
 			while (iterator.hasNext()) {
 				try {
@@ -169,8 +175,8 @@ public final class ScriptPool {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends IScript, R> R functionScripts(Class<? extends IScript> scriptClass, Function<T, R> function) {
-		Collection<IScript> evts = getEvts(scriptClass.getName());
-		if (evts != null && !evts.isEmpty() && function != null) {
+		Collection<IScript> evts = getScripts(scriptClass.getName());
+		if (!evts.isEmpty() && function != null) {
 			Iterator<IScript> iterator = evts.iterator();
 			while (iterator.hasNext()) {
 				try {
@@ -196,7 +202,6 @@ public final class ScriptPool {
 		return str == null || str.length() <= 0 || "".equals(str.trim());
 	}
 
-	// <editor-fold desc="public final void Compile()">
 
 	/**
 	 * 编译 java 源文件
@@ -209,9 +214,6 @@ public final class ScriptPool {
 		FileUtil.getFiles(sourceDir, sourceFileList, ".java", null); // 获取源文件
 		return compile(sourceFileList);
 	}
-	// </editor-fold>
-
-	// <editor-fold desc="public final void Compile(String... fileNames)">
 
 	/**
 	 * 编译文件
@@ -227,7 +229,7 @@ public final class ScriptPool {
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 			// 获取标准文件管理器实例
 			StandardJavaFileManager fileManager = compiler.getStandardFileManager(oDiagnosticCollector, null,
-					Charset.forName("utf-8"));
+					StandardCharsets.UTF_8);
 			try {
 				// 没有java文件，直接返回
 				if (sourceFileList.isEmpty()) {
@@ -240,16 +242,11 @@ public final class ScriptPool {
 				// 获取要编译的编译单元
 				Iterable<? extends JavaFileObject> compilationUnits = fileManager
 						.getJavaFileObjectsFromFiles(sourceFileList);
-				/**
-				 * 编译选项，在编译java文件时，编译程序会自动的去寻找java文件引用的其他的java源文件或者class。
-				 * -sourcepath选项就是定义java源文件的查找目录， -classpath选项就是定义class文件的查找目录。
-				 */
+
 				ArrayList<String> options = new ArrayList<>(0);
 				options.add("-g");
 				options.add("-source");
 				options.add("1.8");
-				// options.add("-Xlint");
-				// options.add("unchecked");
 				options.add("-encoding");
 				options.add("UTF-8");
 				options.add("-sourcepath");
@@ -262,7 +259,6 @@ public final class ScriptPool {
 				String jarString = "";
 				jarString = jarsList.stream().map(jar -> jar.getPath() + File.pathSeparator).reduce(jarString,
 						String::concat);
-				// log.warn("jarString:" + jarString);
 				if (!stringIsNullEmpty(jarString)) {
 					options.add("-classpath");
 					options.add(jarString);// 指定附加的jar包
@@ -295,9 +291,6 @@ public final class ScriptPool {
 		}
 		return sb.toString();
 	}
-	// </editor-fold>
-
-	// <editor-fold desc="加载脚本 public void loadJava()">
 
 	/**
 	 * 加载脚本文件
@@ -308,7 +301,7 @@ public final class ScriptPool {
 	public String loadJava(Consumer<String> condition) {
 		String compile = compile();
 		StringBuilder sb = new StringBuilder();
-		if (compile == null || compile.isEmpty()) {
+		if (compile.isEmpty()) {
 			List<File> sourceFileList = new ArrayList<>(0);
 			// 得到编译后的class文件
 			FileUtil.getFiles(outDir, sourceFileList, ".class", null);
@@ -329,10 +322,8 @@ public final class ScriptPool {
 				idScriptInstances = tmpIdScriptInstances;
 			}
 		} else {
-			if (!compile.isEmpty()) {
-				if (condition != null) {
-					condition.accept(compile);
-				}
+			if (condition != null) {
+				condition.accept(compile);
 			}
 		}
 		return sb.toString();
@@ -352,7 +343,7 @@ public final class ScriptPool {
 				return true;
 			}
 			for (String str : source) {
-				if (fileAbsolutePath.contains(str) || "".equals(str)) {
+				if (fileAbsolutePath.contains(str)) {
 					return true;
 				}
 			}
@@ -360,14 +351,14 @@ public final class ScriptPool {
 		});
 		String result = compile(sourceFileList);
 		StringBuilder loadJava = new StringBuilder();
-		if (result == null || result.isEmpty()) {
+		if (result.isEmpty()) {
 			sourceFileList.clear();
 			FileUtil.getFiles(outDir, sourceFileList, ".class", fileAbsolutePath -> {
 				if (source == null) {
 					return true;
 				}
 				for (String str : source) {
-					if (fileAbsolutePath.contains(str) || "".equals(str)) {
+					if (fileAbsolutePath.contains(str)) {
 						return true;
 					}
 				}
@@ -382,19 +373,10 @@ public final class ScriptPool {
 			tmpIdScriptInstances = new ConcurrentHashMap<>();
 			loadClass(fileNames);
 			if (tmpScriptInstances.size() > 0) {
-				tmpScriptInstances.entrySet().forEach(entry -> {
-					String key = entry.getKey();
-					Map<String, IScript> value = entry.getValue();
-					scriptInstances.put(key, value);
-//					loadJava.append(key).append(";");
-				});
+				tmpScriptInstances.forEach((key, value) -> scriptInstances.put(key, value));
 			}
 			if (tmpIdScriptInstances.size() > 0) {
-				tmpIdScriptInstances.entrySet().forEach(entry -> {
-					Integer key = entry.getKey();
-					IIDScript value = entry.getValue();
-					idScriptInstances.put(key, value);
-				});
+				tmpIdScriptInstances.forEach((key, value) -> idScriptInstances.put(key, value));
 			}
 		}
 		return loadJava.toString();
@@ -416,12 +398,10 @@ public final class ScriptPool {
 			LOGGER.error("", e);
 		}
 	}
-	// </editor-fold>
 
 	public Map<Integer, Class<? extends IHandler>> getHandlerMap() {
 		return tcpHandlerMap;
 	}
-	// </editor-fold>
 
 	public Map<Integer, HandlerEntity> getHandlerEntityMap() {
 		return tcpHandlerEntityMap;
@@ -438,10 +418,8 @@ public final class ScriptPool {
 	/**
 	 * 添加handler
 	 *
-	 * @param clazz
-	 *
-	 * <p>
-	 * 2017年7月24日 下午1:36:27
+	 * @param clazz <p>
+	 *              2017年7月24日 下午1:36:27
 	 */
 	public void addHandler(Class<? extends IHandler> clazz) {
 		if (IHandler.class.isAssignableFrom(clazz)) {
@@ -464,12 +442,11 @@ public final class ScriptPool {
 		}
 	}
 
-	// <editor-fold desc="自定义文件加载器 class ScriptClassLoader extends ClassLoader">
 	class ScriptClassLoader extends ClassLoader {
 
 		@Override
 		public Class<?> loadClass(String name) throws ClassNotFoundException {
-			Class<?> defineClass = null;
+			Class<?> defineClass;
 			defineClass = super.loadClass(name);
 			return defineClass;
 		}
@@ -477,7 +454,6 @@ public final class ScriptPool {
 		@SuppressWarnings("unchecked")
 		@Override
 		protected Class<?> findClass(String name) {
-			// log.warn("加载脚本目录名称：" + (name));
 			byte[] classData = getClassData(name);
 			Class<?> defineClass = null;
 			if (classData != null) {
@@ -501,7 +477,7 @@ public final class ScriptPool {
 							}
 						}
 						// 脚本
-						if (newInstance != null && !interfaces.isEmpty()) {
+						if (!interfaces.isEmpty()) {
 							for (Class<?> aInterface : interfaces) {
 								if (IScript.class.isAssignableFrom(aInterface)) {
 									if (!tmpScriptInstances.containsKey(aInterface.getName())) {
@@ -560,7 +536,7 @@ public final class ScriptPool {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					int bufferSize = 4096;
 					byte[] buffer = new byte[bufferSize];
-					int bytesNumRead = 0;
+					int bytesNumRead;
 					while ((bytesNumRead = ins.read(buffer)) != -1) {
 						baos.write(buffer, 0, bytesNumRead);
 					}
@@ -583,7 +559,7 @@ public final class ScriptPool {
 		}
 
 		private String classNameToPath(String className) {
-			File file = null;
+			File file;
 			try {
 				String path = outDir + className.replace('.', File.separatorChar) + ".class";
 				// log.warn("classNameToPath path:{}", path);

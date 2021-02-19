@@ -7,6 +7,7 @@ import java.net.InetSocketAddress;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.Comparator;
+import info.xiaomo.gengine.bean.AbsPerson;
 import info.xiaomo.gengine.network.mina.message.IDMessage;
 import info.xiaomo.gengine.network.mina.message.MassMessage;
 import org.apache.mina.core.buffer.IoBuffer;
@@ -119,13 +120,13 @@ public final class MsgUtil {
 	}
 
 	/**
-	 * 转换为游戏客户端发送的iobuff
+	 * 转换为游戏客户端发送的ioBuff
 	 *
 	 * @param message
-	 * @return 【length|msgid|protobuf_length|data】
-	 * @note portobuf长度对于服务器多余了，服务器进行了大小端转换
+	 * @return 【length|msgId|protobuf_length|data】
+	 * @note protobuf长度对于服务器多余了，服务器进行了大小端转换
 	 */
-	public static IoBuffer toGameClientIobuffer(final Message message) {
+	public static IoBuffer toGameClientIoBuffer(final Message message) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int protobufLength = msgData.length;
@@ -149,13 +150,13 @@ public final class MsgUtil {
 	}
 
 	/**
-	 * 转换为发送的iobuff
+	 * 转换为发送的ioBuff
 	 *
 	 * @param message
 	 * @param id
-	 * @return 【length|msgid|data】
+	 * @return 【length|msgId|data】
 	 */
-	public static IoBuffer toIobufferWithID(final Message message, long id) {
+	public static IoBuffer toIoBufferWithID(final Message message, long id) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int msgDataLength = msgData.length;
@@ -188,17 +189,17 @@ public final class MsgUtil {
 	}
 
 	/**
-	 * 去掉消息【id|msgid|data】的id部分并转换为【length|msgid|data】
+	 * 去掉消息【id|msgId|data】的id部分并转换为【length|msgId|data】
 	 *
 	 * @param bytes
-	 * @param idlength
-	 * @return 【length|msgid|data】
+	 * @param idLength
+	 * @return 【length|msgId|data】
 	 */
-	public static IoBuffer toIobufferWithoutID(final byte[] bytes, final int idlength) {
-		if (bytes.length < idlength || bytes.length < 1) {
+	public static IoBuffer toIoBufferWithoutID(final byte[] bytes, final int idLength) {
+		if (bytes.length < idLength || bytes.length < 1) {
 			return null;
 		}
-		byte[] target = Arrays.copyOfRange(bytes, idlength, bytes.length);
+		byte[] target = Arrays.copyOfRange(bytes, idLength, bytes.length);
 		IoBuffer buf = IoBuffer.allocate(target.length + 4);
 		buf.putInt(target.length);
 		buf.put(target);
@@ -251,7 +252,7 @@ public final class MsgUtil {
 		return msgID;
 	}
 
-	public static int getMessageID(final byte[] bytes, final int offset) throws Exception {
+	public static int getMessageID(final byte[] bytes, final int offset) {
 		int msgID = bytes[offset + 3] & 0xFF | (bytes[offset + 2] & 0xFF) << 8 | (bytes[offset + 1] & 0xFF) << 16
 				| (bytes[offset] & 0xFF) << 24;
 		if (msgID < 99999) {
@@ -315,44 +316,17 @@ public final class MsgUtil {
 		return buildMessage(clazz, bytes);
 	}
 
-	// /**
-	// * 构建广播消息，默认发送给本服务器addTargetServer 为0标识全服；setSourceServer为0不显示服务器名
-	// *
-	// * @param callback
-	// * @param content
-	// * @param language
-	// * @param author
-	// * @param layer 0默认按先进先出策略（时间）；>1越高排序越前；（如果累计，排序优先按layer排序，其次按time排序）
-	// * @param params
-	// * @return
-	// */
-	// public static NoticeMessage.ResBroadcastMessage
-	// buildResBroadcastMessage(Consumer<NoticeMessage.ResBroadcastMessage.Builder>
-	// callback,
-	// String content, int language, String author, int layer, String... params)
-	// {
-	// NoticeMessage.ResBroadcastMessage.Builder broadcastBuider =
-	// NoticeMessage.ResBroadcastMessage.newBuilder();
-	// NoticeMessage.Notice.Builder noticeBuider =
-	// NoticeMessage.Notice.newBuilder();
-	// broadcastBuider.setSourceServer(Config.SERVER_ID);
-	// broadcastBuider.addTargetServer(Config.SERVER_ID);
-	// callback.accept(broadcastBuider);
-	// noticeBuider.setTime(TimeUtil.currentTimeMillis());
-	// if (author != null) {
-	// noticeBuider.setAuthor(author);
-	// }
-	// if (content != null) {
-	// noticeBuider.setContent(content);
-	// }
-	// noticeBuider.setContentID(language);
-	// noticeBuider.setLayer(layer);
-	// if (params != null && params.length > 0) {
-	// for (String param : params) {
-	// noticeBuider.addParams(param);
-	// }
-	// }
-	// broadcastBuider.setNotice(noticeBuider.build());
-	// return broadcastBuider.build();
-	// }
+	public static boolean sendMsg(AbsPerson person, Object message) {
+		if (person.getIoSession() != null) {
+			IDMessage idm = new IDMessage(person.getIoSession(), message, person.getId());
+			person.getIoSession().write(idm);
+			return true;
+		} else if (person.getChannel() != null) {
+			person.getChannel().writeAndFlush(new IDMessage(person.getChannel(), message, person.getId(), null));
+		} else {
+			log.warn("连接session==null | channel==null {}", message);
+		}
+		return false;
+	}
+
 }

@@ -29,19 +29,19 @@ public class ReloadScriptHandler extends HttpHandler {
 			sendMsg("验证失败");
 			return;
 		}
-		String loadClasss = null;
+		String loadClass;
 		if (scriptPath == null) {
-			loadClasss = ScriptManager.getInstance().init(null);
+			loadClass = ScriptManager.getInstance().init(null);
 		} else {
 			if (scriptPath.contains(",")) {
 				String[] split = scriptPath.split(",");
-				loadClasss = ScriptManager.getInstance().loadJava(split);
+				loadClass = ScriptManager.getInstance().loadJava(split);
 			} else {
-				loadClasss = ScriptManager.getInstance().loadJava(scriptPath);
+				loadClass = ScriptManager.getInstance().loadJava(scriptPath);
 			}
 		}
 
-		String info = String.format("%s加载脚本：%s", MsgUtil.getIp(getSession()), loadClasss);
+		String info = String.format("%s加载脚本：%s", MsgUtil.getIp(getSession()), loadClass);
 		LOGGER.info(info);
 		MailConfig mailConfig = MailManager.getInstance().getMailConfig();
 		String[] receives = mailConfig.getReceivedUser().toArray(new String[0]);

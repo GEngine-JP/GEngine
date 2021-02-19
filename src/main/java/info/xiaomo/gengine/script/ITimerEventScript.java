@@ -5,9 +5,9 @@ import java.time.LocalTime;
 
 /**
  * 心跳脚本，最低按秒循环
- *
- *
- *  2017-03-30
+ * <p>
+ * <p>
+ * 2017-03-30
  */
 public interface ITimerEventScript extends IScript {
 

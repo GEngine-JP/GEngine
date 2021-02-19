@@ -2,9 +2,7 @@ package info.xiaomo.gengine.script;
 
 /**
  * 有ID的脚本
- *
- * 
- *  2017-03-30
+ * 2017-03-30
  */
 public interface IIDScript extends IScript {
 

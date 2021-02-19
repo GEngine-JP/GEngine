@@ -7,9 +7,7 @@ import info.xiaomo.gengine.network.handler.IHandler;
 
 /**
  * 脚本管理
- *
- *
- *  2017-03-30
+ * 2017-03-30
  */
 public class ScriptManager {
 
@@ -20,7 +18,7 @@ public class ScriptManager {
 	static {
 		scriptPool = new ScriptPool();
 		try {
-			String property = System.getProperty("user.dir");
+			String property = System.getProperty("user.dir")+"/game-fish";
 			String path = property + "-scripts" + File.separator + "src" + File.separator + "main" + File.separator // 脚本路径
 					+ "java" + File.separator;
 			String outpath = property + File.separator + "target" + File.separator + "scriptsbin" + File.separator; // class类编译路径
@@ -38,12 +36,23 @@ public class ScriptManager {
 		return scriptPool;
 	}
 
+
+	/**
+	 * 初始化脚本
+	 *
+	 * @param scriptRootPath
+	 * @return
+	 */
+	public String init(String scriptRootPath) {
+		return init(scriptRootPath, null);
+	}
+
 	/**
 	 * 初始化脚本
 	 *
 	 * @param result 加载输出结果字符串
 	 */
-	public String init(Consumer<String> result) {
+	public String init(String scriptPath, Consumer<String> result) {
 		return scriptPool.loadJava(result);
 	}
 
@@ -61,7 +70,7 @@ public class ScriptManager {
 	 * 获取消息处理器
 	 *
 	 * @param mid 消息ID
-	 * @return  Class
+	 * @return Class
 	 */
 	public Class<? extends IHandler> getTcpHandler(int mid) {
 		return scriptPool.getHandlerMap().get(mid);
@@ -113,9 +122,7 @@ public class ScriptManager {
 	 * 非脚本目录下的需要手动添加到容器中
 	 * </p>
 	 *
-	 * @param clazz
-	 *
-	 * 2017年7月24日 下午1:37:13
+	 * @param clazz 2017年7月24日 下午1:37:13
 	 */
 	public void addIHandler(Class<? extends IHandler> clazz) {
 		scriptPool.addHandler(clazz);

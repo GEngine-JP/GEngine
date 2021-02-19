@@ -24,9 +24,8 @@ import org.slf4j.LoggerFactory;
  * decoder 已去掉包长度
  * </p>
  *
- * 
  * @version $Id: $Id
- *  2017-04-01
+ * 2017-04-01
  */
 public class ClientProtocolHandler extends DefaultProtocolHandler {
 
@@ -100,8 +99,6 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 
 	/**
 	 * <p>Setter for the field <code>service</code>.</p>
-	 *
-	 * @param gameService a {@link com.jzy.game.engine.server.Service} object.
 	 */
 	public void setService(GameService<MinaServerConfig> gameService) {
 		this.gameService = gameService;
