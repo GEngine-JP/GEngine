@@ -17,8 +17,10 @@
 
 请一定要先安装`lombok`插件，少写很多getter/setter。不装插件会找不到getter/setter方法
 
-## 引用
+# 添加仓库源
+
 添加以下仓库到你的pom.xml文件中
+
 ```
     <repositories>
         <repository>
@@ -27,12 +29,15 @@
         </repository>
     </repositories>
 ```
+
 如果项目的pom.xml文件不加这段内容会找不到对应的jar包
 
+# 添加授权信息
 
-添加授权信息到你的settings.xml中     
-windows默认放在`C:/Users/用户名/.m2`下   
-mac os默认放在在 ~/.m2/下    
+windows默认放在`C:/Users/用户名/.m2/settings.xml`下   
+mac os默认放在在 `~/.m2/settings.xml`,下
+
+`settings.xml`
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -70,8 +75,10 @@ mac os默认放在在 ~/.m2/下
 </settings>
 ```
 
+# 添加引用
 
 在你的pom文件中`dependencies`添加以下引用
+
 ```
     <dependency>
       <groupId>info.xiaomo</groupId>
@@ -80,10 +87,10 @@ mac os默认放在在 ~/.m2/下
     </dependency>
 ```
 
-
 #### 更新日志
+
 [release](https://github.com/GEngine-JP/GEngine/releases)
 
-
 #### 协议声明
+
 [LICENSE](LICENSE)
