@@ -102,7 +102,7 @@ public class NettyTcpClient implements Runnable {
 
 			for (int i = channels.size(); i < nettyClientConfig.getMaxConnectCount(); i++) {
 				ChannelFuture channelFuture = bootstrap.connect(nettyClientConfig.getIp(), nettyClientConfig.getPort());
-				channelFuture.awaitUninterruptibly(10000);    //最多等待10秒，如果服务器一直未开启情况下，房子阻塞当前线程
+				channelFuture.awaitUninterruptibly(10000);    //最多等待10秒，如果服务器一直未开启情况下，防止阻塞当前线程
 				channels.add(channelFuture.channel());
 				channelFuture.addListener(future -> {
 					if (future.isSuccess()) {
