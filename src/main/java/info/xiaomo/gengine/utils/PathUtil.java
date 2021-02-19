@@ -13,9 +13,6 @@ public class PathUtil {
 	 */
 	public static String getConfigPath() {
 		File file = new File(System.getProperty("user.dir"));
-		if (OSUtil.isWindows) {
-			return file.getParent() + "/game-conf/";
-		}
 		return file.getPath() + "/game-conf/";
 	}
 
