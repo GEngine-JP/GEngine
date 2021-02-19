@@ -27,7 +27,6 @@ import info.xiaomo.gengine.ai.btree.annotation.TaskConstraint;
  *            game state
  * @author implicit-invocation
  * @author davebaol
- *
  */
 @TaskConstraint(minChildren = 0, maxChildren = 0)
 public abstract class LeafTask<E> extends Task<E> {

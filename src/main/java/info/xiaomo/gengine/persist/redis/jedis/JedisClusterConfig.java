@@ -1,10 +1,9 @@
 package info.xiaomo.gengine.persist.redis.jedis;
 
+import java.util.HashSet;
 import lombok.Data;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
-
-import java.util.HashSet;
 
 /**
  * redis集群配置文件

@@ -4,9 +4,9 @@ import info.xiaomo.gengine.ai.pfa.Heuristic;
 
 /**
  * 多边形消耗计算
- *
- *
- *  2018年2月20日
+ * <p>
+ * <p>
+ * 2018年2月20日
  */
 public class PolygonHeuristic implements Heuristic<Polygon> {
 

@@ -8,7 +8,6 @@ import info.xiaomo.gengine.ai.btree.Task;
  * 分数选择器，分数越高，优先执行,只会执行第一个子树
  *
  * @param <E> 黑板对象
- * 
  */
 public abstract class ScoreSelector<E> extends Selector<E> {
 	/**

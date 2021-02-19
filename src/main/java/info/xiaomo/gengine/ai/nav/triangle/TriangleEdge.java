@@ -5,8 +5,8 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 相连接三角形的共享边
- *
- *
+ * <p>
+ * <p>
  * 2017年11月7日 下午4:50:11
  */
 public class TriangleEdge implements Connection<Triangle> {

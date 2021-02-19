@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.mina.handler;
 
-import info.xiaomo.gengine.utils.IntUtil;
 import info.xiaomo.gengine.network.mina.service.MinaClientGameService;
+import info.xiaomo.gengine.utils.IntUtil;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.FilterEvent;
 

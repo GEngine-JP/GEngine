@@ -1,8 +1,8 @@
 package info.xiaomo.gengine.network.netty.handler;
 
-import info.xiaomo.gengine.script.IScript;
 import info.xiaomo.gengine.network.server.BaseServerConfig;
 import info.xiaomo.gengine.network.server.GameService;
+import info.xiaomo.gengine.script.IScript;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 

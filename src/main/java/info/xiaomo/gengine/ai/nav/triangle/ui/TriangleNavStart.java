@@ -4,8 +4,6 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * navmesh主界面
- *
- * 
  */
 public class TriangleNavStart extends javax.swing.JFrame {
 

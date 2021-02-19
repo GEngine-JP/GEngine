@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author implicit-invocation
  * @author davebaol
- *
+ * <p>
  * 2017年11月22日 下午2:43:23
  */
 public class BehaviorTree<E> extends Task<E> {
@@ -156,9 +156,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 * 通知添加子任务
 	 *
 	 * @param task
-	 * @param index
-	 * 
-	 * 2017年11月22日 下午4:00:00
+	 * @param index 2017年11月22日 下午4:00:00
 	 */
 	public void notifyChildAdded(Task<E> task, int index) {
 		for (Listener<E> listener : listeners) {
@@ -170,9 +168,7 @@ public class BehaviorTree<E> extends Task<E> {
 	 * 通知任务更新
 	 *
 	 * @param task
-	 * @param previousStatus
-	 * 
-	 * 2017年11月22日 下午5:04:00
+	 * @param previousStatus 2017年11月22日 下午5:04:00
 	 */
 	public void notifyStatusUpdated(Task<E> task, Status previousStatus) {
 		for (Listener<E> listener : listeners) {
@@ -202,9 +198,7 @@ public class BehaviorTree<E> extends Task<E> {
 	/**
 	 * 添加监听器
 	 *
-	 * @param listener
-	 * 
-	 * 2017年11月22日 下午5:39:57
+	 * @param listener 2017年11月22日 下午5:39:57
 	 */
 	public void addListener(Listener<E> listener) {
 		if (listeners == null) {
@@ -228,9 +222,7 @@ public class BehaviorTree<E> extends Task<E> {
 	/**
 	 * 行为树事件
 	 *
-	 * @param <E>
-	 * 
-	 * 2017年11月22日 下午3:50:50
+	 * @param <E> 2017年11月22日 下午3:50:50
 	 */
 	public interface Listener<E> {
 
@@ -239,8 +231,8 @@ public class BehaviorTree<E> extends Task<E> {
 		 *
 		 * @param task
 		 * @param previousStatus 之前状态
-		 * 
-		 * 2017年11月22日 下午3:52:23
+		 *                       <p>
+		 *                       2017年11月22日 下午3:52:23
 		 */
 		public void statusUpdated(Task<E> task, Status previousStatus);
 
@@ -249,8 +241,8 @@ public class BehaviorTree<E> extends Task<E> {
 		 *
 		 * @param task  子任务
 		 * @param index 子任务位置
-		 * 
-		 * 2017年11月22日 下午3:55:20
+		 *              <p>
+		 *              2017年11月22日 下午3:55:20
 		 */
 		public void childAdded(Task<E> task, int index);
 	}

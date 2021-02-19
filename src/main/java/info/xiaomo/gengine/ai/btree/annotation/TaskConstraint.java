@@ -13,17 +13,17 @@ import java.lang.annotation.*;
 @Documented
 public @interface TaskConstraint {
 
-  /**
-   * Returns the minimum number of allowed children, defaults to 0.
-   *
-   * @return the minimum number of allowed children.
-   */
-  int minChildren() default 0;
+	/**
+	 * Returns the minimum number of allowed children, defaults to 0.
+	 *
+	 * @return the minimum number of allowed children.
+	 */
+	int minChildren() default 0;
 
-  /**
-   * Returns the maximum number of allowed children, defaults to {@code Integer.MAX_VALUE}.
-   *
-   * @return the maximum number of allowed children.
-   */
-  int maxChildren() default Integer.MAX_VALUE;
+	/**
+	 * Returns the maximum number of allowed children, defaults to {@code Integer.MAX_VALUE}.
+	 *
+	 * @return the maximum number of allowed children.
+	 */
+	int maxChildren() default Integer.MAX_VALUE;
 }

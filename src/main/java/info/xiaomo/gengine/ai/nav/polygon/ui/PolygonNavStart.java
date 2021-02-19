@@ -6,8 +6,6 @@ import info.xiaomo.gengine.utils.TimeUtil;
 
 /**
  * navmesh主界面
- *
- * 
  */
 public class PolygonNavStart extends javax.swing.JFrame {
 

@@ -6,8 +6,6 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * navmesh寻路入口
- *
- * 
  */
 public abstract class NavMesh {
 

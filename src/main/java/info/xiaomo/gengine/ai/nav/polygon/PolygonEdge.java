@@ -6,8 +6,6 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 多边形共享边
- *
- *
  */
 public class PolygonEdge implements Connection<Polygon> {
 

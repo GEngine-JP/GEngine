@@ -10,8 +10,6 @@ import info.xiaomo.gengine.utils.TimeUtil;
 
 /**
  * 移动玩家
- *
- *
  */
 public class TrianglePlayer {
 

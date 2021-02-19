@@ -11,8 +11,6 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * Delaunay 三角形
- *
- * 
  */
 public class DelaunayTriangle extends Triangle {
 

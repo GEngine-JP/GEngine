@@ -1,7 +1,6 @@
 package info.xiaomo.gengine.script;
 
 import java.util.List;
-
 import org.mongodb.morphia.annotations.Entity;
 
 /**

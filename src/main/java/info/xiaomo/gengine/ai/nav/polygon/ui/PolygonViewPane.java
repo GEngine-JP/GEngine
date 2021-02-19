@@ -11,8 +11,6 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 地图显示面板
- *
- *
  */
 public class PolygonViewPane extends JPanel {
 

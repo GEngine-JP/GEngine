@@ -1,4 +1,3 @@
-
 package info.xiaomo.gengine.ai.nav.polygon;
 
 import java.util.ArrayList;
@@ -11,9 +10,9 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * NavMesh 生成坐标路径点
- *
- *
- *  2018年2月20日
+ * <p>
+ * <p>
+ * 2018年2月20日
  */
 public class PolygonPointPath implements Iterable<Vector3> {
 	public static final Vector3 V3_UP = Vector3.Y;

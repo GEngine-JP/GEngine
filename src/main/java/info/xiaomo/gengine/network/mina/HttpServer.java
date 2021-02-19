@@ -2,10 +2,10 @@ package info.xiaomo.gengine.network.mina;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import info.xiaomo.gengine.utils.SysUtil;
 import info.xiaomo.gengine.network.mina.code.HttpServerCodecImpl;
 import info.xiaomo.gengine.network.mina.config.MinaServerConfig;
 import info.xiaomo.gengine.network.mina.handler.HttpServerIoHandler;
+import info.xiaomo.gengine.utils.SysUtil;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.executor.ExecutorFilter;

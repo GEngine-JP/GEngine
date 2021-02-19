@@ -13,8 +13,8 @@ import info.xiaomo.gengine.math.Vector3;
 
 /**
  * 三角形
- *
- * 
+ * <p>
+ * <p>
  * 2017年11月7日 下午4:41:27
  */
 public class Triangle implements Shape {

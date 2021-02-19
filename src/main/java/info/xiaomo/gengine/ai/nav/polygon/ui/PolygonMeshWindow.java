@@ -16,8 +16,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 地图显示窗口
- *
- *
  */
 public class PolygonMeshWindow {
 

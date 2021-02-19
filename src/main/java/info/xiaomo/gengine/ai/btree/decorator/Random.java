@@ -34,7 +34,6 @@ import info.xiaomo.gengine.math.MathUtil;
  * @param <E> type of the blackboard object that tasks use to read or modify
  *            game state
  * @author davebaol
- *
  */
 @TaskConstraint(minChildren = 0, maxChildren = 1)
 public class Random<E> extends Decorator<E> {

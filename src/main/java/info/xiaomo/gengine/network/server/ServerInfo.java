@@ -1,11 +1,9 @@
 package info.xiaomo.gengine.network.server;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import java.text.SimpleDateFormat;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import info.xiaomo.gengine.utils.MsgUtil;
 import io.netty.channel.Channel;
 import lombok.Data;

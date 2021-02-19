@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 多边形图对象
- *
- * 
  */
 public class PolygonGraph implements IndexedGraph<Polygon> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PolygonGraph.class);
