@@ -77,7 +77,7 @@ mac os默认放在在 `~/.m2/settings.xml`,下
     <dependency>
       <groupId>info.xiaomo</groupId>
       <artifactId>g-engine</artifactId>
-      <version>3.2.2</version>
+      <version>3.2.3</version>
     </dependency>
 ```
 
