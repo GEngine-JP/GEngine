@@ -2,7 +2,6 @@ package info.xiaomo.gengine.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.apache.mina.core.buffer.IoBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,19 +86,6 @@ public final class IntUtil {
         return buffer.getShort();
     }
 
-    /**
-     * 大端字节转换为short
-     *
-     * @param ioBuffer
-     * @param offset
-     * @param length
-     * @return
-     */
-    public static short bigEndianByteToShort(IoBuffer ioBuffer, int offset, int length) {
-        byte[] b = new byte[2];
-        ioBuffer.get(b, offset, length);
-        return bigEndianByteToShort(b, offset, length);
-    }
 
     /**
      * 大端字节转换为short

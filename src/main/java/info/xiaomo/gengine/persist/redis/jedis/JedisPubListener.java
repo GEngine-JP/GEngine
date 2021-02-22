@@ -1,16 +1,14 @@
 package info.xiaomo.gengine.persist.redis.jedis;
 
 import com.alibaba.fastjson.JSON;
-import info.xiaomo.gengine.persist.redis.IPubSubScript;
-import info.xiaomo.gengine.script.ScriptManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPubSub;
 
 /**
  * Redis 监听事件
- *
- * 
+ * <p>
+ * <p>
  * 2017年7月10日 下午2:00:34
  */
 public class JedisPubListener extends JedisPubSub implements Runnable {
@@ -27,8 +25,7 @@ public class JedisPubListener extends JedisPubSub implements Runnable {
 		try {
 			JedisPubSubMessage jedisPubSubMessage = JSON.parseObject(message, JedisPubSubMessage.class);
 			if (jedisPubSubMessage != null) {
-				ScriptManager.getInstance().getBaseScriptEntry().executeScripts(IPubSubScript.class,
-						script -> script.onMessage(channel, jedisPubSubMessage));
+				// 处理逻辑
 			}
 
 		} catch (Exception e) {
