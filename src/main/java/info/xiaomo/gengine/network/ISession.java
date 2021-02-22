@@ -17,7 +17,7 @@ import io.netty.channel.Channel;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public interface Session {
+public interface ISession {
 
     /**
      * channel

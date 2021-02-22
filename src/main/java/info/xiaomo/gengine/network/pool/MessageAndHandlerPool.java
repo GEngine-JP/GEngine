@@ -26,7 +26,7 @@ public class MessageAndHandlerPool implements IMessageAndHandler {
     /**
      * 消息类字典
      */
-    private final Map<Integer, AbstractMessage> messages = new HashMap<>(10);
+    public final Map<Integer, AbstractMessage> messages = new HashMap<>(10);
 
     /**
      * 类和

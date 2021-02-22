@@ -41,15 +41,15 @@ public class MessageRouter implements INetworkConsumer {
             return;
         }
 
-        Session session = AttributeUtil.get(channel, SessionKey.SESSION);
+        ISession ISession = AttributeUtil.get(channel, SessionKey.SESSION);
 
-        if (session == null) {
+        if (ISession == null) {
             return;
         }
 
         AbstractHandler handler = msgPool.getHandler(msg.getClass().getName());
         handler.setMessage(msg);
-        handler.setParam(session);
+        handler.setParam(ISession);
         log.debug("收到消息:" + msg);
 
         processor.process(handler);
