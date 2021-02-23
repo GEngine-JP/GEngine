@@ -13,7 +13,7 @@ public class MessageExecutor extends ChannelHandlerAdapter {
 
     private INetworkConsumer consumer;
 
-    private INetworkEventListener listener;
+    private final INetworkEventListener listener;
 
 
     public MessageExecutor(INetworkConsumer consumer, INetworkEventListener listener) {
