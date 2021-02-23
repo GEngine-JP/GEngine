@@ -13,7 +13,7 @@ public class MessageExecutor extends SimpleChannelInboundHandler<Object> {
 
     private final INetworkConsumer consumer;
 
-    private final INetworkEventListener listener;
+    protected final INetworkEventListener listener;
 
 
     public MessageExecutor(INetworkConsumer consumer, INetworkEventListener listener) {

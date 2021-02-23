@@ -29,4 +29,6 @@ public interface INetworkEventListener {
      */
     void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause);
 
+    void idle(ChannelHandlerContext ctx, Object evt);
+
 }

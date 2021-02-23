@@ -25,9 +25,9 @@ public class ClientMessageExecutor extends MessageExecutor {
         this.futureMap = futureMap;
     }
 
-//    @Override
-//    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
 //        AbstractMessage m = (AbstractMessage) msg;
 //        ClientFuture<AbstractMessage> f = futureMap.get(m.getSequence());
 //        if (f != null) {
@@ -35,22 +35,22 @@ public class ClientMessageExecutor extends MessageExecutor {
 //                f.result(m);
 //            }
 //        } else {
-//            super.channelRead(ctx, msg);
+            super.channelRead(ctx, msg);
 //        }
-//
-//    }
-//
-//    @Override
-//    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-//
-//        if(this.isIdleCheck() && evt instanceof IdleStateEvent) {
-//            IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
-//            IdleState state = idleStateEvent.state();
-//            if(state == IdleState.READER_IDLE) {
-//                this.listener.idle(ctx, state);
-//            }
-//        } else {
-//            super.userEventTriggered(ctx, evt);
-//        }
-//    }
+
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+
+        if ( evt instanceof IdleStateEvent) {
+            IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
+            IdleState state = idleStateEvent.state();
+            if (state == IdleState.READER_IDLE) {
+                this.listener.idle(ctx, state);
+            }
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
+    }
 }

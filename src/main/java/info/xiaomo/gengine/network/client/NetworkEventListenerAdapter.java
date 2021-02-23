@@ -26,4 +26,9 @@ public class NetworkEventListenerAdapter implements INetworkEventListener {
     public void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause) {
 
     }
+
+    @Override
+    public void idle(ChannelHandlerContext ctx, Object evt) {
+
+    }
 }
