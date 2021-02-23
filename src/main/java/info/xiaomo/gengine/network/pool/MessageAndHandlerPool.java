@@ -1,23 +1,15 @@
 package info.xiaomo.gengine.network.pool;
 
 import com.google.protobuf.AbstractMessage;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import info.xiaomo.gengine.network.AbstractHandler;
 import info.xiaomo.gengine.network.IMessageAndHandler;
 
 /**
- * 把今天最好的表现当作明天最新的起点．．～
- * いま 最高の表現 として 明日最新の始発．．～
- * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
- * <p>
- *
- * @author : xiaomo
- * github: https://github.com/xiaomoinfo
- * email : xiaomo@xiaomo.info
- * QQ    : 83387856
- * Date  : 2017/9/11 15:51
+
  * desc  : 消息池的父类
  * Copyright(©) 2017 by xiaomo.
  */
@@ -51,7 +43,7 @@ public class MessageAndHandlerPool implements IMessageAndHandler {
         Class<? extends AbstractHandler> clazz = handlers.get(handlerName);
         if (clazz != null) {
             try {
-                return clazz.newInstance();
+                return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 return null;
             }
