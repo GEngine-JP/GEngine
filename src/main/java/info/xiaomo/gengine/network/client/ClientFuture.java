@@ -46,8 +46,7 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 /**
  * 
  * 从grizzly的 FutureImpl精简而来. </br>
- * 
- * 详情查看 {@link org.glassfish.grizzly.impl.SafeFutureImpl} .
+ *
  * <p/>
  * (Based on the JDK {@link java.util.concurrent.FutureTask})
  *
