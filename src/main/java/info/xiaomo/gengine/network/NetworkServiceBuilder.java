@@ -11,6 +11,10 @@ import lombok.Data;
 @Data
 public class NetworkServiceBuilder {
 
+    private int upLimit = 2048;//解码大小限制
+
+    private int downLimit = 5120;//编码大小限制
+
     /**
      * 网络线程池线程数量
      */

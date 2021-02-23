@@ -87,9 +87,9 @@ public class ReflectUtils {
 				// 将多个转换器转为一个
 				Class<? extends IConverter>[] converters = column.value();
 				if (converters.length > 0) {
-					IConverter converter = converters[0].newInstance();
+					IConverter converter = converters[0].getConstructor().newInstance();
 					for (int i = 1; i < converters.length; i++) {
-						converter = converter.andThen(converters[i].newInstance());
+						converter = converter.andThen(converters[i].getConstructor().newInstance());
 					}
 					columnDesc.setConverter(converter);
 				}

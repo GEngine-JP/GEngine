@@ -149,10 +149,10 @@ public class DataConfigXmlParser {
 							String[] converters = convertersStr.split(",");
 							if (converters.length > 0) {
 								Class<? extends IConverter> converterClz = (Class<? extends IConverter>) Class.forName(converters[0]);
-								IConverter converter = converterClz.newInstance();
+								IConverter converter = converterClz.getConstructor().newInstance();
 								for (int i = 1; i < converters.length; i++) {
 									converterClz = (Class<? extends IConverter>) Class.forName(converters[i]);
-									converter = converter.andThen(converterClz.newInstance());
+									converter = converter.andThen(converterClz.getConstructor().newInstance());
 								}
 								columnDesc.setConverter(converter);
 							}
@@ -173,7 +173,7 @@ public class DataConfigXmlParser {
 							}
 
 							Class<? extends IConverter> converterClz = (Class<? extends IConverter>) Class.forName(converterClzName);
-							IConverter converter = converterClz.newInstance();
+							IConverter converter = converterClz.getConstructor().newInstance();
 							for (int i = 1; i < converters.size(); i++) {
 								converterElement = (Element) converters.get(i);
 
@@ -186,7 +186,7 @@ public class DataConfigXmlParser {
 									throw new RuntimeException(String.format("【%s】的属性字段【%s】存在一个空的converter配置", clz.getName(), fieldName));
 								}
 								converterClz = (Class<? extends IConverter>) Class.forName(converterClzName);
-								converter = converter.andThen(converterClz.newInstance());
+								converter = converter.andThen(converterClz.getConstructor().newInstance());
 							}
 							columnDesc.setConverter(converter);
 						}

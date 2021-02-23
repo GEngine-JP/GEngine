@@ -1,6 +1,9 @@
 package info.xiaomo.gengine.network.client;
 
 import com.google.protobuf.AbstractMessage;
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.Message;
+import info.xiaomo.gengine.network.Packet;
 import info.xiaomo.gengine.network.handler.MessageDecoder;
 import info.xiaomo.gengine.network.handler.MessageEncoder;
 import info.xiaomo.gengine.network.pool.MessageAndHandlerPool;
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.*;
 
 /**
@@ -89,8 +93,8 @@ public class Client {
                 if (idleCheck) {
                     pip.addLast("Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
                 }
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getMsgPool()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder(new MessageAndHandlerPool()));
+                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getUpLimit()));
+                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getDownLimit()));
                 pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(
                         builder.getConsumer(),
                         builder.getEventListener(),
@@ -147,10 +151,22 @@ public class Client {
     public boolean sendMsg(AbstractMessage message) {
         Channel channel = getChannel(Thread.currentThread().getId());
         if (channel != null && channel.isActive()) {
-            channel.writeAndFlush(message);
+            int cmd = getMessageID(message);
+            Packet packet = new Packet(Packet.HEAD_TCP, cmd, message.toByteArray());
+            channel.writeAndFlush(packet);
             return true;
         }
         return false;
+    }
+
+    public static int getMessageID(Message msg) {
+        for (Map.Entry<Descriptors.FieldDescriptor, Object> fieldDescriptorObjectEntry : msg.getAllFields().entrySet()) {
+            if (fieldDescriptorObjectEntry.getKey().getName().equals("msgId")) {
+                return ((Descriptors.EnumValueDescriptor) fieldDescriptorObjectEntry.getValue()).getNumber();
+            }
+        }
+        LOGGER.error("在消息体中没有找到对应的消息id:{}", msg);
+        return 0;
     }
 
     /**

@@ -26,7 +26,7 @@ public class SerializerUtil {
 	public static <T> T decode(byte[] bytes, Class<T> clazz) {
 		T object;
 		try {
-			object = clazz.newInstance();
+			object = clazz.getConstructor().newInstance();
 		} catch (Exception e) {
 			LOGGER.error("Protostuff反序列化时创建实例失败,Class:" + clazz.getName(), e);
 			return null;

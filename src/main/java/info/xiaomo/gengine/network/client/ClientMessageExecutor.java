@@ -35,7 +35,7 @@ public class ClientMessageExecutor extends MessageExecutor {
 //                f.result(m);
 //            }
 //        } else {
-            super.channelRead(ctx, msg);
+        super.channelRead(ctx, msg);
 //        }
 
     }
@@ -43,7 +43,7 @@ public class ClientMessageExecutor extends MessageExecutor {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
 
-        if ( evt instanceof IdleStateEvent) {
+        if (evt instanceof IdleStateEvent) {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
             IdleState state = idleStateEvent.state();
             if (state == IdleState.READER_IDLE) {

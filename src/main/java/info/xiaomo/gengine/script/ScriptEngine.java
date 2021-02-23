@@ -127,7 +127,7 @@ public class ScriptEngine {
 
 		BootstrapScript bootstrapScript;
 		try {
-			bootstrapScript = (BootstrapScript) clazz.newInstance();
+			bootstrapScript = (BootstrapScript) clazz.getConstructor().newInstance();
 		} catch (Exception e) {
 			LOGGER.error("实例化脚本启动实现类发生错误：" + bootstrapImpl, e);
 			return false;
@@ -197,7 +197,7 @@ public class ScriptEngine {
 
 
 			try {
-				IScript script = (IScript) scriptImpl.newInstance();
+				IScript script = (IScript) scriptImpl.getConstructor().newInstance();
 
 				if (annotation) {
 					Script scriptAnnotation = scriptImpl.getAnnotation(Script.class);

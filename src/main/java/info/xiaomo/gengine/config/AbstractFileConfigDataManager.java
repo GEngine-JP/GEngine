@@ -143,7 +143,7 @@ public abstract class AbstractFileConfigDataManager extends AbstractConfigDataMa
 		Map<String, Object> tempCaches = new HashMap<>(10);
 		cacheClz.forEach((clzName, clz) -> {
 			try {
-				Object obj = clz.newInstance();
+				Object obj = clz.getConstructor().newInstance();
 				if (IConfigCache.class.isAssignableFrom(clz)) {
 					IConfigCache cache = (IConfigCache) obj;
 					cache.build();

@@ -42,7 +42,7 @@ public class LogService {
 
 		Set<Class<AbstractLog>> ret = LogBeanUtil.getSubClasses("info.xiaomo.gengine.log", AbstractLog.class);
 		for (Class<AbstractLog> logClass : ret) {
-			AbstractLog log = logClass.newInstance();
+			AbstractLog log = logClass.getConstructor().newInstance();
 			log.init();
 		}
 		INSTANCE = new LogService();

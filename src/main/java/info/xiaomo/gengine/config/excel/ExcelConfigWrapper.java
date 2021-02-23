@@ -1,10 +1,12 @@
 package info.xiaomo.gengine.config.excel;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import info.xiaomo.gengine.config.ConfigContainer;
 import info.xiaomo.gengine.config.IConfigWrapper;
 import info.xiaomo.gengine.config.beans.ColumnDesc;
@@ -101,7 +103,7 @@ public class ExcelConfigWrapper implements IConfigWrapper {
         Map<Integer, String> header = table.remove(tableDesc.getHeader());
         table.forEach((rowIndex, rowData) -> {
             try {
-                Object config = clz.newInstance();
+                Object config = clz.getConstructor().newInstance();
                 header.forEach((columnIndex, columnName) -> {
                     String cellData = rowData.get(columnIndex);
                     ColumnDesc columnDesc = columns.get(columnName);
@@ -164,7 +166,7 @@ public class ExcelConfigWrapper implements IConfigWrapper {
                     container.getConfigMap().put(sb.toString(), config);
                 }
                 container.getConfigList().add(config);
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         });

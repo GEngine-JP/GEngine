@@ -1,45 +1,37 @@
 package info.xiaomo.gengine.network.handler;
 
-import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gengine.network.IMessageAndHandler;
+import info.xiaomo.gengine.network.Packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author xiaomo
+ * 我们的数据包（即一条游戏前后端通信的消息长度）可以定义如下：
+ * 数据包 = 1字节标志位 + 2字节消息体长度 + 4字节协议号长度 + N消息体
+ * 比如客户端请求登录的Protobuf协议如下：
  */
-public class MessageEncoder extends MessageToByteEncoder<AbstractMessage> {
+@Slf4j
+public class MessageEncoder extends MessageToByteEncoder<Packet> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageEncoder.class);
 
-    private IMessageAndHandler msgPool;
+    private final int downLimit;
 
-    public MessageEncoder(IMessageAndHandler msgPool) {
-        this.msgPool = msgPool;
+    public MessageEncoder(int downLimit) {
+        this.downLimit = downLimit;
     }
 
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractMessage msg, ByteBuf out) {
-        int messageId = msgPool.getMessageId(msg);
-        if (messageId == 0) {
-            LOGGER.error("编码到未知的消息{}", messageId);
-        }
-        byte[] bytes = msg.toByteArray();
-        int length = Integer.BYTES + bytes.length;
-        boolean writeAble = out.isWritable(length);
-        if (!writeAble) {
-            LOGGER.error("消息过大，编码失败 {} -> {}", messageId, length);
-            return;
-        }
-        // int->4
-        out.writeInt(messageId);
-        // ->20(假设)
-        out.writeBytes(bytes);
+    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf buf) {
+        if ((packet.getBytes().length > this.downLimit) && (log.isWarnEnabled()))
+            log.warn("packet size[" + packet.getBytes().length + "] is over limit[" + this.downLimit + "]");
 
+        buf.writeByte(packet.getHead());
+        buf.writeShort(packet.getBytes().length + 4);
+        buf.writeInt(packet.getCmd());
+        buf.writeBytes(packet.getBytes());
     }
 
     @Override

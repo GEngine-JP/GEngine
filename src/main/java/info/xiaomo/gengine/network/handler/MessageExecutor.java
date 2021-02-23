@@ -4,12 +4,12 @@ import com.google.protobuf.AbstractMessage;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * @author xiaomo
  */
-public class MessageExecutor extends SimpleChannelInboundHandler<Object> {
+public class MessageExecutor extends ChannelInboundHandlerAdapter {
 
     private final INetworkConsumer consumer;
 
@@ -28,17 +28,21 @@ public class MessageExecutor extends SimpleChannelInboundHandler<Object> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         consumer.consume((AbstractMessage) msg, ctx.channel());
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        this.listener.onConnected(ctx);
+        if (this.listener != null) {
+            this.listener.onConnected(ctx);
+        }
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        this.listener.onDisconnected(ctx);
+        if (this.listener != null) {
+            this.listener.onDisconnected(ctx);
+        }
     }
 }
