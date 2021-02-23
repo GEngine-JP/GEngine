@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.network.handler;
 
-import info.xiaomo.gengine.network.Packet;
+import info.xiaomo.gengine.network.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  * 比如客户端请求登录的Protobuf协议如下：
  */
 @Slf4j
-public class MessageEncoder extends MessageToByteEncoder<Packet> {
+public class MessageEncoder extends MessageToByteEncoder<Message> {
 
 
     private final int downLimit;
@@ -24,14 +24,14 @@ public class MessageEncoder extends MessageToByteEncoder<Packet> {
 
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf buf) {
-        if ((packet.getBytes().length > this.downLimit) && (log.isWarnEnabled()))
-            log.warn("packet size[" + packet.getBytes().length + "] is over limit[" + this.downLimit + "]");
+    protected void encode(ChannelHandlerContext ctx, Message message, ByteBuf buf) {
+        if ((message.getBytes().length > this.downLimit) && (log.isWarnEnabled()))
+            log.warn("packet size[" + message.getBytes().length + "] is over limit[" + this.downLimit + "]");
 
-        buf.writeByte(packet.getHead());
-        buf.writeShort(packet.getBytes().length + 4);
-        buf.writeInt(packet.getCmd());
-        buf.writeBytes(packet.getBytes());
+        buf.writeByte(message.getHead());
+        buf.writeShort(message.getBytes().length + 4);
+        buf.writeInt(message.getMsgId());
+        buf.writeBytes(message.getBytes());
     }
 
     @Override

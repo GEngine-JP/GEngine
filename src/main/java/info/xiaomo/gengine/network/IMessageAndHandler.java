@@ -25,10 +25,9 @@ public interface IMessageAndHandler {
 
     /**
      * 获取handler
-     * @param  handlerName handlerName
      * @return AbstractHandler
      */
-    AbstractHandler getHandler(String handlerName);
+    AbstractHandler getHandler(int messageId);
 
     /**
      * 注册

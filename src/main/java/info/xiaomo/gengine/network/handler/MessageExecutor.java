@@ -1,8 +1,8 @@
 package info.xiaomo.gengine.network.handler;
 
-import com.google.protobuf.AbstractMessage;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
+import info.xiaomo.gengine.network.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -29,7 +29,7 @@ public class MessageExecutor extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        consumer.consume((AbstractMessage) msg, ctx.channel());
+        consumer.consume((Message) msg, ctx.channel());
     }
 
     @Override

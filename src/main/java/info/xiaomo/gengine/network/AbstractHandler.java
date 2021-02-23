@@ -14,7 +14,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
 
     protected T message;
 
-    protected Object session;
+    protected ISession session;
 
     protected int queueId;
 
@@ -50,7 +50,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
 
     @Override
     public void setParam(Object session) {
-        this.session = session;
+        this.session = (ISession) session;
     }
 
     @Override

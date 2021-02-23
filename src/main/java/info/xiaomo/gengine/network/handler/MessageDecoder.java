@@ -1,6 +1,6 @@
 package info.xiaomo.gengine.network.handler;
 
-import info.xiaomo.gengine.network.Packet;
+import info.xiaomo.gengine.network.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -38,6 +38,6 @@ public class MessageDecoder extends ByteToMessageDecoder {
         }
         byte[] bytes = new byte[length - 4];
         in.readBytes(bytes);
-        out.add(new Packet(head, cmd, bytes));
+        out.add(new Message(head, cmd, bytes));
     }
 }

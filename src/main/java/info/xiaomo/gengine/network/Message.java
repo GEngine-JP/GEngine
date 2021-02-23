@@ -3,7 +3,7 @@ package info.xiaomo.gengine.network;
 import lombok.Data;
 
 @Data
-public class Packet {
+public class Message {
     public static final byte HEAD_TCP = -128;
     public static final byte HEAD_UDP = 0;
     public static final byte HEAD_NEED_ACK = 64;
@@ -13,15 +13,15 @@ public class Packet {
     public static final byte PROTOCOL_JSON = 1;
     private final byte head;
     private final short sid;
-    private final int cmd;
+    private final int msgId;
     private final byte[] bytes;
 
-    public Packet(byte head, int cmd, byte[] bytes) {
+    public Message(byte head, int cmd, byte[] bytes) {
         this(head, (short) 0, cmd, bytes);
     }
 
-    public Packet(byte head, short sid, int cmd, byte[] bytes) {
-        this.cmd = cmd;
+    public Message(byte head, short sid, int msgId, byte[] bytes) {
+        this.msgId = msgId;
         this.bytes = bytes;
         this.head = head;
         this.sid = sid;

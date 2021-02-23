@@ -2,11 +2,9 @@ package info.xiaomo.gengine.network.client;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors;
-import com.google.protobuf.Message;
-import info.xiaomo.gengine.network.Packet;
+import info.xiaomo.gengine.network.Message;
 import info.xiaomo.gengine.network.handler.MessageDecoder;
 import info.xiaomo.gengine.network.handler.MessageEncoder;
-import info.xiaomo.gengine.network.pool.MessageAndHandlerPool;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -20,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.*;
 
 /**
@@ -152,14 +149,14 @@ public class Client {
         Channel channel = getChannel(Thread.currentThread().getId());
         if (channel != null && channel.isActive()) {
             int cmd = getMessageID(message);
-            Packet packet = new Packet(Packet.HEAD_TCP, cmd, message.toByteArray());
+            Message packet = new Message(Message.HEAD_TCP, cmd, message.toByteArray());
             channel.writeAndFlush(packet);
             return true;
         }
         return false;
     }
 
-    public static int getMessageID(Message msg) {
+    public static int getMessageID(com.google.protobuf.Message msg) {
         for (Map.Entry<Descriptors.FieldDescriptor, Object> fieldDescriptorObjectEntry : msg.getAllFields().entrySet()) {
             if (fieldDescriptorObjectEntry.getKey().getName().equals("msgId")) {
                 return ((Descriptors.EnumValueDescriptor) fieldDescriptorObjectEntry.getValue()).getNumber();

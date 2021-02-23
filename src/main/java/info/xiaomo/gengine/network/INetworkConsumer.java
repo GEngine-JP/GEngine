@@ -1,6 +1,5 @@
 package info.xiaomo.gengine.network;
 
-import com.google.protobuf.AbstractMessage;
 import io.netty.channel.Channel;
 
 /**
@@ -11,10 +10,10 @@ public interface INetworkConsumer {
     /**
      * 执行具体的指令
      *
-     * @param message message
+     * @param msg msg
      * @param channel channel
      */
-    void consume(AbstractMessage message, Channel channel);
+    void consume(Message msg, Channel channel);
 
 
 }

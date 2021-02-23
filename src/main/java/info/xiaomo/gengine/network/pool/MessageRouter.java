@@ -1,8 +1,8 @@
 package info.xiaomo.gengine.network.pool;
 
-import com.google.protobuf.AbstractMessage;
 import java.util.HashMap;
 import java.util.Map;
+
 import info.xiaomo.gengine.network.*;
 import info.xiaomo.gengine.utils.AttributeUtil;
 import io.netty.channel.Channel;
@@ -29,7 +29,7 @@ public class MessageRouter implements INetworkConsumer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void consume(AbstractMessage msg, Channel channel) {
+    public void consume(Message msg, Channel channel) {
 
         //将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
 
@@ -47,7 +47,7 @@ public class MessageRouter implements INetworkConsumer {
             return;
         }
 
-        AbstractHandler handler = msgPool.getHandler(msg.getClass().getName());
+        AbstractHandler handler = msgPool.getHandler(msg.getMsgId());
         handler.setMessage(msg);
         handler.setParam(ISession);
         log.debug("收到消息:" + msg);

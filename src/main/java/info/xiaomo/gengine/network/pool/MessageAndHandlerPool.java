@@ -25,7 +25,7 @@ public class MessageAndHandlerPool implements IMessageAndHandler {
      */
     private final Map<String, Integer> ids = new HashMap<>(10);
 
-    private final Map<String, Class<? extends AbstractHandler>> handlers = new HashMap<>(10);
+    private final Map<Integer, Class<? extends AbstractHandler>> handlers = new HashMap<>(10);
 
     @Override
     public AbstractMessage getMessage(int messageId) {
@@ -39,8 +39,8 @@ public class MessageAndHandlerPool implements IMessageAndHandler {
 
 
     @Override
-    public AbstractHandler getHandler(String handlerName) {
-        Class<? extends AbstractHandler> clazz = handlers.get(handlerName);
+    public AbstractHandler getHandler(int messageId) {
+        Class<? extends AbstractHandler> clazz = handlers.get(messageId);
         if (clazz != null) {
             try {
                 return clazz.getDeclaredConstructor().newInstance();
@@ -54,7 +54,7 @@ public class MessageAndHandlerPool implements IMessageAndHandler {
     @Override
     public void register(int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler) {
         messages.put(messageId, messageClazz);
-        handlers.put(messageClazz.getClass().getName(), handler);
+        handlers.put(messageId, handler);
         ids.put(messageClazz.getClass().getName(), messageId);
     }
 
