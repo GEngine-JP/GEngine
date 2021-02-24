@@ -13,7 +13,7 @@ public interface INetworkConsumer {
      * @param msg msg
      * @param channel channel
      */
-    void consume(Message msg, Channel channel);
+    void consume(MsgPack msg, Channel channel);
 
 
 }

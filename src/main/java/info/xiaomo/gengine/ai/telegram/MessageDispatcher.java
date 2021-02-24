@@ -549,7 +549,7 @@ public class MessageDispatcher implements Telegraph {
 			// float currentTime = GdxAI.getTimepiece().getTime();
 			// GdxAI.getLogger().info(LOG_TAG, "Instant telegram dispatched at time: " +
 			// currentTime + " by " + sender
-			// + " for " + receiver + ". Message code is " + telegram);
+			// + " for " + receiver + ". MsgPack code is " + telegram);
 			// }
 
 			// Send the telegram to the recipient
@@ -566,7 +566,7 @@ public class MessageDispatcher implements Telegraph {
 			if (!added) {
 				POOL.put(telegram);
 				LOGGER.debug("Delayed telegram from " + sender + " for " + receiver
-						+ " rejected by the queue. Message code is " + msg);
+						+ " rejected by the queue. MsgPack code is " + msg);
 			}
 		}
 	}
@@ -602,7 +602,7 @@ public class MessageDispatcher implements Telegraph {
 			// if (debugEnabled) {
 			// GdxAI.getLogger().info(LOG_TAG, "Queued telegram ready for dispatch: Sent to
 			// " + telegram.receiver
-			// + ". Message code is " + telegram.message);
+			// + ". MsgPack code is " + telegram.message);
 			// }
 
 			// Send the telegram to the recipient

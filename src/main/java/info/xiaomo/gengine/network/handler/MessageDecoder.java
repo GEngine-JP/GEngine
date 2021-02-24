@@ -1,16 +1,13 @@
 package info.xiaomo.gengine.network.handler;
 
-import info.xiaomo.gengine.network.Message;
+import java.util.List;
+import info.xiaomo.gengine.network.MsgPack;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 @Slf4j
 public class MessageDecoder extends ByteToMessageDecoder {
 
@@ -21,7 +18,8 @@ public class MessageDecoder extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
+            throws Exception {
         if (in.readableBytes() < 7) {
             return;
         }
@@ -29,8 +27,7 @@ public class MessageDecoder extends ByteToMessageDecoder {
         in.markReaderIndex();
         byte head = in.readByte();
         short length = in.readShort();
-        if ((length <= 0) || (length > this.upLimit))
-            throw new IllegalArgumentException();
+        if ((length <= 0) || (length > this.upLimit)) throw new IllegalArgumentException();
         int cmd = in.readInt();
         if (in.readableBytes() < length - 4) {
             in.resetReaderIndex();
@@ -38,6 +35,6 @@ public class MessageDecoder extends ByteToMessageDecoder {
         }
         byte[] bytes = new byte[length - 4];
         in.readBytes(bytes);
-        out.add(new Message(head, cmd, bytes));
+        out.add(new MsgPack(head, cmd, bytes));
     }
 }

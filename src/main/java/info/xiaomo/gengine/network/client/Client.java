@@ -2,7 +2,7 @@ package info.xiaomo.gengine.network.client;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors;
-import info.xiaomo.gengine.network.Message;
+import info.xiaomo.gengine.network.MsgPack;
 import info.xiaomo.gengine.network.handler.MessageDecoder;
 import info.xiaomo.gengine.network.handler.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
@@ -91,7 +91,7 @@ public class Client {
                     pip.addLast("Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
                 }
                 pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getUpLimit()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder(builder.getDownLimit()));
+                pip.addLast("NettyMessageEncoder", new MessageEncoder());
                 pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(
                         builder.getConsumer(),
                         builder.getEventListener(),
@@ -149,7 +149,7 @@ public class Client {
         Channel channel = getChannel(Thread.currentThread().getId());
         if (channel != null && channel.isActive()) {
             int cmd = getMessageID(message);
-            Message packet = new Message(Message.HEAD_TCP, cmd, message.toByteArray());
+            MsgPack packet = new MsgPack(MsgPack.HEAD_TCP, cmd, message.toByteArray());
             channel.writeAndFlush(packet);
             return true;
         }

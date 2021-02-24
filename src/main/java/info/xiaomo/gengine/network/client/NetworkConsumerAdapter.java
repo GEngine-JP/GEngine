@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.client;
 
+import info.xiaomo.gengine.network.MsgPack;
 import info.xiaomo.gengine.network.INetworkConsumer;
-import info.xiaomo.gengine.network.Message;
 import io.netty.channel.Channel;
 
 /**
@@ -13,7 +13,7 @@ import io.netty.channel.Channel;
 public class NetworkConsumerAdapter implements INetworkConsumer {
 
     @Override
-    public void consume(Message msg, Channel channel) {
+    public void consume(MsgPack msg, Channel channel) {
         // Nothing to do
     }
 }

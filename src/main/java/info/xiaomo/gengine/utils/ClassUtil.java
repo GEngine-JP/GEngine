@@ -12,7 +12,7 @@ import java.net.URLDecoder;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import info.xiaomo.gengine.network.Message;
+import info.xiaomo.gengine.network.MsgPack;
 
 /**
  * class加载工具类
@@ -272,7 +272,7 @@ public final class ClassUtil {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		URL url = classloader.getResource(path);
 		for (Class<?> c : getClasses(new File(url.getFile()), packageName)) {
-			if (Message.class.isAssignableFrom(c) && !Message.class.equals(c)) {
+			if (MsgPack.class.isAssignableFrom(c) && !MsgPack.class.equals(c)) {
 				if (c.getSimpleName().contains(delimiter)) {
 					int protocol = Integer.parseInt(
 							c.getSimpleName().substring(c.getSimpleName().indexOf(delimiter) + delimiter.length()));
