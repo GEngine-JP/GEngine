@@ -1,4 +1,4 @@
-package info.xiaomo.gengine.network.client;
+package info.xiaomo.gengine.network.client.listener;
 
 import info.xiaomo.gengine.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,7 +9,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author 张力
  * @date 2017/12/25 14:19
  */
-public class NetworkEventListenerAdapter implements INetworkEventListener {
+public class DefaultNetworkEventListenerAdapter implements INetworkEventListener {
 
     @Override
     public void onConnected(ChannelHandlerContext ctx) {}

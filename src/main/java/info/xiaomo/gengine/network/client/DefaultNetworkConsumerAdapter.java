@@ -10,7 +10,7 @@ import io.netty.channel.Channel;
  * @author 张力
  * @date 2017/12/25 14:27
  */
-public class NetworkConsumerAdapter implements INetworkConsumer {
+public class DefaultNetworkConsumerAdapter implements INetworkConsumer {
 
     @Override
     public void consume(MsgPack msg, Channel channel) {

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 import info.xiaomo.gengine.network.MsgPack;
+import info.xiaomo.gengine.network.client.listener.ChannelConnectListener;
+import info.xiaomo.gengine.network.client.listener.ChannelDisconnectedListener;
 import info.xiaomo.gengine.network.handler.MessageDecoder;
 import info.xiaomo.gengine.network.handler.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
@@ -16,6 +18,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +27,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author zhangli 2017年6月15日 下午10:25:01
  */
+@Data
 public class Client {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
@@ -34,11 +38,12 @@ public class Client {
     protected Channel channel;
     protected Bootstrap bootstrap;
     protected EventLoopGroup group;
-    protected Map<Short, ClientFuture<AbstractMessage>> futureMap = new ConcurrentHashMap<>();
+    private Map<Short, ClientFuture<MsgPack>> futureMap = new ConcurrentHashMap<>();
     protected boolean stopped = false;
     /** 是否已经连接（调用connect）方法 */
     protected boolean connected = false;
-    protected boolean needReconnect = true;
+
+    private boolean needReconnect;
     private short sequence = 0;
     /** 重连延迟 */
     private int reconnectDelay = 2;

@@ -11,9 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageRouter implements INetworkConsumer {
 
-    private Map<Integer, IProcessor> processors = new HashMap<>(10);
+    protected final Map<Integer, IProcessor> processors = new HashMap<>(10);
 
-    private IMessageAndHandler msgPool;
+    protected final IMessageAndHandler msgPool;
 
     public MessageRouter(IMessageAndHandler msgPool) {
         this.msgPool = msgPool;
@@ -25,7 +25,7 @@ public class MessageRouter implements INetworkConsumer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void consume(MsgPack msg, Channel channel) {
+    public void consume(MsgPack msgPack, Channel channel) {
 
         // 将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
 
@@ -37,16 +37,19 @@ public class MessageRouter implements INetworkConsumer {
             return;
         }
 
-        ISession ISession = AttributeUtil.get(channel, SessionKey.SESSION);
+        ISession session = AttributeUtil.get(channel, SessionKey.SESSION);
 
-        if (ISession == null) {
+        if (session == null) {
             return;
         }
 
-        AbstractHandler handler = msgPool.getHandler(msg.getMsgId());
-        handler.setMessage(msg);
-        handler.setParam(ISession);
-        log.debug("收到消息:" + msg);
+        log.debug("收到消息:" + msgPack.getMsgId());
+
+        AbstractHandler handler = msgPool.getHandler(msgPack.getMsgId());
+        handler.setMessage(msgPack.getMsg());
+        handler.setParam(session);
+        handler.setSession(session);
+        handler.doAction();
 
         processor.process(handler);
     }

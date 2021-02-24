@@ -3,10 +3,13 @@ package info.xiaomo.gengine.network.client;
 import com.google.protobuf.AbstractMessage;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import info.xiaomo.gengine.network.client.listener.ChannelConnectListener;
+import info.xiaomo.gengine.network.client.listener.ChannelDisconnectedListener;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.util.concurrent.Future;
 
+/** 带连接池的客户端 */
 public class PooledClient extends Client {
 
     protected Channel[] channels;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
+import info.xiaomo.gengine.network.client.listener.ClientListener;
 import info.xiaomo.gengine.network.pool.MessageAndHandlerPool;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;

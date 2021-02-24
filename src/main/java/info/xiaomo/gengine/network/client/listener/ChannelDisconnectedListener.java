@@ -1,6 +1,7 @@
-package info.xiaomo.gengine.network.client;
+package info.xiaomo.gengine.network.client.listener;
 
 import java.util.concurrent.TimeUnit;
+import info.xiaomo.gengine.network.client.Client;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class ChannelDisconnectedListener implements ChannelFutureListener {
                     "连接断开，客户端已关闭不进行重连，host->{},port->{}",
                     client.getBuilder().getHost(),
                     client.getBuilder().getPort());
-        } else if (!client.needReconnect) {
+        } else if (!client.isNeedReconnect()) {
             LOGGER.info(
                     "连接断开，重连功能关闭不重连，host->{},port->{}",
                     client.getBuilder().getHost(),

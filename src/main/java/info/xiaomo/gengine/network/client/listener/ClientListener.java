@@ -1,4 +1,4 @@
-package info.xiaomo.gengine.network.client;
+package info.xiaomo.gengine.network.client.listener;
 
 import io.netty.channel.Channel;
 
