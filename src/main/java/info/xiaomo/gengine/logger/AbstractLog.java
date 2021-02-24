@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.*;
 import info.xiaomo.gengine.logger.annotation.Column;
-import info.xiaomo.gengine.logger.annotation.Table;
+import info.xiaomo.gengine.logger.annotation.LogTable;
 import info.xiaomo.gengine.logger.desc.ColumnDesc;
 import info.xiaomo.gengine.logger.desc.TableDesc;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author 张力
  */
-@Table(cycle = TableCycle.SINGLE)
+@LogTable(cycle = TableCycle.SINGLE)
 public abstract class AbstractLog implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLog.class);
@@ -26,18 +26,18 @@ public abstract class AbstractLog implements Runnable {
     void init() throws Exception {
 
         Class<?> clazz = this.getClass();
-        Table table = clazz.getAnnotation(Table.class);
-        if (table == null) {
+        LogTable logTable = clazz.getAnnotation(LogTable.class);
+        if (logTable == null) {
             return;
         }
         TableDesc desc = new TableDesc();
-        desc.setCycle(table.cycle());
-        String tableName = table.tableName();
+        desc.setCycle(logTable.cycle());
+        String tableName = logTable.tableName();
         if ("".equals(tableName)) {
             tableName = clazz.getSimpleName();
         }
         desc.setName(tableName);
-        desc.setPrimaryKey(table.primaryKey());
+        desc.setPrimaryKey(logTable.primaryKey());
 
         // 找出所有父类，父类的属性先遍历，所以将顶级父类放在了列表第一个
         List<Class<?>> clazzList = new ArrayList<>();

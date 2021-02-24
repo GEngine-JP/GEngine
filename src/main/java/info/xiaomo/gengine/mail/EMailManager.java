@@ -8,7 +8,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import info.xiaomo.gengine.utils.FileUtil;
+import info.xiaomo.gengine.utils.YamlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,22 +17,22 @@ import org.slf4j.LoggerFactory;
  *
  * <p>2017年8月22日 下午5:09:21
  */
-public class MailManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MailManager.class);
-    private static volatile MailManager mailManager;
-    private MailConfig mailConfig; // 邮件配置
+public class EMailManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EMailManager.class);
+    private static volatile EMailManager EMailManager;
+    private EmailConfig emailConfig; // 邮件配置
 
-    private MailManager() {}
+    private EMailManager() {}
 
-    public static MailManager getInstance() {
-        if (mailManager == null) {
-            synchronized (MailManager.class) {
-                if (mailManager == null) {
-                    mailManager = new MailManager();
+    public static EMailManager getInstance() {
+        if (EMailManager == null) {
+            synchronized (EMailManager.class) {
+                if (EMailManager == null) {
+                    EMailManager = new EMailManager();
                 }
             }
         }
-        return mailManager;
+        return EMailManager;
     }
 
     /**
@@ -42,23 +42,23 @@ public class MailManager {
      *     <p>2017年8月22日 下午5:18:20
      */
     public void initMailConfig(String configPath) {
-        mailConfig = FileUtil.getConfigXML(configPath, "mailConfig.xml", MailConfig.class);
-        if (mailConfig == null) {
-            LOGGER.warn("{}/mailConfig.xml未找到配置文件", configPath);
-            mailConfig = new MailConfig();
+        emailConfig = YamlUtil.read(configPath + "email.yml", EmailConfig.class);
+        if (emailConfig == null) {
+            LOGGER.warn("{}/emailConfig.xml未找到配置文件", configPath);
+            emailConfig = new EmailConfig();
         }
     }
 
-    public MailConfig getMailConfig() {
-        if (mailConfig == null) {
+    public EmailConfig getMailConfig() {
+        if (emailConfig == null) {
             LOGGER.info("使用默认邮件配置");
-            mailConfig = new MailConfig();
+            emailConfig = new EmailConfig();
         }
-        return mailConfig;
+        return emailConfig;
     }
 
-    public void setMailConfig(MailConfig mailConfig) {
-        this.mailConfig = mailConfig;
+    public void setMailConfig(EmailConfig emailConfig) {
+        this.emailConfig = emailConfig;
     }
 
     /**

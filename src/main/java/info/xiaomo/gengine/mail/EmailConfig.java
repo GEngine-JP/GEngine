@@ -14,7 +14,7 @@ import org.simpleframework.xml.Root;
  */
 @Root
 @Data
-public class MailConfig {
+public class EmailConfig {
 
     /** 协议地址 */
     @Element(required = false)

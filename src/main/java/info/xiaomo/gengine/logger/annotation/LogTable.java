@@ -6,7 +6,7 @@ import info.xiaomo.gengine.logger.TableCycle;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Target(ElementType.TYPE)
-public @interface Table {
+public @interface LogTable {
 
     String primaryKey() default "id";
 

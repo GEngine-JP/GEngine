@@ -4,10 +4,10 @@ import info.xiaomo.gengine.logger.AbstractLog;
 import info.xiaomo.gengine.logger.FieldType;
 import info.xiaomo.gengine.logger.TableCycle;
 import info.xiaomo.gengine.logger.annotation.Column;
-import info.xiaomo.gengine.logger.annotation.Table;
+import info.xiaomo.gengine.logger.annotation.LogTable;
 
 /** @author xiaomo */
-@Table(tableName = "item_log", primaryKey = "id", cycle = TableCycle.DAY)
+@LogTable(tableName = "item_log", primaryKey = "id", cycle = TableCycle.DAY)
 public class ItemLog extends AbstractLog {
 
     @Column(

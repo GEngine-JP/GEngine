@@ -7,8 +7,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import info.xiaomo.gengine.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gengine.concurrent.queue.ICommandQueue;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,7 +19,8 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2015-3-11 下午10:51:20
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Slf4j
 public class QueueExecutor extends ThreadPoolExecutor {
 

@@ -1,6 +1,6 @@
 package info.xiaomo.mail;
 
-import info.xiaomo.gengine.mail.MailManager;
+import info.xiaomo.gengine.mail.EMailManager;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -10,11 +10,11 @@ import org.junit.Test;
  * <p>2017年8月22日 下午6:02:34
  */
 @Ignore
-public class BaseMailManagerTest {
+public class BaseEMailManagerTest {
 
     @Test
     public void testSendMail() {
-        MailManager.getInstance()
+        EMailManager.getInstance()
                 .sendTextMailAsync(
                         "hh", "dd", "suzukaze.hazuki2020@gmail.com", "xiaomo@xiaomo.info");
         try {
