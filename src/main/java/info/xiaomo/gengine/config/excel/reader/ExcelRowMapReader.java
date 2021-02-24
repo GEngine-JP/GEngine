@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月12日 11:05
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月12日 11:05 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config.excel.reader;
 
 import java.util.Map;
@@ -21,17 +18,26 @@ public class ExcelRowMapReader extends ExcelRowReader<Map> {
     }
 
     @SuppressWarnings("unchecked")
-    public ExcelRowMapReader(Supplier<? extends Map> resultSupplier, Map<Integer, ICellReader> cellReaders) {
-        this(resultSupplier, new ExcelCellStingReader(), (map, objs) -> {
-            Object[] params = (Object[]) objs;
-            int index = (int) params[1];
-            Object value = params[2];
-            map.put(index, value);
-            return map;
-        }, cellReaders);
+    public ExcelRowMapReader(
+            Supplier<? extends Map> resultSupplier, Map<Integer, ICellReader> cellReaders) {
+        this(
+                resultSupplier,
+                new ExcelCellStingReader(),
+                (map, objs) -> {
+                    Object[] params = (Object[]) objs;
+                    int index = (int) params[1];
+                    Object value = params[2];
+                    map.put(index, value);
+                    return map;
+                },
+                cellReaders);
     }
 
-    public ExcelRowMapReader(Supplier<? extends Map> resultSupplier, ICellReader defaultCellReader, BiConverter<? super Map, Object, ? extends Map> cellParser, Map<Integer, ICellReader> cellReaders) {
+    public ExcelRowMapReader(
+            Supplier<? extends Map> resultSupplier,
+            ICellReader defaultCellReader,
+            BiConverter<? super Map, Object, ? extends Map> cellParser,
+            Map<Integer, ICellReader> cellReaders) {
         super(resultSupplier, defaultCellReader, cellParser, cellReaders);
     }
 }

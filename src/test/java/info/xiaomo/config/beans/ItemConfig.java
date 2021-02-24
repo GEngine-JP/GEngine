@@ -14,8 +14,12 @@ import lombok.ToString;
 @ToString
 @Data
 @Config
-// @Table(name = "cfg_item", primaryKey = {"id", "secondId"}, index = 0, header = 2, ignoreRow = {0,1,3})
-@Table(name = "cfg_item", primaryKey = {"id", "secondId"}, ignoreRow = {1,2})
+// @Table(name = "cfg_item", primaryKey = {"id", "secondId"}, index = 0, header = 2, ignoreRow =
+// {0,1,3})
+@Table(
+        name = "cfg_item",
+        primaryKey = {"id", "secondId"},
+        ignoreRow = {1, 2})
 public class ItemConfig implements IConfig {
     @Column(notNull = true)
     private int id;

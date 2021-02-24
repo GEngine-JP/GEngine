@@ -20,13 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 堆栈式状态机，可依次返回之前状态 ，如菜单列表
- * <br>
- * A {@link StateMachine} implementation that keeps track of
- * all previous {@link State}s via a stack. This makes sense for example in case
- * of a hierarchical menu structure where each menu screen is one state and one
- * wants to navigate back to the main menu anytime, via
- * {@link #revertToPreviousState()}.
+ * 堆栈式状态机，可依次返回之前状态 ，如菜单列表 <br>
+ * A {@link StateMachine} implementation that keeps track of all previous {@link State}s via a
+ * stack. This makes sense for example in case of a hierarchical menu structure where each menu
+ * screen is one state and one wants to navigate back to the main menu anytime, via {@link
+ * #revertToPreviousState()}.
  *
  * @param <E> the type of the entity owning this state machine
  * @param <S> the type of the states of this state machine
@@ -34,114 +32,107 @@ import java.util.List;
  */
 public class StackStateMachine<E, S extends State<E>> extends DefaultStateMachine<E, S> {
 
-	private List<S> stateStack;
+    private List<S> stateStack;
 
-	/**
-	 * Creates a {@code StackStateMachine} with no owner, initial state and global
-	 * state.
-	 */
-	public StackStateMachine() {
-		this(null, null, null);
-	}
+    /** Creates a {@code StackStateMachine} with no owner, initial state and global state. */
+    public StackStateMachine() {
+        this(null, null, null);
+    }
 
-	/**
-	 * Creates a {@code StackStateMachine} for the specified owner.
-	 *
-	 * @param owner the owner of the state machine
-	 */
-	public StackStateMachine(E owner) {
-		this(owner, null, null);
-	}
+    /**
+     * Creates a {@code StackStateMachine} for the specified owner.
+     *
+     * @param owner the owner of the state machine
+     */
+    public StackStateMachine(E owner) {
+        this(owner, null, null);
+    }
 
-	/**
-	 * Creates a {@code StackStateMachine} for the specified owner and initial
-	 * state.
-	 *
-	 * @param owner        the owner of the state machine
-	 * @param initialState the initial state
-	 */
-	public StackStateMachine(E owner, S initialState) {
-		this(owner, initialState, null);
-	}
+    /**
+     * Creates a {@code StackStateMachine} for the specified owner and initial state.
+     *
+     * @param owner the owner of the state machine
+     * @param initialState the initial state
+     */
+    public StackStateMachine(E owner, S initialState) {
+        this(owner, initialState, null);
+    }
 
-	/**
-	 * Creates a {@code StackStateMachine} for the specified owner, initial state
-	 * and global state.
-	 *
-	 * @param owner        the owner of the state machine
-	 * @param initialState the initial state
-	 * @param globalState  the global state
-	 */
-	public StackStateMachine(E owner, S initialState, S globalState) {
-		super(owner, initialState, globalState);
-	}
+    /**
+     * Creates a {@code StackStateMachine} for the specified owner, initial state and global state.
+     *
+     * @param owner the owner of the state machine
+     * @param initialState the initial state
+     * @param globalState the global state
+     */
+    public StackStateMachine(E owner, S initialState, S globalState) {
+        super(owner, initialState, globalState);
+    }
 
-	@Override
-	public void setInitialState(S state) {
-		if (stateStack == null) {
-			stateStack = new ArrayList<S>();
-		}
+    @Override
+    public void setInitialState(S state) {
+        if (stateStack == null) {
+            stateStack = new ArrayList<S>();
+        }
 
-		this.stateStack.clear();
-		this.currentState = state;
-	}
+        this.stateStack.clear();
+        this.currentState = state;
+    }
 
-	@Override
-	public S getCurrentState() {
-		return currentState;
-	}
+    @Override
+    public S getCurrentState() {
+        return currentState;
+    }
 
-	/**
-	 * Returns the last state of this state machine. That is the high-most state on
-	 * the internal stack of previous states.
-	 */
-	@Override
-	public S getPreviousState() {
-		if (stateStack.size() == 0) {
-			return null;
-		} else {
-			return stateStack.get(stateStack.size() - 1);
-		}
-	}
+    /**
+     * Returns the last state of this state machine. That is the high-most state on the internal
+     * stack of previous states.
+     */
+    @Override
+    public S getPreviousState() {
+        if (stateStack.size() == 0) {
+            return null;
+        } else {
+            return stateStack.get(stateStack.size() - 1);
+        }
+    }
 
-	@Override
-	public void changeState(S newState) {
-		changeState(newState, true);
-	}
+    @Override
+    public void changeState(S newState) {
+        changeState(newState, true);
+    }
 
-	/**
-	 * Changes the Change state back to the previous state. That is the high-most
-	 * state on the internal stack of previous states.
-	 *
-	 * @return {@code True} in case there was a previous state that we were able to
-	 * revert to. In case there is no previous state, no state change occurs
-	 * and {@code false} will be returned.
-	 */
-	@Override
-	public boolean revertToPreviousState() {
-		if (stateStack.size() == 0) {
-			return false;
-		}
+    /**
+     * Changes the Change state back to the previous state. That is the high-most state on the
+     * internal stack of previous states.
+     *
+     * @return {@code True} in case there was a previous state that we were able to revert to. In
+     *     case there is no previous state, no state change occurs and {@code false} will be
+     *     returned.
+     */
+    @Override
+    public boolean revertToPreviousState() {
+        if (stateStack.size() == 0) {
+            return false;
+        }
 
-		S previousState = stateStack.remove(stateStack.size() - 1);
-		changeState(previousState, false);
-		return true;
-	}
+        S previousState = stateStack.remove(stateStack.size() - 1);
+        changeState(previousState, false);
+        return true;
+    }
 
-	private void changeState(S newState, boolean pushCurrentStateToStack) {
-		if (pushCurrentStateToStack && currentState != null) {
-			stateStack.add(currentState);
-		}
+    private void changeState(S newState, boolean pushCurrentStateToStack) {
+        if (pushCurrentStateToStack && currentState != null) {
+            stateStack.add(currentState);
+        }
 
-		// Call the exit method of the existing state
-		if (currentState != null)
-			currentState.exit(owner);
+        // Call the exit method of the existing state
+        if (currentState != null) currentState.exit(owner);
 
-		// Change state to the new state
-		currentState = newState;
+        // Change state to the new state
+        currentState = newState;
 
-		// Call the entry method of the new state
-		currentState.enter(owner);
-	}
-
+        // Call the entry method of the new state
+        currentState.enter(owner);
+    }
 }

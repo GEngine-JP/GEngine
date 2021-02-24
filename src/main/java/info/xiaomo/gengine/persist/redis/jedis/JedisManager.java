@@ -14,9 +14,10 @@ import redis.clients.jedis.JedisCluster;
 
 /**
  * redis集群管理类
+ *
  * <p>
- * <p>
- * 2017年8月18日 下午5:32:34
+ *
+ * <p>2017年8月18日 下午5:32:34
  */
 public class JedisManager {
 
@@ -26,27 +27,28 @@ public class JedisManager {
 
     private Map<String, String> keysShaMap; // key:脚本名称
 
-    /**
-     * @param configPath redis配置文件路径
-     */
+    /** @param configPath redis配置文件路径 */
     public JedisManager(String configPath) {
         this(loadJedisClusterConfig(configPath));
     }
 
     public JedisManager(JedisClusterConfig config) {
         HashSet<HostAndPort> jedisClusterNodes = new HashSet<>();
-        config.getNodes().forEach(node -> {
-            if (node == null) {
-                return;
-            }
-            try {
-                if (node.getIp() != null && node.getIp().length() > 5) {
-                    jedisClusterNodes.add(new HostAndPort(node.getIp(), node.getPort()));
-                }
-            } catch (Exception e) {
-                LOGGER.error(node.toString(), e);
-            }
-        });
+        config.getNodes()
+                .forEach(
+                        node -> {
+                            if (node == null) {
+                                return;
+                            }
+                            try {
+                                if (node.getIp() != null && node.getIp().length() > 5) {
+                                    jedisClusterNodes.add(
+                                            new HostAndPort(node.getIp(), node.getPort()));
+                                }
+                            } catch (Exception e) {
+                                LOGGER.error(node.toString(), e);
+                            }
+                        });
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
         poolConfig.setMaxTotal(config.getPoolMaxTotal());
         poolConfig.setMaxIdle(config.getPoolMaxIdle());
@@ -57,13 +59,18 @@ public class JedisManager {
         poolConfig.setTestOnBorrow(config.isTestOnBorrow());
         poolConfig.setTestWhileIdle(config.isTestWhileIdle());
         poolConfig.setTestOnReturn(config.isTestOnReturn());
-        jedisCluster = new JedisCluster(jedisClusterNodes, config.getConnectionTimeout(), config.getSoTimeout(),
-                config.getMaxRedirections(), poolConfig);
+        jedisCluster =
+                new JedisCluster(
+                        jedisClusterNodes,
+                        config.getConnectionTimeout(),
+                        config.getSoTimeout(),
+                        config.getMaxRedirections(),
+                        poolConfig);
     }
 
     private static JedisClusterConfig loadJedisClusterConfig(String configPath) {
-        JedisClusterConfig jedisClusterConfig = YamlUtil.read(configPath + "jedisClusterConfig.yml",
-                JedisClusterConfig.class);
+        JedisClusterConfig jedisClusterConfig =
+                YamlUtil.read(configPath + "jedisClusterConfig.yml", JedisClusterConfig.class);
         if (jedisClusterConfig == null) {
             LOGGER.error("redis配置{}未找到", configPath);
             System.exit(1);
@@ -85,10 +92,10 @@ public class JedisManager {
 
     /**
      * 初始化脚本
+     *
      * <p>
-     * <p>
-     * 2017年8月7日 下午6:18:37
-     * 脚本路径
+     *
+     * <p>2017年8月7日 下午6:18:37 脚本路径
      */
     public void initScript(String configPath) {
         try {
@@ -108,12 +115,9 @@ public class JedisManager {
         } catch (Exception e) {
             LOGGER.error("redis 脚本", e);
         }
-
     }
 
-    /**
-     * 清除脚本缓存
-     */
+    /** 清除脚本缓存 */
     public void scriptFlush(String fileName) {
         getJedisCluster().scriptFlush(fileName.getBytes());
     }
@@ -121,7 +125,7 @@ public class JedisManager {
     /**
      * 初始化脚本
      *
-     * @param path     脚本所在路径
+     * @param path 脚本所在路径
      * @param fileName 脚本文件名称
      */
     public void loadScript(String path, String fileName) throws Exception {
@@ -144,8 +148,7 @@ public class JedisManager {
      * 获取脚本 sha
      *
      * @param fileName 脚本名称
-     *                 <p>
-     *                 2017年8月7日 下午6:05:24
+     *     <p>2017年8月7日 下午6:05:24
      */
     private String getSha(String fileName) {
         if (keysShaMap.containsKey(fileName)) {
@@ -159,8 +162,8 @@ public class JedisManager {
      * 执行脚本
      *
      * @param scriptName 脚本文件名称
-     * @param keys       redis key列表
-     * @param args       参数集合
+     * @param keys redis key列表
+     * @param args 参数集合
      * @return 2017年8月7日 下午6:10:31
      */
     @SuppressWarnings("unchecked")
@@ -185,15 +188,17 @@ public class JedisManager {
      * @return 2017年10月24日 上午10:05:43
      */
     @SuppressWarnings("unchecked")
-    public <K, V> Map<K, V> hgetAll(final String key, final Class<K> keyClass, final Class<V> valueClass) {
+    public <K, V> Map<K, V> hgetAll(
+            final String key, final Class<K> keyClass, final Class<V> valueClass) {
         Map<String, String> hgetAll = getJedisCluster().hgetAll(key);
         if (hgetAll == null) {
             return null;
         }
         Map<K, V> map = new ConcurrentHashMap<>();
-        hgetAll.forEach((k, v) -> {
-            map.put((K) parseKey(k, keyClass), JsonUtil.parseObject(v, valueClass));
-        });
+        hgetAll.forEach(
+                (k, v) -> {
+                    map.put((K) parseKey(k, keyClass), JsonUtil.parseObject(v, valueClass));
+                });
         return map;
     }
 
@@ -218,11 +223,12 @@ public class JedisManager {
      * @param key
      * @param field
      * @param value
-     * @return <p>
-     * 2017年10月24日 上午10:13:21
+     * @return
+     *     <p>2017年10月24日 上午10:13:21
      */
     public Long hset(final String key, final Object field, final Object value) {
-        return getJedisCluster().hset(key, field.toString(), JsonUtil.toJSONStringWriteClassNameWithFiled(value));
+        return getJedisCluster()
+                .hset(key, field.toString(), JsonUtil.toJSONStringWriteClassNameWithFiled(value));
     }
 
     /**
@@ -240,5 +246,4 @@ public class JedisManager {
         }
         return key;
     }
-
 }

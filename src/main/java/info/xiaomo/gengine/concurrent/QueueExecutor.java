@@ -9,12 +9,10 @@ import info.xiaomo.gengine.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gengine.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 队列执行器</br>
- * 该executor执行完毕一个任务的时候，会自动从该任务所属队列中获取下一个任务执行，直到队列为空
+ * 队列执行器</br> 该executor执行完毕一个任务的时候，会自动从该任务所属队列中获取下一个任务执行，直到队列为空
  *
  * @author 张力
  * @date 2015-3-11 下午10:51:20
@@ -24,25 +22,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QueueExecutor extends ThreadPoolExecutor {
 
-
-    /**
-     * 执行器名称
-     */
+    /** 执行器名称 */
     private String name;
 
-    /**
-     * 最小线程数
-     */
+    /** 最小线程数 */
     private int corePoolSize;
 
-    /**
-     * 最大线程数
-     */
+    /** 最大线程数 */
     private int maxPoolSize;
 
     public QueueExecutor(final String name, int corePoolSize, int maxPoolSize) {
 
-        super(corePoolSize, maxPoolSize, 30L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
+        super(
+                corePoolSize,
+                maxPoolSize,
+                30L,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
                 new ThreadFactory() {
                     AtomicInteger count = new AtomicInteger(0);
 
@@ -61,7 +57,7 @@ public class QueueExecutor extends ThreadPoolExecutor {
     /**
      * 指定的任务执行完毕后，调用该方法
      *
-     * @param task      执行的任务
+     * @param task 执行的任务
      * @param throwable 异常
      */
     @Override
@@ -78,10 +74,8 @@ public class QueueExecutor extends ThreadPoolExecutor {
             } else {
                 // 执行完毕后如果队列中还有任务，那么继续执行下一个
                 execute(nextCommand);
-                //LOGGER.error("存在任务，继续执行任务");
+                // LOGGER.error("存在任务，继续执行任务");
             }
         }
     }
-
-
 }

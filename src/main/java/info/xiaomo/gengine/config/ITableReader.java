@@ -1,8 +1,5 @@
-package info.xiaomo.gengine.config; /**
- * 创建日期:  2017年08月12日 10:18
- * 创建作者:  杨 强  <281455776@qq.com>
- */
-
+package info.xiaomo.gengine.config;
+/** 创建日期: 2017年08月12日 10:18 创建作者: 杨 强 <281455776@qq.com> */
 import java.util.function.Supplier;
 
 /**
@@ -14,7 +11,8 @@ public interface ITableReader<T, R> extends IReader<T, R> {
 
     /**
      * 获取默认的单元行读取器
-     * <p>读取单元行时如果没有指定的位置的单元行读取器 则使用默认的单元行读取器</p>
+     *
+     * <p>读取单元行时如果没有指定的位置的单元行读取器 则使用默认的单元行读取器
      *
      * @param <>
      * @param <V>
@@ -31,7 +29,6 @@ public interface ITableReader<T, R> extends IReader<T, R> {
      * @return
      */
     <L, V> IRowReader<? super L, ? extends V> getRowReader(int index);
-
 
     /**
      * 获取表结果装载容器

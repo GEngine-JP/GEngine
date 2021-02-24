@@ -1,8 +1,5 @@
-package info.xiaomo.gengine.config; /**
- * 创建日期:  2017年08月12日 9:46
- * 创建作者:  杨 强  <281455776@qq.com>
- */
-
+package info.xiaomo.gengine.config;
+/** 创建日期: 2017年08月12日 9:46 创建作者: 杨 强 <281455776@qq.com> */
 import java.util.function.Supplier;
 
 /**
@@ -13,7 +10,8 @@ import java.util.function.Supplier;
 public interface IRowReader<T, R> extends IReader<T, R> {
     /**
      * 获取默认的单元格读取器
-     * <p>读取单元格时如果没有指定的位置的单元格读取器 则使用默认的单元格读取器</p>
+     *
+     * <p>读取单元格时如果没有指定的位置的单元格读取器 则使用默认的单元格读取器
      *
      * @param <C>
      * @param <V>

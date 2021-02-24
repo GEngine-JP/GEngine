@@ -7,16 +7,16 @@ import org.slf4j.LoggerFactory;
 
 /**
  * int 位标识
+ *
  * <p>
- * <p>
- * 2017-03-31
+ *
+ * <p>2017-03-31
  */
 public final class IntUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntUtil.class);
 
-    private IntUtil() {
-    }
+    private IntUtil() {}
 
     public static int setIntFlag(int src, int index) {
         return src | (1 << index);
@@ -86,7 +86,6 @@ public final class IntUtil {
         return buffer.getShort();
     }
 
-
     /**
      * 大端字节转换为short
      *
@@ -126,9 +125,7 @@ public final class IntUtil {
         return buffer.array();
     }
 
-    /**
-     * 将int转为低字节在前，高字节在后的byte数组
-     */
+    /** 将int转为低字节在前，高字节在后的byte数组 */
     public static byte[] writeIntToBytesLittleEnding(int n) {
         byte[] b = new byte[4];
         b[0] = (byte) (n & 0xff);
@@ -155,8 +152,8 @@ public final class IntUtil {
      *
      * @param src
      * @param byteOrder
-     * @return <p>
-     * 2017年10月16日 下午3:06:40
+     * @return
+     *     <p>2017年10月16日 下午3:06:40
      */
     public static long bytes2Long(byte[] src, int offset, int length, ByteOrder byteOrder) {
         ByteBuffer buffer = ByteBuffer.wrap(src, offset, length);

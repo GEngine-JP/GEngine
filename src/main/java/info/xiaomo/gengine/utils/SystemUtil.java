@@ -7,18 +7,13 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 
 /**
- * 把今天最好的表现当作明天最新的起点．．～
- * いま 最高の表現 として 明日最新の始発．．～
- * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
+ * 把今天最好的表现当作明天最新的起点．．～ いま 最高の表現 として 明日最新の始発．．～ Today the best performance as tomorrow newest
+ * starter! Created by IntelliJ IDEA.
+ *
  * <p>
- * @author : xiaomo
- * github: https://github.com/xiaomoinfo
- * email : xiaomo@xiaomo.info
- * QQ    : 83387856
- * Date  : 2017/8/17 15:25
- * desc  :
- * Copyright(©) 2017 by xiaomo.
+ *
+ * @author : xiaomo github: https://github.com/xiaomoinfo email : xiaomo@xiaomo.info QQ : 83387856
+ *     Date : 2017/8/17 15:25 desc : Copyright(©) 2017 by xiaomo.
  */
 public class SystemUtil {
 
@@ -95,22 +90,20 @@ public class SystemUtil {
         return mac.toString().toUpperCase();
     }
 
-
-    public static boolean isWindows(){
+    public static boolean isWindows() {
         String systemName = getSystemName();
         return systemName.contains("windows");
     }
 
-    public static boolean isLinux(){
+    public static boolean isLinux() {
         String systemName = getSystemName();
         return systemName.contains("linux");
     }
 
-    public static boolean isMac(){
+    public static boolean isMac() {
         String systemName = getSystemName();
         return systemName.contains("mac");
     }
-
 
     public static void main(String[] args) {
         System.out.println(isWindows());

@@ -7,6 +7,6 @@ package info.xiaomo.gengine.persist.cache;
  */
 public interface IMemoryObject {
 
-  /** 对象释放并重置 */
-  void reset();
+    /** 对象释放并重置 */
+    void reset();
 }

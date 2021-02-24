@@ -1,22 +1,14 @@
 package info.xiaomo.gengine.concurrent.command;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 @FunctionalInterface
 public interface ICommand extends Runnable {
-    /**
-     * 执行
-     */
+    /** 执行 */
     void doAction();
 
-    /**
-     * 运行
-     */
+    /** 运行 */
     @Override
     default void run() {
         doAction();
     }
-
-
 }

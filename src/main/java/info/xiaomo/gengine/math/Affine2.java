@@ -1,16 +1,14 @@
 package info.xiaomo.gengine.math;
 
-
 import java.io.Serializable;
 
-
 /**
- * 仿射变换
- * <br>
- * A specialized 3x3 matrix that can represent sequences of 2D translations, scales, flips, rotations, and shears. <a
- * href="http://en.wikipedia.org/wiki/Affine_transformation">Affine transformations</a> preserve straight lines, and
- * parallel lines remain parallel after the transformation. Operations on affine matrices are faster because the last row can
- * always be assumed (0, 0, 1).
+ * 仿射变换 <br>
+ * A specialized 3x3 matrix that can represent sequences of 2D translations, scales, flips,
+ * rotations, and shears. <a href="http://en.wikipedia.org/wiki/Affine_transformation">Affine
+ * transformations</a> preserve straight lines, and parallel lines remain parallel after the
+ * transformation. Operations on affine matrices are faster because the last row can always be
+ * assumed (0, 0, 1).
  *
  * @author vmilea
  */
@@ -22,11 +20,8 @@ public final class Affine2 implements Serializable {
 
     // constant: m21 = 0, m21 = 1, m22 = 1
 
-    /**
-     * Constructs an identity matrix.
-     */
-    public Affine2() {
-    }
+    /** Constructs an identity matrix. */
+    public Affine2() {}
 
     /**
      * Constructs a matrix from the given affine matrix.
@@ -87,7 +82,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Copies the 2D transformation components from the provided 4x4 matrix. The values are mapped as follows:
+     * Copies the 2D transformation components from the provided 4x4 matrix. The values are mapped
+     * as follows:
      *
      * <pre>
      *      [  M00  M01  M03  ]
@@ -95,7 +91,8 @@ public final class Affine2 implements Serializable {
      *      [   0    0    1   ]
      * </pre>
      *
-     * @param matrix The source matrix, assumed to be an affine transformation within XY plane. This matrix will not be modified.
+     * @param matrix The source matrix, assumed to be an affine transformation within XY plane. This
+     *     matrix will not be modified.
      * @return This matrix for the purpose of chaining operations.
      */
     public Affine2 set(Matrix4 matrix) {
@@ -165,7 +162,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
+     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise
+     * direction around the z-axis.
      *
      * @param degrees The angle in degrees.
      * @return This matrix for the purpose of chaining operations.
@@ -184,7 +182,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
+     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise
+     * direction around the z-axis.
      *
      * @param radians The angle in radians.
      * @return This matrix for the purpose of chaining operations.
@@ -203,7 +202,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
+     * Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise
+     * direction around the z-axis.
      *
      * @param cos The angle cosine.
      * @param sin The angle sine.
@@ -247,14 +247,14 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more efficient form for:
-     * <code>idt().translate(x, y).rotate(degrees).scale(scaleX, scaleY)</code>
+     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more
+     * efficient form for: <code>idt().translate(x, y).rotate(degrees).scale(scaleX, scaleY)</code>
      *
-     * @param x       The translation in x.
-     * @param y       The translation in y.
+     * @param x The translation in x.
+     * @param y The translation in y.
      * @param degrees The angle in degrees.
-     * @param scaleX  The scale in y.
-     * @param scaleY  The scale in x.
+     * @param scaleX The scale in y.
+     * @param scaleY The scale in x.
      * @return This matrix for the purpose of chaining operations.
      */
     public Affine2 setToTrnRotScl(float x, float y, float degrees, float scaleX, float scaleY) {
@@ -279,12 +279,12 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more efficient form for:
-     * <code>idt().translate(trn).rotate(degrees).scale(scale)</code>
+     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more
+     * efficient form for: <code>idt().translate(trn).rotate(degrees).scale(scale)</code>
      *
-     * @param trn     The translation vector.
+     * @param trn The translation vector.
      * @param degrees The angle in degrees.
-     * @param scale   The scale vector.
+     * @param scale The scale vector.
      * @return This matrix for the purpose of chaining operations.
      */
     public Affine2 setToTrnRotScl(Vector2 trn, float degrees, Vector2 scale) {
@@ -292,14 +292,15 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more efficient form for:
-     * <code>idt().translate(x, y).rotateRad(radians).scale(scaleX, scaleY)</code>
+     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more
+     * efficient form for: <code>idt().translate(x, y).rotateRad(radians).scale(scaleX, scaleY)
+     * </code>
      *
-     * @param x       The translation in x.
-     * @param y       The translation in y.
+     * @param x The translation in x.
+     * @param y The translation in y.
      * @param radians The angle in radians.
-     * @param scaleX  The scale in y.
-     * @param scaleY  The scale in x.
+     * @param scaleX The scale in y.
+     * @param scaleY The scale in x.
      * @return This matrix for the purpose of chaining operations.
      */
     public Affine2 setToTrnRotRadScl(float x, float y, float radians, float scaleX, float scaleY) {
@@ -324,12 +325,12 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more efficient form for:
-     * <code>idt().translate(trn).rotateRad(radians).scale(scale)</code>
+     * Sets this matrix to a concatenation of translation, rotation and scale. It is a more
+     * efficient form for: <code>idt().translate(trn).rotateRad(radians).scale(scale)</code>
      *
-     * @param trn     The translation vector.
+     * @param trn The translation vector.
      * @param radians The angle in radians.
-     * @param scale   The scale vector.
+     * @param scale The scale vector.
      * @return This matrix for the purpose of chaining operations.
      */
     public Affine2 setToTrnRotRadScl(Vector2 trn, float radians, Vector2 scale) {
@@ -337,11 +338,11 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation and scale. It is a more efficient form for:
-     * <code>idt().translate(x, y).scale(scaleX, scaleY)</code>
+     * Sets this matrix to a concatenation of translation and scale. It is a more efficient form
+     * for: <code>idt().translate(x, y).scale(scaleX, scaleY)</code>
      *
-     * @param x      The translation in x.
-     * @param y      The translation in y.
+     * @param x The translation in x.
+     * @param y The translation in y.
      * @param scaleX The scale in y.
      * @param scaleY The scale in x.
      * @return This matrix for the purpose of chaining operations.
@@ -357,10 +358,10 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Sets this matrix to a concatenation of translation and scale. It is a more efficient form for:
-     * <code>idt().translate(trn).scale(scale)</code>
+     * Sets this matrix to a concatenation of translation and scale. It is a more efficient form
+     * for: <code>idt().translate(trn).scale(scale)</code>
      *
-     * @param trn   The translation vector.
+     * @param trn The translation vector.
      * @param scale The scale vector.
      * @return This matrix for the purpose of chaining operations.
      */
@@ -414,7 +415,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Postmultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
+     * Postmultiplies this matrix with the provided matrix and stores the result in this matrix. For
+     * example:
      *
      * <pre>
      * A.mul(B) results in A := AB
@@ -441,7 +443,8 @@ public final class Affine2 implements Serializable {
     }
 
     /**
-     * Premultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
+     * Premultiplies this matrix with the provided matrix and stores the result in this matrix. For
+     * example:
      *
      * <pre>
      * A.preMul(B) results in A := BA
@@ -772,9 +775,7 @@ public final class Affine2 implements Serializable {
         return (m00 == 1 && m02 == 0 && m12 == 0 && m11 == 1 && m01 == 0 && m10 == 0);
     }
 
-    /**
-     * Applies the affine transformation on a vector.
-     */
+    /** Applies the affine transformation on a vector. */
     public void applyTo(Vector2 point) {
         float x = point.x;
         float y = point.y;
@@ -784,6 +785,18 @@ public final class Affine2 implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + m00 + "|" + m01 + "|" + m02 + "]\n[" + m10 + "|" + m11 + "|" + m12 + "]\n[0.0|0.0|0.1]";
+        return "["
+                + m00
+                + "|"
+                + m01
+                + "|"
+                + m02
+                + "]\n["
+                + m10
+                + "|"
+                + m11
+                + "|"
+                + m12
+                + "]\n[0.0|0.0|0.1]";
     }
 }

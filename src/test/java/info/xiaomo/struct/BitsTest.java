@@ -11,13 +11,13 @@ import org.junit.Test;
  */
 public class BitsTest {
 
-  @Test
-  public void test() {
-    Bits bits = new Bits();
-    bits.set(3);
-    bits.set(13);
-    bits.set(35);
-    Assert.assertEquals(33, bits.nextClearBit(33));
-    Assert.assertEquals(35, bits.nextSetBit(33));
-  }
+    @Test
+    public void test() {
+        Bits bits = new Bits();
+        bits.set(3);
+        bits.set(13);
+        bits.set(35);
+        Assert.assertEquals(33, bits.nextClearBit(33));
+        Assert.assertEquals(35, bits.nextSetBit(33));
+    }
 }

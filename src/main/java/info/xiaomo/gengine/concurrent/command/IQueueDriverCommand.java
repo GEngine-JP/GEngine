@@ -1,11 +1,9 @@
 package info.xiaomo.gengine.concurrent.command;
 
-
 import info.xiaomo.gengine.concurrent.queue.ICommandQueue;
 
 /**
- * 拥有一个队列的命令.
- * 该命令可以放入QueueDriver中执行.
+ * 拥有一个队列的命令. 该命令可以放入QueueDriver中执行.
  *
  * @author xiaomo
  */
@@ -52,5 +50,4 @@ public interface IQueueDriverCommand extends ICommand {
      * @param param param
      */
     void setParam(Object param);
-
 }

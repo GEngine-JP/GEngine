@@ -33,7 +33,7 @@ public class Result<T> {
      * 只有错误码和错误信息的
      *
      * @param resultCode resultCode
-     * @param message    message
+     * @param message message
      */
     public Result(int resultCode, String message) {
         this.resultCode = resultCode;
@@ -50,13 +50,12 @@ public class Result<T> {
         this.data = data;
     }
 
-
     /**
      * 全部参数
      *
      * @param resultCode resultCode
-     * @param message    message
-     * @param data       data
+     * @param message message
+     * @param data data
      */
     public Result(int resultCode, String message, T data) {
         this.resultCode = resultCode;

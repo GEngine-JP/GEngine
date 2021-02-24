@@ -14,13 +14,12 @@ public class Ray implements Serializable {
     public final Vector3 origin = new Vector3(); // 起点
     public final Vector3 direction = new Vector3(); // 方向
 
-    public Ray() {
-    }
+    public Ray() {}
 
     /**
      * Constructor, sets the starting position of the ray and the direction.
      *
-     * @param origin    The starting position
+     * @param origin The starting position
      * @param direction The direction
      */
     public Ray(Vector3 origin, Vector3 direction) {
@@ -28,18 +27,16 @@ public class Ray implements Serializable {
         this.direction.set(direction).nor();
     }
 
-    /**
-     * @return a copy of this ray.
-     */
+    /** @return a copy of this ray. */
     public Ray cpy() {
         return new Ray(this.origin, this.direction);
     }
 
     /**
-     * Returns the endpoint given the distance. This is calculated as startpoint +
-     * distance * direction.
+     * Returns the endpoint given the distance. This is calculated as startpoint + distance *
+     * direction.
      *
-     * @param out      The vector to set to the result
+     * @param out The vector to set to the result
      * @param distance The distance from the end point to the start point.
      * @return The out param
      */
@@ -49,8 +46,8 @@ public class Ray implements Serializable {
 
     /**
      * 射线坐标系改变<br>
-     * Multiplies the ray by the given matrix. Use this to transform a ray into
-     * another coordinate system.
+     * Multiplies the ray by the given matrix. Use this to transform a ray into another coordinate
+     * system.
      *
      * @param matrix The matrix
      * @return This ray for chaining.
@@ -63,9 +60,7 @@ public class Ray implements Serializable {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public String toString() {
         return "ray [" + origin + ":" + direction + "]";
     }
@@ -73,7 +68,7 @@ public class Ray implements Serializable {
     /**
      * Sets the starting position and the direction of this ray.
      *
-     * @param origin    The starting position
+     * @param origin The starting position
      * @param direction The direction
      * @return this ray for chaining
      */
@@ -86,9 +81,9 @@ public class Ray implements Serializable {
     /**
      * Sets this ray from the given starting position and direction.
      *
-     * @param x  The x-component of the starting position
-     * @param y  The y-component of the starting position
-     * @param z  The z-component of the starting position
+     * @param x The x-component of the starting position
+     * @param y The y-component of the starting position
+     * @param z The z-component of the starting position
      * @param dx The x-component of the direction
      * @param dy The y-component of the direction
      * @param dz The z-component of the direction
@@ -114,10 +109,8 @@ public class Ray implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (o == null || o.getClass() != this.getClass())
-            return false;
+        if (o == this) return true;
+        if (o == null || o.getClass() != this.getClass()) return false;
         Ray r = (Ray) o;
         return this.direction.equals(r.direction) && this.origin.equals(r.origin);
     }

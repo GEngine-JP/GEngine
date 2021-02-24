@@ -12,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 场景定时事件派发器. </br>
- * <p>
- * 该分发器会按照设置好的周期和间隔将事件添加到QueueDriver中</br>
- * <p>
- * 只有初始化场景的时候，才能向派发器添加定时事件。
+ *
+ * <p>该分发器会按照设置好的周期和间隔将事件添加到QueueDriver中</br>
+ *
+ * <p>只有初始化场景的时候，才能向派发器添加定时事件。
  *
  * @author 张力
  * @date 2015-3-11 上午5:49:11
@@ -26,26 +26,18 @@ public class ScheduledEventDispatcher implements Runnable {
 
     private boolean running = false;
 
-    /**
-     * 事件列表
-     */
+    /** 事件列表 */
     private List<AbstractScheduledEvent> events = new ArrayList<>();
 
-    /**
-     * 场景id
-     */
+    /** 场景id */
     private int mapId;
 
     private int line;
 
-    /**
-     * 该派发器所属场景的驱动器
-     */
+    /** 该派发器所属场景的驱动器 */
     private QueueDriver driver;
 
-    /**
-     * 该派发器在线程池中的执行句柄
-     */
+    /** 该派发器在线程池中的执行句柄 */
     private Future<?> future;
 
     public ScheduledEventDispatcher(QueueDriver driver, int mapId, int line) {
@@ -65,7 +57,11 @@ public class ScheduledEventDispatcher implements Runnable {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
         }
         this.events.add(event);
-        log.debug("ScheduledEvent事件:addScheduledEvent=" + this.mapId + "=event=" + event.getClass().getName());
+        log.debug(
+                "ScheduledEvent事件:addScheduledEvent="
+                        + this.mapId
+                        + "=event="
+                        + event.getClass().getName());
     }
 
     /**
@@ -81,9 +77,7 @@ public class ScheduledEventDispatcher implements Runnable {
         log.debug("ScheduledEvent事件:AbstractScheduledEvent=remove");
     }
 
-    /**
-     * 清除定时事件
-     */
+    /** 清除定时事件 */
     public void clearTimerEvent() {
         if (running) {
             throw new RuntimeException("已经启动的派发器不允许改变派发事件");
@@ -122,14 +116,13 @@ public class ScheduledEventDispatcher implements Runnable {
                         event.setEnd(curTime + event.getDelay());
                     }
 
-                } else {// 次数不限的周期时间
+                } else { // 次数不限的周期时间
                     // 设置下次执行时间
                     event.setEnd(curTime + event.getDelay());
                 }
                 // 放入场景驱动
                 this.driver.addCommand(event);
             }
-
         }
     }
 
@@ -137,5 +130,4 @@ public class ScheduledEventDispatcher implements Runnable {
         service.scheduleAtFixedRate(this, 0, 100, TimeUnit.MILLISECONDS);
         this.running = true;
     }
-
 }

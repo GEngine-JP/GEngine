@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.client;
 
-import info.xiaomo.gengine.network.MsgPack;
 import info.xiaomo.gengine.network.INetworkConsumer;
+import info.xiaomo.gengine.network.MsgPack;
 import io.netty.channel.Channel;
 
 /**

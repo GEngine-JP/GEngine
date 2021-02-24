@@ -18,17 +18,26 @@ public class ExcelSheetMapReader extends ExcelSheetReader<Map> {
     }
 
     @SuppressWarnings("unchecked")
-    public ExcelSheetMapReader(Supplier<? extends Map> resultSupplier, Map<Integer, IRowReader> rowReaders) {
-        this(resultSupplier, new ExcelRowMapReader(HashMap::new), (map, objs) -> {
-            Object[] params = (Object[]) objs;
-            int index = (int) params[1];
-            Object value = params[2];
-            map.put(index, value);
-            return map;
-        }, rowReaders);
+    public ExcelSheetMapReader(
+            Supplier<? extends Map> resultSupplier, Map<Integer, IRowReader> rowReaders) {
+        this(
+                resultSupplier,
+                new ExcelRowMapReader(HashMap::new),
+                (map, objs) -> {
+                    Object[] params = (Object[]) objs;
+                    int index = (int) params[1];
+                    Object value = params[2];
+                    map.put(index, value);
+                    return map;
+                },
+                rowReaders);
     }
 
-    public ExcelSheetMapReader(Supplier<? extends Map> resultSupplier, IRowReader defaultRowReader, BiConverter<? super Map, Object, ? extends Map> rowParser, Map<Integer, IRowReader> rowReaders) {
+    public ExcelSheetMapReader(
+            Supplier<? extends Map> resultSupplier,
+            IRowReader defaultRowReader,
+            BiConverter<? super Map, Object, ? extends Map> rowParser,
+            Map<Integer, IRowReader> rowReaders) {
         super(resultSupplier, defaultRowReader, rowParser, rowReaders);
     }
 }

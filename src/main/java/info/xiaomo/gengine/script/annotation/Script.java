@@ -7,5 +7,6 @@ package info.xiaomo.gengine.script.annotation;
 public @interface Script {
 
     int order() default 0;
+
     boolean bootstrap() default false;
 }

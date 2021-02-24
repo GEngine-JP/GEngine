@@ -1,18 +1,14 @@
 package info.xiaomo.gengine.network;
 
-
 import info.xiaomo.gengine.concurrent.command.IQueueDriverCommand;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 public interface IProcessor {
 
     /**
      * process
      *
-     * @param  handler handler
+     * @param handler handler
      */
     void process(IQueueDriverCommand handler);
-
 }

@@ -14,24 +14,16 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class AbstractScheduledEvent extends AbstractCommand {
 
-    /**
-     * 定时结束时间
-     */
+    /** 定时结束时间 */
     private long end;
 
-    /**
-     * 定时剩余时间
-     */
+    /** 定时剩余时间 */
     private long remain;
 
-    /**
-     * 执行次数
-     */
+    /** 执行次数 */
     private int loop;
 
-    /**
-     * 间隔时间
-     */
+    /** 间隔时间 */
     private long delay;
 
     /**
@@ -47,7 +39,7 @@ public abstract class AbstractScheduledEvent extends AbstractCommand {
     /**
      * 循环事件
      *
-     * @param loop  循环次数
+     * @param loop 循环次数
      * @param delay 间隔时间
      */
     protected AbstractScheduledEvent(int loop, long delay) {
@@ -56,11 +48,8 @@ public abstract class AbstractScheduledEvent extends AbstractCommand {
         this.end = (System.currentTimeMillis() + delay);
     }
 
-
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
-
 }

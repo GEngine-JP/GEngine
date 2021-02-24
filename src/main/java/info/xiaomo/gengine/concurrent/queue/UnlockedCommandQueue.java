@@ -4,39 +4,28 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
- * 非线程安全的命令队列 任务执行队列，对ArrayDeque的包装. </br>
- * 该队列有一个是否所有队列的任务都执行完毕的标志，用于向队列中添加任务的时候判断是否需要启动任务
+ * 非线程安全的命令队列 任务执行队列，对ArrayDeque的包装. </br> 该队列有一个是否所有队列的任务都执行完毕的标志，用于向队列中添加任务的时候判断是否需要启动任务
  *
  * @param <V>
  * @author Administrator
  */
 public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
 
-    /**
-     * 命令队列
-     */
+    /** 命令队列 */
     private final Queue<V> queueList;
 
-    /**
-     * 是否正在运行中
-     */
+    /** 是否正在运行中 */
     private boolean running = false;
 
-    /**
-     * 名称
-     */
+    /** 名称 */
     private String name;
 
-    /**
-     * 创建一个空队列
-     */
+    /** 创建一个空队列 */
     public UnlockedCommandQueue() {
         queueList = new ArrayDeque<>();
     }
 
-    /**
-     * 创建一个空的队列，并用指定的大小初始化该队列
-     */
+    /** 创建一个空的队列，并用指定的大小初始化该队列 */
     public UnlockedCommandQueue(int numElements) {
         queueList = new ArrayDeque<>(numElements);
     }
@@ -51,17 +40,13 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
         return this.queueList.poll();
     }
 
-    /**
-     * 增加执行指令
-     */
+    /** 增加执行指令 */
     @Override
     public boolean offer(V value) {
         return this.queueList.offer(value);
     }
 
-    /**
-     * 清理
-     */
+    /** 清理 */
     @Override
     public void clear() {
         this.queueList.clear();
@@ -96,6 +81,4 @@ public class UnlockedCommandQueue<V> implements ICommandQueue<V> {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }

@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月12日 10:26
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月12日 10:26 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config.excel.reader;
 
 import java.util.HashMap;
@@ -24,7 +21,11 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
     protected BiConverter<? super R, Object, ? extends R> cellParser;
     protected Map<Integer, ICellReader> cellReaders = new HashMap<>(10);
 
-    public ExcelRowReader(Supplier<? extends R> resultSupplier, ICellReader defaultCellReader, BiConverter<? super R, Object, ? extends R> cellParser, Map<Integer, ICellReader> cellReaders) {
+    public ExcelRowReader(
+            Supplier<? extends R> resultSupplier,
+            ICellReader defaultCellReader,
+            BiConverter<? super R, Object, ? extends R> cellParser,
+            Map<Integer, ICellReader> cellReaders) {
         this.resultSupplier = resultSupplier;
         this.defaultCellReader = defaultCellReader;
         this.cellParser = cellParser;
@@ -70,14 +71,16 @@ public class ExcelRowReader<R> implements IRowReader<Row, R> {
         if (cellParser == null) {
             return result;
         }
-        for (int cellIndex = row.getFirstCellNum(), lastCellIndex = row.getLastCellNum(); cellIndex < lastCellIndex; cellIndex++) {
+        for (int cellIndex = row.getFirstCellNum(), lastCellIndex = row.getLastCellNum();
+                cellIndex < lastCellIndex;
+                cellIndex++) {
             Object cellValue = null;
             Cell cell = row.getCell(cellIndex);
             ICellReader cellReader = getCellReader(cellIndex);
             if (cellReader != null) {
                 cellValue = cellReader.read(cell);
             }
-            result = cellParser.apply(result, new Object[]{cell, cellIndex, cellValue});
+            result = cellParser.apply(result, new Object[] {cell, cellIndex, cellValue});
         }
         return result;
     }

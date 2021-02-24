@@ -1,8 +1,7 @@
 package info.xiaomo.gengine.concurrent.queue;
 
 /**
- * 任务队列接口</br>
- * 所有实现该接口的队列都应该自己保证其线程安全
+ * 任务队列接口</br> 所有实现该接口的队列都应该自己保证其线程安全
  *
  * @param <V>
  * @author Administrator
@@ -24,9 +23,7 @@ public interface ICommandQueue<V> {
      */
     boolean offer(V value);
 
-    /**
-     * 清理
-     */
+    /** 清理 */
     void clear();
 
     /**
@@ -51,16 +48,16 @@ public interface ICommandQueue<V> {
     void setRunning(boolean running);
 
     /**
-     * 设置名字
-     *
-     * @param name name
-     */
-    void setName(String name);
-
-    /**
      * 获取名字
      *
      * @return String
      */
     String getName();
+
+    /**
+     * 设置名字
+     *
+     * @param name name
+     */
+    void setName(String name);
 }

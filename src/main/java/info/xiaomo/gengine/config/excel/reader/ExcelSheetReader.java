@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月12日 10:53
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月12日 10:53 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config.excel.reader;
 
 import java.util.HashMap;
@@ -13,16 +10,18 @@ import info.xiaomo.gengine.config.ITableReader;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-/**
- * @author YangQiang
- */
+/** @author YangQiang */
 public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
     protected Supplier<? extends R> resultSupplier;
     protected IRowReader defaultRowReader;
     protected BiConverter<? super R, Object, ? extends R> rowParser;
     protected Map<Integer, IRowReader> rowReaders = new HashMap<>(10);
 
-    public ExcelSheetReader(Supplier<? extends R> resultSupplier, IRowReader defaultRowReader, BiConverter<? super R, Object, ? extends R> rowParser, Map<Integer, IRowReader> rowReaders) {
+    public ExcelSheetReader(
+            Supplier<? extends R> resultSupplier,
+            IRowReader defaultRowReader,
+            BiConverter<? super R, Object, ? extends R> rowParser,
+            Map<Integer, IRowReader> rowReaders) {
         this.resultSupplier = resultSupplier;
         this.defaultRowReader = defaultRowReader;
         this.rowParser = rowParser;
@@ -68,15 +67,16 @@ public class ExcelSheetReader<R> implements ITableReader<Sheet, R> {
         if (rowParser == null) {
             return result;
         }
-        for (int rowIndex = sheet.getFirstRowNum(), lastRowIndex = sheet.getLastRowNum(); rowIndex <= lastRowIndex; rowIndex++) {
+        for (int rowIndex = sheet.getFirstRowNum(), lastRowIndex = sheet.getLastRowNum();
+                rowIndex <= lastRowIndex;
+                rowIndex++) {
             Object rowValue = null;
             Row row = sheet.getRow(rowIndex);
             IRowReader rowReader = getRowReader(rowIndex);
             if (rowReader != null) {
                 rowValue = rowReader.read(row);
             }
-            result = rowParser.apply(result, new Object[]{row, rowIndex, rowValue});
-
+            result = rowParser.apply(result, new Object[] {row, rowIndex, rowValue});
         }
         return result;
     }

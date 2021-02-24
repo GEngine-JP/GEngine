@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月21日 17:34
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月21日 17:34 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config;
 
 import java.util.List;
@@ -21,7 +18,7 @@ public interface IConfigDataManager {
      * @param <T>
      * @return
      */
-    <T> T getConfig(Class<T> clz, Object ...primaryKey);
+    <T> T getConfig(Class<T> clz, Object... primaryKey);
 
     /**
      * 获取指定类的所有配置列表

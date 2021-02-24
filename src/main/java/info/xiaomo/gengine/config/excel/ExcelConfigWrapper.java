@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import info.xiaomo.gengine.config.ConfigContainer;
 import info.xiaomo.gengine.config.IConfigWrapper;
 import info.xiaomo.gengine.config.beans.ColumnDesc;
@@ -49,7 +48,6 @@ public class ExcelConfigWrapper implements IConfigWrapper {
         return container.getList();
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public ExcelConfigWrapper build() {
@@ -70,7 +68,8 @@ public class ExcelConfigWrapper implements IConfigWrapper {
                 try {
                     clz.getDeclaredField(primaryKey);
                 } catch (NoSuchFieldException e) {
-                    throw new RuntimeException(String.format("【%s】无效的主键【%s】", clz.getName(), primaryKey));
+                    throw new RuntimeException(
+                            String.format("【%s】无效的主键【%s】", clz.getName(), primaryKey));
                 }
             }
         } else {
@@ -78,15 +77,18 @@ public class ExcelConfigWrapper implements IConfigWrapper {
         }
 
         if (tableDesc.getIndex() < 0) {
-            throw new RuntimeException(String.format("【%s】无效的index索引【%d】", clz.getName(), tableDesc.getIndex()));
+            throw new RuntimeException(
+                    String.format("【%s】无效的index索引【%d】", clz.getName(), tableDesc.getIndex()));
         }
         if (tableDesc.getHeader() < 0) {
-            throw new RuntimeException(String.format("【%s】无效的header索引【%d】", clz.getName(), tableDesc.getHeader()));
+            throw new RuntimeException(
+                    String.format("【%s】无效的header索引【%d】", clz.getName(), tableDesc.getHeader()));
         }
         if (tableDesc.getIgnoreRow() != null) {
             for (int row : tableDesc.getIgnoreRow()) {
                 if (row < 0) {
-                    throw new RuntimeException(String.format("【%s】无效的忽略行索引【%d】", clz.getName(), row));
+                    throw new RuntimeException(
+                            String.format("【%s】无效的忽略行索引【%d】", clz.getName(), row));
                 }
             }
         }
@@ -94,82 +96,107 @@ public class ExcelConfigWrapper implements IConfigWrapper {
         Map<String, String> warnKey = new HashMap<>(10);
         Map<String, String> errorKey = new HashMap<>(10);
 
-        Map<Integer, Map<Integer, String>> table = ExcelUtils.readExcelSheetToMap(workbook.getSheetAt(tableDesc.getIndex()));
+        Map<Integer, Map<Integer, String>> table =
+                ExcelUtils.readExcelSheetToMap(workbook.getSheetAt(tableDesc.getIndex()));
         if (tableDesc.getIgnoreRow() != null) {
             for (int ignoreRow : tableDesc.getIgnoreRow()) {
                 table.remove(ignoreRow);
             }
         }
         Map<Integer, String> header = table.remove(tableDesc.getHeader());
-        table.forEach((rowIndex, rowData) -> {
-            try {
-                Object config = clz.getConstructor().newInstance();
-                header.forEach((columnIndex, columnName) -> {
-                    String cellData = rowData.get(columnIndex);
-                    ColumnDesc columnDesc = columns.get(columnName);
-                    if (columnDesc == null) {
-                        warnKey.put(columnName, String.format("[%s]中没有找到[%s]属性", clz.getName(), columnName));
-                        return;
-                    }
-
-                    if (columnDesc.isNotNull() && cellData == null) {
-                        errorKey.put(columnName, String.format("[%s]中[%s]列不允许为null", tableDesc.getName(), columnName));
-                        return;
-                    }
-                    Object newValue = cellData;
-                    Field field = columnDesc.getField();
-
+        table.forEach(
+                (rowIndex, rowData) -> {
                     try {
-                        if (columnDesc.getConverter() != null) {
-                            newValue = columnDesc.getConverter().convert(newValue);
+                        Object config = clz.getConstructor().newInstance();
+                        header.forEach(
+                                (columnIndex, columnName) -> {
+                                    String cellData = rowData.get(columnIndex);
+                                    ColumnDesc columnDesc = columns.get(columnName);
+                                    if (columnDesc == null) {
+                                        warnKey.put(
+                                                columnName,
+                                                String.format(
+                                                        "[%s]中没有找到[%s]属性",
+                                                        clz.getName(), columnName));
+                                        return;
+                                    }
+
+                                    if (columnDesc.isNotNull() && cellData == null) {
+                                        errorKey.put(
+                                                columnName,
+                                                String.format(
+                                                        "[%s]中[%s]列不允许为null",
+                                                        tableDesc.getName(), columnName));
+                                        return;
+                                    }
+                                    Object newValue = cellData;
+                                    Field field = columnDesc.getField();
+
+                                    try {
+                                        if (columnDesc.getConverter() != null) {
+                                            newValue = columnDesc.getConverter().convert(newValue);
+                                        }
+                                    } catch (Exception e) {
+                                        errorKey.put(
+                                                columnName,
+                                                String.format(
+                                                        "[%s]中[%s]的转换器错误",
+                                                        clz.getName(), field.getName()));
+                                        return;
+                                    }
+                                    try {
+                                        field.setAccessible(true);
+                                        Object oldValue = field.get(config);
+                                        BeanUtils.setProperty(config, field.getName(), newValue);
+                                        newValue = field.get(config);
+                                        // 如果最后解析成null而默认值不是null则还原回去
+                                        if (newValue == null && oldValue != null) {
+                                            field.set(config, oldValue);
+                                        }
+                                    } catch (Exception e) {
+                                        errorKey.put(
+                                                columnName,
+                                                String.format(
+                                                        "[%s]中[%s]设值失败[%s]",
+                                                        clz.getName(), field.getName(), cellData));
+                                        e.printStackTrace();
+                                    }
+                                });
+                        if (primaryKeys != null) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < primaryKeys.length; i++) {
+                                String primaryKey = primaryKeys[i];
+                                Field field = null;
+                                try {
+                                    field = clz.getDeclaredField(primaryKey);
+                                } catch (NoSuchFieldException e) {
+                                    errorKey.put(
+                                            primaryKey,
+                                            String.format(
+                                                    "[%s]中无效的主键[%s]", clz.getName(), primaryKey));
+                                }
+                                Objects.requireNonNull(field).setAccessible(true);
+                                try {
+                                    Object value = field.get(config);
+                                    if (i == 0) {
+                                        sb.append(value);
+                                    } else {
+                                        sb.append(getKeyDelimiter()).append(value);
+                                    }
+                                } catch (IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            container.getConfigMap().put(sb.toString(), config);
                         }
-                    } catch (Exception e) {
-                        errorKey.put(columnName, String.format("[%s]中[%s]的转换器错误", clz.getName(), field.getName()));
-                        return;
-                    }
-                    try {
-                        field.setAccessible(true);
-                        Object oldValue = field.get(config);
-                        BeanUtils.setProperty(config, field.getName(), newValue);
-                        newValue = field.get(config);
-                        // 如果最后解析成null而默认值不是null则还原回去
-                        if (newValue == null && oldValue != null) {
-                            field.set(config, oldValue);
-                        }
-                    } catch (Exception e) {
-                        errorKey.put(columnName, String.format("[%s]中[%s]设值失败[%s]", clz.getName(), field.getName(), cellData));
+                        container.getConfigList().add(config);
+                    } catch (InstantiationException
+                            | IllegalAccessException
+                            | NoSuchMethodException
+                            | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                 });
-                if (primaryKeys != null) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < primaryKeys.length; i++) {
-                        String primaryKey = primaryKeys[i];
-                        Field field = null;
-                        try {
-                            field = clz.getDeclaredField(primaryKey);
-                        } catch (NoSuchFieldException e) {
-                            errorKey.put(primaryKey, String.format("[%s]中无效的主键[%s]", clz.getName(), primaryKey));
-                        }
-                        Objects.requireNonNull(field).setAccessible(true);
-                        try {
-                            Object value = field.get(config);
-                            if (i == 0) {
-                                sb.append(value);
-                            } else {
-                                sb.append(getKeyDelimiter()).append(value);
-                            }
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    container.getConfigMap().put(sb.toString(), config);
-                }
-                container.getConfigList().add(config);
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        });
 
         if (!warnKey.isEmpty()) {
             warnKey.forEach((key, warn) -> LOGGER.warn(warn));

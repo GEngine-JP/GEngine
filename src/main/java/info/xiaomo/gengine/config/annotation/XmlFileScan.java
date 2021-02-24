@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月24日 16:15
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月24日 16:15 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config.annotation;
 
 import java.lang.annotation.*;
@@ -17,6 +14,7 @@ import java.lang.annotation.*;
 public @interface XmlFileScan {
     /**
      * xml配置地址
+     *
      * @return
      */
     String value();

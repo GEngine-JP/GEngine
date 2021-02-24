@@ -7,18 +7,12 @@ package info.xiaomo.gengine.persist.mysql.persist;
  */
 public enum PersistType {
 
-    /**
-     * 插入
-     */
+    /** 插入 */
     INSERT,
 
-    /**
-     * 更新
-     */
+    /** 更新 */
     UPDATE,
 
-    /**
-     * 删除
-     */
+    /** 删除 */
     DELETE,
 }

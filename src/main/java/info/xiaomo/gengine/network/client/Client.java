@@ -2,6 +2,10 @@ package info.xiaomo.gengine.network.client;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.*;
 import info.xiaomo.gengine.network.MsgPack;
 import info.xiaomo.gengine.network.handler.MessageDecoder;
 import info.xiaomo.gengine.network.handler.MessageEncoder;
@@ -15,52 +19,28 @@ import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.*;
-
 /**
  * 基于netty和当前消息结构的一个客户端连接器
  *
- * @author zhangli
- * 2017年6月15日 下午10:25:01
+ * @author zhangli 2017年6月15日 下午10:25:01
  */
 public class Client {
 
-
-    public final AttributeKey<Integer> ATTR_INDEX = AttributeKey.valueOf("INDEX");
-
-    public static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
-    private short sequence = 0;
-
-    private final Object seq_lock = new Object();
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
-
+    public static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    public final AttributeKey<Integer> ATTR_INDEX = AttributeKey.valueOf("INDEX");
+    private final Object seq_lock = new Object();
     protected ClientBuilder builder;
-
     protected Channel channel;
-
     protected Bootstrap bootstrap;
-
     protected EventLoopGroup group;
-
     protected Map<Short, ClientFuture<AbstractMessage>> futureMap = new ConcurrentHashMap<>();
-
     protected boolean stopped = false;
-
-    /**
-     * 是否已经连接（调用connect）方法
-     */
+    /** 是否已经连接（调用connect）方法 */
     protected boolean connected = false;
-
     protected boolean needReconnect = true;
-
-    /**
-     * 重连延迟
-     */
+    private short sequence = 0;
+    /** 重连延迟 */
     private int reconnectDelay = 2;
 
     /**
@@ -83,27 +63,37 @@ public class Client {
 
         final boolean idleCheck = builder.getMaxIdleTime() > 0;
 
-        bootstrap.handler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pip = ch.pipeline();
-                if (idleCheck) {
-                    pip.addLast("Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
-                }
-                pip.addLast("NettyMessageDecoder", new MessageDecoder(builder.getUpLimit()));
-                pip.addLast("NettyMessageEncoder", new MessageEncoder());
-                pip.addLast("NettyMessageExecutor", new ClientMessageExecutor(
-                        builder.getConsumer(),
-                        builder.getEventListener(),
-                        futureMap, idleCheck));
-            }
-        });
+        bootstrap.handler(
+                new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) throws Exception {
+                        ChannelPipeline pip = ch.pipeline();
+                        if (idleCheck) {
+                            pip.addLast(
+                                    "Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
+                        }
+                        pip.addLast(
+                                "NettyMessageDecoder", new MessageDecoder(builder.getUpLimit()));
+                        pip.addLast("NettyMessageEncoder", new MessageEncoder());
+                        pip.addLast(
+                                "NettyMessageExecutor",
+                                new ClientMessageExecutor(
+                                        builder.getConsumer(),
+                                        builder.getEventListener(),
+                                        futureMap,
+                                        idleCheck));
+                    }
+                });
 
         if (builder.getHeartTime() > 0) {
             if (executor == null) {
                 executor = createExecutor();
             }
-            executor.scheduleAtFixedRate(new ClientHeart(builder.getPingMessageFactory(), this), 5, builder.getHeartTime(), TimeUnit.SECONDS);
+            executor.scheduleAtFixedRate(
+                    new ClientHeart(builder.getPingMessageFactory(), this),
+                    5,
+                    builder.getHeartTime(),
+                    TimeUnit.SECONDS);
         }
 
         if (needReconnect) {
@@ -111,10 +101,19 @@ public class Client {
                 executor = createExecutor();
             }
         }
-
-
     }
 
+    public static int getMessageID(com.google.protobuf.Message msg) {
+        for (Map.Entry<Descriptors.FieldDescriptor, Object> fieldDescriptorObjectEntry :
+                msg.getAllFields().entrySet()) {
+            if (fieldDescriptorObjectEntry.getKey().getName().equals("msgId")) {
+                return ((Descriptors.EnumValueDescriptor) fieldDescriptorObjectEntry.getValue())
+                        .getNumber();
+            }
+        }
+        LOGGER.error("在消息体中没有找到对应的消息id:{}", msg);
+        return 0;
+    }
 
     /**
      * 发送消息列表
@@ -138,7 +137,6 @@ public class Client {
         return false;
     }
 
-
     /**
      * 发送消息
      *
@@ -154,16 +152,6 @@ public class Client {
             return true;
         }
         return false;
-    }
-
-    public static int getMessageID(com.google.protobuf.Message msg) {
-        for (Map.Entry<Descriptors.FieldDescriptor, Object> fieldDescriptorObjectEntry : msg.getAllFields().entrySet()) {
-            if (fieldDescriptorObjectEntry.getKey().getName().equals("msgId")) {
-                return ((Descriptors.EnumValueDescriptor) fieldDescriptorObjectEntry.getValue()).getNumber();
-            }
-        }
-        LOGGER.error("在消息体中没有找到对应的消息id:{}", msg);
-        return 0;
     }
 
     /**
@@ -185,31 +173,29 @@ public class Client {
      */
     public AbstractMessage sendSyncMsg(AbstractMessage message, final long timeout) {
 
-
-//        message.setSequence(getValidateId());
+        //        message.setSequence(getValidateId());
         try {
             Channel channel = getChannel(Thread.currentThread().getId());
             channel.writeAndFlush(message);
 
             ClientFuture<AbstractMessage> f = ClientFuture.create();
-//            futureMap.put(message.getSequence(), f);
+            //            futureMap.put(message.getSequence(), f);
             return f.get(timeout, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-//            ClientFuture<AbstractMessage> future = futureMap.remove(message.getSequence());
-//            if (future != null) {
-//                future.cancel(false);
-//            }
+            //            ClientFuture<AbstractMessage> future =
+            // futureMap.remove(message.getSequence());
+            //            if (future != null) {
+            //                future.cancel(false);
+            //            }
         }
         return null;
     }
 
-
     public void connect() throws Exception {
         connect(false);
     }
-
 
     /**
      * 连接服务器
@@ -225,7 +211,6 @@ public class Client {
 
         this.connected = true;
     }
-
 
     /**
      * 获取channel
@@ -287,7 +272,6 @@ public class Client {
         channel.closeFuture().addListener(new ChannelDisconnectedListener(this, index));
     }
 
-
     /**
      * 发送心跳ping包
      *
@@ -296,7 +280,6 @@ public class Client {
     public void ping(AbstractMessage msg) {
         sendMsg(msg);
     }
-
 
     /**
      * 只调用关闭连击和netty线程，快速返回，不保证一定能够执行完毕关闭逻辑
@@ -324,7 +307,6 @@ public class Client {
         return builder;
     }
 
-
     public boolean isStopped() {
         return stopped;
     }
@@ -334,15 +316,15 @@ public class Client {
     }
 
     public ScheduledExecutorService createExecutor() {
-        return Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
+        return Executors.newSingleThreadScheduledExecutor(
+                new ThreadFactory() {
 
-            @Override
-            public Thread newThread(Runnable r) {
-                return new Thread(r, "Client心跳和断线重连线程");
-            }
-        });
+                    @Override
+                    public Thread newThread(Runnable r) {
+                        return new Thread(r, "Client心跳和断线重连线程");
+                    }
+                });
     }
-
 
     public int getReconnectDelay(int index) {
         return this.reconnectDelay;
@@ -353,8 +335,7 @@ public class Client {
     }
 
     /**
-     * 重连计数.
-     * 每重连一次，时间就会乘以2，最高到20秒，如果需要重置，可以在逻辑里连接成功以后，调用reconnectDelayReset重置
+     * 重连计数. 每重连一次，时间就会乘以2，最高到20秒，如果需要重置，可以在逻辑里连接成功以后，调用reconnectDelayReset重置
      *
      * @param index
      */

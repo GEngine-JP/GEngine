@@ -6,20 +6,13 @@ import info.xiaomo.gengine.math.Vector3;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * 数学计算工具
- *
- *
- *
- */
+/** 数学计算工具 */
 public class MathUtilTest {
 
     private float PI = (float) Math.PI;
     private float HALF_PI = (float) Math.PI / 2;
 
-    /**
-     * 随机坐标
-     */
+    /** 随机坐标 */
     @Test
     public void testRandomVector3() {
         for (int i = 0; i < 1000; i++) {
@@ -27,9 +20,7 @@ public class MathUtilTest {
         }
     }
 
-    /**
-     * 随机种子测试
-     */
+    /** 随机种子测试 */
     @Test
     public void testRandomSeed() {
         Random random1 = new Random(10000);
@@ -221,7 +212,7 @@ public class MathUtilTest {
 
     @Test
     public void testAtan2() {
-        //Tested to within error specified
+        // Tested to within error specified
         Assert.assertEquals(HALF_PI, MathUtil.atan2(1, 0), 0.00488);
         Assert.assertEquals(0, MathUtil.atan2(0, 0), 0.00488);
         Assert.assertEquals(-HALF_PI, MathUtil.atan2(-1, 0), 0.00488);
@@ -231,11 +222,10 @@ public class MathUtilTest {
     }
 
     @Test
-    public void testLog(){
+    public void testLog() {
         Assert.assertEquals(1, MathUtil.log(10, 10), 0);
         Assert.assertEquals(0, MathUtil.log(10, 1), 0);
 
         Assert.assertEquals(2, MathUtil.log2(4), 0);
     }
-
 }

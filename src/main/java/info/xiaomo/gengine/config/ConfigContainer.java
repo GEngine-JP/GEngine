@@ -13,18 +13,18 @@ import lombok.Data;
  */
 @Data
 public class ConfigContainer<T> implements IConfigContainer {
-	private Map<Object, T> configMap = new HashMap<>(10);
-	private List<T> configList = new ArrayList<>();
+    private Map<Object, T> configMap = new HashMap<>(10);
+    private List<T> configList = new ArrayList<>();
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public T getConfig(Object key) {
-		return configMap.get(key);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public T getConfig(Object key) {
+        return configMap.get(key);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> getList() {
-		return configList;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> getList() {
+        return configList;
+    }
 }

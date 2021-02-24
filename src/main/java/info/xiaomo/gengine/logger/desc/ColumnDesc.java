@@ -11,31 +11,19 @@ public class ColumnDesc {
 
     private Method readMethod;
 
-    /**
-     * 列名
-     */
+    /** 列名 */
     private String name;
-    /**
-     * 数据库类型
-     */
+    /** 数据库类型 */
     private String type;
-    /**
-     * 长度
-     */
+    /** 长度 */
     private int size;
-    /**
-     * 是否允许为空
-     */
+    /** 是否允许为空 */
     private boolean allowNull;
 
-    /**
-     * 自动增长
-     */
+    /** 自动增长 */
     private boolean autoIncrement;
 
-    /**
-     * 注释
-     */
+    /** 注释 */
     private String commit;
 
     public String getName() {
@@ -53,7 +41,6 @@ public class ColumnDesc {
     public void setType(String type) {
         this.type = type;
     }
-
 
     public int getSize() {
         return size;
@@ -87,7 +74,6 @@ public class ColumnDesc {
         this.readMethod = readMethod;
     }
 
-
     public String getCommit() {
         return commit;
     }
@@ -99,7 +85,8 @@ public class ColumnDesc {
     private String getFieldType() {
         String text = "text";
         if (text.equalsIgnoreCase(this.type)
-                || "longtext".equalsIgnoreCase(this.type) || "blob".equalsIgnoreCase(this.type)) {
+                || "longtext".equalsIgnoreCase(this.type)
+                || "blob".equalsIgnoreCase(this.type)) {
             return this.type;
         }
         return this.type + "(" + this.size + ")";
@@ -110,8 +97,14 @@ public class ColumnDesc {
     }
 
     public String toDDL() {
-        return "`" + this.name + "`" + "\t" + this.getFieldType()
-                + this.getNullable() + this.getAutoIncrementAble() + this.getCommitStr();
+        return "`"
+                + this.name
+                + "`"
+                + "\t"
+                + this.getFieldType()
+                + this.getNullable()
+                + this.getAutoIncrementAble()
+                + this.getCommitStr();
     }
 
     private String getAutoIncrementAble() {
@@ -121,5 +114,4 @@ public class ColumnDesc {
     private String getCommitStr() {
         return "".equals(this.commit) ? "" : "\tCOMMENT '" + this.commit + "'";
     }
-
 }

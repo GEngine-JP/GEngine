@@ -1,5 +1,7 @@
 package info.xiaomo.gengine.network;
 
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 import info.xiaomo.gengine.network.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -15,12 +17,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 @Slf4j
 public class NetworkServiceImpl implements IService {
 
@@ -70,69 +67,6 @@ public class NetworkServiceImpl implements IService {
         }
     }
 
-
-    /**
-     * web socket的handler
-     */
-    static class WebSocketHandler extends ChannelInitializer<Channel> {
-        private final NetworkServiceBuilder builder;
-        private final SslContext sslCtx;
-
-        WebSocketHandler(NetworkServiceBuilder builder, SslContext sslCtx) {
-            this.builder = builder;
-            this.sslCtx = sslCtx;
-        }
-
-        @Override
-        protected void initChannel(Channel ch) {
-            //添加web socket相关内容
-            ChannelPipeline pip = ch.pipeline();
-            if (sslCtx != null) {
-                pip.addLast("sslHandler", sslCtx.newHandler(ch.alloc()));
-            }
-            pip.addLast(new HttpServerCodec());
-            pip.addLast(new HttpObjectAggregator(65536));
-            pip.addLast(new WebSocketServerProtocolHandler("/"));
-            pip.addLast(new WebSocketDecoder());
-            pip.addLast(new WebSocketEncoder());
-            pip.addLast(new MessageDecoder(builder.getUpLimit()));
-            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
-            for (ChannelHandler handler : builder.getExtraHandlers()) {
-                pip.addLast(handler);
-            }
-        }
-    }
-
-
-    /**
-     * socket的handler
-     */
-    static class SocketHandler extends ChannelInitializer<Channel> {
-        private final NetworkServiceBuilder builder;
-
-        SocketHandler(NetworkServiceBuilder builder) {
-            this.builder = builder;
-        }
-
-        @Override
-        protected void initChannel(Channel ch) {
-            ChannelPipeline pip = ch.pipeline();
-            int maxLength = 1048576;
-            int lengthFieldLength = 4;
-            int ignoreLength = -4;
-            int offset = 0;
-//            pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
-            pip.addLast(new MessageDecoder(builder.getUpLimit()));
-//            pip.addLast(new LengthFieldPrepender(4, true));
-            pip.addLast(new MessageEncoder());
-            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
-            for (ChannelHandler handler : builder.getExtraHandlers()) {
-                pip.addLast(handler);
-            }
-        }
-    }
-
-
     @Override
     public void start() {
         try {
@@ -145,10 +79,7 @@ public class NetworkServiceImpl implements IService {
         log.info("Server on port:{} is start", port);
     }
 
-
-    /**
-     * 停止網絡服務
-     */
+    /** 停止網絡服務 */
     @Override
     public void stop() {
         this.state = ServiceState.STOPPED;
@@ -162,7 +93,6 @@ public class NetworkServiceImpl implements IService {
         }
         log.info("Netty Server on port:{} is closed", port);
     }
-
 
     /**
      * 獲取當前網絡服務狀態
@@ -192,5 +122,55 @@ public class NetworkServiceImpl implements IService {
     @Override
     public boolean isClosed() {
         return state == ServiceState.STOPPED;
+    }
+
+    /** web socket的handler */
+    static class WebSocketHandler extends ChannelInitializer<Channel> {
+        private final NetworkServiceBuilder builder;
+        private final SslContext sslCtx;
+
+        WebSocketHandler(NetworkServiceBuilder builder, SslContext sslCtx) {
+            this.builder = builder;
+            this.sslCtx = sslCtx;
+        }
+
+        @Override
+        protected void initChannel(Channel ch) {
+            // 添加web socket相关内容
+            ChannelPipeline pip = ch.pipeline();
+            if (sslCtx != null) {
+                pip.addLast("sslHandler", sslCtx.newHandler(ch.alloc()));
+            }
+            pip.addLast(new HttpServerCodec());
+            pip.addLast(new HttpObjectAggregator(65536));
+            pip.addLast(new WebSocketServerProtocolHandler("/"));
+            pip.addLast(new WebSocketDecoder());
+            pip.addLast(new WebSocketEncoder());
+            pip.addLast(new MessageDecoder(builder.getUpLimit()));
+            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+            for (ChannelHandler handler : builder.getExtraHandlers()) {
+                pip.addLast(handler);
+            }
+        }
+    }
+
+    /** socket的handler */
+    static class SocketHandler extends ChannelInitializer<Channel> {
+        private final NetworkServiceBuilder builder;
+
+        SocketHandler(NetworkServiceBuilder builder) {
+            this.builder = builder;
+        }
+
+        @Override
+        protected void initChannel(Channel ch) {
+            ChannelPipeline pip = ch.pipeline();
+            pip.addLast(new MessageDecoder(builder.getUpLimit()));
+            pip.addLast(new MessageEncoder());
+            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+            for (ChannelHandler handler : builder.getExtraHandlers()) {
+                pip.addLast(handler);
+            }
+        }
     }
 }

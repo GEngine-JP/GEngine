@@ -4,38 +4,26 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 /**
  * http返回，该消息只支持<tt>text/plain</tt>类型;
- * @author 张力
- *  2017/12/22 20:20
+ *
+ * @author 张力 2017/12/22 20:20
  */
 public class Response {
 
+    /** 文本了类型 */
+    public static final String CONTENT_TYPE_TEXT = "text/plain";
 
-    /**
-     * 文本了类型
-     */
-    public final static String CONTENT_TYPE_TEXT = "text/plain";
+    public static final HttpResponseStatus OK = HttpResponseStatus.OK;
 
-    public final static HttpResponseStatus OK = HttpResponseStatus.OK;
-
-    public final static HttpResponseStatus NOT_FOUND = HttpResponseStatus.NOT_FOUND;
-
-    /**
-     * 消息正文
-     */
-    private String content;
-
-
-    /**
-     * 状态
-     */
+    public static final HttpResponseStatus NOT_FOUND = HttpResponseStatus.NOT_FOUND;
+    /** 状态 */
     public HttpResponseStatus status;
-
+    /** 消息正文 */
+    private String content;
     private String contentType;
 
     private String charset;
 
     private boolean keepAlive;
-
 
     public Response() {
         this.contentType = CONTENT_TYPE_TEXT;

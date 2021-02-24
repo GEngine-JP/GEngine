@@ -16,19 +16,11 @@ public interface INetworkEventListener {
      */
     void onConnected(ChannelHandlerContext ctx);
 
-    /**
-     * 连接断开
-     * * @param ctx
-     */
+    /** 连接断开 * @param ctx */
     void onDisconnected(ChannelHandlerContext ctx);
 
-    /**
-     * 异常发生
-     * * @param ctx
-     * * @param cause
-     */
+    /** 异常发生 * @param ctx * @param cause */
     void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause);
 
     void idle(ChannelHandlerContext ctx, Object evt);
-
 }

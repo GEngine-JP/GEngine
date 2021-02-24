@@ -1,36 +1,19 @@
 package info.xiaomo.gengine.logger;
 
-/**
- * @author xiaomo
- */
-
+/** @author xiaomo */
 public enum FieldType {
-    /**
-     * byte
-     */
+    /** byte */
     TINYINT,
-    /**
-     * short
-     */
+    /** short */
     SMALLINT,
-    /**
-     * int
-     */
+    /** int */
     INT,
-    /**
-     * long
-     */
+    /** long */
     BIGINT,
-    /**
-     * string
-     */
+    /** string */
     VARCHAR,
-    /**
-     * double
-     */
+    /** double */
     DOUBLE,
-    /**
-     * bit
-     */
+    /** bit */
     BIT,
 }

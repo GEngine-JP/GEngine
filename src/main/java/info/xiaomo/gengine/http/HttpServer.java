@@ -20,10 +20,8 @@ import lombok.Data;
 /**
  * http服务器
  *
- * @author 张力
- *  2017/12/22 09:20
+ * @author 张力 2017/12/22 09:20
  */
-
 @Data
 public class HttpServer {
 
@@ -34,13 +32,11 @@ public class HttpServer {
     private int port;
     private Class<?> main;
 
-
     private int bossThreadCount = 4;
 
     private int workThreadCount = 8;
 
     private String controllerPackage = "";
-
 
     public HttpServer(int port, Class<?> main) {
         this.port = port;
@@ -54,7 +50,6 @@ public class HttpServer {
         bootstrap.bind(this.port);
     }
 
-
     private String findControllerPackage() {
         ControllerPackage annotation = main.getAnnotation(ControllerPackage.class);
         if (annotation == null) {
@@ -62,7 +57,6 @@ public class HttpServer {
         }
         return annotation.value();
     }
-
 
     public void createNetWork() {
 
@@ -77,20 +71,19 @@ public class HttpServer {
         bootstrap.childOption(ChannelOption.SO_RCVBUF, 128 * 1024);
         bootstrap.childOption(ChannelOption.SO_SNDBUF, 128 * 1024);
 
-
         bootstrap.handler(new LoggingHandler(LogLevel.DEBUG));
-        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+        bootstrap.childHandler(
+                new ChannelInitializer<SocketChannel>() {
 
-            @Override
-            protected void initChannel(SocketChannel ch) {
-                ChannelPipeline pip = ch.pipeline();
-                pip.addLast("codec", new HttpServerCodec());
-                pip.addLast("aggregator", new HttpObjectAggregator(512 * 1024));
-                pip.addLast("responseEncoder", new ResponseEncoder());
-                pip.addLast("requestDecoder", new RequestDecoder());
-                pip.addLast("requestHandler", new HttpHandler());
-
-            }
-        });
+                    @Override
+                    protected void initChannel(SocketChannel ch) {
+                        ChannelPipeline pip = ch.pipeline();
+                        pip.addLast("codec", new HttpServerCodec());
+                        pip.addLast("aggregator", new HttpObjectAggregator(512 * 1024));
+                        pip.addLast("responseEncoder", new ResponseEncoder());
+                        pip.addLast("requestDecoder", new RequestDecoder());
+                        pip.addLast("requestHandler", new HttpHandler());
+                    }
+                });
     }
 }

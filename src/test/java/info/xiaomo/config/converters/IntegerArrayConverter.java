@@ -1,15 +1,9 @@
-/**
- * 创建日期:  2017年08月19日 9:57
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月19日 9:57 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.config.converters;
-
 
 import info.xiaomo.gengine.config.IConverter;
 
-/**
- * @author YangQiang
- */
+/** @author YangQiang */
 public class IntegerArrayConverter implements IConverter<String, int[]> {
     @Override
     public int[] convert(String s) {

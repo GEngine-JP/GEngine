@@ -1,9 +1,5 @@
-/**
- * 创建日期:  2017年08月12日 15:26
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月12日 15:26 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.config.annotation;
-
 
 import java.lang.annotation.*;
 import info.xiaomo.gengine.config.IConverter;

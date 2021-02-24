@@ -1,12 +1,11 @@
 package info.xiaomo.gengine.network.client;
 
 import com.google.protobuf.AbstractMessage;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.util.concurrent.Future;
-
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class PooledClient extends Client {
 
@@ -17,7 +16,7 @@ public class PooledClient extends Client {
     public PooledClient(ClientBuilder builder) {
         super(builder);
         channels = new Channel[builder.getPoolMaxCount()];
-        //初始化重连时间
+        // 初始化重连时间
         reconnectDelayArray = new int[builder.getPoolMaxCount()];
         for (int i = 0; i < builder.getPoolMaxCount(); i++) {
             reconnectDelayArray[i] = 2;
@@ -43,7 +42,6 @@ public class PooledClient extends Client {
                 f.sync();
             }
         }
-
     }
 
     @Override
@@ -72,7 +70,6 @@ public class PooledClient extends Client {
                 LOGGER.error("暂时不能连接上服务器....");
                 return null;
             }
-
         }
         return channel;
     }
@@ -96,14 +93,13 @@ public class PooledClient extends Client {
             LOGGER.info("Client 关闭时没有初始化.");
         }
 
-
         Future<?> gf = group.shutdownGracefully();
         try {
             gf.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             LOGGER.info("EventLoopGroup关闭失败", e);
         }
-        //executor.shutdownNow();
+        // executor.shutdownNow();
         LOGGER.info("Netty Client on port:{} is closed", builder.getPort());
     }
 
@@ -112,9 +108,8 @@ public class PooledClient extends Client {
             channel.close();
         }
         group.shutdownGracefully();
-        //executor.shutdownNow();
+        // executor.shutdownNow();
     }
-
 
     @Override
     public AbstractMessage sendSyncMsg(AbstractMessage message) {
@@ -155,5 +150,4 @@ public class PooledClient extends Client {
         }
         this.reconnectDelayArray[index] = reconnectDelay;
     }
-
 }

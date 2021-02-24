@@ -13,15 +13,14 @@ import io.netty.handler.codec.http.HttpVersion;
 
 /**
  * 将自定义的Response转化为Netty的HttpResponse
- * @author 张力
- *  2017/12/22 20:23
+ *
+ * @author 张力 2017/12/22 20:23
  */
 public class ResponseEncoder extends MessageToMessageEncoder<Response> {
 
-
-
     @Override
-    protected void encode(ChannelHandlerContext ctx, Response msg, List<Object> out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Response msg, List<Object> out)
+            throws Exception {
 
         String content = msg.getContent();
         int byteBufLen = 0;
@@ -36,11 +35,17 @@ public class ResponseEncoder extends MessageToMessageEncoder<Response> {
             buf = Unpooled.EMPTY_BUFFER;
         }
 
-        DefaultFullHttpResponse httpResponse
-                = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, msg.getStatus(), buf);
-        httpResponse.headers().set(HttpHeaderNames.CONTENT_TYPE, String.format("%s;charset=%s",msg.getContentType(),msg.getCharset()));
-        httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, httpResponse.content().toString());
-        if(msg.isKeepAlive()) {
+        DefaultFullHttpResponse httpResponse =
+                new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, msg.getStatus(), buf);
+        httpResponse
+                .headers()
+                .set(
+                        HttpHeaderNames.CONTENT_TYPE,
+                        String.format("%s;charset=%s", msg.getContentType(), msg.getCharset()));
+        httpResponse
+                .headers()
+                .set(HttpHeaderNames.CONTENT_LENGTH, httpResponse.content().toString());
+        if (msg.isKeepAlive()) {
             httpResponse.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
         }
         out.add(httpResponse);

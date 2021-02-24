@@ -1,154 +1,156 @@
 package info.xiaomo.gengine.math;
 
 /**
- * 插值
- * <br>
- * Takes a linear value in the range of 0-1 and outputs a (usually) non-linear,
- * interpolated value.
+ * 插值 <br>
+ * Takes a linear value in the range of 0-1 and outputs a (usually) non-linear, interpolated value.
  *
  * @author Nathan Sweet
  */
 public abstract class Interpolation {
-    static public final Interpolation linear = new Interpolation() {
-        public float apply(float a) {
-            return a;
-        }
-    };
-    /**
-     * Aka "smoothstep".
-     */
-    static public final Interpolation smooth = new Interpolation() {
-        public float apply(float a) {
-            return a * a * (3 - 2 * a);
-        }
-    };
+    public static final Interpolation linear =
+            new Interpolation() {
+                public float apply(float a) {
+                    return a;
+                }
+            };
+    /** Aka "smoothstep". */
+    public static final Interpolation smooth =
+            new Interpolation() {
+                public float apply(float a) {
+                    return a * a * (3 - 2 * a);
+                }
+            };
 
     //
-    static public final Interpolation smooth2 = new Interpolation() {
-        public float apply(float a) {
-            a = a * a * (3 - 2 * a);
-            return a * a * (3 - 2 * a);
-        }
-    };
+    public static final Interpolation smooth2 =
+            new Interpolation() {
+                public float apply(float a) {
+                    a = a * a * (3 - 2 * a);
+                    return a * a * (3 - 2 * a);
+                }
+            };
 
     //
-    /**
-     * By Ken Perlin.
-     */
-    static public final Interpolation smoother = new Interpolation() {
-        public float apply(float a) {
-            return MathUtil.clamp(a * a * a * (a * (a * 6 - 15) + 10), 0, 1);
-        }
-    };
-    static public final Interpolation fade = smoother;
-    static public final Pow pow2 = new Pow(2);
-    /**
-     * Slow, then fast.
-     */
-    static public final PowIn pow2In = new PowIn(2);
+    /** By Ken Perlin. */
+    public static final Interpolation smoother =
+            new Interpolation() {
+                public float apply(float a) {
+                    return MathUtil.clamp(a * a * a * (a * (a * 6 - 15) + 10), 0, 1);
+                }
+            };
+
+    public static final Interpolation fade = smoother;
+    public static final Pow pow2 = new Pow(2);
+    /** Slow, then fast. */
+    public static final PowIn pow2In = new PowIn(2);
 
     //
-    /**
-     * Fast, then slow.
-     */
-    static public final PowOut pow2Out = new PowOut(2);
-    static public final Interpolation pow2InInverse = new Interpolation() {
-        public float apply(float a) {
-            return (float) Math.sqrt(a);
-        }
-    };
-    static public final Interpolation pow2OutInverse = new Interpolation() {
-        public float apply(float a) {
-            return 1 - (float) Math.sqrt(-(a - 1));
-        }
-    };
-    static public final Pow pow3 = new Pow(3);
-    static public final PowIn pow3In = new PowIn(3);
-    static public final PowOut pow3Out = new PowOut(3);
-    static public final Interpolation pow3InInverse = new Interpolation() {
-        public float apply(float a) {
-            return (float) Math.cbrt(a);
-        }
-    };
-    static public final Interpolation pow3OutInverse = new Interpolation() {
-        public float apply(float a) {
-            return 1 - (float) Math.cbrt(-(a - 1));
-        }
-    };
-    static public final Pow pow4 = new Pow(4);
-    static public final PowIn pow4In = new PowIn(4);
-    static public final PowOut pow4Out = new PowOut(4);
-    static public final Pow pow5 = new Pow(5);
-    static public final PowIn pow5In = new PowIn(5);
-    static public final PowOut pow5Out = new PowOut(5);
-    static public final Interpolation sine = new Interpolation() {
-        public float apply(float a) {
-            return (1 - MathUtil.cos(a * MathUtil.PI)) / 2;
-        }
-    };
-    static public final Interpolation sineIn = new Interpolation() {
-        public float apply(float a) {
-            return 1 - MathUtil.cos(a * MathUtil.PI / 2);
-        }
-    };
-    static public final Interpolation sineOut = new Interpolation() {
-        public float apply(float a) {
-            return MathUtil.sin(a * MathUtil.PI / 2);
-        }
-    };
-    static public final Exp exp10 = new Exp(2, 10);
-    static public final ExpIn exp10In = new ExpIn(2, 10);
-    static public final ExpOut exp10Out = new ExpOut(2, 10);
-    static public final Exp exp5 = new Exp(2, 5);
-    static public final ExpIn exp5In = new ExpIn(2, 5);
-    static public final ExpOut exp5Out = new ExpOut(2, 5);
-    static public final Interpolation circle = new Interpolation() {
-        public float apply(float a) {
-            if (a <= 0.5f) {
-                a *= 2;
-                return (1 - (float) Math.sqrt(1 - a * a)) / 2;
-            }
-            a--;
-            a *= 2;
-            return ((float) Math.sqrt(1 - a * a) + 1) / 2;
-        }
-    };
-    static public final Interpolation circleIn = new Interpolation() {
-        public float apply(float a) {
-            return 1 - (float) Math.sqrt(1 - a * a);
-        }
-    };
-    static public final Interpolation circleOut = new Interpolation() {
-        public float apply(float a) {
-            a--;
-            return (float) Math.sqrt(1 - a * a);
-        }
-    };
-    static public final Elastic elastic = new Elastic(2, 10, 7, 1);
-    static public final ElasticIn elasticIn = new ElasticIn(2, 10, 6, 1);
-    static public final ElasticOut elasticOut = new ElasticOut(2, 10, 7, 1);
-    static public final Swing swing = new Swing(1.5f);
-    static public final SwingIn swingIn = new SwingIn(2f);
-    static public final SwingOut swingOut = new SwingOut(2f);
-    static public final Bounce bounce = new Bounce(4);
-    static public final BounceIn bounceIn = new BounceIn(4);
-    static public final BounceOut bounceOut = new BounceOut(4);
+    /** Fast, then slow. */
+    public static final PowOut pow2Out = new PowOut(2);
 
-    /**
-     * @param a Alpha value between 0 and 1.
-     */
-    abstract public float apply(float a);
+    public static final Interpolation pow2InInverse =
+            new Interpolation() {
+                public float apply(float a) {
+                    return (float) Math.sqrt(a);
+                }
+            };
+    public static final Interpolation pow2OutInverse =
+            new Interpolation() {
+                public float apply(float a) {
+                    return 1 - (float) Math.sqrt(-(a - 1));
+                }
+            };
+    public static final Pow pow3 = new Pow(3);
+    public static final PowIn pow3In = new PowIn(3);
+    public static final PowOut pow3Out = new PowOut(3);
+    public static final Interpolation pow3InInverse =
+            new Interpolation() {
+                public float apply(float a) {
+                    return (float) Math.cbrt(a);
+                }
+            };
+    public static final Interpolation pow3OutInverse =
+            new Interpolation() {
+                public float apply(float a) {
+                    return 1 - (float) Math.cbrt(-(a - 1));
+                }
+            };
+    public static final Pow pow4 = new Pow(4);
+    public static final PowIn pow4In = new PowIn(4);
+    public static final PowOut pow4Out = new PowOut(4);
+    public static final Pow pow5 = new Pow(5);
+    public static final PowIn pow5In = new PowIn(5);
+    public static final PowOut pow5Out = new PowOut(5);
+    public static final Interpolation sine =
+            new Interpolation() {
+                public float apply(float a) {
+                    return (1 - MathUtil.cos(a * MathUtil.PI)) / 2;
+                }
+            };
+    public static final Interpolation sineIn =
+            new Interpolation() {
+                public float apply(float a) {
+                    return 1 - MathUtil.cos(a * MathUtil.PI / 2);
+                }
+            };
+    public static final Interpolation sineOut =
+            new Interpolation() {
+                public float apply(float a) {
+                    return MathUtil.sin(a * MathUtil.PI / 2);
+                }
+            };
+    public static final Exp exp10 = new Exp(2, 10);
+    public static final ExpIn exp10In = new ExpIn(2, 10);
+    public static final ExpOut exp10Out = new ExpOut(2, 10);
+    public static final Exp exp5 = new Exp(2, 5);
+    public static final ExpIn exp5In = new ExpIn(2, 5);
+    public static final ExpOut exp5Out = new ExpOut(2, 5);
+    public static final Interpolation circle =
+            new Interpolation() {
+                public float apply(float a) {
+                    if (a <= 0.5f) {
+                        a *= 2;
+                        return (1 - (float) Math.sqrt(1 - a * a)) / 2;
+                    }
+                    a--;
+                    a *= 2;
+                    return ((float) Math.sqrt(1 - a * a) + 1) / 2;
+                }
+            };
+    public static final Interpolation circleIn =
+            new Interpolation() {
+                public float apply(float a) {
+                    return 1 - (float) Math.sqrt(1 - a * a);
+                }
+            };
+    public static final Interpolation circleOut =
+            new Interpolation() {
+                public float apply(float a) {
+                    a--;
+                    return (float) Math.sqrt(1 - a * a);
+                }
+            };
+    public static final Elastic elastic = new Elastic(2, 10, 7, 1);
+    public static final ElasticIn elasticIn = new ElasticIn(2, 10, 6, 1);
+    public static final ElasticOut elasticOut = new ElasticOut(2, 10, 7, 1);
+    public static final Swing swing = new Swing(1.5f);
+    public static final SwingIn swingIn = new SwingIn(2f);
+    public static final SwingOut swingOut = new SwingOut(2f);
+    public static final Bounce bounce = new Bounce(4);
+    public static final BounceIn bounceIn = new BounceIn(4);
+    public static final BounceOut bounceOut = new BounceOut(4);
 
-    /**
-     * @param a Alpha value between 0 and 1.
-     */
+    /** @param a Alpha value between 0 and 1. */
+    public abstract float apply(float a);
+
+    /** @param a Alpha value between 0 and 1. */
     public float apply(float start, float end, float a) {
         return start + (end - start) * apply(a);
     }
 
     //
 
-    static public class Pow extends Interpolation {
+    public static class Pow extends Interpolation {
         final int power;
 
         public Pow(int power) {
@@ -156,13 +158,12 @@ public abstract class Interpolation {
         }
 
         public float apply(float a) {
-            if (a <= 0.5f)
-                return (float) Math.pow(a * 2, power) / 2;
+            if (a <= 0.5f) return (float) Math.pow(a * 2, power) / 2;
             return (float) Math.pow((a - 1) * 2, power) / (power % 2 == 0 ? -2 : 2) + 1;
         }
     }
 
-    static public class PowIn extends Pow {
+    public static class PowIn extends Pow {
         public PowIn(int power) {
             super(power);
         }
@@ -172,7 +173,7 @@ public abstract class Interpolation {
         }
     }
 
-    static public class PowOut extends Pow {
+    public static class PowOut extends Pow {
         public PowOut(int power) {
             super(power);
         }
@@ -184,7 +185,7 @@ public abstract class Interpolation {
 
     //
 
-    static public class Exp extends Interpolation {
+    public static class Exp extends Interpolation {
         final float value, power, min, scale;
 
         public Exp(float value, float power) {
@@ -195,15 +196,13 @@ public abstract class Interpolation {
         }
 
         public float apply(float a) {
-            if (a <= 0.5f)
-                return ((float) Math.pow(value, power * (a * 2 - 1)) - min) * scale / 2;
+            if (a <= 0.5f) return ((float) Math.pow(value, power * (a * 2 - 1)) - min) * scale / 2;
             return (2 - ((float) Math.pow(value, -power * (a * 2 - 1)) - min) * scale) / 2;
         }
     }
-
     ;
 
-    static public class ExpIn extends Exp {
+    public static class ExpIn extends Exp {
         public ExpIn(float value, float power) {
             super(value, power);
         }
@@ -213,7 +212,7 @@ public abstract class Interpolation {
         }
     }
 
-    static public class ExpOut extends Exp {
+    public static class ExpOut extends Exp {
         public ExpOut(float value, float power) {
             super(value, power);
         }
@@ -225,7 +224,7 @@ public abstract class Interpolation {
 
     //
 
-    static public class Elastic extends Interpolation {
+    public static class Elastic extends Interpolation {
         final float value, power, scale, bounces;
 
         public Elastic(float value, float power, int bounces, float scale) {
@@ -238,42 +237,48 @@ public abstract class Interpolation {
         public float apply(float a) {
             if (a <= 0.5f) {
                 a *= 2;
-                return (float) Math.pow(value, power * (a - 1)) * MathUtil.sin(a * bounces) * scale / 2;
+                return (float) Math.pow(value, power * (a - 1))
+                        * MathUtil.sin(a * bounces)
+                        * scale
+                        / 2;
             }
             a = 1 - a;
             a *= 2;
-            return 1 - (float) Math.pow(value, power * (a - 1)) * MathUtil.sin((a) * bounces) * scale / 2;
+            return 1
+                    - (float) Math.pow(value, power * (a - 1))
+                            * MathUtil.sin((a) * bounces)
+                            * scale
+                            / 2;
         }
     }
 
-    static public class ElasticIn extends Elastic {
+    public static class ElasticIn extends Elastic {
         public ElasticIn(float value, float power, int bounces, float scale) {
             super(value, power, bounces, scale);
         }
 
         public float apply(float a) {
-            if (a >= 0.99)
-                return 1;
+            if (a >= 0.99) return 1;
             return (float) Math.pow(value, power * (a - 1)) * MathUtil.sin(a * bounces) * scale;
         }
     }
 
-    static public class ElasticOut extends Elastic {
+    public static class ElasticOut extends Elastic {
         public ElasticOut(float value, float power, int bounces, float scale) {
             super(value, power, bounces, scale);
         }
 
         public float apply(float a) {
-            if (a == 0)
-                return 0;
+            if (a == 0) return 0;
             a = 1 - a;
-            return (1 - (float) Math.pow(value, power * (a - 1)) * MathUtil.sin(a * bounces) * scale);
+            return (1
+                    - (float) Math.pow(value, power * (a - 1)) * MathUtil.sin(a * bounces) * scale);
         }
     }
 
     //
 
-    static public class Bounce extends BounceOut {
+    public static class Bounce extends BounceOut {
         public Bounce(float[] widths, float[] heights) {
             super(widths, heights);
         }
@@ -284,24 +289,23 @@ public abstract class Interpolation {
 
         private float out(float a) {
             float test = a + widths[0] / 2;
-            if (test < widths[0])
-                return test / (widths[0] / 2) - 1;
+            if (test < widths[0]) return test / (widths[0] / 2) - 1;
             return super.apply(a);
         }
 
         public float apply(float a) {
-            if (a <= 0.5f)
-                return (1 - out(1 - a * 2)) / 2;
+            if (a <= 0.5f) return (1 - out(1 - a * 2)) / 2;
             return out(a * 2 - 1) / 2 + 0.5f;
         }
     }
 
-    static public class BounceOut extends Interpolation {
+    public static class BounceOut extends Interpolation {
         final float[] widths, heights;
 
         public BounceOut(float[] widths, float[] heights) {
             if (widths.length != heights.length)
-                throw new IllegalArgumentException("Must be the same number of widths and heights.");
+                throw new IllegalArgumentException(
+                        "Must be the same number of widths and heights.");
             this.widths = widths;
             this.heights = heights;
         }
@@ -350,8 +354,7 @@ public abstract class Interpolation {
         }
 
         public float apply(float a) {
-            if (a == 1)
-                return 1;
+            if (a == 1) return 1;
             a += widths[0] / 2;
             float width = 0, height = 0;
             for (int i = 0, n = widths.length; i < n; i++) {
@@ -368,7 +371,7 @@ public abstract class Interpolation {
         }
     }
 
-    static public class BounceIn extends BounceOut {
+    public static class BounceIn extends BounceOut {
         public BounceIn(float[] widths, float[] heights) {
             super(widths, heights);
         }
@@ -384,7 +387,7 @@ public abstract class Interpolation {
 
     //
 
-    static public class Swing extends Interpolation {
+    public static class Swing extends Interpolation {
         private final float scale;
 
         public Swing(float scale) {
@@ -402,7 +405,7 @@ public abstract class Interpolation {
         }
     }
 
-    static public class SwingOut extends Interpolation {
+    public static class SwingOut extends Interpolation {
         private final float scale;
 
         public SwingOut(float scale) {
@@ -415,7 +418,7 @@ public abstract class Interpolation {
         }
     }
 
-    static public class SwingIn extends Interpolation {
+    public static class SwingIn extends Interpolation {
         private final float scale;
 
         public SwingIn(float scale) {

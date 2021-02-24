@@ -19,24 +19,8 @@ public class ScriptClassLoader extends URLClassLoader {
 
     private ClassLoader defaultClassLoader;
 
-    /**
-     * 开发模式，开发模式直接加载，不走自定义加载逻辑
-     */
+    /** 开发模式，开发模式直接加载，不走自定义加载逻辑 */
     private boolean dev;
-
-    public static ScriptClassLoader newInstance(URL url, String classPackage, boolean dev) {
-        URL[] urls;
-        if (dev) {
-            //调试模式下用父加载器的URL列表
-            urls = ((URLClassLoader) ScriptClassLoader.class.getClassLoader()).getURLs();
-        } else {
-            urls = new URL[]{url};
-        }
-
-        return new ScriptClassLoader(urls, classPackage, dev);
-
-    }
-
 
     protected ScriptClassLoader(URL[] urls, String classPackage, boolean dev) {
         super(urls);
@@ -45,15 +29,26 @@ public class ScriptClassLoader extends URLClassLoader {
         this.defaultClassLoader = ScriptClassLoader.class.getClassLoader();
     }
 
+    public static ScriptClassLoader newInstance(URL url, String classPackage, boolean dev) {
+        URL[] urls;
+        if (dev) {
+            // 调试模式下用父加载器的URL列表
+            urls = ((URLClassLoader) ScriptClassLoader.class.getClassLoader()).getURLs();
+        } else {
+            urls = new URL[] {url};
+        }
+
+        return new ScriptClassLoader(urls, classPackage, dev);
+    }
+
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 
-
         if (!this.dev && name.startsWith(classPackage)) {
-            //系统默认实现是有锁的，此处没有，所以逻辑必须保证线程安全
+            // 系统默认实现是有锁的，此处没有，所以逻辑必须保证线程安全
 
-            //此方法和URLClassLoDader不同的地方是指定包下面的类，不适用双亲委派模型
-            //那么就算脚本也在虚拟机ClassPath下面，也会通过这里直接去加载类，是不会为委派给父类
+            // 此方法和URLClassLoDader不同的地方是指定包下面的类，不适用双亲委派模型
+            // 那么就算脚本也在虚拟机ClassPath下面，也会通过这里直接去加载类，是不会为委派给父类
 
             Class<?> c = findLoadedClass(name);
 
@@ -69,11 +64,8 @@ public class ScriptClassLoader extends URLClassLoader {
             }
             return c;
         } else {
-            //非指定包下的类，就用父类加载逻辑
+            // 非指定包下的类，就用父类加载逻辑
             return super.loadClass(name, resolve);
         }
-
     }
-
-
 }

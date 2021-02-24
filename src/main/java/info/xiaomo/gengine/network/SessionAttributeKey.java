@@ -2,14 +2,10 @@ package info.xiaomo.gengine.network;
 
 import io.netty.util.AttributeKey;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 public interface SessionAttributeKey {
 
-    /**
-     * 用户ID
-     */
+    /** 用户ID */
     AttributeKey<Long> UID = AttributeKey.valueOf("UID");
 
     AttributeKey<String> LOGINNAME = AttributeKey.valueOf("loginName");

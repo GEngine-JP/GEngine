@@ -3,10 +3,9 @@ package info.xiaomo.gengine.math;
 import java.io.Serializable;
 
 /**
- * 平面
- * <br>
- * A plane defined via a unit length normal and the distance from the origin, as
- * you learned in your math class.
+ * 平面 <br>
+ * A plane defined via a unit length normal and the distance from the origin, as you learned in your
+ * math class.
  *
  * @author badlogicgames@gmail.com
  */
@@ -15,18 +14,14 @@ public class Plane implements Serializable {
     public final Vector3 normal = new Vector3(); // 单位长度
     public float d = 0; // 距离
 
-    /**
-     * Constructs a new plane with all values set to 0
-     */
-    public Plane() {
-
-    }
+    /** Constructs a new plane with all values set to 0 */
+    public Plane() {}
 
     /**
      * Constructs a new plane based on the normal and distance to the origin.
      *
      * @param normal The plane normal
-     * @param d      The distance to the origin
+     * @param d The distance to the origin
      */
     public Plane(Vector3 normal, float d) {
         this.normal.set(normal).nor();
@@ -37,7 +32,7 @@ public class Plane implements Serializable {
      * Constructs a new plane based on the normal and a point on the plane.
      *
      * @param normal The normal
-     * @param point  The point on the plane
+     * @param point The point on the plane
      */
     public Plane(Vector3 normal, Vector3 point) {
         this.normal.set(normal).nor();
@@ -45,9 +40,8 @@ public class Plane implements Serializable {
     }
 
     /**
-     * Constructs a new plane out of the three given points that are considered to
-     * be on the plane. The normal is calculated via a cross product between
-     * (point1-point2)x(point2-point3)
+     * Constructs a new plane out of the three given points that are considered to be on the plane.
+     * The normal is calculated via a cross product between (point1-point2)x(point2-point3)
      *
      * @param point1 The first point
      * @param point2 The second point
@@ -59,16 +53,19 @@ public class Plane implements Serializable {
 
     /**
      * 设置在平面属性<br>
-     * Sets the plane normal and distance to the origin based on the three given
-     * points which are considered to be on the plane. The normal is calculated via
-     * a cross product between (point1-point2)x(point2-point3)
+     * Sets the plane normal and distance to the origin based on the three given points which are
+     * considered to be on the plane. The normal is calculated via a cross product between
+     * (point1-point2)x(point2-point3)
      *
      * @param point1
      * @param point2
      * @param point3
      */
     public void set(Vector3 point1, Vector3 point2, Vector3 point3) {
-        normal.set(point1).sub(point2).cross(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
+        normal.set(point1)
+                .sub(point2)
+                .cross(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z)
+                .nor();
         d = -point1.dot(normal);
     }
 
@@ -78,7 +75,7 @@ public class Plane implements Serializable {
      * @param nx normal x-component
      * @param ny normal y-component
      * @param nz normal z-component
-     * @param d  distance to origin
+     * @param d distance to origin
      */
     public void set(float nx, float ny, float nz, float d) {
         normal.set(nx, ny, nz);
@@ -86,8 +83,7 @@ public class Plane implements Serializable {
     }
 
     /**
-     * Calculates the shortest signed distance between the plane and the given
-     * point.
+     * Calculates the shortest signed distance between the plane and the given point.
      *
      * @param point The point
      * @return the shortest signed distance between the plane and the point
@@ -97,8 +93,8 @@ public class Plane implements Serializable {
     }
 
     /**
-     * Returns on which side the given point lies relative to the plane and its
-     * normal. PlaneSide.Front refers to the side the plane normal points to.
+     * Returns on which side the given point lies relative to the plane and its normal.
+     * PlaneSide.Front refers to the side the plane normal points to.
      *
      * @param point The point
      * @return The side the point lies relative to the plane
@@ -106,17 +102,14 @@ public class Plane implements Serializable {
     public PlaneSide testPoint(Vector3 point) {
         float dist = normal.dot(point) + d;
 
-        if (dist == 0)
-            return PlaneSide.OnPlane;
-        else if (dist < 0)
-            return PlaneSide.Back;
-        else
-            return PlaneSide.Front;
+        if (dist == 0) return PlaneSide.OnPlane;
+        else if (dist < 0) return PlaneSide.Back;
+        else return PlaneSide.Front;
     }
 
     /**
-     * Returns on which side the given point lies relative to the plane and its
-     * normal. PlaneSide.Front refers to the side the plane normal points to.
+     * Returns on which side the given point lies relative to the plane and its normal.
+     * PlaneSide.Front refers to the side the plane normal points to.
      *
      * @param x
      * @param y
@@ -126,19 +119,15 @@ public class Plane implements Serializable {
     public PlaneSide testPoint(float x, float y, float z) {
         float dist = normal.dot(x, y, z) + d;
 
-        if (dist == 0)
-            return PlaneSide.OnPlane;
-        else if (dist < 0)
-            return PlaneSide.Back;
-        else
-            return PlaneSide.Front;
+        if (dist == 0) return PlaneSide.OnPlane;
+        else if (dist < 0) return PlaneSide.Back;
+        else return PlaneSide.Front;
     }
 
     /**
-     * Returns whether the plane is facing the direction vector. Think of the
-     * direction vector as the direction a camera looks in. This method will return
-     * true if the front side of the plane determined by its normal faces the
-     * camera.
+     * Returns whether the plane is facing the direction vector. Think of the direction vector as
+     * the direction a camera looks in. This method will return true if the front side of the plane
+     * determined by its normal faces the camera.
      *
      * @param direction the direction
      * @return whether the plane is front facing
@@ -148,16 +137,12 @@ public class Plane implements Serializable {
         return dot <= 0;
     }
 
-    /**
-     * @return The normal
-     */
+    /** @return The normal */
     public Vector3 getNormal() {
         return normal;
     }
 
-    /**
-     * @return The distance to the origin
-     */
+    /** @return The distance to the origin */
     public float getD() {
         return d;
     }
@@ -165,7 +150,7 @@ public class Plane implements Serializable {
     /**
      * Sets the plane to the given point and normal.
      *
-     * @param point  the point on the plane
+     * @param point the point on the plane
      * @param normal the normal of the plane
      */
     public void set(Vector3 point, Vector3 normal) {
@@ -194,12 +179,14 @@ public class Plane implements Serializable {
 
     /**
      * 点在平面的方向枚举 <br>
-     * Enum specifying on which side a point lies respective to the plane and it's
-     * normal. {@link PlaneSide#Front} is the side to which the normal points.
+     * Enum specifying on which side a point lies respective to the plane and it's normal. {@link
+     * PlaneSide#Front} is the side to which the normal points.
      *
      * @author mzechner
      */
     public enum PlaneSide {
-        OnPlane, Back, Front
+        OnPlane,
+        Back,
+        Front
     }
 }

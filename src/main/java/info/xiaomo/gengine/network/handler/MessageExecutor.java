@@ -16,9 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageExecutor extends SimpleChannelInboundHandler<MsgPack> {
 
-    private final INetworkConsumer consumer;
-
     protected final INetworkEventListener listener;
+    private final INetworkConsumer consumer;
 
     public MessageExecutor(INetworkConsumer consumer, INetworkEventListener listener) {
         this.consumer = consumer;

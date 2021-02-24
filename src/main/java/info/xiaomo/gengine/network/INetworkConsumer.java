@@ -2,9 +2,7 @@ package info.xiaomo.gengine.network;
 
 import io.netty.channel.Channel;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 public interface INetworkConsumer {
 
     /**
@@ -14,6 +12,4 @@ public interface INetworkConsumer {
      * @param channel channel
      */
     void consume(MsgPack msg, Channel channel);
-
-
 }

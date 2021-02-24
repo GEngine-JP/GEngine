@@ -5,9 +5,7 @@ import info.xiaomo.gengine.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 @Data
 @Slf4j
 public abstract class AbstractHandler<T> implements IQueueDriverCommand {
@@ -18,9 +16,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
 
     protected int queueId;
 
-    /**
-     * 过滤器
-     */
+    /** 过滤器 */
     protected IHandlerFilter filter;
 
     @Override
@@ -39,9 +35,7 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
     }
 
     @Override
-    public void setCommandQueue(ICommandQueue<IQueueDriverCommand> commandQueue) {
-
-    }
+    public void setCommandQueue(ICommandQueue<IQueueDriverCommand> commandQueue) {}
 
     @Override
     public Object getParam() {
@@ -61,7 +55,11 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
                 return;
             }
             doAction();
-            log.warn(this.getClass().getSimpleName() + "耗时：" + (System.currentTimeMillis() - time) + "ms");
+            log.warn(
+                    this.getClass().getSimpleName()
+                            + "耗时："
+                            + (System.currentTimeMillis() - time)
+                            + "ms");
             if (filter != null) {
                 filter.after(this);
             }
@@ -69,5 +67,4 @@ public abstract class AbstractHandler<T> implements IQueueDriverCommand {
             log.error("命令执行错误", e);
         }
     }
-
 }

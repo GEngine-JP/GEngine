@@ -17,19 +17,14 @@ import lombok.Data;
 /**
  * http请求
  *
- * @author 张力
- *  2017/12/22 13:27
+ * @author 张力 2017/12/22 13:27
  */
-
 @Data
 public class Request {
 
-    private Map<String, String> parameters = new HashMap<>();
-
     private final URI uri;
-
     private final HttpMethod method;
-
+    private Map<String, String> parameters = new HashMap<>();
     private String path;
 
     private boolean parameterParsed = false;
@@ -46,19 +41,16 @@ public class Request {
         this.path = uri.getPath();
         this.msg = msg;
         this.channel = channel;
-
-
     }
 
     public void sendResponse(Response res) {
-//        if (HttpHeaderUtil.isKeepAlive(telegram)) {
-//            this.channel.writeAndFlush(res);
-//        } else {
-//            res.setKeepAlive(this.keepAlive);
-//            this.channel.writeAndFlush(res).addListener(ChannelFutureListener.CLOSE);
-//        }
+        //        if (HttpHeaderUtil.isKeepAlive(telegram)) {
+        //            this.channel.writeAndFlush(res);
+        //        } else {
+        //            res.setKeepAlive(this.keepAlive);
+        //            this.channel.writeAndFlush(res).addListener(ChannelFutureListener.CLOSE);
+        //        }
     }
-
 
     public String getParameter(String name) {
         if (!parameterParsed) {
@@ -78,30 +70,35 @@ public class Request {
 
         this.parameterParsed = true;
 
-        //解析query参数，默认使用UTF8编码
+        // 解析query参数，默认使用UTF8编码
         QueryStringDecoder queryDecoder = new QueryStringDecoder(this.uri);
 
-        queryDecoder.parameters().forEach((k, v) -> {
-            if (v != null && v.size() > 0) {
-                parameters.put(k, v.get(0));
-            }
-        });
+        queryDecoder
+                .parameters()
+                .forEach(
+                        (k, v) -> {
+                            if (v != null && v.size() > 0) {
+                                parameters.put(k, v.get(0));
+                            }
+                        });
 
         if (this.method == HttpMethod.GET) {
             return;
         }
-        //解析post参数
+        // 解析post参数
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(this.msg);
-        postDecoder.getBodyHttpDatas().forEach(v -> {
-            if (v.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
-                Attribute attribute = (Attribute) v;
-                try {
-                    this.parameters.put(attribute.getName(), attribute.getValue());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
+        postDecoder
+                .getBodyHttpDatas()
+                .forEach(
+                        v -> {
+                            if (v.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
+                                Attribute attribute = (Attribute) v;
+                                try {
+                                    this.parameters.put(attribute.getName(), attribute.getValue());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
     }
 }

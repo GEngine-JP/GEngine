@@ -1,33 +1,24 @@
-
 package info.xiaomo.gengine.math;
 
 import java.io.Serializable;
 
 /**
- * 2d向量 Encapsulates a 2D vector. Allows chaining methods by returning a
- * reference to itself
+ * 2d向量 Encapsulates a 2D vector. Allows chaining methods by returning a reference to itself
  *
  * @author badlogicgames@gmail.com
  */
 public class Vector2 implements Serializable, Vector<Vector2> {
-    public final static Vector2 X = new Vector2(1, 0);
-    public final static Vector2 Y = new Vector2(0, 1);
-    public final static Vector2 Zero = new Vector2(0, 0);
+    public static final Vector2 X = new Vector2(1, 0);
+    public static final Vector2 Y = new Vector2(0, 1);
+    public static final Vector2 Zero = new Vector2(0, 0);
     private static final long serialVersionUID = 913902788239530931L;
-    /**
-     * the x-component of this vector
-     **/
+    /** the x-component of this vector */
     public float x;
-    /**
-     * the y-component of this vector
-     **/
+    /** the y-component of this vector */
     public float y;
 
-    /**
-     * Constructs a new vector at (0,0)
-     */
-    public Vector2() {
-    }
+    /** Constructs a new vector at (0,0) */
+    public Vector2() {}
 
     /**
      * Constructs a vector with the given components
@@ -259,14 +250,11 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     // @Override
     public Vector2 clamp(float min, float max) {
         final float len2 = len2();
-        if (len2 == 0f)
-            return this;
+        if (len2 == 0f) return this;
         float max2 = max * max;
-        if (len2 > max2)
-            return scl((float) Math.sqrt(max2 / len2));
+        if (len2 > max2) return scl((float) Math.sqrt(max2 / len2));
         float min2 = min * min;
-        if (len2 < min2)
-            return scl((float) Math.sqrt(min2 / len2));
+        if (len2 < min2) return scl((float) Math.sqrt(min2 / len2));
         return this;
     }
 
@@ -292,8 +280,8 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * Sets this {@code Vector2} to the value represented by the specified string
-     * according to the format of {@link #toString()}.
+     * Sets this {@code Vector2} to the value represented by the specified string according to the
+     * format of {@link #toString()}.
      *
      * @param v the string.
      * @return this vector for chaining
@@ -348,46 +336,42 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * @return the angle in degrees of this vector (point) relative to the x-axis.
-     * Angles are towards the positive y-axis (typically counter-clockwise)
-     * and between 0 and 360.
+     * @return the angle in degrees of this vector (point) relative to the x-axis. Angles are
+     *     towards the positive y-axis (typically counter-clockwise) and between 0 and 360.
      */
     public float angle() {
         float angle = (float) Math.atan2(y, x) * MathUtil.radiansToDegrees;
-        if (angle < 0)
-            angle += 360;
+        if (angle < 0) angle += 360;
         return angle;
     }
 
     /**
-     * @return the angle in degrees of this vector (point) relative to the given
-     * vector. Angles are towards the positive y-axis (typically
-     * counter-clockwise.) between -180 and +180
+     * @return the angle in degrees of this vector (point) relative to the given vector. Angles are
+     *     towards the positive y-axis (typically counter-clockwise.) between -180 and +180
      */
     public float angle(Vector2 reference) {
         return (float) Math.atan2(crs(reference), dot(reference)) * MathUtil.radiansToDegrees;
     }
 
     /**
-     * @return the angle in radians of this vector (point) relative to the x-axis.
-     * Angles are towards the positive y-axis. (typically counter-clockwise)
+     * @return the angle in radians of this vector (point) relative to the x-axis. Angles are
+     *     towards the positive y-axis. (typically counter-clockwise)
      */
     public float angleRad() {
         return (float) Math.atan2(y, x);
     }
 
     /**
-     * @return the angle in radians of this vector (point) relative to the given
-     * vector. Angles are towards the positive y-axis. (typically
-     * counter-clockwise.)
+     * @return the angle in radians of this vector (point) relative to the given vector. Angles are
+     *     towards the positive y-axis. (typically counter-clockwise.)
      */
     public float angleRad(Vector2 reference) {
         return (float) Math.atan2(crs(reference), dot(reference));
     }
 
     /**
-     * Sets the angle of the vector in degrees relative to the x-axis, towards the
-     * positive y-axis (typically counter-clockwise).
+     * Sets the angle of the vector in degrees relative to the x-axis, towards the positive y-axis
+     * (typically counter-clockwise).
      *
      * @param degrees The angle in degrees to set.
      */
@@ -396,8 +380,8 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * Sets the angle of the vector in radians relative to the x-axis, towards the
-     * positive y-axis (typically counter-clockwise).
+     * Sets the angle of the vector in radians relative to the x-axis, towards the positive y-axis
+     * (typically counter-clockwise).
      *
      * @param radians The angle in radians to set.
      */
@@ -409,8 +393,7 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * Rotates the Vector2 by the given angle, counter-clockwise assuming the y-axis
-     * points up.
+     * Rotates the Vector2 by the given angle, counter-clockwise assuming the y-axis points up.
      *
      * @param degrees the angle in degrees
      */
@@ -419,8 +402,7 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * Rotates the Vector2 by the given angle, counter-clockwise assuming the y-axis
-     * points up.
+     * Rotates the Vector2 by the given angle, counter-clockwise assuming the y-axis points up.
      *
      * @param radians the angle in radians
      */
@@ -438,8 +420,8 @@ public class Vector2 implements Serializable, Vector<Vector2> {
     }
 
     /**
-     * Rotates the Vector2 by 90 degrees in the specified direction, where >= 0 is
-     * counter-clockwise and < 0 is clockwise.
+     * Rotates the Vector2 by 90 degrees in the specified direction, where >= 0 is counter-clockwise
+     * and < 0 is clockwise.
      */
     public Vector2 rotate90(int dir) {
         float x = this.x;
@@ -483,42 +465,32 @@ public class Vector2 implements Serializable, Vector<Vector2> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Vector2 other = (Vector2) obj;
-        if (Float.floatToIntBits(x) != Float.floatToIntBits(other.x))
-            return false;
-        if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y))
-            return false;
+        if (Float.floatToIntBits(x) != Float.floatToIntBits(other.x)) return false;
+        if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y)) return false;
         return true;
     }
 
     // @Override
     public boolean epsilonEquals(Vector2 other, float epsilon) {
-        if (other == null)
-            return false;
-        if (Math.abs(other.x - x) > epsilon)
-            return false;
-        if (Math.abs(other.y - y) > epsilon)
-            return false;
+        if (other == null) return false;
+        if (Math.abs(other.x - x) > epsilon) return false;
+        if (Math.abs(other.y - y) > epsilon) return false;
         return true;
     }
 
     /**
-     * Compares this vector with the other vector, using the supplied epsilon for
-     * fuzzy equality testing.
+     * Compares this vector with the other vector, using the supplied epsilon for fuzzy equality
+     * testing.
      *
      * @return whether the vectors are the same.
      */
     public boolean epsilonEquals(float x, float y, float epsilon) {
-        if (Math.abs(x - this.x) > epsilon)
-            return false;
-        if (Math.abs(y - this.y) > epsilon)
-            return false;
+        if (Math.abs(x - this.x) > epsilon) return false;
+        if (Math.abs(y - this.y) > epsilon) return false;
         return true;
     }
 

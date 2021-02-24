@@ -14,30 +14,15 @@ import org.slf4j.LoggerFactory;
 public class QueueDriver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QueueDriver.class);
-
-    /**
-     * 队列最大数量
-     */
-    private int maxQueueSize;
-
-    /**
-     * 驱动名称
-     */
-    private String name;
-
-    /**
-     * 队列ID
-     */
-    private long queueId;
-
-    /**
-     * 任务队列
-     */
+    /** 任务队列 */
     private final ICommandQueue<IQueueDriverCommand> queue;
-
-    /**
-     * 任务执行器
-     */
+    /** 队列最大数量 */
+    private int maxQueueSize;
+    /** 驱动名称 */
+    private String name;
+    /** 队列ID */
+    private long queueId;
+    /** 任务执行器 */
     private QueueExecutor executor;
 
     public QueueDriver(QueueExecutor executor, String name, long id, int maxQueueSize) {
@@ -109,5 +94,4 @@ public class QueueDriver {
     public void setName(String name) {
         this.name = name;
     }
-
 }

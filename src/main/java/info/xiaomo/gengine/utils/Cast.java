@@ -3,14 +3,11 @@ package info.xiaomo.gengine.utils;
 import java.io.*;
 import java.nio.ByteBuffer;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 public class Cast {
 
-    private final static ByteArrayOutputStream OUT = new ByteArrayOutputStream();
+    private static final ByteArrayOutputStream OUT = new ByteArrayOutputStream();
     private static ObjectOutputStream oos;
-
 
     public static int toInteger(Object str) {
         if (str == null) {
@@ -154,7 +151,6 @@ public class Cast {
         return null;
     }
 
-
     public static byte[] objectToBytes(Object obj) throws IOException {
         OUT.reset();
         try {
@@ -234,8 +230,7 @@ public class Cast {
     }
 
     /**
-     * Convert byte[] to hex
-     * string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。
+     * Convert byte[] to hex string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。
      *
      * @param src byte[] data
      * @return hex string
@@ -305,6 +300,4 @@ public class Cast {
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
     }
-
-
 }

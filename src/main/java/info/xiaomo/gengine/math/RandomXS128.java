@@ -1,15 +1,15 @@
-
 package info.xiaomo.gengine.math;
 
 import java.util.Random;
 
 /**
- * This class implements the xorshift128+ algorithm that is a very fast, top-quality 64-bit pseudo-random number generator. The
- * quality of this PRNG is much higher than {@link Random}'s, and its cycle length is 2<sup>128</sup>&nbsp;&minus;&nbsp;1, which
- * is more than enough for any single-thread application. More details and algorithms can be found <a
+ * This class implements the xorshift128+ algorithm that is a very fast, top-quality 64-bit
+ * pseudo-random number generator. The quality of this PRNG is much higher than {@link Random}'s,
+ * and its cycle length is 2<sup>128</sup>&nbsp;&minus;&nbsp;1, which is more than enough for any
+ * single-thread application. More details and algorithms can be found <a
  * href="http://xorshift.di.unimi.it/">here</a>.
- * <p>
- * Instances of RandomXS128 are not thread-safe.
+ *
+ * <p>Instances of RandomXS128 are not thread-safe.
  *
  * @author Inferno
  * @author davebaol
@@ -17,31 +17,24 @@ import java.util.Random;
 public class RandomXS128 extends Random {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Normalization constant for double.
-     */
+    /** Normalization constant for double. */
     private static final double NORM_DOUBLE = 1.0 / (1L << 53);
 
-    /**
-     * Normalization constant for float.
-     */
+    /** Normalization constant for float. */
     private static final double NORM_FLOAT = 1.0 / (1L << 24);
 
-    /**
-     * The first half of the internal state of this pseudo-random number generator.
-     */
+    /** The first half of the internal state of this pseudo-random number generator. */
     private long seed0;
 
-    /**
-     * The second half of the internal state of this pseudo-random number generator.
-     */
+    /** The second half of the internal state of this pseudo-random number generator. */
     private long seed1;
 
     /**
-     * Creates a new random number generator. This constructor sets the seed of the random number generator to a value very likely
-     * to be distinct from any other invocation of this constructor.
-     * <p>
-     * This implementation creates a {@link Random} instance to generate the initial seed.
+     * Creates a new random number generator. This constructor sets the seed of the random number
+     * generator to a value very likely to be distinct from any other invocation of this
+     * constructor.
+     *
+     * <p>This implementation creates a {@link Random} instance to generate the initial seed.
      */
     public RandomXS128() {
         setSeed(new Random().nextLong());
@@ -66,7 +59,7 @@ public class RandomXS128 extends Random {
         setState(seed0, seed1);
     }
 
-    private final static long murmurHash3(long x) {
+    private static final long murmurHash3(long x) {
         x ^= x >>> 33;
         x *= 0xff51afd7ed558ccdL;
         x ^= x >>> 33;
@@ -77,9 +70,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns the next pseudo-random, uniformly distributed {@code long} value from this random number generator's sequence.
-     * <p>
-     * Subclasses should override this, as this is used by all other methods.
+     * Returns the next pseudo-random, uniformly distributed {@code long} value from this random
+     * number generator's sequence.
+     *
+     * <p>Subclasses should override this, as this is used by all other methods.
      */
     @Override
     public long nextLong() {
@@ -91,7 +85,8 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * This protected method is final because, contrary to the superclass, it's not used anymore by the other methods.
+     * This protected method is final because, contrary to the superclass, it's not used anymore by
+     * the other methods.
      */
     @Override
     protected final int next(int bits) {
@@ -99,9 +94,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns the next pseudo-random, uniformly distributed {@code int} value from this random number generator's sequence.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns the next pseudo-random, uniformly distributed {@code int} value from this random
+     * number generator's sequence.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      */
     @Override
     public int nextInt() {
@@ -109,13 +105,14 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns a pseudo-random, uniformly distributed {@code int} value between 0 (inclusive) and the specified value (exclusive),
-     * drawn from this random number generator's sequence.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns a pseudo-random, uniformly distributed {@code int} value between 0 (inclusive) and
+     * the specified value (exclusive), drawn from this random number generator's sequence.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      *
      * @param n the positive bound on the random number to be returned.
-     * @return the next pseudo-random {@code int} value between {@code 0} (inclusive) and {@code n} (exclusive).
+     * @return the next pseudo-random {@code int} value between {@code 0} (inclusive) and {@code n}
+     *     (exclusive).
      */
     @Override
     public int nextInt(final int n) {
@@ -123,14 +120,16 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns a pseudo-random, uniformly distributed {@code long} value between 0 (inclusive) and the specified value (exclusive),
-     * drawn from this random number generator's sequence. The algorithm used to generate the value guarantees that the result is
-     * uniform, provided that the sequence of 64-bit values produced by this generator is.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns a pseudo-random, uniformly distributed {@code long} value between 0 (inclusive) and
+     * the specified value (exclusive), drawn from this random number generator's sequence. The
+     * algorithm used to generate the value guarantees that the result is uniform, provided that the
+     * sequence of 64-bit values produced by this generator is.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      *
      * @param n the positive bound on the random number to be returned.
-     * @return the next pseudo-random {@code long} value between {@code 0} (inclusive) and {@code n} (exclusive).
+     * @return the next pseudo-random {@code long} value between {@code 0} (inclusive) and {@code n}
+     *     (exclusive).
      */
     public long nextLong(final long n) {
         if (n <= 0) throw new IllegalArgumentException("n must be positive");
@@ -142,10 +141,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns a pseudo-random, uniformly distributed {@code double} value between 0.0 and 1.0 from this random number generator's
-     * sequence.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns a pseudo-random, uniformly distributed {@code double} value between 0.0 and 1.0 from
+     * this random number generator's sequence.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      */
     @Override
     public double nextDouble() {
@@ -153,10 +152,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns a pseudo-random, uniformly distributed {@code float} value between 0.0 and 1.0 from this random number generator's
-     * sequence.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns a pseudo-random, uniformly distributed {@code float} value between 0.0 and 1.0 from
+     * this random number generator's sequence.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      */
     @Override
     public float nextFloat() {
@@ -164,9 +163,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Returns a pseudo-random, uniformly distributed {@code boolean } value from this random number generator's sequence.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Returns a pseudo-random, uniformly distributed {@code boolean } value from this random number
+     * generator's sequence.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      */
     @Override
     public boolean nextBoolean() {
@@ -174,10 +174,10 @@ public class RandomXS128 extends Random {
     }
 
     /**
-     * Generates random bytes and places them into a user-supplied byte array. The number of random bytes produced is equal to the
-     * length of the byte array.
-     * <p>
-     * This implementation uses {@link #nextLong()} internally.
+     * Generates random bytes and places them into a user-supplied byte array. The number of random
+     * bytes produced is equal to the length of the byte array.
+     *
+     * <p>This implementation uses {@link #nextLong()} internally.
      */
     @Override
     public void nextBytes(final byte[] bytes) {
@@ -185,18 +185,19 @@ public class RandomXS128 extends Random {
         int i = bytes.length;
         while (i != 0) {
             n = i < 8 ? i : 8; // min(i, 8);
-            for (long bits = nextLong(); n-- != 0; bits >>= 8)
-                bytes[--i] = (byte) bits;
+            for (long bits = nextLong(); n-- != 0; bits >>= 8) bytes[--i] = (byte) bits;
         }
     }
 
     /**
      * Sets the internal seed of this generator based on the given {@code long} value.
-     * <p>
-     * The given seed is passed twice through a hash function. This way, if the user passes a small value we avoid the short
-     * irregular transient associated with states having a very small number of bits set.
      *
-     * @param seed a nonzero seed for this generator (if zero, the generator will be seeded with {@link Long#MIN_VALUE}).
+     * <p>The given seed is passed twice through a hash function. This way, if the user passes a
+     * small value we avoid the short irregular transient associated with states having a very small
+     * number of bits set.
+     *
+     * @param seed a nonzero seed for this generator (if zero, the generator will be seeded with
+     *     {@link Long#MIN_VALUE}).
      */
     @Override
     public void setSeed(final long seed) {
@@ -224,5 +225,4 @@ public class RandomXS128 extends Random {
     public long getState(int seed) {
         return seed == 0 ? seed0 : seed1;
     }
-
 }

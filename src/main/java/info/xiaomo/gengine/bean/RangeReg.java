@@ -1,55 +1,50 @@
 package info.xiaomo.gengine.bean;
 
-
 import info.xiaomo.gengine.utils.SymbolUtil;
 
 /**
  * 区间表达
  *
- *
- * <p>
- * 2017年8月2日 上午9:53:24
+ * <p>2017年8月2日 上午9:53:24
  */
 public class RangeReg {
 
-	private Type type;
-	private String range;
+    private Type type;
+    private String range;
 
-	public RangeReg(String range) {
-		if (range.indexOf("-") > 0) {//区间划分
-			type = Type.TO;
-		} else if (range.indexOf(",") > 0) {//或划分
-			type = Type.OR;
-		} else if (SymbolUtil.isNullOrEmpty(range)) {
-			type = Type.NULL;
-		} else {
-			type = Type.ONLY;
-		}
-		this.range = range.replace("[", "").replace("]", "");
-	}
+    public RangeReg(String range) {
+        if (range.indexOf("-") > 0) { // 区间划分
+            type = Type.TO;
+        } else if (range.indexOf(",") > 0) { // 或划分
+            type = Type.OR;
+        } else if (SymbolUtil.isNullOrEmpty(range)) {
+            type = Type.NULL;
+        } else {
+            type = Type.ONLY;
+        }
+        this.range = range.replace("[", "").replace("]", "");
+    }
 
-	public Type getType() {
-		return type;
-	}
+    public Type getType() {
+        return type;
+    }
 
-	public void setType(Type type) {
-		this.type = type;
-	}
+    public void setType(Type type) {
+        this.type = type;
+    }
 
-	public String getRange() {
-		return range;
-	}
+    public String getRange() {
+        return range;
+    }
 
-	public void setRange(String range) {
-		this.range = range;
-	}
+    public void setRange(String range) {
+        this.range = range;
+    }
 
-	public enum Type {
-		NULL,//空
-		ONLY,//唯一
-		OR,// 通过,和/分割表示
-		TO,// 通过-分割表示
-	}
-
-
+    public enum Type {
+        NULL, // 空
+        ONLY, // 唯一
+        OR, // 通过,和/分割表示
+        TO, // 通过-分割表示
+    }
 }

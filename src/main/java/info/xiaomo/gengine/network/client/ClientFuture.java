@@ -44,28 +44,25 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
- * 
  * 从grizzly的 FutureImpl精简而来. </br>
  *
- * <p/>
- * (Based on the JDK {@link java.util.concurrent.FutureTask})
+ * <p>(Based on the JDK {@link java.util.concurrent.FutureTask})
  *
  * @see Future
  */
 public class ClientFuture<R> implements Future<R> {
 
-    /**
-     * Construct {@link ClientFuture}.
-     */
-    public static <R> ClientFuture<R> create() {
-        return new ClientFuture<R>();
-    }
+    /** Synchronization control for FutureTask */
+    private final Sync sync;
 
-    /**
-     * Creates <tt>ClientFuture</tt>
-     */
+    /** Creates <tt>ClientFuture</tt> */
     public ClientFuture() {
         sync = new Sync();
+    }
+
+    /** Construct {@link ClientFuture}. */
+    public static <R> ClientFuture<R> create() {
+        return new ClientFuture<R>();
     }
 
     /**
@@ -86,7 +83,6 @@ public class ClientFuture<R> implements Future<R> {
         sync.innerSetException(failure);
     }
 
-
     public R getResult() {
         if (isDone()) {
             try {
@@ -98,58 +94,39 @@ public class ClientFuture<R> implements Future<R> {
         return null;
     }
 
-
-
-    /**
-     * The method is called when this <tt>SafeFutureImpl</tt> is marked as completed.
-     * Subclasses can override this method.
-     */
-    protected void onComplete() {
-    }
-
-
     // FROM FUTURETASK =========================================================
 
     /**
-     * Synchronization control for FutureTask
+     * The method is called when this <tt>SafeFutureImpl</tt> is marked as completed. Subclasses can
+     * override this method.
      */
-    private final Sync sync;
+    protected void onComplete() {}
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isCancelled() {
         return sync.innerIsCancelled();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isDone() {
         return sync.ranOrCancelled();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
         return sync.innerCancel(mayInterruptIfRunning);
     }
 
-    /**
-     * @throws CancellationException {@inheritDoc}
-     */
+    /** @throws CancellationException {@inheritDoc} */
     @Override
     public R get() throws InterruptedException, ExecutionException {
         return sync.innerGet();
     }
 
-    /**
-     * @throws CancellationException {@inheritDoc}
-     */
+    /** @throws CancellationException {@inheritDoc} */
     @Override
     public R get(long timeout, TimeUnit unit)
             throws InterruptedException, ExecutionException, TimeoutException {
@@ -157,70 +134,53 @@ public class ClientFuture<R> implements Future<R> {
     }
 
     /**
-     * Protected method invoked when this task transitions to state
-     * <tt>isDone</tt> (whether normally or via cancellation). The
-     * default implementation does nothing.  Subclasses may override
-     * this method to invoke completion callbacks or perform
-     * bookkeeping. Note that you can query status inside the
-     * implementation of this method to determine whether this task
-     * has been cancelled.
+     * Protected method invoked when this task transitions to state <tt>isDone</tt> (whether
+     * normally or via cancellation). The default implementation does nothing. Subclasses may
+     * override this method to invoke completion callbacks or perform bookkeeping. Note that you can
+     * query status inside the implementation of this method to determine whether this task has been
+     * cancelled.
      */
     protected void done() {
         onComplete();
     }
 
     /**
-     * Synchronization control for FutureTask. Note that this must be
-     * a non-static inner class in order to invoke the protected
-     * <tt>done</tt> method. For clarity, all inner class support
+     * Synchronization control for FutureTask. Note that this must be a non-static inner class in
+     * order to invoke the protected <tt>done</tt> method. For clarity, all inner class support
      * methods are same as outer, prefixed with "inner".
-     * <p/>
-     * Uses AQS sync state to represent run status
+     *
+     * <p>Uses AQS sync state to represent run status
      */
     private final class Sync extends AbstractQueuedSynchronizer {
         private static final long serialVersionUID = -7828117401763700385L;
 
-        /**
-         * State value representing that task is ready to run
-         */
+        /** State value representing that task is ready to run */
         private static final int READY = 0;
-        /**
-         * State value representing that result/exception is being set
-         */
+        /** State value representing that result/exception is being set */
         private static final int RESULT = 1;
-        /**
-         * State value representing that task ran
-         */
+        /** State value representing that task ran */
         private static final int RAN = 2;
-        /**
-         * State value representing that task was cancelled
-         */
+        /** State value representing that task was cancelled */
         private static final int CANCELLED = 3;
 
-        /**
-         * The result to return from get()
-         */
+        /** The result to return from get() */
         private R result;
-        /**
-         * The exception to throw from get()
-         */
+        /** The exception to throw from get() */
         private Throwable exception;
 
         private boolean ranOrCancelled() {
             return (getState() & (RAN | CANCELLED)) != 0;
         }
 
-        /**
-         * Implements AQS base acquire to succeed if ran or cancelled
-         */
+        /** Implements AQS base acquire to succeed if ran or cancelled */
         @Override
         protected int tryAcquireShared(int ignore) {
             return ranOrCancelled() ? 1 : -1;
         }
 
         /**
-         * Implements AQS base release to always signal after setting
-         * final done status by nulling runner thread.
+         * Implements AQS base release to always signal after setting final done status by nulling
+         * runner thread.
          */
         @Override
         protected boolean tryReleaseShared(int ignore) {
@@ -243,7 +203,7 @@ public class ClientFuture<R> implements Future<R> {
         }
 
         R innerGet(long nanosTimeout)
-        throws InterruptedException, ExecutionException, TimeoutException {
+                throws InterruptedException, ExecutionException, TimeoutException {
             if (!tryAcquireSharedNanos(0, nanosTimeout)) {
                 throw new TimeoutException();
             }
@@ -280,7 +240,7 @@ public class ClientFuture<R> implements Future<R> {
                 done();
                 return true;
             }
-            
+
             return false;
         }
     }

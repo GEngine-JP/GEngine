@@ -6,14 +6,13 @@ import org.junit.Test;
 /**
  * 系统工具测试
  *
- *
- * 2017年10月12日 下午2:28:07
+ * <p>2017年10月12日 下午2:28:07
  */
 public class SysUtilTest {
 
-	@Test
-	public void testJvmInfo() {
-		System.err.println(SysUtil.jvmInfo("\r\n"));
-//		System.err.println(SysUtil.jvmInfo("<br>"));
-	}
+    @Test
+    public void testJvmInfo() {
+        System.err.println(SysUtil.jvmInfo("\r\n"));
+        //		System.err.println(SysUtil.jvmInfo("<br>"));
+    }
 }

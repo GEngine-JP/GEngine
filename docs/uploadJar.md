@@ -1,4 +1,5 @@
 1. ~/.m2/settings.xml
+
 ```
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -39,9 +40,10 @@
 ```
 
 2. 上传
-`mvn deploy`
-   
+   `mvn deploy`
+
 3. 使用
+
 ```
     <repositories>
         <repository>
@@ -55,8 +57,8 @@
     </repositories>
 ```
 
-
 1. 一次引用全部
+
  ```
    <dependency>
    <groupId>info.xiaomo</groupId>

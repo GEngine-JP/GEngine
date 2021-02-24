@@ -1,8 +1,6 @@
 package info.xiaomo.gengine.math;
 
-/**
- * 向量接口
- */
+/** 向量接口 */
 public interface Vector<T extends Vector<T>> {
 
     /**
@@ -43,15 +41,13 @@ public interface Vector<T extends Vector<T>> {
      */
     T nor();
 
-    /**
-     * @return The euclidean length
-     */
+    /** @return The euclidean length */
     float len();
 
     /**
-     * This method is faster than {@link Vector#len()} because it avoids calculating
-     * a square root. It is useful for comparisons, but not for getting exact
-     * lengths, as the return value is the square of the actual length.
+     * This method is faster than {@link Vector#len()} because it avoids calculating a square root.
+     * It is useful for comparisons, but not for getting exact lengths, as the return value is the
+     * square of the actual length.
      *
      * @return The squared euclidean length
      */
@@ -60,7 +56,7 @@ public interface Vector<T extends Vector<T>> {
     /**
      * First scale a supplied vector, then add it to this vector.
      *
-     * @param v      addition vector
+     * @param v addition vector
      * @param scalar for scaling the addition vector
      */
     T mulAdd(T v, float scalar);
@@ -76,11 +72,11 @@ public interface Vector<T extends Vector<T>> {
     }
 
     /**
-     * Linearly interpolates between this vector and the target vector by alpha which is in the range [0,1]. The result is stored
-     * in this vector.
+     * Linearly interpolates between this vector and the target vector by alpha which is in the
+     * range [0,1]. The result is stored in this vector.
      *
      * @param target The target vector
-     * @param alpha  The interpolation coefficient
+     * @param alpha The interpolation coefficient
      * @return This vector for chaining.
      */
     T lerp(T target, float alpha);

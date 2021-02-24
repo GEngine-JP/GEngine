@@ -12,13 +12,15 @@ import org.junit.Test;
 @Ignore
 public class BaseMailManagerTest {
 
-	@Test
-	public void testSendMail() {
-		MailManager.getInstance().sendTextMailAsync("hh", "dd", "suzukaze.hazuki2020@gmail.com", "xiaomo@xiaomo.info");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    @Test
+    public void testSendMail() {
+        MailManager.getInstance()
+                .sendTextMailAsync(
+                        "hh", "dd", "suzukaze.hazuki2020@gmail.com", "xiaomo@xiaomo.info");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

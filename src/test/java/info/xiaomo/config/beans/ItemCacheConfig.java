@@ -1,9 +1,5 @@
-/**
- * 创建日期:  2017年08月19日 14:13
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月19日 14:13 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.config.beans;
-
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -11,10 +7,7 @@ import info.xiaomo.gengine.config.IConfigCache;
 import info.xiaomo.gengine.config.annotation.Cache;
 import info.xiaomo.gengine.config.annotation.Config;
 
-/**
- *
- * @author YangQiang
- */
+/** @author YangQiang */
 @Cache
 public class ItemCacheConfig implements IConfigCache {
     public static void main(String[] args) {

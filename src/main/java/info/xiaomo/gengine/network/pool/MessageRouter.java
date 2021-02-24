@@ -2,18 +2,14 @@ package info.xiaomo.gengine.network.pool;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import info.xiaomo.gengine.network.*;
 import info.xiaomo.gengine.utils.AttributeUtil;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 @Slf4j
 public class MessageRouter implements INetworkConsumer {
-
 
     private Map<Integer, IProcessor> processors = new HashMap<>(10);
 
@@ -31,7 +27,7 @@ public class MessageRouter implements INetworkConsumer {
     @Override
     public void consume(MsgPack msg, Channel channel) {
 
-        //将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
+        // 将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
 
         int queueId = 1;
 
@@ -53,11 +49,9 @@ public class MessageRouter implements INetworkConsumer {
         log.debug("收到消息:" + msg);
 
         processor.process(handler);
-
     }
 
     public IProcessor getProcessor(int queueId) {
         return processors.get(queueId);
     }
-
 }

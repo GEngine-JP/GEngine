@@ -7,18 +7,17 @@ package info.xiaomo.gengine.persist.mysql.persist;
  */
 public interface PersistAble extends CacheAble {
 
-	/**
-	 * 是否是脏数据
-	 *
-	 * @return boolean
-	 */
-	boolean isDirty();
+    /**
+     * 是否是脏数据
+     *
+     * @return boolean
+     */
+    boolean isDirty();
 
-	/**
-	 * 设置是否为脏数据
-	 *
-	 * @param dirty dirty
-	 */
-	void setDirty(boolean dirty);
-
+    /**
+     * 设置是否为脏数据
+     *
+     * @param dirty dirty
+     */
+    void setDirty(boolean dirty);
 }

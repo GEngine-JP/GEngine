@@ -1,7 +1,5 @@
-package info.xiaomo.gengine.config; /**
- * 创建日期:  2017年08月11日 19:04
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+package info.xiaomo.gengine.config;
+/** 创建日期: 2017年08月11日 19:04 创建作者: 杨 强 <281455776@qq.com> */
 
 /**
  * 读取接口
@@ -20,6 +18,7 @@ public interface IReader<T, R> extends IConverter<T, R> {
 
     /**
      * convert
+     *
      * @param t t
      * @return
      */

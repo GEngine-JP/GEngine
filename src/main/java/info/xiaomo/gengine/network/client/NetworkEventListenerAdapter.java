@@ -2,7 +2,6 @@ package info.xiaomo.gengine.network.client;
 
 import info.xiaomo.gengine.network.INetworkEventListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.timeout.IdleState;
 
 /**
  * 默认实现网络事件监听器
@@ -13,22 +12,14 @@ import io.netty.handler.timeout.IdleState;
 public class NetworkEventListenerAdapter implements INetworkEventListener {
 
     @Override
-    public void onConnected(ChannelHandlerContext ctx) {
-
-    }
+    public void onConnected(ChannelHandlerContext ctx) {}
 
     @Override
-    public void onDisconnected(ChannelHandlerContext ctx) {
-
-    }
+    public void onDisconnected(ChannelHandlerContext ctx) {}
 
     @Override
-    public void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause) {
-
-    }
+    public void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause) {}
 
     @Override
-    public void idle(ChannelHandlerContext ctx, Object evt) {
-
-    }
+    public void idle(ChannelHandlerContext ctx, Object evt) {}
 }

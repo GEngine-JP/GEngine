@@ -19,7 +19,6 @@ public class SelfClassLoader extends ClassLoader {
         this.classPath = classPath;
     }
 
-
     @Override
     protected Class<?> findClass(String name) {
         byte[] data = readClassFile(name);
@@ -28,7 +27,6 @@ public class SelfClassLoader extends ClassLoader {
         }
         return defineClass(name, data, 0, data.length, null);
     }
-
 
     private byte[] readClassFile(String name) {
         FileInputStream fis;
@@ -59,5 +57,4 @@ public class SelfClassLoader extends ClassLoader {
         builder.append(".class");
         return builder.toString();
     }
-
 }

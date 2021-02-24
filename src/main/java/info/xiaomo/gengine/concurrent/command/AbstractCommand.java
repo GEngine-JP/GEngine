@@ -1,10 +1,8 @@
 package info.xiaomo.gengine.concurrent.command;
 
-
 import info.xiaomo.gengine.concurrent.queue.ICommandQueue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-
 
 /**
  * 用于执行具体业务逻辑的工作类，该类的实例中包括一个CommandQueue
@@ -15,12 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractCommand implements IQueueDriverCommand {
 
-    private ICommandQueue<IQueueDriverCommand> commandQueue;
-
-    /**
-     * 消息所属队列ID
-     */
+    /** 消息所属队列ID */
     protected int queueId;
+    private ICommandQueue<IQueueDriverCommand> commandQueue;
 
     @Override
     public Object getParam() {
@@ -28,9 +23,5 @@ public abstract class AbstractCommand implements IQueueDriverCommand {
     }
 
     @Override
-    public void setParam(Object param) {
-
-    }
-
-
+    public void setParam(Object param) {}
 }

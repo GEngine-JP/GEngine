@@ -1,12 +1,8 @@
 package info.xiaomo.gengine.ai.quadtree;
 
-/**
- * 节点类型
- *
- * 
- */
+/** 节点类型 */
 public enum NodeType {
-	EMPTY,
-	LEAF,
-	POINTER
+    EMPTY,
+    LEAF,
+    POINTER
 }

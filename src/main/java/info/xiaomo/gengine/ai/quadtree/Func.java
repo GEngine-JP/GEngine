@@ -9,14 +9,9 @@ import info.xiaomo.gengine.ai.quadtree.polygon.PolygonGuadTree;
  *
  * @param <K>
  * @param <V>
- * 
  */
 public interface Func<V> {
-	public default void call(PointQuadTree<V> quadTree, Node<V> node) {
+    public default void call(PointQuadTree<V> quadTree, Node<V> node) {}
 
-	}
-
-	public default void call(PolygonGuadTree quadTree, Node<Polygon> node) {
-
-	}
+    public default void call(PolygonGuadTree quadTree, Node<Polygon> node) {}
 }

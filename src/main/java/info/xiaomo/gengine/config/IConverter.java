@@ -1,8 +1,5 @@
-package info.xiaomo.gengine.config; /**
- * 创建日期:  2017年08月11日 19:18
- * 创建作者:  杨 强  <281455776@qq.com>
- */
-
+package info.xiaomo.gengine.config;
+/** 创建日期: 2017年08月11日 19:18 创建作者: 杨 强 <281455776@qq.com> */
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -36,7 +33,7 @@ public interface IConverter<T, R> extends Function<T, R> {
      * compose
      *
      * @param before before
-     * @param <V>    before
+     * @param <V> before
      * @return <V>
      */
     @Override
@@ -49,7 +46,7 @@ public interface IConverter<T, R> extends Function<T, R> {
      * 在之后
      *
      * @param after after
-     * @param <V>   <V>
+     * @param <V> <V>
      * @return <V>
      */
     @Override

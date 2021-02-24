@@ -1,7 +1,4 @@
-/**
- * 创建日期:  2017年08月02日 15:00
- * 创建作者:  杨 强  <281455776@qq.com>
- */
+/** 创建日期: 2017年08月02日 15:00 创建作者: 杨 强 <281455776@qq.com> */
 package info.xiaomo.gengine.utils;
 
 import org.slf4j.Logger;
@@ -18,14 +15,6 @@ public class CodeExecTime {
     private long startTime;
     private long lastStepTime;
 
-    public static CodeExecTime newCodeExecTime() {
-        return new CodeExecTime();
-    }
-
-    public static CodeExecTime newCodeExecTime(long threshold) {
-        return new CodeExecTime(threshold);
-    }
-
     public CodeExecTime() {
         this.threshold = 10;
         this.startTime = System.nanoTime();
@@ -38,12 +27,21 @@ public class CodeExecTime {
         this.lastStepTime = this.startTime;
     }
 
+    public static CodeExecTime newCodeExecTime() {
+        return new CodeExecTime();
+    }
+
+    public static CodeExecTime newCodeExecTime(long threshold) {
+        return new CodeExecTime(threshold);
+    }
+
     public boolean total(Logger logger, long threshold, String msg) {
         long currentTime = System.nanoTime();
         try {
             long time = currentTime - this.startTime;
             if (time >= threshold) {
-                logger.error(StringUtil.format("total:代码执行超时:{}, 超时 {}>={} ns", msg, time, threshold));
+                logger.error(
+                        StringUtil.format("total:代码执行超时:{}, 超时 {}>={} ns", msg, time, threshold));
                 return true;
             }
         } finally {
@@ -70,7 +68,8 @@ public class CodeExecTime {
         try {
             long time = currentTime - this.lastStepTime;
             if (time >= threshold) {
-                logger.error(StringUtil.format("total:代码执行超时:{}, 超时 {}>={} ns", msg, time, threshold));
+                logger.error(
+                        StringUtil.format("total:代码执行超时:{}, 超时 {}>={} ns", msg, time, threshold));
                 return true;
             }
 

@@ -1,12 +1,9 @@
 package info.xiaomo.gengine.utils;
 
-
 /**
  * 符号工具
  *
- *
- * <p>
- * 2017年8月2日 上午9:53:55
+ * <p>2017年8月2日 上午9:53:55
  */
 public final class SymbolUtil {
 
@@ -22,9 +19,9 @@ public final class SymbolUtil {
     public static final String Empty = "";
     public static final String ENTER = "\n";
     public static final String EmptyZero = "{0:0}";
-    public static final String FENHAO_REG = ";|；";//分号
-    public static final String MAOHAO_REG = ":|：";//冒号
-    public static final String MAOHAO_1_REG = ":|：|=|_";//冒号
+    public static final String FENHAO_REG = ";|；"; // 分号
+    public static final String MAOHAO_REG = ":|："; // 冒号
+    public static final String MAOHAO_1_REG = ":|：|=|_"; // 冒号
     public static final String DOUHAO_REG = ",|，";
     public static final String XIEGANG_REG = "/";
     public static final String SHUXIAN_REG = "\\|";
@@ -33,8 +30,7 @@ public final class SymbolUtil {
     public static final String DENGHAO = "=";
     public static final String AT_REG = "@";
 
-    private SymbolUtil() {
-    }
+    private SymbolUtil() {}
 
     /**
      * @param str

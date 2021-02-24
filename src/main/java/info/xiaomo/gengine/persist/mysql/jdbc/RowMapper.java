@@ -14,105 +14,95 @@ import java.util.Map;
  */
 public interface RowMapper<T> {
 
-	/**
-	 * mapping
-	 *
-	 * @param rs rs
-	 * @return rs
-	 * @throws SQLException SQLException
-	 */
-	T mapping(ResultSet rs) throws SQLException;
+    /**
+     * mapping
+     *
+     * @param rs rs
+     * @return rs
+     * @throws SQLException SQLException
+     */
+    T mapping(ResultSet rs) throws SQLException;
 
-	/**
-	 * release
-	 */
-	void release();
+    /** release */
+    void release();
 
+    class IntegerRowMaper implements RowMapper<Integer> {
 
-	class IntegerRowMaper implements RowMapper<Integer> {
+        @Override
+        public Integer mapping(ResultSet rs) throws SQLException {
+            return rs.getInt(1);
+        }
 
-		@Override
-		public Integer mapping(ResultSet rs) throws SQLException {
-			return rs.getInt(1);
-		}
+        @Override
+        public void release() {}
+    }
 
-		@Override
-		public void release() {
-		}
+    class LongRowMapper implements RowMapper<Long> {
 
-	}
+        @Override
+        public Long mapping(ResultSet rs) throws SQLException {
+            return rs.getLong(1);
+        }
 
-	class LongRowMapper implements RowMapper<Long> {
+        @Override
+        public void release() {}
+    }
 
-		@Override
-		public Long mapping(ResultSet rs) throws SQLException {
-			return rs.getLong(1);
-		}
+    class StringRowMapper implements RowMapper<String> {
 
-		@Override
-		public void release() {
-		}
-	}
+        @Override
+        public String mapping(ResultSet rs) throws SQLException {
+            return rs.getString(1);
+        }
 
-	class StringRowMapper implements RowMapper<String> {
+        @Override
+        public void release() {}
+    }
 
-		@Override
-		public String mapping(ResultSet rs) throws SQLException {
-			return rs.getString(1);
-		}
+    class DateRowMaper implements RowMapper<Date> {
 
-		@Override
-		public void release() {
-		}
-	}
+        @Override
+        public Date mapping(ResultSet rs) throws SQLException {
+            return rs.getDate(1);
+        }
 
-	class DateRowMaper implements RowMapper<Date> {
+        @Override
+        public void release() {}
+    }
 
-		@Override
-		public Date mapping(ResultSet rs) throws SQLException {
-			return rs.getDate(1);
-		}
+    class ByteArrayRowMaper implements RowMapper<byte[]> {
 
-		@Override
-		public void release() {
-		}
-	}
+        @Override
+        public byte[] mapping(ResultSet rs) throws SQLException {
+            return rs.getBytes(1);
+        }
 
-	class ByteArrayRowMaper implements RowMapper<byte[]> {
+        @Override
+        public void release() {}
+    }
 
-		@Override
-		public byte[] mapping(ResultSet rs) throws SQLException {
-			return rs.getBytes(1);
-		}
+    class MapRowMapper implements RowMapper<Map<String, Object>> {
 
-		@Override
-		public void release() {
-		}
-	}
+        private final ThreadLocal<ResultSetMetaData> threadLocal = new ThreadLocal<>();
 
-	class MapRowMapper implements RowMapper<Map<String, Object>> {
+        @Override
+        public Map<String, Object> mapping(ResultSet rs) throws SQLException {
+            Map<String, Object> ret = new HashMap<>(10);
+            ResultSetMetaData rsmd = threadLocal.get();
+            if (rsmd == null) {
+                rsmd = rs.getMetaData();
+                threadLocal.set(rsmd);
+            }
+            int column = rsmd.getColumnCount();
+            for (int i = 1; i <= column; i++) {
+                ret.put(rsmd.getColumnName(i), rs.getObject(i));
+            }
+            return ret;
+        }
 
-		private final ThreadLocal<ResultSetMetaData> threadLocal = new ThreadLocal<>();
-
-		@Override
-		public Map<String, Object> mapping(ResultSet rs) throws SQLException {
-			Map<String, Object> ret = new HashMap<>(10);
-			ResultSetMetaData rsmd = threadLocal.get();
-			if (rsmd == null) {
-				rsmd = rs.getMetaData();
-				threadLocal.set(rsmd);
-			}
-			int column = rsmd.getColumnCount();
-			for (int i = 1; i <= column; i++) {
-				ret.put(rsmd.getColumnName(i), rs.getObject(i));
-			}
-			return ret;
-		}
-
-		@Override
-		public void release() {
-			threadLocal.remove();
-		}
-
-	}
+        @Override
+        public void release() {
+            threadLocal.remove();
+        }
+    }
 }

@@ -16,51 +16,34 @@ import org.simpleframework.xml.Root;
 @Data
 public class MailConfig {
 
-	/**
-	 * 协议地址
-	 */
-	@Element(required = false)
-	private String mailSmtpHost = "smtp.mail.yahoo.com";
+    /** 协议地址 */
+    @Element(required = false)
+    private String mailSmtpHost = "smtp.mail.yahoo.com";
 
-	@Element(required = false)
-	private Integer port = 465;
+    @Element(required = false)
+    private Integer port = 465;
 
-	/**
-	 * ssl
-	 */
-	@Element(required = false)
-	private boolean mailSmtpSslEnable = true;
+    /** ssl */
+    @Element(required = false)
+    private boolean mailSmtpSslEnable = true;
 
-	/**
-	 * 验证
-	 */
-	@Element(required = false)
-	private boolean mailSmtpAuth = true;
+    /** 验证 */
+    @Element(required = false)
+    private boolean mailSmtpAuth = true;
 
-	/**
-	 * 邮件发送账号
-	 */
-	@Element(required = false)
-	private String sendUser = "suzukaze.hazuki2020@yahoo.com";
+    /** 邮件发送账号 */
+    @Element(required = false)
+    private String sendUser = "suzukaze.hazuki2020@yahoo.com";
 
-	/**
-	 * 邮件密码
-	 */
-	@Element(required = false)
-	private String password = "jxqdjdrpntfhhvjt";
+    /** 邮件密码 */
+    @Element(required = false)
+    private String password = "jxqdjdrpntfhhvjt";
 
-	/**
-	 * 收信人
-	 */
-	@Element(required = false)
-	private List<String> receivedUser = Collections.singletonList("suzukaze.hazuki2020@gmail.com");
+    /** 收信人 */
+    @Element(required = false)
+    private List<String> receivedUser = Collections.singletonList("suzukaze.hazuki2020@gmail.com");
 
-
-	/**
-	 * debug 有他会打印一些调试信息。
-	 */
-	@Element(required = false)
-	private boolean isDebug = true;
-
-
+    /** debug 有他会打印一些调试信息。 */
+    @Element(required = false)
+    private boolean isDebug = true;
 }

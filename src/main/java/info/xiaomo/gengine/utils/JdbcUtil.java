@@ -1,15 +1,11 @@
 package info.xiaomo.gengine.utils;
 
-
-
 import java.sql.SQLException;
 import java.util.List;
 import info.xiaomo.gengine.persist.mysql.jdbc.JdbcTemplate;
 import info.xiaomo.gengine.persist.mysql.jdbc.RowMapper;
 
-/**
- * @author xiaomo
- */
+/** @author xiaomo */
 public class JdbcUtil {
 
     private static JdbcTemplate template;
@@ -51,7 +47,6 @@ public class JdbcUtil {
         }
         template.batchUpdate(sql, parameters);
     }
-
 
     /**
      * 该表是否存在
