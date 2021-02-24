@@ -178,7 +178,7 @@ public final class ClassUtil {
 			// 从URLClassLoader类中获取类所在文件夹的方法
 			// 对于jar文件，可以理解为一个存放class文件的文件夹
 			Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-			boolean accessible = method.canAccess(method);        // 获取方法的访问权限
+			boolean accessible = method.isAccessible();        // 获取方法的访问权限
 			try {
 				if (!accessible) {
 					method.setAccessible(true);        // 设置方法的访问权限
