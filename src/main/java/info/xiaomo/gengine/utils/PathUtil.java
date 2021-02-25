@@ -8,8 +8,8 @@ public class PathUtil {
 
     /** 获取项目目录下的game-conf文件夹目录 */
     public static String getConfigPath() {
-        String path = PathUtil.class.getResource("/").getPath();
-        return findPath(new File(path + "game-conf")) + "/";
+        String path = System.getProperty("user.dir");
+        return findPath(new File(path + "/game-conf")) + "/";
     }
 
     /**
