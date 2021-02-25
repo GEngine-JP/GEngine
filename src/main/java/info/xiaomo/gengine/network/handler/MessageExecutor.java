@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
 import info.xiaomo.gengine.network.MsgPack;
-import info.xiaomo.gengine.network.pool.MessageAndHandlerPool;
+import info.xiaomo.gengine.network.pool.MessagePool;
 import info.xiaomo.gengine.utils.ClassUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -31,9 +31,18 @@ public class MessageExecutor extends SimpleChannelInboundHandler<MsgPack> {
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, MsgPack msgPack) throws Exception {
-        AbstractMessage clazz = MessageAndHandlerPool.messages.get(msgPack.getMsgId());
+        AbstractMessage abstractMessage = MessagePool.messages.get(msgPack.getMsgId());
 
-        Method m = ClassUtil.findMethod(clazz.getClass(), "getDefaultInstance");
+        if (abstractMessage == null) {
+            if (msgPack.getMsgId() == 0) {
+                log.error("请求消息未设置msgId");
+            } else {
+                log.error("消息未注册，请检查");
+            }
+            return;
+        }
+
+        Method m = ClassUtil.findProtobufMsg(abstractMessage.getClass());
         if (m != null) {
             AbstractMessage message = (AbstractMessage) m.invoke(null);
             Message msg = message.newBuilderForType().mergeFrom(msgPack.getBytes()).build();

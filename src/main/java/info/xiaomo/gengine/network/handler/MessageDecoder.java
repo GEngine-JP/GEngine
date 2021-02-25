@@ -28,13 +28,13 @@ public class MessageDecoder extends ByteToMessageDecoder {
         byte head = in.readByte();
         short length = in.readShort();
         if ((length <= 0) || (length > this.upLimit)) throw new IllegalArgumentException();
-        int cmd = in.readInt();
+        int msgId = in.readInt();
         if (in.readableBytes() < length - 4) {
             in.resetReaderIndex();
             return;
         }
         byte[] bytes = new byte[length - 4];
         in.readBytes(bytes);
-        out.add(new MsgPack(head, cmd, bytes));
+        out.add(new MsgPack(head, msgId, bytes));
     }
 }

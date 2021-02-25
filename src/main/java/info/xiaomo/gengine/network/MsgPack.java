@@ -6,7 +6,7 @@ import lombok.Data;
 public class MsgPack {
     public static final byte HEAD_TCP = -128;
 
-    private short sequence = 1;
+    private Integer sequence = 1;
 
     private final byte head;
     private final int msgId;

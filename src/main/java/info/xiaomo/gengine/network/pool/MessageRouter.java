@@ -29,11 +29,9 @@ public class MessageRouter implements INetworkConsumer {
 
         // 将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
 
-        int queueId = 1;
-
-        IProcessor processor = processors.get(queueId);
+        IProcessor processor = processors.get(msgPack.getSequence());
         if (processor == null) {
-            log.error("找不到可用的消息处理器[{}]", queueId);
+            log.error("找不到可用的消息处理器[{}]", msgPack.getSequence());
             return;
         }
 
@@ -49,8 +47,6 @@ public class MessageRouter implements INetworkConsumer {
         handler.setMessage(msgPack.getMsg());
         handler.setParam(session);
         handler.setSession(session);
-        handler.doAction();
-
         processor.process(handler);
     }
 

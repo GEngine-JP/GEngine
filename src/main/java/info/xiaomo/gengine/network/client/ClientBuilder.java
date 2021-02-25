@@ -5,7 +5,7 @@ import java.util.List;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
 import info.xiaomo.gengine.network.client.listener.ClientListener;
-import info.xiaomo.gengine.network.pool.MessageAndHandlerPool;
+import info.xiaomo.gengine.network.pool.MessagePool;
 import io.netty.channel.ChannelHandler;
 import lombok.Data;
 
@@ -24,7 +24,7 @@ public class ClientBuilder {
     private int port;
 
     /** 消息池 */
-    private MessageAndHandlerPool msgPool;
+    private MessagePool msgPool;
 
     /** 网络消费者 */
     private INetworkConsumer consumer;

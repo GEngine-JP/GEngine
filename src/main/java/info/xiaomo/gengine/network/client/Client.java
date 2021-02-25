@@ -116,7 +116,7 @@ public class Client {
                         .getNumber();
             }
         }
-        LOGGER.error("在消息体中没有找到对应的消息id:{}", msg);
+        LOGGER.error("【{}】中未设置msgId, 内容：{}", msg.getClass().getSimpleName(), msg);
         return 0;
     }
 
@@ -151,8 +151,8 @@ public class Client {
     public boolean sendMsg(AbstractMessage message) {
         Channel channel = getChannel(Thread.currentThread().getId());
         if (channel != null && channel.isActive()) {
-            int cmd = getMessageID(message);
-            MsgPack packet = new MsgPack(MsgPack.HEAD_TCP, cmd, message.toByteArray());
+            int msgId = getMessageID(message);
+            MsgPack packet = new MsgPack(MsgPack.HEAD_TCP, msgId, message.toByteArray());
             channel.writeAndFlush(packet);
             return true;
         }

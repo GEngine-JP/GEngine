@@ -301,7 +301,11 @@ public final class ClassUtil {
         return map;
     }
 
-    public static Method findMethod(Class clazz, String methodName) {
+    public static Method findProtobufMsg(Class clazz) {
+        return findMethod(clazz,"getDefaultInstance");
+    }
+
+        public static Method findMethod(Class clazz, String methodName) {
         Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
             if (method.getName().equals(methodName)) return method;
