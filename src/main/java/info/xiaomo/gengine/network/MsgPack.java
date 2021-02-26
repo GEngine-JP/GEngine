@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MsgPack {
-    public static final byte HEAD_TCP = -128;
+    public static final byte HEAD_TCP = 4;
 
     private Integer sequence = 1;
 
@@ -17,12 +17,5 @@ public class MsgPack {
         this.head = head;
         this.msgId = msgId;
         this.bytes = bytes;
-    }
-
-    public MsgPack(byte head, int msgId, byte[] bytes, Object msg) {
-        this.head = head;
-        this.msgId = msgId;
-        this.bytes = bytes;
-        this.msg = msg;
     }
 }

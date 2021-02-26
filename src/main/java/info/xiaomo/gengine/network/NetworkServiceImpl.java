@@ -7,6 +7,8 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
@@ -165,7 +167,13 @@ public class NetworkServiceImpl implements IService {
         @Override
         protected void initChannel(Channel ch) {
             ChannelPipeline pip = ch.pipeline();
+            int maxLength = 1048576;
+            int lengthFieldLength = 4;
+            int ignoreLength = -4;
+            int offset = 0;
+//            pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
             pip.addLast(new MessageDecoder(builder.getUpLimit()));
+//            pip.addLast(new LengthFieldPrepender(4, true));
             pip.addLast(new MessageEncoder());
             pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
