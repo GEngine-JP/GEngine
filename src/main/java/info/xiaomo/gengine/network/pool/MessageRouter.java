@@ -1,13 +1,13 @@
 package info.xiaomo.gengine.network.pool;
 
 import com.google.protobuf.Message;
-import com.sun.istack.internal.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import info.xiaomo.gengine.network.*;
 import info.xiaomo.gengine.utils.AttributeUtil;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 
 /** @author xiaomo */
 @Slf4j
