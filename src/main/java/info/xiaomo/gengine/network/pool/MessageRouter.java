@@ -1,5 +1,6 @@
 package info.xiaomo.gengine.network.pool;
 
+import com.google.protobuf.Message;
 import java.util.HashMap;
 import java.util.Map;
 import info.xiaomo.gengine.network.*;
@@ -13,9 +14,9 @@ public class MessageRouter implements INetworkConsumer {
 
     protected final Map<Integer, IProcessor> processors = new HashMap<>(10);
 
-    protected final IMessageAndHandler msgPool;
+    protected final IMessagePool msgPool;
 
-    public MessageRouter(IMessageAndHandler msgPool) {
+    public MessageRouter(IMessagePool msgPool) {
         this.msgPool = msgPool;
     }
 
@@ -25,15 +26,15 @@ public class MessageRouter implements INetworkConsumer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void consume(MsgPack msgPack, Channel channel) {
+    public void consume(Message message, Channel channel) {
 
         // 将消息分发到指定的队列中，该队列有可能在同一个进程，也有可能不在同一个进程
 
-        IProcessor processor = processors.get(msgPack.getSequence());
-        if (processor == null) {
-            log.error("找不到可用的消息处理器[{}]", msgPack.getSequence());
-            return;
-        }
+        //        IProcessor processor = processors.get(msgPack.getSequence());
+        //        if (processor == null) {
+        //            log.error("找不到可用的消息处理器[{}]", msgPack.getSequence());
+        //            return;
+        //        }
 
         ISession session = AttributeUtil.get(channel, SessionKey.SESSION);
 
@@ -41,13 +42,15 @@ public class MessageRouter implements INetworkConsumer {
             return;
         }
 
-        log.debug("收到消息:" + msgPack.getMsgId());
+        int msgId = msgPool.getMessageId(message);
+        log.debug("收到消息:" + msgId);
 
-        AbstractHandler handler = msgPool.getHandler(msgPack.getMsgId());
-        handler.setMessage(msgPack.getMsg());
+        AbstractHandler handler = msgPool.getHandler(msgId);
+        handler.setMessage(message);
         handler.setParam(session);
         handler.setSession(session);
-        processor.process(handler);
+        handler.doAction();
+        //        processor.process(handler);
     }
 
     public IProcessor getProcessor(int queueId) {

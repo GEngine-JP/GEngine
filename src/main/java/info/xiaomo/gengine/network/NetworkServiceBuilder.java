@@ -27,7 +27,7 @@ public class NetworkServiceBuilder {
     private INetworkEventListener listener;
 
     /** 消息池 */
-    private IMessageAndHandler imessageandhandler;
+    private IMessagePool messagePool;
 
     /** 默认为false */
     private boolean isWebSocket = false;

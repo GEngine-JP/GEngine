@@ -1,16 +1,16 @@
 package info.xiaomo.gengine.network.pool;
 
-import com.google.protobuf.AbstractMessage;
+import com.google.protobuf.Message;
 import java.util.HashMap;
 import java.util.Map;
 import info.xiaomo.gengine.network.AbstractHandler;
-import info.xiaomo.gengine.network.IMessageAndHandler;
+import info.xiaomo.gengine.network.IMessagePool;
 
 /** desc : 消息池的父类 Copyright(©) 2017 by xiaomo. */
-public class MessagePool implements IMessageAndHandler {
+public class MessagePool implements IMessagePool {
 
   /** 消息类字典 */
-  public static final Map<Integer, AbstractMessage> messages = new HashMap<>(10);
+  public static final Map<Integer, Message> messages = new HashMap<>(10);
 
   /** 类和 */
   private final Map<String, Integer> ids = new HashMap<>(10);
@@ -18,12 +18,12 @@ public class MessagePool implements IMessageAndHandler {
   private final Map<Integer, Class<? extends AbstractHandler>> handlers = new HashMap<>(10);
 
   @Override
-  public AbstractMessage getMessage(int messageId) {
+  public Message getMessage(int messageId) {
     return messages.get(messageId);
   }
 
   @Override
-  public int getMessageId(AbstractMessage message) {
+  public int getMessageId(Message message) {
     return ids.get(message.getClass().getName());
   }
 
@@ -42,14 +42,14 @@ public class MessagePool implements IMessageAndHandler {
 
   @Override
   public void register(
-      int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler) {
+      int messageId, Message messageClazz, Class<? extends AbstractHandler> handler) {
     messages.put(messageId, messageClazz);
     handlers.put(messageId, handler);
     ids.put(messageClazz.getClass().getName(), messageId);
   }
 
   @Override
-  public void register(int messageId, AbstractMessage messageClazz) {
+  public void register(int messageId, Message messageClazz) {
     messages.put(messageId, messageClazz);
     ids.put(messageClazz.getClass().getName(), messageId);
   }

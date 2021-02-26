@@ -148,8 +148,12 @@ public class NetworkServiceImpl implements IService {
             pip.addLast(new WebSocketServerProtocolHandler("/"));
             pip.addLast(new WebSocketDecoder());
             pip.addLast(new WebSocketEncoder());
-            pip.addLast(new MessageDecoder(builder.getUpLimit()));
-            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+            pip.addLast(new DefaultProtobufDecoder(builder.getMessagePool()));
+            pip.addLast(
+                    new MessageExecutor(
+                            builder.getConsumer(),
+                            builder.getListener(),
+                            builder.getMessagePool()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
                 pip.addLast(handler);
             }
@@ -167,15 +171,15 @@ public class NetworkServiceImpl implements IService {
         @Override
         protected void initChannel(Channel ch) {
             ChannelPipeline pip = ch.pipeline();
-            int maxLength = 1048576;
-            int lengthFieldLength = 4;
-            int ignoreLength = -4;
-            int offset = 0;
-//            pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
-            pip.addLast(new MessageDecoder(builder.getUpLimit()));
-//            pip.addLast(new LengthFieldPrepender(4, true));
-            pip.addLast(new MessageEncoder());
-            pip.addLast(new MessageExecutor(builder.getConsumer(), builder.getListener()));
+//            pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
+            pip.addLast(new DefaultProtobufDecoder(builder.getMessagePool()));
+            pip.addLast(new LengthFieldPrepender(4));
+            pip.addLast(new DefaultProtobufEncoder(builder.getMessagePool()));
+            pip.addLast(
+                    new MessageExecutor(
+                            builder.getConsumer(),
+                            builder.getListener(),
+                            builder.getMessagePool()));
             for (ChannelHandler handler : builder.getExtraHandlers()) {
                 pip.addLast(handler);
             }

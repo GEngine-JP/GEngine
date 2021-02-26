@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network;
 
+import com.google.protobuf.Message;
 import io.netty.channel.Channel;
-
 /** @author xiaomo */
 public interface INetworkConsumer {
 
@@ -11,5 +11,5 @@ public interface INetworkConsumer {
      * @param msg msg
      * @param channel channel
      */
-    void consume(MsgPack msg, Channel channel);
+    void consume(Message msg, Channel channel);
 }

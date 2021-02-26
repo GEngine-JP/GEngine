@@ -85,6 +85,7 @@ public class Client {
                                 new ClientMessageExecutor(
                                         builder.getConsumer(),
                                         builder.getEventListener(),
+                                        builder.getMsgPool(),
                                         futureMap,
                                         idleCheck));
                     }

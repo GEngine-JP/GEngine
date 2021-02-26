@@ -3,10 +3,9 @@ package info.xiaomo.gengine.network.handler;
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Message;
 import java.lang.reflect.Method;
+import info.xiaomo.gengine.network.IMessagePool;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
-import info.xiaomo.gengine.network.MsgPack;
-import info.xiaomo.gengine.network.pool.MessagePool;
 import info.xiaomo.gengine.utils.ClassUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -14,14 +13,17 @@ import lombok.extern.slf4j.Slf4j;
 
 /** @author xiaomo */
 @Slf4j
-public class MessageExecutor extends SimpleChannelInboundHandler<MsgPack> {
+public class MessageExecutor extends SimpleChannelInboundHandler<Message> {
 
     protected final INetworkEventListener listener;
     private final INetworkConsumer consumer;
+    private final IMessagePool pool;
 
-    public MessageExecutor(INetworkConsumer consumer, INetworkEventListener listener) {
+    public MessageExecutor(
+            INetworkConsumer consumer, INetworkEventListener listener, IMessagePool pool) {
         this.consumer = consumer;
         this.listener = listener;
+        this.pool = pool;
     }
 
     @Override
@@ -30,27 +32,14 @@ public class MessageExecutor extends SimpleChannelInboundHandler<MsgPack> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, MsgPack msgPack) throws Exception {
-        AbstractMessage abstractMessage = MessagePool.messages.get(msgPack.getMsgId());
+    public void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
+        int msgId = pool.getMessageId(message);
 
-        if (abstractMessage == null) {
-            if (msgPack.getMsgId() == 0) {
-                log.error("请求消息未设置msgId");
-            } else {
-                log.error("消息未注册，请检查");
-            }
+        if (msgId == 0) {
+            log.error("请求消息未设置msgId");
             return;
         }
-
-        Method m = ClassUtil.findProtobufMsg(abstractMessage.getClass());
-        if (m != null) {
-            AbstractMessage message = (AbstractMessage) m.invoke(null);
-            Message msg = message.newBuilderForType().mergeFrom(msgPack.getBytes()).build();
-            msgPack.setMsg(msg);
-            consumer.consume(msgPack, ctx.channel());
-        } else {
-            log.error("找有找到消息体:{}", msgPack.getMsgId());
-        }
+        consumer.consume(message, ctx.channel());
     }
 
     @Override

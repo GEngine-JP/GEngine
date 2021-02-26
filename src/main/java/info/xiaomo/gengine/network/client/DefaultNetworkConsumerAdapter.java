@@ -1,7 +1,7 @@
 package info.xiaomo.gengine.network.client;
 
+import com.google.protobuf.Message;
 import info.xiaomo.gengine.network.INetworkConsumer;
-import info.xiaomo.gengine.network.MsgPack;
 import io.netty.channel.Channel;
 
 /**
@@ -13,7 +13,7 @@ import io.netty.channel.Channel;
 public class DefaultNetworkConsumerAdapter implements INetworkConsumer {
 
     @Override
-    public void consume(MsgPack msg, Channel channel) {
+    public void consume(Message msg, Channel channel) {
         // Nothing to do
     }
 }

@@ -1,9 +1,9 @@
 package info.xiaomo.gengine.network;
 
-import com.google.protobuf.AbstractMessage;
+import com.google.protobuf.Message;
 
 /** @author xiaomo */
-public interface IMessageAndHandler {
+public interface IMessagePool {
 
     /**
      * 获取消息
@@ -11,7 +11,7 @@ public interface IMessageAndHandler {
      * @param messageId messageId
      * @return AbstractMessage
      */
-    AbstractMessage getMessage(int messageId);
+    Message getMessage(int messageId);
 
     /**
      * 获取消息id
@@ -19,7 +19,7 @@ public interface IMessageAndHandler {
      * @param message message
      * @return int
      */
-    int getMessageId(AbstractMessage message);
+    int getMessageId(Message message);
 
     /**
      * 获取handler
@@ -35,8 +35,7 @@ public interface IMessageAndHandler {
      * @param messageClazz messageClazz
      * @param handler handler
      */
-    void register(
-            int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler);
+    void register(int messageId, Message messageClazz, Class<? extends AbstractHandler> handler);
 
     /**
      * 注册
@@ -44,5 +43,5 @@ public interface IMessageAndHandler {
      * @param messageId messageId
      * @param messageClazz messageClazz
      */
-    void register(int messageId, AbstractMessage messageClazz);
+    void register(int messageId, Message messageClazz);
 }
