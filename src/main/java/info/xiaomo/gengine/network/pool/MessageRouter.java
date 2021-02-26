@@ -1,6 +1,7 @@
 package info.xiaomo.gengine.network.pool;
 
 import com.google.protobuf.Message;
+import com.sun.istack.internal.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import info.xiaomo.gengine.network.*;
@@ -42,10 +43,21 @@ public class MessageRouter implements INetworkConsumer {
             return;
         }
 
-        int msgId = msgPool.getMessageId(message);
+        Integer msgId = msgPool.getMessageId(message);
+
+        if (msgId == null) {
+            log.error("消息未注册:{}", message);
+            return;
+        }
+
         log.debug("收到消息:" + msgId);
 
-        AbstractHandler handler = msgPool.getHandler(msgId);
+        @Nullable AbstractHandler handler = msgPool.getHandler(msgId);
+        if (handler == null) {
+            log.error("msgId:{} 未注册handler", msgId);
+            return;
+        }
+
         handler.setMessage(message);
         handler.setParam(session);
         handler.setSession(session);

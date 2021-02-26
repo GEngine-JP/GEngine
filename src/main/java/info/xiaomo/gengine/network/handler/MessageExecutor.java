@@ -30,9 +30,9 @@ public class MessageExecutor extends SimpleChannelInboundHandler<Message> {
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Message message) {
-        int msgId = pool.getMessageId(message);
+        Integer msgId = pool.getMessageId(message);
 
-        if (msgId == 0) {
+        if (msgId == null) {
             log.error("请求消息未设置msgId");
             return;
         }

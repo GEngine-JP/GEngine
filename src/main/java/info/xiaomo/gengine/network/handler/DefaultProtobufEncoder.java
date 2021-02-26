@@ -19,8 +19,8 @@ public class DefaultProtobufEncoder extends MessageToByteEncoder<Message> {
     @Override
     protected void encode(
             ChannelHandlerContext channelHandlerContext, Message message, ByteBuf byteBuf) {
-        int msgId = pool.getMessageId(message);
-        if (msgId == 0) {
+        Integer msgId = pool.getMessageId(message);
+        if (msgId == null) {
             log.error("消息未注册:{}", message.getClass().getSimpleName());
             return;
         }

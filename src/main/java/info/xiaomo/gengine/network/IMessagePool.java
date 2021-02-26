@@ -1,6 +1,7 @@
 package info.xiaomo.gengine.network;
 
 import com.google.protobuf.Message;
+import com.google.protobuf.ProtocolMessageEnum;
 
 /** @author xiaomo */
 public interface IMessagePool {
@@ -19,7 +20,7 @@ public interface IMessagePool {
      * @param message message
      * @return int
      */
-    int getMessageId(Message message);
+    Integer getMessageId(Message message);
 
     /**
      * 获取handler
@@ -37,6 +38,8 @@ public interface IMessagePool {
      */
     void register(int messageId, Message messageClazz, Class<? extends AbstractHandler> handler);
 
+    void register(ProtocolMessageEnum messageId, Message messageClazz, Class<? extends AbstractHandler> handler);
+
     /**
      * 注册
      *
@@ -44,4 +47,6 @@ public interface IMessagePool {
      * @param messageClazz messageClazz
      */
     void register(int messageId, Message messageClazz);
+
+    void register(ProtocolMessageEnum messageId, Message messageClazz);
 }
