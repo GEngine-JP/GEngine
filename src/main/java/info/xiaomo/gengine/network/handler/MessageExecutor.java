@@ -33,7 +33,7 @@ public class MessageExecutor extends SimpleChannelInboundHandler<Message> {
         Integer msgId = pool.getMessageId(message);
 
         if (msgId == null) {
-            log.error("请求消息未设置msgId");
+            log.error("请求消息:{}未注册", message);
             return;
         }
         consumer.consume(message, ctx.channel());
