@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MessageExecutor extends SimpleChannelInboundHandler<Message> {
 
     protected final INetworkEventListener listener;
-    private final INetworkConsumer consumer;
-    private final IMessagePool pool;
+    protected final INetworkConsumer consumer;
+    protected final IMessagePool pool;
 
     public MessageExecutor(
             INetworkConsumer consumer, INetworkEventListener listener, IMessagePool pool) {
