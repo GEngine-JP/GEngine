@@ -172,9 +172,9 @@ public class NetworkServiceImpl implements IService {
         protected void initChannel(Channel ch) {
             ChannelPipeline pip = ch.pipeline();
             int maxLength = 1048576;
+            int offset = 0;
             int lengthFieldLength = 4;
             int ignoreLength = 0;
-            int offset = 0;
             pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
             pip.addLast(new DefaultProtobufDecoder(builder.getMessagePool()));
             pip.addLast(new LengthFieldPrepender(4));
