@@ -1,12 +1,9 @@
 package info.xiaomo.gengine.network.handler;
 
-import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Message;
-import java.lang.reflect.Method;
 import info.xiaomo.gengine.network.IMessagePool;
 import info.xiaomo.gengine.network.INetworkConsumer;
 import info.xiaomo.gengine.network.INetworkEventListener;
-import info.xiaomo.gengine.utils.ClassUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +29,7 @@ public class MessageExecutor extends SimpleChannelInboundHandler<Message> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, Message message) {
         int msgId = pool.getMessageId(message);
 
         if (msgId == 0) {

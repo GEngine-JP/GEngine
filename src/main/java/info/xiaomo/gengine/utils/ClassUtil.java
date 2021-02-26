@@ -12,7 +12,6 @@ import java.net.URLDecoder;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import info.xiaomo.gengine.network.MsgPack;
 
 /**
  * class加载工具类
@@ -268,49 +267,6 @@ public final class ClassUtil {
             }
         }
         return classes;
-    }
-
-    /**
-     * 迭代组装协议
-     *
-     * @param packageName
-     * @param clazz
-     * @param delimiter
-     * @return
-     * @throws ClassNotFoundException
-     */
-    public static Map<Integer, Class<?>> getClasses(
-            String packageName, Class<?> clazz, String delimiter) throws ClassNotFoundException {
-        Map<Integer, Class<?>> map = new HashMap<>();
-        String path = packageName.replace('.', '/');
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        URL url = classloader.getResource(path);
-        for (Class<?> c : getClasses(new File(url.getFile()), packageName)) {
-            if (MsgPack.class.isAssignableFrom(c) && !MsgPack.class.equals(c)) {
-                if (c.getSimpleName().contains(delimiter)) {
-                    int protocol =
-                            Integer.parseInt(
-                                    c.getSimpleName()
-                                            .substring(
-                                                    c.getSimpleName().indexOf(delimiter)
-                                                            + delimiter.length()));
-                    map.put(protocol, c);
-                }
-            }
-        }
-        return map;
-    }
-
-    public static Method findProtobufMsg(Class clazz) {
-        return findMethod(clazz,"getDefaultInstance");
-    }
-
-        public static Method findMethod(Class clazz, String methodName) {
-        Method[] methods = clazz.getDeclaredMethods();
-        for (Method method : methods) {
-            if (method.getName().equals(methodName)) return method;
-        }
-        return null;
     }
 
     /**********************************************************************
