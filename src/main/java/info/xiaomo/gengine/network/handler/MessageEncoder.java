@@ -8,11 +8,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DefaultProtobufEncoder extends MessageToByteEncoder<Message> {
+public class MessageEncoder extends MessageToByteEncoder<Message> {
 
-    private IMessagePool pool;
+    private final IMessagePool pool;
 
-    public DefaultProtobufEncoder(IMessagePool pool) {
+    public MessageEncoder(IMessagePool pool) {
         this.pool = pool;
     }
 
@@ -31,6 +31,7 @@ public class DefaultProtobufEncoder extends MessageToByteEncoder<Message> {
         boolean writable = byteBuf.isWritable(length);
         if (!writable) {
             log.error("消息过大，编码失败:{}:{}", msgId, length);
+            return;
         }
 
         byteBuf.writeInt(msgId);

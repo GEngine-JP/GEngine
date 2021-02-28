@@ -148,7 +148,7 @@ public class NetworkServiceImpl implements IService {
             pip.addLast(new WebSocketServerProtocolHandler("/"));
             pip.addLast(new WebSocketDecoder());
             pip.addLast(new WebSocketEncoder());
-            pip.addLast(new DefaultProtobufDecoder(builder.getMessagePool()));
+            pip.addLast(new MessageDecoder(builder.getMessagePool()));
             pip.addLast(
                     new MessageExecutor(
                             builder.getConsumer(),
@@ -176,9 +176,9 @@ public class NetworkServiceImpl implements IService {
             int lengthFieldLength = 4;
             int ignoreLength = 0;
             pip.addLast(new LengthFieldBasedFrameDecoder(maxLength, offset, lengthFieldLength, ignoreLength, lengthFieldLength));
-            pip.addLast(new DefaultProtobufDecoder(builder.getMessagePool()));
+            pip.addLast(new MessageDecoder(builder.getMessagePool()));
             pip.addLast(new LengthFieldPrepender(4));
-            pip.addLast(new DefaultProtobufEncoder(builder.getMessagePool()));
+            pip.addLast(new MessageEncoder(builder.getMessagePool()));
             pip.addLast(
                     new MessageExecutor(
                             builder.getConsumer(),

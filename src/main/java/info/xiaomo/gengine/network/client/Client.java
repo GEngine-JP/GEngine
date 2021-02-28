@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.concurrent.*;
 import info.xiaomo.gengine.network.client.listener.ChannelConnectListener;
 import info.xiaomo.gengine.network.client.listener.ChannelDisconnectedListener;
-import info.xiaomo.gengine.network.handler.DefaultProtobufDecoder;
-import info.xiaomo.gengine.network.handler.DefaultProtobufEncoder;
+import info.xiaomo.gengine.network.handler.MessageDecoder;
+import info.xiaomo.gengine.network.handler.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -91,9 +91,9 @@ public class Client {
                                     "Idle", new IdleStateHandler(builder.getMaxIdleTime(), 0, 0));
                         }
                         pip.addLast(new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
-                        pip.addLast(new DefaultProtobufDecoder(builder.getMsgPool()));
+                        pip.addLast(new MessageDecoder(builder.getMsgPool()));
                         pip.addLast(new LengthFieldPrepender(4));
-                        pip.addLast(new DefaultProtobufEncoder(builder.getMsgPool()));
+                        pip.addLast(new MessageEncoder(builder.getMsgPool()));
                         pip.addLast(
                                 "NettyMessageExecutor",
                                 new ClientMessageExecutor(
