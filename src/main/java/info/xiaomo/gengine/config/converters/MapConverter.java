@@ -8,6 +8,6 @@ import info.xiaomo.gengine.config.IConverter;
 public class MapConverter implements IConverter<String, Map<Integer, Integer>> {
     @Override
     public Map<Integer, Integer> convert(String s) {
-        return new IntegerArrayConverter().andThen(new IntegerMapConverter()).convert(s);
+        return new JinHaoIntegerArrayConverter().andThen(new IntegerMapConverter()).convert(s);
     }
 }

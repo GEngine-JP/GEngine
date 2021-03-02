@@ -6,12 +6,12 @@
             <field name="id" notNull="1"/>
             <field name="secondId" columnName="id2"/>
             <field name="map">
-                <converter>IntegerArrayConverter</converter>
+                <converter>JinHaoIntegerArrayConverter</converter>
                 <converter class="IntegerMapConverter"/>
             </field>
             &lt;!&ndash; 这种配置跟上面的配置是一样的
             <field name="map"
-                   converters="IntegerArrayConverter,IntegerMapConverter">
+                   converters="JinHaoIntegerArrayConverter,IntegerMapConverter">
             </field>
             &ndash;&gt;
             <field name="arrays" columnName="ints"/>

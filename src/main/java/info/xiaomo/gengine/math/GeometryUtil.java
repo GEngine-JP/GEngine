@@ -23,7 +23,7 @@ public final class GeometryUtil {
      * @param nearest Output for the nearest vector to the segment.
      * @param start Segment start point
      * @param end Segment end point
-     * @param point Point to project from
+     * @param point MapPoint to project from
      * @return Squared distance between point and nearest.
      */
     public static float nearestSegmentPointSquareDistance(
