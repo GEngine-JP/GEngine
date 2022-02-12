@@ -3,7 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/GEngine-JP/GEngine.svg)](https://github.com/GEngine-JP/GEngine/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/GEngine-JP/GEngine/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
-[![GitHub followers](https://img.shields.io/github/followers/houko.svg?style=social&label=Follow)]()
+[![GitHub followers](https://img.shields.io/github/followers/xiaomo1992.svg?style=social&label=Follow)]()
 [![GitHub watchers](https://img.shields.io/github/watchers/GEngine-JP/GEngine.svg?style=social&label=Watch)]()
 
 # ServerCore架构设计图
